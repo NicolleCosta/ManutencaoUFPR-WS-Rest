@@ -9,13 +9,22 @@ import br.ufpr.manutencao.beans.Material;
 import java.util.List;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
+import jakarta.ws.rs.Consumes;
+import jakarta.ws.rs.DELETE;
+import jakarta.ws.rs.GET;
+import jakarta.ws.rs.POST;
+import jakarta.ws.rs.PUT;
+import jakarta.ws.rs.Path;
+import jakarta.ws.rs.PathParam;
+import jakarta.ws.rs.Produces;
+import jakarta.ws.rs.core.MediaType;
 
 /**
  *
  * @author nicol
  */
 @jakarta.ejb.Stateless
-@jakarta.ws.rs.Path("br.ufpr.manutencao.beans.material")
+@Path("/material")
 public class MaterialFacadeREST extends AbstractFacade<Material> {
 
    // @PersistenceContext(unitName = "my_persistence_unit")
@@ -25,50 +34,50 @@ public class MaterialFacadeREST extends AbstractFacade<Material> {
         super(Material.class);
     }
 
-    @jakarta.ws.rs.POST
+    @POST
     @Override
-    @jakarta.ws.rs.Consumes({jakarta.ws.rs.core.MediaType.APPLICATION_XML, jakarta.ws.rs.core.MediaType.APPLICATION_JSON})
+    @Consumes({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
     public void create(Material entity) {
         super.create(entity);
     }
 
-    @jakarta.ws.rs.PUT
-    @jakarta.ws.rs.Path("{id}")
-    @jakarta.ws.rs.Consumes({jakarta.ws.rs.core.MediaType.APPLICATION_XML, jakarta.ws.rs.core.MediaType.APPLICATION_JSON})
-    public void edit(@jakarta.ws.rs.PathParam("id") Integer id, Material entity) {
+    @PUT
+    @Path("{id}")
+    @Consumes({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
+    public void edit(@PathParam("id") Integer id, Material entity) {
         super.edit(entity);
     }
 
-    @jakarta.ws.rs.DELETE
-    @jakarta.ws.rs.Path("{id}")
-    public void remove(@jakarta.ws.rs.PathParam("id") Integer id) {
+    @DELETE
+    @Path("{id}")
+    public void remove(@PathParam("id") Integer id) {
         super.remove(super.find(id));
     }
 
-    @jakarta.ws.rs.GET
-    @jakarta.ws.rs.Path("{id}")
-    @jakarta.ws.rs.Produces({jakarta.ws.rs.core.MediaType.APPLICATION_XML, jakarta.ws.rs.core.MediaType.APPLICATION_JSON})
-    public Material find(@jakarta.ws.rs.PathParam("id") Integer id) {
+    @GET
+    @Path("{id}")
+    @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
+    public Material find(@PathParam("id") Integer id) {
         return super.find(id);
     }
 
-    @jakarta.ws.rs.GET
+    @GET
     @Override
-    @jakarta.ws.rs.Produces({jakarta.ws.rs.core.MediaType.APPLICATION_XML, jakarta.ws.rs.core.MediaType.APPLICATION_JSON})
+    @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
     public List<Material> findAll() {
         return super.findAll();
     }
 
-    @jakarta.ws.rs.GET
-    @jakarta.ws.rs.Path("{from}/{to}")
-    @jakarta.ws.rs.Produces({jakarta.ws.rs.core.MediaType.APPLICATION_XML, jakarta.ws.rs.core.MediaType.APPLICATION_JSON})
-    public List<Material> findRange(@jakarta.ws.rs.PathParam("from") Integer from, @jakarta.ws.rs.PathParam("to") Integer to) {
+    @GET
+    @Path("{from}/{to}")
+    @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
+    public List<Material> findRange(@PathParam("from") Integer from, @PathParam("to") Integer to) {
         return super.findRange(new int[]{from, to});
     }
 
-    @jakarta.ws.rs.GET
-    @jakarta.ws.rs.Path("count")
-    @jakarta.ws.rs.Produces(jakarta.ws.rs.core.MediaType.TEXT_PLAIN)
+    @GET
+    @Path("count")
+    @Produces(MediaType.TEXT_PLAIN)
     public String countREST() {
         return String.valueOf(super.count());
     }
