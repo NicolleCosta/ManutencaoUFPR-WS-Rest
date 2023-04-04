@@ -103,7 +103,7 @@ public class Especialidade implements Serializable {
 
     @Override
     public String toString() {
-        return "br.janaproject4.Especialidade[ id=" + id + " ]";
+        return "br.ufpr.manutencao.beans.Especialidade[ id=" + id + " ]";
     }
     
 }

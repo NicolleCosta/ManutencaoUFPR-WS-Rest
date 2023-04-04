@@ -93,7 +93,7 @@ public class Status implements Serializable {
 
     @Override
     public String toString() {
-        return "br.janaproject4.Status[ id=" + id + " ]";
+        return "br.ufpr.manutencao.beans.Status[ id=" + id + " ]";
     }
     
 }

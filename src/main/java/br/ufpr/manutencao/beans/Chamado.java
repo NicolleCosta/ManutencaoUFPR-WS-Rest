@@ -164,7 +164,7 @@ public class Chamado implements Serializable {
 
     @Override
     public String toString() {
-        return "br.janaproject4.Chamado[ id=" + id + " ]";
+        return "br.ufpr.manutencao.beans.Chamado[ id=" + id + " ]";
     }
     
 }

@@ -93,7 +93,7 @@ public class Material implements Serializable {
 
     @Override
     public String toString() {
-        return "br.janaproject4.Material[ id=" + id + " ]";
+        return "br.ufpr.manutencao.beans.Material[ id=" + id + " ]";
     }
     
 }
