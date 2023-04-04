@@ -93,7 +93,7 @@ public class TipoUsuario implements Serializable {
 
     @Override
     public String toString() {
-        return "br.janaproject4.TipoUsuario[ id=" + id + " ]";
+        return "br.ufpr.manutencao.beans.TipoUsuario[ id=" + id + " ]";
     }
     
 }

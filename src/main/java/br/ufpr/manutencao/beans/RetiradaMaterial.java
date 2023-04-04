@@ -142,7 +142,7 @@ public class RetiradaMaterial implements Serializable {
 
     @Override
     public String toString() {
-        return "br.janaproject4.RetiradaMaterial[ id=" + id + " ]";
+        return "br.ufpr.manutencao.beans.RetiradaMaterial[ id=" + id + " ]";
     }
     
 }

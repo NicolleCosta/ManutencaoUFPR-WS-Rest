@@ -131,7 +131,7 @@ public class ComentarioOperario implements Serializable {
 
     @Override
     public String toString() {
-        return "br.janaproject4.ComentarioOperario[ id=" + id + " ]";
+        return "br.ufpr.manutencao.beans.ComentarioOperario[ id=" + id + " ]";
     }
     
 }

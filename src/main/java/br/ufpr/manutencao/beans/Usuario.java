@@ -192,7 +192,7 @@ public class Usuario implements Serializable {
 
     @Override
     public String toString() {
-        return "br.janaproject4.Usuario[ id=" + id + " ]";
+        return "br.ufpr.manutencao.beans.Usuario[ id=" + id + " ]";
     }
     
 }

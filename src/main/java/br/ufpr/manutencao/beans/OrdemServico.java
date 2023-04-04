@@ -164,7 +164,7 @@ public class OrdemServico implements Serializable {
 
     @Override
     public String toString() {
-        return "br.janaproject4.OrdemServico[ id=" + id + " ]";
+        return "br.ufpr.manutencao.beans.OrdemServico[ id=" + id + " ]";
     }
     
 }

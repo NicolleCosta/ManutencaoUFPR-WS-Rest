@@ -31,12 +31,15 @@ public class Campus implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
+    
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
     @Column(name = "id")
     private Integer id;
+    
     @Column(name = "nome")
     private String nome;
+    
     @OneToMany(mappedBy = "campusId")
     private Collection<Predio> predioCollection;
 
@@ -93,7 +96,7 @@ public class Campus implements Serializable {
 
     @Override
     public String toString() {
-        return "br.janaproject4.Campus[ id=" + id + " ]";
+        return "br.ufpr.manutencao.beans.Campus[ id=" + id + " ]";
     }
     
 }

@@ -106,7 +106,7 @@ public class Predio implements Serializable {
 
     @Override
     public String toString() {
-        return "br.janaproject4.Predio[ id=" + id + " ]";
+        return "br.ufpr.manutencao.beans.Predio[ id=" + id + " ]";
     }
     
 }
