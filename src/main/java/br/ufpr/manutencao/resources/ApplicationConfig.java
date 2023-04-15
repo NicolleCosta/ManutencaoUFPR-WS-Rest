@@ -27,18 +27,19 @@ public class ApplicationConfig extends Application {
      * all resources defined in the project.
      * If required, comment out calling this method in getClasses().
      */
+    
     private void addRestResourceClasses(Set<Class<?>> resources) {
         resources.add(br.ufpr.manutencao.resources.CampusFacadeREST.class);
-//        resources.add(br.ufpr.manutencao.resources.ChamadoFacadeREST.class);
-//        resources.add(br.ufpr.manutencao.resources.ComentarioOperarioFacadeREST.class);
-//        resources.add(br.ufpr.manutencao.resources.EspecialidadeFacadeREST.class);
-//        resources.add(br.ufpr.manutencao.resources.MaterialFacadeREST.class);
-//        resources.add(br.ufpr.manutencao.resources.OrdemServicoFacadeREST.class);
-//        resources.add(br.ufpr.manutencao.resources.PredioFacadeREST.class);
-//        resources.add(br.ufpr.manutencao.resources.RetiradaMaterialFacadeREST.class);
-//        resources.add(br.ufpr.manutencao.resources.StatusFacadeREST.class);
-//        resources.add(br.ufpr.manutencao.resources.TipoUsuarioFacadeREST.class);
-//        resources.add(br.ufpr.manutencao.resources.UsuarioFacadeREST.class);
+        resources.add(br.ufpr.manutencao.resources.ChamadoFacadeREST.class);
+        resources.add(br.ufpr.manutencao.resources.ComentarioOperarioFacadeREST.class);
+        resources.add(br.ufpr.manutencao.resources.EspecialidadeFacadeREST.class);
+        resources.add(br.ufpr.manutencao.resources.MaterialFacadeREST.class);
+        resources.add(br.ufpr.manutencao.resources.OrdemServicoFacadeREST.class);
+        resources.add(br.ufpr.manutencao.resources.PredioFacadeREST.class);
+        resources.add(br.ufpr.manutencao.resources.RetiradaMaterialFacadeREST.class);
+        resources.add(br.ufpr.manutencao.resources.StatusFacadeREST.class);
+        resources.add(br.ufpr.manutencao.resources.TipoUsuarioFacadeREST.class);
+        resources.add(br.ufpr.manutencao.resources.UsuarioFacadeREST.class);
     }
     
 }
