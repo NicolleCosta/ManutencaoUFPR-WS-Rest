@@ -6,7 +6,7 @@
         <property name="portNumber" value="5432"/>
         <property name="databaseName" value="JavaWeb"/>
         <property name="User" value="postgres"/>
-        <property name="Password" value=""/>
+        <property name="Password" value="root"/>
         <property name="URL" value="jdbc:postgresql://localhost:5432/JavaWeb"/>
         <property name="driverClass" value="org.postgresql.Driver"/>
     </jdbc-connection-pool>
@@ -16,7 +16,7 @@
         <property name="portNumber" value="5432"/>
         <property name="databaseName" value="ManutencaoUFPR"/>
         <property name="User" value="postgres"/>
-        <property name="Password" value="SENHA"/>
+        <property name="Password" value="root"/>
         <property name="URL" value="jdbc:postgresql://localhost:5432/ManutencaoUFPR"/>
         <property name="driverClass" value="org.postgresql.Driver"/>
     </jdbc-connection-pool>

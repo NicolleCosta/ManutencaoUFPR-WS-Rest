@@ -17,7 +17,9 @@ import jakarta.ws.rs.PUT;
 import jakarta.ws.rs.Path;
 import jakarta.ws.rs.PathParam;
 import jakarta.ws.rs.Produces;
+import jakarta.ws.rs.WebApplicationException;
 import jakarta.ws.rs.core.MediaType;
+import jakarta.ws.rs.core.Response;
 
 /**
  *
@@ -40,6 +42,24 @@ public class UsuarioFacadeREST extends AbstractFacade<Usuario> {
     public void create(Usuario entity) {
         super.create(entity);
     }
+    
+   @POST
+@Path("/login")
+@Consumes({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
+public Response login(Usuario entity) {
+    Usuario cpfSenhaValidos = Usuario.verificarCpfSenha(entity); // Armazena o resultado da verificação
+    if (cpfSenhaValidos != null) { // Usa a variável no condicional
+        
+        return Response.ok(cpfSenhaValidos).build();
+    } else {
+        return Response.status(Response.Status.UNAUTHORIZED)
+               .entity("CPF ou senha inválidos")
+               .build();
+
+    }
+    
+}
+       
 
     @PUT
     @Path("{id}")

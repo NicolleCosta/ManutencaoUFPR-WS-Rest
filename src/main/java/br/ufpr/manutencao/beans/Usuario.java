@@ -9,6 +9,8 @@ import java.util.Collection;
 import jakarta.persistence.Basic;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.EntityManagerFactory;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -17,7 +19,9 @@ import jakarta.persistence.ManyToOne;
 import jakarta.persistence.NamedQueries;
 import jakarta.persistence.NamedQuery;
 import jakarta.persistence.OneToMany;
+import jakarta.persistence.Persistence;
 import jakarta.persistence.Table;
+import jakarta.persistence.TypedQuery;
 
 /**
  *
@@ -33,7 +37,8 @@ import jakarta.persistence.Table;
     @NamedQuery(name = "Usuario.findByTelefone", query = "SELECT u FROM Usuario u WHERE u.telefone = :telefone"),
     @NamedQuery(name = "Usuario.findByEmail", query = "SELECT u FROM Usuario u WHERE u.email = :email"),
     @NamedQuery(name = "Usuario.findBySenha", query = "SELECT u FROM Usuario u WHERE u.senha = :senha"),
-    @NamedQuery(name = "Usuario.findByBloqueio", query = "SELECT u FROM Usuario u WHERE u.bloqueio = :bloqueio")})
+    @NamedQuery(name = "Usuario.findByBloqueio", query = "SELECT u FROM Usuario u WHERE u.bloqueio = :bloqueio"),
+    @NamedQuery(name = "Usuario.findByCpfAndSenha", query = "SELECT u FROM Usuario u WHERE u.cpf = :cpf AND u.senha = :senha")})
 public class Usuario implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -194,5 +199,29 @@ public class Usuario implements Serializable {
     public String toString() {
         return "br.ufpr.manutencao.beans.Usuario[ id=" + id + " ]";
     }
+    
+public static Usuario verificarCpfSenha(Usuario usuario) {
+    EntityManagerFactory emf = Persistence.createEntityManagerFactory("my_persistence_unit");
+    EntityManager em = emf.createEntityManager();
+    TypedQuery<Usuario> query = em.createNamedQuery("Usuario.findByCpfAndSenha", Usuario.class);
+    query.setParameter("cpf", usuario.getCpf());
+    query.setParameter("senha", usuario.getSenha());
+    Usuario resultado = new Usuario();
+    try {
+        resultado = query.getSingleResult(); // Atribua o resultado da consulta a uma variável
+        System.out.println("imprime o usuario");
+        System.out.println(resultado);
+        return resultado;
+    } catch (Exception e) {
+        // Nada a fazer aqui, pois found já foi inicializado como false
+    } finally {
+        em.close();
+        emf.close();
+    }
+    return resultado;
+}
+
+
+
     
 }
