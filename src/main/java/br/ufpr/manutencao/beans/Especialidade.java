@@ -4,6 +4,9 @@
  */
 package br.ufpr.manutencao.beans;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+import jakarta.json.bind.annotation.JsonbTransient;
 import java.io.Serializable;
 import java.util.Collection;
 import jakarta.persistence.Basic;
@@ -38,8 +41,12 @@ public class Especialidade implements Serializable {
     @Column(name = "nome")
     private String nome;
     @OneToMany(mappedBy = "especialidadeId")
+    @JsonManagedReference
+    @JsonbTransient
     private Collection<Usuario> usuarioCollection;
     @OneToMany(mappedBy = "especialidadeId")
+    @JsonbTransient
+    @JsonManagedReference
     private Collection<OrdemServico> ordemServicoCollection;
 
     public Especialidade() {

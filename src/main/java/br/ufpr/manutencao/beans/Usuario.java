@@ -4,6 +4,7 @@
  */
 package br.ufpr.manutencao.beans;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import java.io.Serializable;
 import java.util.Collection;
 import jakarta.persistence.Basic;
@@ -59,14 +60,21 @@ public class Usuario implements Serializable {
     private String senha;
     @Column(name = "bloqueio")
     private Boolean bloqueio;
+    
     @OneToMany(mappedBy = "usuarioId")
     private Collection<RetiradaMaterial> retiradaMaterialCollection;
+    
     @JoinColumn(name = "especialidade_id", referencedColumnName = "id")
     @ManyToOne
+    @JsonBackReference
     private Especialidade especialidadeId;
+    
     @JoinColumn(name = "tipo_usuario_id", referencedColumnName = "id")
     @ManyToOne
+    @JsonBackReference
     private TipoUsuario tipoUsuarioId;
+    
+    
     @OneToMany(mappedBy = "usuarioId")
     private Collection<ComentarioOperario> comentarioOperarioCollection;
     @OneToMany(mappedBy = "usuarioId")
@@ -200,28 +208,6 @@ public class Usuario implements Serializable {
         return "br.ufpr.manutencao.beans.Usuario[ id=" + id + " ]";
     }
     
-public static Usuario verificarCpfSenha(Usuario usuario) {
-    EntityManagerFactory emf = Persistence.createEntityManagerFactory("my_persistence_unit");
-    EntityManager em = emf.createEntityManager();
-    TypedQuery<Usuario> query = em.createNamedQuery("Usuario.findByCpfAndSenha", Usuario.class);
-    query.setParameter("cpf", usuario.getCpf());
-    query.setParameter("senha", usuario.getSenha());
-    Usuario resultado = new Usuario();
-    try {
-        resultado = query.getSingleResult(); // Atribua o resultado da consulta a uma variável
-        System.out.println("imprime o usuario");
-        System.out.println(resultado);
-        return resultado;
-    } catch (Exception e) {
-        // Nada a fazer aqui, pois found já foi inicializado como false
-    } finally {
-        em.close();
-        emf.close();
-    }
-    return resultado;
-}
-
-
 
     
 }

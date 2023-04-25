@@ -4,6 +4,7 @@
  */
 package br.ufpr.manutencao.beans;
 
+import jakarta.json.bind.annotation.JsonbTransient;
 import java.io.Serializable;
 import java.util.Collection;
 import jakarta.persistence.Basic;
@@ -38,6 +39,7 @@ public class TipoUsuario implements Serializable {
     @Column(name = "nome")
     private String nome;
     @OneToMany(mappedBy = "tipoUsuarioId")
+    @JsonbTransient
     private Collection<Usuario> usuarioCollection;
 
     public TipoUsuario() {
