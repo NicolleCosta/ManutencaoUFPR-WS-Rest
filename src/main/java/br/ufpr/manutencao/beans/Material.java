@@ -37,8 +37,10 @@ public class Material implements Serializable {
     private Integer id;
     @Column(name = "nome")
     private String nome;
-    @OneToMany(mappedBy = "materialId")
-    private Collection<RetiradaMaterial> retiradaMaterialCollection;
+    
+    // Retirado para nao gerar problema de looping já que está em outra classe   
+//    @OneToMany(mappedBy = "materialId")
+//    private Collection<RetiradaMaterial> retiradaMaterialCollection;
 
     public Material() {
     }
@@ -63,13 +65,13 @@ public class Material implements Serializable {
         this.nome = nome;
     }
 
-    public Collection<RetiradaMaterial> getRetiradaMaterialCollection() {
-        return retiradaMaterialCollection;
-    }
-
-    public void setRetiradaMaterialCollection(Collection<RetiradaMaterial> retiradaMaterialCollection) {
-        this.retiradaMaterialCollection = retiradaMaterialCollection;
-    }
+//    public Collection<RetiradaMaterial> getRetiradaMaterialCollection() {
+//        return retiradaMaterialCollection;
+//    }
+//
+//    public void setRetiradaMaterialCollection(Collection<RetiradaMaterial> retiradaMaterialCollection) {
+//        this.retiradaMaterialCollection = retiradaMaterialCollection;
+//    }
 
     @Override
     public int hashCode() {

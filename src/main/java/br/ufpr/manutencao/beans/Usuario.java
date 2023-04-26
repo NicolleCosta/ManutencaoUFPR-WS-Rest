@@ -4,6 +4,8 @@
  */
 package br.ufpr.manutencao.beans;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import java.io.Serializable;
 import java.util.Collection;
 import jakarta.persistence.Basic;
@@ -39,6 +41,7 @@ import jakarta.persistence.TypedQuery;
     @NamedQuery(name = "Usuario.findBySenha", query = "SELECT u FROM Usuario u WHERE u.senha = :senha"),
     @NamedQuery(name = "Usuario.findByBloqueio", query = "SELECT u FROM Usuario u WHERE u.bloqueio = :bloqueio"),
     @NamedQuery(name = "Usuario.findByCpfAndSenha", query = "SELECT u FROM Usuario u WHERE u.cpf = :cpf AND u.senha = :senha")})
+
 public class Usuario implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -59,18 +62,26 @@ public class Usuario implements Serializable {
     private String senha;
     @Column(name = "bloqueio")
     private Boolean bloqueio;
-    @OneToMany(mappedBy = "usuarioId")
-    private Collection<RetiradaMaterial> retiradaMaterialCollection;
+    
+// Retirado para nao gerar problema de looping já que está em outra classe       
+//    @OneToMany(mappedBy = "usuarioId")
+//    private Collection<RetiradaMaterial> retiradaMaterialCollection;
+    
     @JoinColumn(name = "especialidade_id", referencedColumnName = "id")
     @ManyToOne
+   // @JsonBackReference
     private Especialidade especialidadeId;
+    
     @JoinColumn(name = "tipo_usuario_id", referencedColumnName = "id")
     @ManyToOne
+   // @JsonBackReference
     private TipoUsuario tipoUsuarioId;
-    @OneToMany(mappedBy = "usuarioId")
-    private Collection<ComentarioOperario> comentarioOperarioCollection;
-    @OneToMany(mappedBy = "usuarioId")
-    private Collection<Chamado> chamadoCollection;
+    
+// Retirado para nao gerar problema de looping já que está em outra classe   
+//    @OneToMany(mappedBy = "usuarioId")
+//    private Collection<ComentarioOperario> comentarioOperarioCollection;
+//    @OneToMany(mappedBy = "usuarioId")
+//    private Collection<Chamado> chamadoCollection;
 
     public Usuario() {
     }
@@ -135,13 +146,13 @@ public class Usuario implements Serializable {
         this.bloqueio = bloqueio;
     }
 
-    public Collection<RetiradaMaterial> getRetiradaMaterialCollection() {
-        return retiradaMaterialCollection;
-    }
-
-    public void setRetiradaMaterialCollection(Collection<RetiradaMaterial> retiradaMaterialCollection) {
-        this.retiradaMaterialCollection = retiradaMaterialCollection;
-    }
+//    public Collection<RetiradaMaterial> getRetiradaMaterialCollection() {
+//        return retiradaMaterialCollection;
+//    }
+//
+//    public void setRetiradaMaterialCollection(Collection<RetiradaMaterial> retiradaMaterialCollection) {
+//        this.retiradaMaterialCollection = retiradaMaterialCollection;
+//    }
 
     public Especialidade getEspecialidadeId() {
         return especialidadeId;
@@ -159,21 +170,21 @@ public class Usuario implements Serializable {
         this.tipoUsuarioId = tipoUsuarioId;
     }
 
-    public Collection<ComentarioOperario> getComentarioOperarioCollection() {
-        return comentarioOperarioCollection;
-    }
-
-    public void setComentarioOperarioCollection(Collection<ComentarioOperario> comentarioOperarioCollection) {
-        this.comentarioOperarioCollection = comentarioOperarioCollection;
-    }
-
-    public Collection<Chamado> getChamadoCollection() {
-        return chamadoCollection;
-    }
-
-    public void setChamadoCollection(Collection<Chamado> chamadoCollection) {
-        this.chamadoCollection = chamadoCollection;
-    }
+//    public Collection<ComentarioOperario> getComentarioOperarioCollection() {
+//        return comentarioOperarioCollection;
+//    }
+//
+//    public void setComentarioOperarioCollection(Collection<ComentarioOperario> comentarioOperarioCollection) {
+//        this.comentarioOperarioCollection = comentarioOperarioCollection;
+//    }
+//
+//    public Collection<Chamado> getChamadoCollection() {
+//        return chamadoCollection;
+//    }
+//
+//    public void setChamadoCollection(Collection<Chamado> chamadoCollection) {
+//        this.chamadoCollection = chamadoCollection;
+//    }
 
     @Override
     public int hashCode() {
@@ -200,28 +211,6 @@ public class Usuario implements Serializable {
         return "br.ufpr.manutencao.beans.Usuario[ id=" + id + " ]";
     }
     
-public static Usuario verificarCpfSenha(Usuario usuario) {
-    EntityManagerFactory emf = Persistence.createEntityManagerFactory("my_persistence_unit");
-    EntityManager em = emf.createEntityManager();
-    TypedQuery<Usuario> query = em.createNamedQuery("Usuario.findByCpfAndSenha", Usuario.class);
-    query.setParameter("cpf", usuario.getCpf());
-    query.setParameter("senha", usuario.getSenha());
-    Usuario resultado = new Usuario();
-    try {
-        resultado = query.getSingleResult(); // Atribua o resultado da consulta a uma variável
-        System.out.println("imprime o usuario");
-        System.out.println(resultado);
-        return resultado;
-    } catch (Exception e) {
-        // Nada a fazer aqui, pois found já foi inicializado como false
-    } finally {
-        em.close();
-        emf.close();
-    }
-    return resultado;
-}
-
-
 
     
 }

@@ -53,12 +53,15 @@ public class OrdemServico implements Serializable {
     private Date dataFinalizacao;
     @Column(name = "nome_responsavel_departamento")
     private String nomeResponsavelDepartamento;
-    @OneToMany(mappedBy = "ordemServicoId")
-    private Collection<RetiradaMaterial> retiradaMaterialCollection;
-    @OneToMany(mappedBy = "ordemServicoId")
-    private Collection<ComentarioOperario> comentarioOperarioCollection;
-    @OneToMany(mappedBy = "ordemServicoId")
-    private Collection<Chamado> chamadoCollection;
+    
+    // Retirado para nao gerar problema de looping já que está em outra classe   
+//    @OneToMany(mappedBy = "ordemServicoId")
+//    private Collection<RetiradaMaterial> retiradaMaterialCollection;
+//    @OneToMany(mappedBy = "ordemServicoId")
+//    private Collection<ComentarioOperario> comentarioOperarioCollection;
+//    @OneToMany(mappedBy = "ordemServicoId")
+//    private Collection<Chamado> chamadoCollection;
+    
     @JoinColumn(name = "especialidade_id", referencedColumnName = "id")
     @ManyToOne
     private Especialidade especialidadeId;
@@ -109,30 +112,30 @@ public class OrdemServico implements Serializable {
     public void setNomeResponsavelDepartamento(String nomeResponsavelDepartamento) {
         this.nomeResponsavelDepartamento = nomeResponsavelDepartamento;
     }
-
-    public Collection<RetiradaMaterial> getRetiradaMaterialCollection() {
-        return retiradaMaterialCollection;
-    }
-
-    public void setRetiradaMaterialCollection(Collection<RetiradaMaterial> retiradaMaterialCollection) {
-        this.retiradaMaterialCollection = retiradaMaterialCollection;
-    }
-
-    public Collection<ComentarioOperario> getComentarioOperarioCollection() {
-        return comentarioOperarioCollection;
-    }
-
-    public void setComentarioOperarioCollection(Collection<ComentarioOperario> comentarioOperarioCollection) {
-        this.comentarioOperarioCollection = comentarioOperarioCollection;
-    }
-
-    public Collection<Chamado> getChamadoCollection() {
-        return chamadoCollection;
-    }
-
-    public void setChamadoCollection(Collection<Chamado> chamadoCollection) {
-        this.chamadoCollection = chamadoCollection;
-    }
+//
+//    public Collection<RetiradaMaterial> getRetiradaMaterialCollection() {
+//        return retiradaMaterialCollection;
+//    }
+//
+//    public void setRetiradaMaterialCollection(Collection<RetiradaMaterial> retiradaMaterialCollection) {
+//        this.retiradaMaterialCollection = retiradaMaterialCollection;
+//    }
+//
+//    public Collection<ComentarioOperario> getComentarioOperarioCollection() {
+//        return comentarioOperarioCollection;
+//    }
+//
+//    public void setComentarioOperarioCollection(Collection<ComentarioOperario> comentarioOperarioCollection) {
+//        this.comentarioOperarioCollection = comentarioOperarioCollection;
+//    }
+//
+//    public Collection<Chamado> getChamadoCollection() {
+//        return chamadoCollection;
+//    }
+//
+//    public void setChamadoCollection(Collection<Chamado> chamadoCollection) {
+//        this.chamadoCollection = chamadoCollection;
+//    }
 
     public Especialidade getEspecialidadeId() {
         return especialidadeId;

@@ -4,13 +4,16 @@
  */
 package br.ufpr.manutencao.dto;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import java.io.Serializable;
 
 /**
  *
  * @author nicol
  */
-class UsuarioDTO implements Serializable{
+//ignorar campos desconhecidos no JSON
+@JsonIgnoreProperties(ignoreUnknown = true)
+public class UsuarioDTO implements Serializable{
     
     private Integer id;
     private String nome;
@@ -109,4 +112,18 @@ class UsuarioDTO implements Serializable{
         this.tipoUsuarioId = tipoUsuarioId;
     }
     
+    @Override
+    public String toString() {
+        return "UsuarioDTO{" +
+                "id=" + id +
+                ", nome='" + nome + '\'' +
+                ", cpf='" + cpf + '\'' +
+                ", telefone='" + telefone + '\'' +
+                ", email='" + email + '\'' +
+                ", senha='" + senha + '\'' +
+                ", bloqueio=" + bloqueio +
+                ", especialidadeId=" + especialidadeId +
+                ", tipoUsuarioId=" + tipoUsuarioId +
+                '}';
+    }
 }

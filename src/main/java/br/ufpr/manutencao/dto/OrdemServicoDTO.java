@@ -11,7 +11,7 @@ import java.util.Date;
  *
  * @author nicol
  */
-class OrdemServicoDTO implements Serializable {
+public class OrdemServicoDTO implements Serializable {
     private Integer id;
     private String descricao;
     private Date dataAbertura;
