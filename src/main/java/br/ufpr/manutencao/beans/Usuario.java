@@ -5,6 +5,7 @@
 package br.ufpr.manutencao.beans;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import java.io.Serializable;
 import java.util.Collection;
 import jakarta.persistence.Basic;
@@ -40,6 +41,7 @@ import jakarta.persistence.TypedQuery;
     @NamedQuery(name = "Usuario.findBySenha", query = "SELECT u FROM Usuario u WHERE u.senha = :senha"),
     @NamedQuery(name = "Usuario.findByBloqueio", query = "SELECT u FROM Usuario u WHERE u.bloqueio = :bloqueio"),
     @NamedQuery(name = "Usuario.findByCpfAndSenha", query = "SELECT u FROM Usuario u WHERE u.cpf = :cpf AND u.senha = :senha")})
+
 public class Usuario implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -61,24 +63,25 @@ public class Usuario implements Serializable {
     @Column(name = "bloqueio")
     private Boolean bloqueio;
     
-    @OneToMany(mappedBy = "usuarioId")
-    private Collection<RetiradaMaterial> retiradaMaterialCollection;
+// Retirado para nao gerar problema de looping já que está em outra classe       
+//    @OneToMany(mappedBy = "usuarioId")
+//    private Collection<RetiradaMaterial> retiradaMaterialCollection;
     
     @JoinColumn(name = "especialidade_id", referencedColumnName = "id")
     @ManyToOne
-    @JsonBackReference
+   // @JsonBackReference
     private Especialidade especialidadeId;
     
     @JoinColumn(name = "tipo_usuario_id", referencedColumnName = "id")
     @ManyToOne
-    @JsonBackReference
+   // @JsonBackReference
     private TipoUsuario tipoUsuarioId;
     
-    
-    @OneToMany(mappedBy = "usuarioId")
-    private Collection<ComentarioOperario> comentarioOperarioCollection;
-    @OneToMany(mappedBy = "usuarioId")
-    private Collection<Chamado> chamadoCollection;
+// Retirado para nao gerar problema de looping já que está em outra classe   
+//    @OneToMany(mappedBy = "usuarioId")
+//    private Collection<ComentarioOperario> comentarioOperarioCollection;
+//    @OneToMany(mappedBy = "usuarioId")
+//    private Collection<Chamado> chamadoCollection;
 
     public Usuario() {
     }
@@ -143,13 +146,13 @@ public class Usuario implements Serializable {
         this.bloqueio = bloqueio;
     }
 
-    public Collection<RetiradaMaterial> getRetiradaMaterialCollection() {
-        return retiradaMaterialCollection;
-    }
-
-    public void setRetiradaMaterialCollection(Collection<RetiradaMaterial> retiradaMaterialCollection) {
-        this.retiradaMaterialCollection = retiradaMaterialCollection;
-    }
+//    public Collection<RetiradaMaterial> getRetiradaMaterialCollection() {
+//        return retiradaMaterialCollection;
+//    }
+//
+//    public void setRetiradaMaterialCollection(Collection<RetiradaMaterial> retiradaMaterialCollection) {
+//        this.retiradaMaterialCollection = retiradaMaterialCollection;
+//    }
 
     public Especialidade getEspecialidadeId() {
         return especialidadeId;
@@ -167,21 +170,21 @@ public class Usuario implements Serializable {
         this.tipoUsuarioId = tipoUsuarioId;
     }
 
-    public Collection<ComentarioOperario> getComentarioOperarioCollection() {
-        return comentarioOperarioCollection;
-    }
-
-    public void setComentarioOperarioCollection(Collection<ComentarioOperario> comentarioOperarioCollection) {
-        this.comentarioOperarioCollection = comentarioOperarioCollection;
-    }
-
-    public Collection<Chamado> getChamadoCollection() {
-        return chamadoCollection;
-    }
-
-    public void setChamadoCollection(Collection<Chamado> chamadoCollection) {
-        this.chamadoCollection = chamadoCollection;
-    }
+//    public Collection<ComentarioOperario> getComentarioOperarioCollection() {
+//        return comentarioOperarioCollection;
+//    }
+//
+//    public void setComentarioOperarioCollection(Collection<ComentarioOperario> comentarioOperarioCollection) {
+//        this.comentarioOperarioCollection = comentarioOperarioCollection;
+//    }
+//
+//    public Collection<Chamado> getChamadoCollection() {
+//        return chamadoCollection;
+//    }
+//
+//    public void setChamadoCollection(Collection<Chamado> chamadoCollection) {
+//        this.chamadoCollection = chamadoCollection;
+//    }
 
     @Override
     public int hashCode() {

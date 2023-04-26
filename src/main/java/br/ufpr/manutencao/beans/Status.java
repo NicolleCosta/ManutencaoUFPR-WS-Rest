@@ -37,8 +37,10 @@ public class Status implements Serializable {
     private Integer id;
     @Column(name = "nome")
     private String nome;
-    @OneToMany(mappedBy = "statusId")
-    private Collection<Chamado> chamadoCollection;
+    
+    // Retirado para nao gerar problema de looping já que está em outra classe   
+//    @OneToMany(mappedBy = "statusId")
+//    private Collection<Chamado> chamadoCollection;
 
     public Status() {
     }
@@ -63,13 +65,13 @@ public class Status implements Serializable {
         this.nome = nome;
     }
 
-    public Collection<Chamado> getChamadoCollection() {
-        return chamadoCollection;
-    }
-
-    public void setChamadoCollection(Collection<Chamado> chamadoCollection) {
-        this.chamadoCollection = chamadoCollection;
-    }
+//    public Collection<Chamado> getChamadoCollection() {
+//        return chamadoCollection;
+//    }
+//
+//    public void setChamadoCollection(Collection<Chamado> chamadoCollection) {
+//        this.chamadoCollection = chamadoCollection;
+//    }
 
     @Override
     public int hashCode() {

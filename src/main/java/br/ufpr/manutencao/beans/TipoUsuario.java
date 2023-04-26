@@ -38,9 +38,11 @@ public class TipoUsuario implements Serializable {
     private Integer id;
     @Column(name = "nome")
     private String nome;
-    @OneToMany(mappedBy = "tipoUsuarioId")
-    @JsonbTransient
-    private Collection<Usuario> usuarioCollection;
+
+// Retirado para nao gerar problema de looping já que está em outra classe       
+//    @OneToMany(mappedBy = "tipoUsuarioId")
+//    @JsonbTransient
+//    private Collection<Usuario> usuarioCollection;
 
     public TipoUsuario() {
     }
@@ -65,13 +67,13 @@ public class TipoUsuario implements Serializable {
         this.nome = nome;
     }
 
-    public Collection<Usuario> getUsuarioCollection() {
-        return usuarioCollection;
-    }
-
-    public void setUsuarioCollection(Collection<Usuario> usuarioCollection) {
-        this.usuarioCollection = usuarioCollection;
-    }
+//    public Collection<Usuario> getUsuarioCollection() {
+//        return usuarioCollection;
+//    }
+//
+//    public void setUsuarioCollection(Collection<Usuario> usuarioCollection) {
+//        this.usuarioCollection = usuarioCollection;
+//    }
 
     @Override
     public int hashCode() {

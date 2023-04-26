@@ -2,19 +2,19 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package br.ufpr.manutencao.beans;
+package br.ufpr.manutencao.dto;
 
 import java.io.Serializable;
 
-public class Login implements Serializable {
+public class LoginDTO implements Serializable {
 	private String login;
 	private String senha;
 	
-	public Login() {
+	public LoginDTO() {
 		super();
 	}
 	
-	public Login(String login, String senha) {
+	public LoginDTO(String login, String senha) {
 		super();
 		this.login = login;
 		this.senha = senha;
@@ -32,8 +32,5 @@ public class Login implements Serializable {
 	public void setSenha(String senha) {
 		this.senha = senha;
 	}
-
-
-
 
 }

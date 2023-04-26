@@ -40,14 +40,14 @@ public class Especialidade implements Serializable {
     private Integer id;
     @Column(name = "nome")
     private String nome;
-    @OneToMany(mappedBy = "especialidadeId")
-    @JsonManagedReference
-    @JsonbTransient
-    private Collection<Usuario> usuarioCollection;
-    @OneToMany(mappedBy = "especialidadeId")
-    @JsonbTransient
-    @JsonManagedReference
-    private Collection<OrdemServico> ordemServicoCollection;
+//    @OneToMany(mappedBy = "especialidadeId")
+//    @JsonManagedReference
+//    @JsonbTransient
+//    private Collection<Usuario> usuarioCollection;
+//    @OneToMany(mappedBy = "especialidadeId")
+//    @JsonbTransient
+//    @JsonManagedReference
+//    private Collection<OrdemServico> ordemServicoCollection;
 
     public Especialidade() {
     }
@@ -72,21 +72,21 @@ public class Especialidade implements Serializable {
         this.nome = nome;
     }
 
-    public Collection<Usuario> getUsuarioCollection() {
-        return usuarioCollection;
-    }
-
-    public void setUsuarioCollection(Collection<Usuario> usuarioCollection) {
-        this.usuarioCollection = usuarioCollection;
-    }
-
-    public Collection<OrdemServico> getOrdemServicoCollection() {
-        return ordemServicoCollection;
-    }
-
-    public void setOrdemServicoCollection(Collection<OrdemServico> ordemServicoCollection) {
-        this.ordemServicoCollection = ordemServicoCollection;
-    }
+//    public Collection<Usuario> getUsuarioCollection() {
+//        return usuarioCollection;
+//    }
+//
+//    public void setUsuarioCollection(Collection<Usuario> usuarioCollection) {
+//        this.usuarioCollection = usuarioCollection;
+//    }
+//
+//    public Collection<OrdemServico> getOrdemServicoCollection() {
+//        return ordemServicoCollection;
+//    }
+//
+//    public void setOrdemServicoCollection(Collection<OrdemServico> ordemServicoCollection) {
+//        this.ordemServicoCollection = ordemServicoCollection;
+//    }
 
     @Override
     public int hashCode() {

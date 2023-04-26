@@ -40,8 +40,9 @@ public class Campus implements Serializable {
     @Column(name = "nome")
     private String nome;
     
-    @OneToMany(mappedBy = "campusId")
-    private Collection<Predio> predioCollection;
+// Retirado para nao gerar problema de looping já que está em outra classe       
+//    @OneToMany(mappedBy = "campusId")
+//    private Collection<Predio> predioCollection;
 
     public Campus() {
     }
@@ -66,13 +67,13 @@ public class Campus implements Serializable {
         this.nome = nome;
     }
 
-    public Collection<Predio> getPredioCollection() {
-        return predioCollection;
-    }
-
-    public void setPredioCollection(Collection<Predio> predioCollection) {
-        this.predioCollection = predioCollection;
-    }
+//    public Collection<Predio> getPredioCollection() {
+//        return predioCollection;
+//    }
+//
+//    public void setPredioCollection(Collection<Predio> predioCollection) {
+//        this.predioCollection = predioCollection;
+//    }
 
     @Override
     public int hashCode() {

@@ -10,7 +10,7 @@ import java.io.Serializable;
  *
  * @author nicol
  */
-class StatusDTO implements Serializable{
+public class StatusDTO implements Serializable{
     private Integer id;
     private String nome;
 
@@ -38,4 +38,11 @@ class StatusDTO implements Serializable{
         this.nome = nome;
     }
     
+    @Override
+    public String toString() {
+        return "StatusDTO{" +
+                "id=" + id +
+                ", nome='" + nome + '\'' +
+                '}';
+    }
 }

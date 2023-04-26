@@ -7,7 +7,7 @@ package br.ufpr.manutencao.resources;
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import br.ufpr.manutencao.beans.Login;
+import br.ufpr.manutencao.dto.LoginDTO;
 import br.ufpr.manutencao.beans.Usuario;
 import java.util.List;
 import jakarta.persistence.EntityManager;
@@ -56,9 +56,7 @@ public class UsuarioFacadeREST extends AbstractFacade<Usuario> {
     @Path("/login")
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
-    public UsuarioDTO login(Login login) {
-        EntityManagerFactory emf = Persistence.createEntityManagerFactory("my_persistence_unit");
-        EntityManager em = emf.createEntityManager();
+    public UsuarioDTO login(LoginDTO login) {    
         try {
             TypedQuery<Usuario> query = em.createNamedQuery("Usuario.findByCpfAndSenha", Usuario.class);
             query.setParameter("cpf", login.getLogin());
@@ -71,13 +69,9 @@ public class UsuarioFacadeREST extends AbstractFacade<Usuario> {
             return usuarioDTO;
         } catch (NoResultException e) {
             return null;
-        } finally {
-            em.close();
-            emf.close();
         }
     }
-    
-   
+     
 
     @PUT
     @Path("{id}")

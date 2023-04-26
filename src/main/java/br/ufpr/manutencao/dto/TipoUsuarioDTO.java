@@ -10,7 +10,7 @@ import java.io.Serializable;
  *
  * @author nicol
  */
-class TipoUsuarioDTO implements Serializable {
+public class TipoUsuarioDTO implements Serializable {
     private Integer id;
     private String nome;
 
@@ -38,5 +38,11 @@ class TipoUsuarioDTO implements Serializable {
         this.nome = nome;
     }
     
-    
+    @Override
+    public String toString() {
+        return "TipoUsuarioDTO{" +
+                "id=" + id +
+                ", nome='" + nome + '\'' +
+                '}';
+    }
 }

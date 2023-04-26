@@ -42,8 +42,9 @@ public class Predio implements Serializable {
     @JoinColumn(name = "campus_id", referencedColumnName = "id")
     @ManyToOne
     private Campus campusId;
-    @OneToMany(mappedBy = "predioId")
-    private Collection<Chamado> chamadoCollection;
+    // Retirado para nao gerar problema de looping já que está em outra classe   
+//    @OneToMany(mappedBy = "predioId")
+//    private Collection<Chamado> chamadoCollection;
 
     public Predio() {
     }
@@ -76,13 +77,13 @@ public class Predio implements Serializable {
         this.campusId = campusId;
     }
 
-    public Collection<Chamado> getChamadoCollection() {
-        return chamadoCollection;
-    }
-
-    public void setChamadoCollection(Collection<Chamado> chamadoCollection) {
-        this.chamadoCollection = chamadoCollection;
-    }
+//    public Collection<Chamado> getChamadoCollection() {
+//        return chamadoCollection;
+//    }
+//
+//    public void setChamadoCollection(Collection<Chamado> chamadoCollection) {
+//        this.chamadoCollection = chamadoCollection;
+//    }
 
     @Override
     public int hashCode() {
