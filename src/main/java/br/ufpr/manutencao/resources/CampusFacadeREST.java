@@ -62,9 +62,10 @@ public class CampusFacadeREST extends AbstractFacade<Campus> {
     }
 
     @GET
-    @Override
+    @Path("/lista")
     @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
-    public List<Campus> findAll() {
+    public List<Campus> listarTodos() {
+        System.out.println("entrou aqui");
         return super.findAll();
     }
 

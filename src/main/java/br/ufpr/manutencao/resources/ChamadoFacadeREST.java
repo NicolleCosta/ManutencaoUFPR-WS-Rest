@@ -8,6 +8,7 @@ package br.ufpr.manutencao.resources;
 import br.ufpr.manutencao.beans.Chamado;
 import java.util.List;
 import jakarta.persistence.EntityManager;
+import jakarta.persistence.NoResultException;
 import jakarta.persistence.PersistenceContext;
 import jakarta.ws.rs.Consumes;
 import jakarta.ws.rs.DELETE;
@@ -18,6 +19,8 @@ import jakarta.ws.rs.Path;
 import jakarta.ws.rs.PathParam;
 import jakarta.ws.rs.Produces;
 import jakarta.ws.rs.core.MediaType;
+import jakarta.ws.rs.core.Response;
+import java.util.ArrayList;
 
 /**
  *
@@ -54,12 +57,6 @@ public class ChamadoFacadeREST extends AbstractFacade<Chamado> {
         super.remove(super.find(id));
     }
 
-    @GET
-    @Path("{id}")
-    @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
-    public Chamado find(@PathParam("id") Integer id) {
-        return super.find(id);
-    }
 
     @GET
     @Override
@@ -69,10 +66,19 @@ public class ChamadoFacadeREST extends AbstractFacade<Chamado> {
     }
 
     @GET
-    @Path("{from}/{to}")
+    @Path("{id}")
     @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
-    public List<Chamado> findRange(@PathParam("from") Integer from, @PathParam("to") Integer to) {
-        return super.findRange(new int[]{from, to});
+    public List<Chamado> listaChamadosPorId(@PathParam("id") Integer id) {
+        ArrayList<Chamado> listaChamados = new ArrayList<Chamado>();
+        try{
+            
+            
+            return listaChamados;
+        } catch (NoResultException e){
+                    return (List<Chamado>) Response.status(Response.Status.UNAUTHORIZED)
+                       .entity("Sem chamados")
+                       .build();
+        }  
     }
 
     @GET

@@ -56,21 +56,30 @@ public class UsuarioFacadeREST extends AbstractFacade<Usuario> {
     @Path("/login")
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
-    public UsuarioDTO login(LoginDTO login) {    
-        try {
-            TypedQuery<Usuario> query = em.createNamedQuery("Usuario.findByCpfAndSenha", Usuario.class);
-            query.setParameter("cpf", login.getLogin());
-            query.setParameter("senha", login.getSenha());
-            Usuario usuario = query.getSingleResult();
-            System.out.println("retornou o usuario: " +usuario); 
-            ObjectMapper mapper = new ObjectMapper();
-            UsuarioDTO usuarioDTO = mapper.convertValue(usuario, UsuarioDTO.class);
-            System.out.println("retornou o usuario: "+ usuarioDTO );
-            return usuarioDTO;
-        } catch (NoResultException e) {
-            return null;
-        }
+   public Response login(LoginDTO login) {    
+    try {
+        TypedQuery<Usuario> query = em.createNamedQuery("Usuario.findByCpfAndSenha", Usuario.class);
+        query.setParameter("cpf", login.getCpf());
+        query.setParameter("senha", login.getSenha());
+        System.out.println(login.getSenha()); 
+        System.out.println(login.getCpf()); 
+        Usuario usuario = query.getSingleResult();
+        System.out.println("aqui em baixo o usuario"); 
+        System.out.println(usuario); 
+        ObjectMapper mapper = new ObjectMapper();
+        UsuarioDTO usuarioDTO = mapper.convertValue(usuario, UsuarioDTO.class);
+        System.out.println("retornou o usuario: "+ usuarioDTO );
+        
+        // Cria um Response indicando sucesso
+        return Response.ok(usuarioDTO).build();
+    } catch (NoResultException e) {
+        // Cria um Response indicando falha
+        return Response.status(Response.Status.UNAUTHORIZED)
+                       .entity("Login inválido")
+                       .build();
     }
+}
+
      
 
     @PUT

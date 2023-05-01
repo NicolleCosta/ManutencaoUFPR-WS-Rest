@@ -5,10 +5,14 @@
 package br.ufpr.manutencao.resources;
 
 
+import br.ufpr.manutencao.beans.Campus;
 import br.ufpr.manutencao.beans.Predio;
+import br.ufpr.manutencao.dto.PredioDTO;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import java.util.List;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
+import jakarta.persistence.TypedQuery;
 import jakarta.ws.rs.Consumes;
 import jakarta.ws.rs.DELETE;
 import jakarta.ws.rs.GET;
@@ -18,6 +22,7 @@ import jakarta.ws.rs.Path;
 import jakarta.ws.rs.PathParam;
 import jakarta.ws.rs.Produces;
 import jakarta.ws.rs.core.MediaType;
+import java.util.ArrayList;
 /**
  *
  * @author nicol
@@ -61,10 +66,24 @@ public class PredioFacadeREST extends AbstractFacade<Predio> {
     }
 
     @GET
-    @Override
+    @Path("lista/{id}")
     @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
-    public List<Predio> findAll() {
-        return super.findAll();
+    public List<PredioDTO> findAll(@PathParam ("id") Integer id) {
+        Campus campus = new Campus();
+        campus.setId(id);
+        TypedQuery<Predio> query = em.createNamedQuery("Predio.listar", Predio.class);
+        query.setParameter("id", campus);
+        List<Predio> predio = query.getResultList();
+        List<PredioDTO> predioDTO = new ArrayList<>();
+        
+        for(Predio p: predio) {
+            PredioDTO dto = new PredioDTO();
+            dto.setId(p.getId());
+            dto.setNome(p.getNome());
+            predioDTO.add(dto);
+        }
+        
+        return predioDTO;
     }
 
     @GET

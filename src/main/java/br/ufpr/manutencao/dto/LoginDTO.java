@@ -7,24 +7,24 @@ package br.ufpr.manutencao.dto;
 import java.io.Serializable;
 
 public class LoginDTO implements Serializable {
-	private String login;
+	private String cpf;
 	private String senha;
 	
 	public LoginDTO() {
 		super();
 	}
 	
-	public LoginDTO(String login, String senha) {
+	public LoginDTO(String cpf, String senha) {
 		super();
-		this.login = login;
+		this.cpf = cpf;
 		this.senha = senha;
 	}
 		
-	public String getLogin() {
-		return login;
+	public String getCpf() {
+		return cpf;
 	}
-	public void setLogin(String login) {
-		this.login = login;
+	public void setCpf(String cpf) {
+		this.cpf = cpf;
 	}
 	public String getSenha() {
 		return senha;
