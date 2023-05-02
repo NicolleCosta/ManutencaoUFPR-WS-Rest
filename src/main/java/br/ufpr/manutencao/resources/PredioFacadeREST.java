@@ -69,6 +69,7 @@ public class PredioFacadeREST extends AbstractFacade<Predio> {
     @Path("lista/{id}")
     @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
     public List<PredioDTO> findAll(@PathParam ("id") Integer id) {
+        System.out.println(id);
         Campus campus = new Campus();
         campus.setId(id);
         TypedQuery<Predio> query = em.createNamedQuery("Predio.listar", Predio.class);
