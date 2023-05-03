@@ -111,5 +111,17 @@ public class ChamadoDTO  implements Serializable{
     }
     
     
-    
+    public String toString() {
+    return "ChamadoDTO{" +
+            "id=" + id +
+            ", descricaoLocal='" + descricaoLocal + '\'' +
+            ", descricaoProblema='" + descricaoProblema + '\'' +
+            ", anexo='" + anexo + '\'' +
+            ", dataHora=" + dataHora +
+            ", ordemServicoId=" + ordemServicoId +
+            ", predioId=" + predioId +
+            ", statusId=" + statusId +
+            ", usuarioId=" + usuarioId +
+            '}';
+    }
 }
