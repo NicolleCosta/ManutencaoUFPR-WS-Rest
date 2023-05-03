@@ -6,10 +6,14 @@ package br.ufpr.manutencao.resources;
 
 
 import br.ufpr.manutencao.beans.Chamado;
+import br.ufpr.manutencao.beans.Usuario;
+import br.ufpr.manutencao.dto.ChamadoDTO;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import java.util.List;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.NoResultException;
 import jakarta.persistence.PersistenceContext;
+import jakarta.persistence.TypedQuery;
 import jakarta.ws.rs.Consumes;
 import jakarta.ws.rs.DELETE;
 import jakarta.ws.rs.GET;
@@ -59,10 +63,24 @@ public class ChamadoFacadeREST extends AbstractFacade<Chamado> {
 
 
     @GET
-    @Override
+    @Path("/listaChamados/{id}")
     @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
-    public List<Chamado> findAll() {
-        return super.findAll();
+    public List<ChamadoDTO> findAll(@PathParam ("id") Integer id) {
+        System.out.println("entrou aqui");
+        Usuario chamado = new Usuario();
+        chamado.setId(id);
+        TypedQuery<Chamado> query = em.createNamedQuery("Chamado.listar", Chamado.class);
+        query.setParameter("id", chamado);
+        List<Chamado> chamados = query.getResultList();
+        List<ChamadoDTO> chamadoDTO = new ArrayList<>();
+        
+        for(Chamado c: chamados) {
+            ChamadoDTO dto = new ChamadoDTO();
+            ObjectMapper mapper = new ObjectMapper();
+            dto = mapper.convertValue(c, ChamadoDTO.class);
+            chamadoDTO.add(dto);
+        }
+        return chamadoDTO;
     }
 
     @GET
