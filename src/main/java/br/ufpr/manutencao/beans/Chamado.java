@@ -4,6 +4,7 @@
  */
 package br.ufpr.manutencao.beans;
 
+import jakarta.json.bind.annotation.JsonbDateFormat;
 import java.io.Serializable;
 import java.util.Date;
 import jakarta.persistence.Basic;
@@ -50,6 +51,7 @@ public class Chamado implements Serializable {
     private String anexo;
     @Column(name = "data_hora")
     @Temporal(TemporalType.TIMESTAMP)
+    @JsonbDateFormat("yyyy-MM-dd HH:mm:ss.SSSSSS")
     private Date dataHora;
     @JoinColumn(name = "ordem_servico_id", referencedColumnName = "id")
     @ManyToOne
