@@ -73,13 +73,14 @@ public class ChamadoFacadeREST extends AbstractFacade<Chamado> {
         query.setParameter("id", chamado);
         List<Chamado> chamados = query.getResultList();
         List<ChamadoDTO> chamadoDTO = new ArrayList<>();
-        
+        System.out.println(chamados);
         for(Chamado c: chamados) {
             ChamadoDTO dto = new ChamadoDTO();
             ObjectMapper mapper = new ObjectMapper();
             dto = mapper.convertValue(c, ChamadoDTO.class);
             chamadoDTO.add(dto);
         }
+        
         return chamadoDTO;
     }
 
