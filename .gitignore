@@ -60,3 +60,4 @@ $RECYCLE.BIN/
 #spring
 .springBeans
 src/main/webapp/WEB-INF/glassfish-resources.xml
+src/main/webapp/WEB-INF/glassfish-resources.xml
