@@ -89,9 +89,7 @@ public class ChamadoFacadeREST extends AbstractFacade<Chamado> {
     @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
     public List<Chamado> listaChamadosPorId(@PathParam("id") Integer id) {
         ArrayList<Chamado> listaChamados = new ArrayList<Chamado>();
-        try{
-            
-            
+        try{           
             return listaChamados;
         } catch (NoResultException e){
                     return (List<Chamado>) Response.status(Response.Status.UNAUTHORIZED)
