@@ -24,7 +24,7 @@ import java.util.logging.Logger;
  *
  * @author nicol
  */
-@WebServlet(name = "LoginServlet", urlPatterns = {"geral/LoginServlet"})
+@WebServlet(name = "LoginServlet", urlPatterns = {"/geral/LoginServlet"})
 public class LoginServlet extends HttpServlet {
 
     /**
@@ -44,13 +44,16 @@ public class LoginServlet extends HttpServlet {
             //Valores pegos do formulario
             String cpf = request.getParameter("cpf");
             String senha = request.getParameter("senha");
+            System.out.println(cpf);
             if(cpf ==  null || senha == null){
                 request.setAttribute("msg", "Favor preencher todos os campos!");
-                request.setAttribute("page", "index.jsp");
-                RequestDispatcher rd = getServletContext().getRequestDispatcher("index.jsp");
+                request.setAttribute("page", "/geral/index.jsp");
+                RequestDispatcher rd = getServletContext().getRequestDispatcher("/geral/index.jsp");
                 rd.forward(request, response);
             }
             UsuarioDTO user = LoginFacade.login(cpf,senha);
+            System.out.println("nome " + user.getNome());
+            
             boolean isValid = user.getId() > 0 ? true : false;
             if (isValid) {
                 //Armazena o nome do usuário na sessão (indicando que o usuário está logado)
@@ -63,16 +66,16 @@ public class LoginServlet extends HttpServlet {
                 
                 switch (user.getTipoUsuarioId().getNome()) {
                     case "administrador":
-                        response.sendRedirect("administrador/home.jsp");
+                        response.sendRedirect("/manutencaoufpr/administrador/home.jsp");
                         //response.sendRedirect("AtendimentoServlet?action=mostrarPortalAdministrador");
                         break;
                         
                     case "almoxarifado":
-                        response.sendRedirect("funcionario/atendimentos.jsp");
+                        response.sendRedirect("/funcionario/atendimentos.jsp");
                         break;
                         
                     case "gerente":
-                        response.sendRedirect("portalGerente.jsp");
+                        response.sendRedirect("/portalGerente.jsp");
                         break;
                         
                     default:
@@ -81,14 +84,14 @@ public class LoginServlet extends HttpServlet {
                 }
             } else {
                 request.setAttribute("msg", " Usuário/Senha inválidos.");
-                request.setAttribute("page", "index.jsp");
-                RequestDispatcher rd = getServletContext().getRequestDispatcher("/index.jsp");
+                request.setAttribute("page", "/geral/index.jsp");
+                RequestDispatcher rd = getServletContext().getRequestDispatcher("/geral/index.jsp");
                 rd.forward(request, response);
             }
         } catch (FacadeException ex) {
             request.setAttribute("msg", " Usuário/Senha inválidos.");
-            request.setAttribute("page", "index.jsp");
-            RequestDispatcher rd = getServletContext().getRequestDispatcher("/index.jsp");
+            request.setAttribute("page", "/geral/index.jsp");
+            RequestDispatcher rd = getServletContext().getRequestDispatcher("/geral/index.jsp");
         }
                   
        

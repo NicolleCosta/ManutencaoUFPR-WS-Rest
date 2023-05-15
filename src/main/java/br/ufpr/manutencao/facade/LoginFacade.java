@@ -30,8 +30,10 @@ public class LoginFacade {
         requestBody.put("senha", senha);
         String requestBodyString = requestBody.toString();
         
+        System.out.println("chegou");
+        
         // Defina a URL do endpoint do backend
-        String backendURL = "http://localhost:8080/manutencaoufpr/login";
+        String backendURL = "http://localhost:8080/manutencaoufpr/webresources/usuario/login";
         
         // Crie a requisição POST com o corpo da requisição
         HttpRequest request = HttpRequest.newBuilder()
@@ -53,9 +55,12 @@ public class LoginFacade {
                 
                 // Converta o JSON de resposta para um objeto UsuarioDTO
                 UsuarioDTO usuarioDTO = mapper.readValue(responseBody, UsuarioDTO.class);
-                
+                System.out.println("entrou no if de sucesso");
+                System.out.println(usuarioDTO.getNome());
                 return usuarioDTO;
             } else {
+                System.out.println("entrou no else de falha");
+                System.out.println("Erro no login: " + response.body());
                 // Se o código de status for diferente de 200, lance uma exceção ou retorne um valor indicando o erro
                 throw new FacadeException("Erro no login: " + response.body());
             }
