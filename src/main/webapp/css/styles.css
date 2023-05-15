@@ -1,0 +1,62 @@
+@import url('https://fonts.googleapis.com/css?family=Slabo+27px&display=swap');
+
+.c-logo-large {
+  margin-top: -1rem;
+  height: 4.4rem;
+}
+
+.c-title {
+  margin-top: 2rem;
+  font-family: 'Slabo 27px', serif;
+}
+
+.c-subtitle {
+  margin-bottom: 1rem;
+  font-size: medium;
+}
+
+input::-webkit-inner-spin-button,
+input::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+input[type="number"] {
+  -moz-appearance: textfield;
+}
+
+.c-thead {
+  background-color: #222;
+  color: #fff;
+  text-transform: uppercase;
+}
+
+.c-status {
+  text-transform: uppercase;
+}
+
+.c-clickable:hover {
+  cursor: pointer;
+}
+
+.form-control-plaintext {
+  font-weight: bold;
+}
+
+.c-mensagem {
+  margin-bottom: 1rem;
+  padding: 8px 12px 4px 14px;
+  color: #fff;
+  font-weight: bold;
+}
+
+.c-mensagem p {
+  margin: 0;
+}
+
+.c-mensagem-time {
+  color: #ddd;
+  font-size: small;
+  font-weight: normal;
+  font-style: italic;
+}

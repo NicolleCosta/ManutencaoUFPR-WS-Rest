@@ -24,7 +24,7 @@ import java.util.logging.Logger;
  *
  * @author nicol
  */
-@WebServlet(name = "LoginServlet", urlPatterns = {"/LoginServlet"})
+@WebServlet(name = "LoginServlet", urlPatterns = {"geral/LoginServlet"})
 public class LoginServlet extends HttpServlet {
 
     /**
@@ -63,7 +63,8 @@ public class LoginServlet extends HttpServlet {
                 
                 switch (user.getTipoUsuarioId().getNome()) {
                     case "administrador":
-                        response.sendRedirect("AtendimentoServlet?action=mostrarPortalAdministrador");
+                        response.sendRedirect("administrador/home.jsp");
+                        //response.sendRedirect("AtendimentoServlet?action=mostrarPortalAdministrador");
                         break;
                         
                     case "almoxarifado":
