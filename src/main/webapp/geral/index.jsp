@@ -15,9 +15,9 @@
     <title>
       SAC - Sistema de Atendimento ao Cliente
     </title>
-    <link rel="stylesheet" href="../css/bootstrap.min.css" />
-    <link rel="stylesheet" href="../css/fontawesome.min.css" />
-    <link rel="stylesheet" href="../css/styles.css" />
+    <link rel="stylesheet" href="./css/bootstrap.min.css" />
+    <link rel="stylesheet" href="./css/fontawesome.min.css" />
+    <link rel="stylesheet" href="./css/styles.css" />
     <link rel="icon" type="image/x-icon" href="assets/images/phone-solid.svg">
 
   </head>
