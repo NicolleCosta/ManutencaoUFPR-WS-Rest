@@ -1,32 +1,50 @@
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-    <%@page contentType="text/html" pageEncoding="UTF-8" %>
-
+<%@page contentType="text/html" pageEncoding="UTF-8" %>
+<%--Validar se usuário está logado--%>
+<c:if test="${sessionScope.user == null}" >
+    <c:redirect url="/geral/index.jsp">
+        <c:param name="msg" value="Usuário deve se autenticar para acessar o sistema"/>
+    </c:redirect>
+</c:if>
+<c:if test="${ sessionScope.user != null }" >
+    <c:if test="${ sessionScope.user.tipoUsuarioId.nome != 'administrador'}" >
+        <c:redirect url="/geral/index.jsp">
+            <c:param name="msg" value="Usuário não possui permissão para acessar essa página."/>
+        </c:redirect>
+    </c:if>
+</c:if>
 
 <!DOCTYPE html>
-<html>
+<html lang="pt-BR">
+
     <head>
-
-        <title>Home - Administrador</title>
-        
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Home - Administrador</title> 
+        <!-- CSS only -->
+        <link rel="stylesheet" href="css/style.css" />
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css"
+              integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous" />
+        <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet"
+              integrity="sha384-T8Gy5hrqNKT+hzMclPo118YTQO6cYprQmhrYwIiQ/3axmI1hQomh7Ud2hPOy8SP1" crossorigin="anonymous" />
     </head>
-    <body id="home">
 
-        <!-- Página da home -->
+
+    <body id="home">
+        
+        <!-- Cabeçalho da página -->
+         <%@include file="header.jsp" %>
+         
+        <!-- Corpo da página -->
 
         <div class="container-fluid display-table">
             <div class="row display-table-row">
-
-                
-
                 <div class="col-md-10 col-sm-11 display-table-cell v-align">
-                    <%@include file="menu-topo.jsp" %>
-                    <%@include file="menu-topo-sub.jsp" %>
-
                     <div class="user-dashboard">
                         <div class="row">
+
                             <!-- INICIO DE CONTEÚDO  -->
-
-
 
                             <!-- Texto Título -->
                             <div class="w-100">
@@ -43,7 +61,7 @@
                                             <th>Abertura</th>
                                             <th>Status</th>
                                             <th>Resolver</th>
-                                         
+
 
                                         </tr>
                                     </thead>
@@ -65,7 +83,7 @@
 
                                                 <td>
                                                     <a href="#" data-toggle="modal" data-target="#modalAtendimento<c:out value="${atendimentos.idAtendimento}"/>"><button type="button" class="btn btn-link btn-sm btn-rounded">
-                                                           Resolver
+                                                            Resolver
                                                         </button></a>
                                                 </td>
                                             </tr>
@@ -74,10 +92,10 @@
                                 </table>
                             </div>
 
-                             <c:forEach var="atendimentos" items="${requestScope.atendimentos}">
+                            <c:forEach var="atendimentos" items="${requestScope.atendimentos}">
                                 <!-- Modal form -->
-                                
-                               
+
+
                                 <div id="modalAtendimento<c:out value="${atendimentos.idAtendimento}"/>" class="modal fade" role="dialog">
                                     <div class="modal-dialog">
                                         <!-- Modal content-->
@@ -86,35 +104,35 @@
                                                 <h4 class="modal-title">Informações Atendimento</h4>
                                             </div>
                                             <form action="${pageContext.request.contextPath}/FuncionarioServlet?action=resolver&idAtendimento=${atendimentos.idAtendimento}" method="post" required="true">
-                                            <div class="modal-body">
-                                                
-                                               
-                                                <label>Tipo de Atendimento</label>
-                                                <input type="text" name="nomeTipoAtendimento" value="<c:out value="${atendimentos.nomeTipoAtendimento}"/>" readonly="readonly" />
-                                                <label>Categoria</label>
-                                                <input type="text" name="nomeAtendimento" value="<c:out value="${atendimentos.nomeCategoria}"/> " readonly="readonly" />
-                                                     <label>Produto</label>
-                                                <input type="text" name="nomeProduto" value="<c:out value="${atendimentos.nomeProduto}"/> " readonly="readonly" />
-                                                     <label>Descrição</label>
-                                               <input type="text" name="descricao" value="<c:out value="${atendimentos.descricao}"/> " readonly="readonly" />
-                                                  <label>Solução</label>
-                                                  <input name="solucao" type="text" placeholder="Solução" maxlength="255" />
-                                                  
-                                                
-                                            
-                                            </div>
-                                                   
-                                              
-                                            <div class="modal-footer">
-                                                <button type="button" class="cancel" data-dismiss="modal">
-                                                   Fechar
-                                                </button>
-                                                <button type="submit" class="btn btn-success">Resolver</button>
-                                                
-                                                     
-                                                
-                                                
-                                            </div>
+                                                <div class="modal-body">
+
+
+                                                    <label>Tipo de Atendimento</label>
+                                                    <input type="text" name="nomeTipoAtendimento" value="<c:out value="${atendimentos.nomeTipoAtendimento}"/>" readonly="readonly" />
+                                                    <label>Categoria</label>
+                                                    <input type="text" name="nomeAtendimento" value="<c:out value="${atendimentos.nomeCategoria}"/> " readonly="readonly" />
+                                                    <label>Produto</label>
+                                                    <input type="text" name="nomeProduto" value="<c:out value="${atendimentos.nomeProduto}"/> " readonly="readonly" />
+                                                    <label>Descrição</label>
+                                                    <input type="text" name="descricao" value="<c:out value="${atendimentos.descricao}"/> " readonly="readonly" />
+                                                    <label>Solução</label>
+                                                    <input name="solucao" type="text" placeholder="Solução" maxlength="255" />
+
+
+
+                                                </div>
+
+
+                                                <div class="modal-footer">
+                                                    <button type="button" class="cancel" data-dismiss="modal">
+                                                        Fechar
+                                                    </button>
+                                                    <button type="submit" class="btn btn-success">Resolver</button>
+
+
+
+
+                                                </div>
                                             </form>
                                         </div>
                                     </div>
@@ -173,7 +191,7 @@
                 </div>
             </div>
         </div>
-    
+
     </body>
 
 </html>
