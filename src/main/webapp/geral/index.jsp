@@ -7,6 +7,7 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
+
 <html lang="pt-BR">
   <head>
     <meta charset="UTF-8" />
@@ -97,4 +98,5 @@
 
 
     <jsp:include page="footer.jsp" />
+
 </html>
