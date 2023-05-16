@@ -24,7 +24,7 @@ import java.util.logging.Logger;
  *
  * @author nicol
  */
-@WebServlet(name = "LoginServlet", urlPatterns = {"/geral/LoginServlet"})
+@WebServlet(name = "LoginServlet", urlPatterns = {"/LoginServlet"})
 public class LoginServlet extends HttpServlet {
 
     /**
