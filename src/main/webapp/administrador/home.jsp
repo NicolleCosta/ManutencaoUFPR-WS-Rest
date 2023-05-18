@@ -23,7 +23,8 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <title>Home - Administrador</title> 
         <!-- CSS only -->
-        <link rel="stylesheet" href="css/style.css" />
+        <link rel="stylesheet" type="text/css" href="css/style.css" />
+        <link rel="stylesheet" type="text/css" href="css/custom.css" />
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css"
               integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous" />
         <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet"
@@ -37,7 +38,7 @@
          <%@include file="header.jsp" %>
          
         <!-- Corpo da página -->
-
+        
         <div class="container-fluid display-table">
             <div class="row display-table-row">
                 <div class="col-md-10 col-sm-11 display-table-cell v-align">
@@ -45,10 +46,10 @@
                         <div class="row">
 
                             <!-- INICIO DE CONTEÚDO  -->
-
+                            <a href="/UsuarioServlet"><button type="button" class="buttonYellow">Usuário</button></a>
                             <!-- Texto Título -->
                             <div class="w-100">
-                                <h2 class="text-center">Atendimentos em Aberto</h2>
+                                <h2 class="text-center">Chamados</h2>
                             </div>
 
                             <!-- tabela -->
@@ -57,19 +58,19 @@
                                     <thead class="bg-light">
                                         <tr>
                                             <th>ID</th>
-                                            <th>Produto</th>
-                                            <th>Abertura</th>
+                                            <th>Campus</th>
+                                            <th>Usuário</th>
+                                            <th>Ordem de Serviço Associada</th>
                                             <th>Status</th>
-                                            <th>Resolver</th>
 
 
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <c:forEach var="atendimentos" items="${requestScope.atendimentos}">
+                                        <c:forEach var="chamados" items="${requestScope.chamados}">
                                             <tr> 
                                                 <td>
-                                                    <p class="fw-normal mb-1"> <c:out value="${atendimentos.idAtendimento}"/> </p>                            
+                                                    <p class="fw-normal mb-1"> <c:out value="${chamados.idChamado}"/> </p>                            
                                                 </td>
                                                 <td>
                                                     <p class="fw-normal mb-1"> <c:out value="${atendimentos.nomeProduto}"/> </p>

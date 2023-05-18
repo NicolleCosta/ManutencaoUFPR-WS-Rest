@@ -11,25 +11,25 @@
 <header class="container-fluid bg-info mb-4">
     <nav class="navbar navbar-expand-lg navbar-light" role="navigation">
         <a class="navbar-brand" href="/geral/index.jsp"></a>
-        <div class="container">
+        <div class="headerButtons">
             <ul class="navbar-nav text-white">
                 <li class="nav-item">
-                    <a class="nav-link" href="/ChamadoServlet">Chamados</a>
+                    <a class="nav-link" href="/ChamadoServlet"><button type="button" class="buttonYellow">Chamados</button></a>
                 </li>
                 <li class="nav-item">
-                    <a href="/OrdeDeServicoServlet">Ordem de Serviço</a>
+                    <a class="buttonYellow" href="/OrdeDeServicoServlet">Ordem de Serviço</a>
                 </li>
                 <li class="nav-item">
-                    <a href="/LocalizacaoServlet">Localização</a>
+                    <a href="/LocalizacaoServlet"><button type="button" class="buttonYellow">Localização</button></a>
                 </li>
                 <li class="nav-item">
-                    <a href="/UsuarioServlet">Usuário</a>
+                    <a href="/UsuarioServlet"><button type="button" class="buttonYellow">Usuário</button></a>
                 <li>
                 <li class="nav-item">
-                    <a href="/CadastroServlet">Operário</a>
+                    <a href="/CadastroServlet"><button type="button" class="buttonYellow">Operário</button></a>
                 </li>
                 <li class="nav-item">
-                    <a href="/CadastroServlet">Meu Cadastro</a>
+                    <a href="/CadastroServlet"><button type="button" class="buttonYellow">Meu Cadastro</button></a>
                 </li>
                 <li class="nav-item">
                     <a href="LogoutServlet" class="alert-link text-white my-2 my-sm-0"><i class="fas fa-power-off"></i>Sair</a>
