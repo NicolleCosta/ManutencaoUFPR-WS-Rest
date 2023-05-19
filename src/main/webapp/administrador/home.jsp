@@ -25,6 +25,8 @@
         <!-- CSS only -->
         <link rel="stylesheet" type="text/css" href="css/style.css" />
         <link rel="stylesheet" type="text/css" href="css/custom.css" />
+        <link rel="stylesheet" type="text/css" href="css/fontawesome.min.css" />
+        <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css" />
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css"
               integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous" />
         <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet"
@@ -49,7 +51,59 @@
                             <a href="/UsuarioServlet"><button type="button" class="buttonYellow">Usuário</button></a>
                             <!-- Texto Título -->
                             <div class="w-100">
-                                <h2 class="text-center">Chamados</h2>
+                                <h2 class="text-center">Chamados Abertos</h2>
+                            </div>
+
+                            <!-- tabela -->
+                            <div class="table-responsive-sm w-100 py-2">
+                                <table class="table align-middle mb-0 bg-white">
+                                    <thead class="bg-light">
+                                        <tr>
+                                            <th>ID</th>
+                                            <th>Campus</th>
+                                            <th>Usuário</th>
+                                            <th>Data e Hora</th>
+                                            <th>Status</th>
+                                            <th>Ação</th>
+
+
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <c:forEach var="chamados" items="${requestScope.chamadosAbertos}">
+                                            <tr> 
+                                                <td>
+                                                    <p class="fw-normal mb-1"> <c:out value="${chamados.id}"/> </p>                            
+                                                </td>
+                                                <td>
+                                                    <p class="fw-normal mb-1"> <c:out value="${chamados.predioId.campusId.nome}"/> </p>
+                                                </td>
+                                                <td>
+                                                    <p class="fw-normal mb-1"> <c:out value="${chamados.usuarioId.nome}"/> </p>
+                                                </td>
+                                                <td>
+                                                    <p class="fw-normal mb-1"> <c:out value="${chamados.dataHora}"/> </p>
+                                                </td>
+                                                <td>
+                                                    <p> ${chamados.StatusId == 1 ? '<span class="badge badge-success rounded-pill d-inline">Aberto</span>' : ''} </p>
+                                                </td>
+
+                                                <td>
+                                                    <a href="#" data-toggle="modal" data-target="#modalChamado<c:out value="${chamados.id}"/>"><button type="button" class="btn btn-link btn-sm btn-rounded">
+                                                            Resolver
+                                                        </button></a>
+                                                </td>
+                                            </tr>
+                                        </c:forEach>                    
+                                    </tbody>
+                                </table>
+                            </div>
+                            
+                            
+                            
+                             <!-- Texto Título -->
+                            <div class="w-100">
+                                <h2 class="text-center">Chamados Em Andamento</h2>
                             </div>
 
                             <!-- tabela -->
@@ -67,13 +121,13 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <c:forEach var="chamados" items="${requestScope.chamados}">
+                                        <c:forEach var="chamados" items="${requestScope.chamadosEmAndamento}">
                                             <tr> 
                                                 <td>
-                                                    <p class="fw-normal mb-1"> <c:out value="${chamados.idChamado}"/> </p>                            
+                                                    <p class="fw-normal mb-1"> <c:out value="${chamados.id}"/> </p>                            
                                                 </td>
                                                 <td>
-                                                    <p class="fw-normal mb-1"> <c:out value="${atendimentos.nomeProduto}"/> </p>
+                                                    <p class="fw-normal mb-1"> <c:out value="${chamados.campus}"/> </p>
                                                 </td>
                                                 <td>
                                                     <p class="fw-normal mb-1"> <c:out value="${atendimentos.dataHoraAtendimento}"/> </p>
@@ -93,6 +147,14 @@
                                 </table>
                             </div>
 
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
                             <c:forEach var="atendimentos" items="${requestScope.atendimentos}">
                                 <!-- Modal form -->
 
