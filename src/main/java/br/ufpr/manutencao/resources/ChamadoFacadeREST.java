@@ -147,7 +147,19 @@ public class ChamadoFacadeREST extends AbstractFacade<Chamado> {
         }  
     }
     
-    
+
+    @GET
+    @Path("/chamadoId/{id}")
+    @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
+    public ChamadoDTO findById (@PathParam("id") Integer id) {
+        Chamado chamado = super.find(id);
+        ObjectMapper mapper = new ObjectMapper();
+        ChamadoDTO chamadoDTO = mapper.convertValue(chamado, ChamadoDTO.class);
+        System.out.println(chamado);
+        System.out.println(chamadoDTO);
+        return chamadoDTO;
+    }
+
 
     @GET
     @Path("count")
