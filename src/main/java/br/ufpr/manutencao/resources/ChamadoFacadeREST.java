@@ -6,6 +6,7 @@ package br.ufpr.manutencao.resources;
 
 
 import br.ufpr.manutencao.beans.Chamado;
+import br.ufpr.manutencao.beans.Status;
 import br.ufpr.manutencao.beans.Usuario;
 import br.ufpr.manutencao.dto.ChamadoDTO;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -61,6 +62,54 @@ public class ChamadoFacadeREST extends AbstractFacade<Chamado> {
         super.remove(super.find(id));
     }
 
+    @GET
+    @Override
+    @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
+    public List<Chamado> findAll() {
+        return super.findAll();
+    }
+    
+    @GET
+    @Path("/listaChamadosAbertos")
+    @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
+    public List<ChamadoDTO> listaChamadoAberto() {
+        Status status = em.find(Status.class, 1);
+        TypedQuery<Chamado> query = em.createNamedQuery("Chamado.listaChamadoAberto", Chamado.class);
+        query.setParameter("id", status);
+        List<Chamado> chamados = query.getResultList();
+        List<ChamadoDTO> chamadosDTO = new ArrayList<>();
+
+        for (Chamado c : chamados) {
+            ChamadoDTO dto = new ChamadoDTO();
+            ObjectMapper mapper = new ObjectMapper();
+            dto = mapper.convertValue(c, ChamadoDTO.class);
+            chamadosDTO.add(dto);
+        }
+
+        return chamadosDTO;
+    }
+
+    @GET
+    @Path("/listaChamadosEmAndamento")
+    @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
+    public List<ChamadoDTO> listaChamadoEmAndamento() {
+        Status status = em.find(Status.class, 2);
+        TypedQuery<Chamado> query = em.createNamedQuery("Chamado.listaChamadoEmAndamento", Chamado.class);
+        query.setParameter("id", status);
+        List<Chamado> chamados = query.getResultList();
+        List<ChamadoDTO> chamadosDTO = new ArrayList<>();
+
+        for (Chamado c : chamados) {
+            ChamadoDTO dto = new ChamadoDTO();
+            ObjectMapper mapper = new ObjectMapper();
+            dto = mapper.convertValue(c, ChamadoDTO.class);
+            chamadosDTO.add(dto);
+        }
+
+        return chamadosDTO;
+    }
+
+
 
     @GET
     @Path("/listaChamados/{id}")
@@ -98,6 +147,7 @@ public class ChamadoFacadeREST extends AbstractFacade<Chamado> {
         }  
     }
     
+
     @GET
     @Path("/chamadoId/{id}")
     @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
@@ -109,6 +159,7 @@ public class ChamadoFacadeREST extends AbstractFacade<Chamado> {
         System.out.println(chamadoDTO);
         return chamadoDTO;
     }
+
 
     @GET
     @Path("count")

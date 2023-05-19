@@ -29,6 +29,8 @@ import jakarta.persistence.TemporalType;
 @Table(name = "tb_chamado")
 @NamedQueries({
     @NamedQuery(name = "Chamado.findAll", query = "SELECT c FROM Chamado c"),
+    @NamedQuery(name = "Chamado.listaChamadoAberto", query = "SELECT c FROM Chamado c WHERE c.statusId = :id ORDER BY c.dataHora ASC"),
+    @NamedQuery(name = "Chamado.listaChamadoEmAndamento", query = "SELECT c FROM Chamado c WHERE c.statusId = :id ORDER BY c.dataHora DESC"),
     @NamedQuery(name = "Chamado.findById", query = "SELECT c FROM Chamado c WHERE c.id = :id"),
     @NamedQuery(name = "Chamado.findByDescricaoLocal", query = "SELECT c FROM Chamado c WHERE c.descricaoLocal = :descricaoLocal"),
     @NamedQuery(name = "Chamado.findByDescricaoProblema", query = "SELECT c FROM Chamado c WHERE c.descricaoProblema = :descricaoProblema"),
