@@ -66,8 +66,8 @@ public class LoginServlet extends HttpServlet {
                 
                 switch (user.getTipoUsuarioId().getNome()) {
                     case "administrador":
-                        response.sendRedirect("/manutencaoufpr/administrador/home.jsp");
-                        //response.sendRedirect("AtendimentoServlet?action=mostrarPortalAdministrador");
+                        //response.sendRedirect("/manutencaoufpr/administrador/home.jsp");
+                        response.sendRedirect("ChamadoServlet?action=mostrarHomeAdmin");
                         break;
                         
                     case "almoxarifado":
