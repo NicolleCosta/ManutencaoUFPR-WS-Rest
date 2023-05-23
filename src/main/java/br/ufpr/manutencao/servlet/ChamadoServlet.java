@@ -45,10 +45,12 @@ public class ChamadoServlet extends HttpServlet {
             } else{
                 switch (action) {
                     case "mostrarHomeAdmin":
+                        System.out.println("estrou no mostrarhomeAdmin");
                         //Carrega a lista de chamados para apresentar
                          List<ChamadoDTO> chamadosAbertos = ChamadoFacade.buscarChamadosAbertos();
+                         System.out.println(chamadosAbertos);
                          List<ChamadoDTO> chamadosEmAndamento = ChamadoFacade.buscarChamadosEmAndamento();
-
+                    System.out.println(chamadosEmAndamento);
                         //ADD OBJ NA REQUISIÇÃO
                         request.setAttribute("chamadosAbertos", chamadosAbertos);
                          request.setAttribute("chamadosEmAndamento", chamadosEmAndamento);

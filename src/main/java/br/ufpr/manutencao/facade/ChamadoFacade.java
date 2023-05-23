@@ -47,13 +47,17 @@ public class ChamadoFacade {
                 // Converte o JSON de resposta para um objeto
                 ObjectMapper mapper = new ObjectMapper();
                 List<ChamadoDTO> chamados = mapper.readValue(responseBody, new TypeReference<List<ChamadoDTO>>() {});
-
+                
+                System.out.println("entrou na facade aberto "+ chamados);
                 return chamados;
             } else {
+                System.out.println("entrou no else");
                 // Se o código de status for diferente de 200
                 throw new FacadeException("Erro ao listar chamados: " + response.body());
             }
         } catch (IOException | InterruptedException e) {
+            System.out.println("entrou no erro" + e);
+            
            // Exceção que ocorre durante a chamada ao backend
             throw new FacadeException("Erro na chamada ao backend: " + e.getMessage(), e);
         }

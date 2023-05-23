@@ -1,4 +1,5 @@
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <%@page contentType="text/html" pageEncoding="UTF-8" %>
 <%--Validar se usuário está logado--%>
 <c:if test="${sessionScope.user == null}" >
@@ -13,7 +14,6 @@
         </c:redirect>
     </c:if>
 </c:if>
-
 <!DOCTYPE html>
 <html lang="pt-BR">
 
@@ -35,12 +35,12 @@
 
 
     <body id="home">
-        
+
         <!-- Cabeçalho da página -->
-         <%@include file="header.jsp" %>
-         
+        <%@include file="header.jsp" %>
+
         <!-- Corpo da página -->
-        
+
         <div class="container-fluid display-table">
             <div class="row display-table-row">
                 <div class="col-md-10 col-sm-11 display-table-cell v-align">
@@ -70,38 +70,43 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <c:forEach var="chamados" items="${requestScope.chamadosAbertos}">
+                                        <c:forEach var="chamado" items="${requestScope.chamadosAbertos}">
                                             <tr> 
                                                 <td>
-                                                    <p class="fw-normal mb-1"> <c:out value="${chamados.id}"/> </p>                            
+                                                    <p class="fw-normal mb-1"><c:out value="${chamado.id}"/></p>
                                                 </td>
                                                 <td>
-                                                    <p class="fw-normal mb-1"> <c:out value="${chamados.predioId.campusId.nome}"/> </p>
+                                                    <p class="fw-normal mb-1"><c:out value="${chamado.predioId.campusId.nome}"/></p>
                                                 </td>
                                                 <td>
-                                                    <p class="fw-normal mb-1"> <c:out value="${chamados.usuarioId.nome}"/> </p>
+                                                    <p class="fw-normal mb-1"><c:out value="${chamado.usuarioId.nome}"/></p>
                                                 </td>
                                                 <td>
-                                                    <p class="fw-normal mb-1"> <c:out value="${chamados.dataHora}"/> </p>
+                                                    <p class="fw-normal mb-1"><fmt:formatDate value="${chamado.dataHora}" pattern="dd/MM/yyyy - HH:mm:ss" /></p>
                                                 </td>
                                                 <td>
-                                                    <p> ${chamados.StatusId == 1 ? '<span class="badge badge-success rounded-pill d-inline">Aberto</span>' : ''} </p>
+                                                    <p>
+                                                        <c:if test="${chamado.statusId.id == 1}">
+                                                            <span class="badge badge-success rounded-pill d-inline">Aberto</span>
+                                                        </c:if>
+                                                    </p>
                                                 </td>
-
                                                 <td>
-                                                    <a href="#" data-toggle="modal" data-target="#modalChamado<c:out value="${chamados.id}"/>"><button type="button" class="btn btn-link btn-sm btn-rounded">
+                                                    <a href="#" data-toggle="modal" data-target="#modalChamado<c:out value="${chamado.id}"/>">
+                                                        <button type="button" class="btn btn-link btn-sm btn-rounded">
                                                             Resolver
-                                                        </button></a>
+                                                        </button>
+                                                    </a>
                                                 </td>
                                             </tr>
-                                        </c:forEach>                    
+                                        </c:forEach>                   
                                     </tbody>
                                 </table>
                             </div>
-                            
-                            
-                            
-                             <!-- Texto Título -->
+
+
+
+                            <!-- Texto Título -->
                             <div class="w-100">
                                 <h2 class="text-center">Chamados Em Andamento</h2>
                             </div>
@@ -147,14 +152,14 @@
                                 </table>
                             </div>
 
-                            
-                            
-                            
-                            
-                            
-                            
-                            
-                            
+
+
+
+
+
+
+
+
                             <c:forEach var="atendimentos" items="${requestScope.atendimentos}">
                                 <!-- Modal form -->
 
