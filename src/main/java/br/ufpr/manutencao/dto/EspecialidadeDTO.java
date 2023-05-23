@@ -11,7 +11,7 @@ import java.io.Serializable;
  *
  * @author nicol
  */
-public class EspecialidadeDTO  implements Serializable{
+public class EspecialidadeDTO{
 
     private Integer id;
     private String nome;

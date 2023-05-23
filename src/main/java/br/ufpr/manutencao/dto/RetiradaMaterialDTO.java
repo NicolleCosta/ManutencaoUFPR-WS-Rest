@@ -11,7 +11,7 @@ import java.util.Date;
  *
  * @author nicol
  */
-public class RetiradaMaterialDTO implements Serializable {
+public class RetiradaMaterialDTO{
     private Integer id;
     private Integer quantidade;
     private String unidade;
