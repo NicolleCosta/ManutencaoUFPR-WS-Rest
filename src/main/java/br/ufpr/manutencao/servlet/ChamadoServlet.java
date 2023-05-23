@@ -52,7 +52,7 @@ public class ChamadoServlet extends HttpServlet {
                          List<ChamadoDTO> chamadosEmAndamento = ChamadoFacade.buscarChamadosEmAndamento();
                     System.out.println(chamadosEmAndamento);
                         //ADD OBJ NA REQUISIÇÃO
-                        request.setAttribute("chamadosAberto", chamadosAbertos);
+                        request.setAttribute("chamadosAbertos", chamadosAbertos);
                          request.setAttribute("chamadosEmAndamento", chamadosEmAndamento);
                         //redireciona
                         RequestDispatcher rd = getServletContext().getRequestDispatcher("/administrador/home.jsp");
