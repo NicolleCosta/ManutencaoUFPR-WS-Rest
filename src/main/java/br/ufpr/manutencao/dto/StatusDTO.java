@@ -10,7 +10,7 @@ import java.io.Serializable;
  *
  * @author nicol
  */
-public class StatusDTO implements Serializable{
+public class StatusDTO{
     private Integer id;
     private String nome;
 

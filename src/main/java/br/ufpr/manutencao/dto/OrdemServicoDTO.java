@@ -11,25 +11,29 @@ import java.util.Date;
  *
  * @author nicol
  */
-public class OrdemServicoDTO implements Serializable {
+public class OrdemServicoDTO {
     private Integer id;
     private String descricao;
     private Date dataAbertura;
     private Date dataFinalizacao;
     private String nomeResponsavelDepartamento;
     private EspecialidadeDTO especialidadeId;
+    private UsuarioDTO usuarioOperarioId;
 
     public OrdemServicoDTO() {
     }
 
-    public OrdemServicoDTO(Integer id, String descricao, Date dataAbertura, Date dataFinalizacao, String nomeResponsavelDepartamento, EspecialidadeDTO especialidadeId) {
+    public OrdemServicoDTO(Integer id, String descricao, Date dataAbertura, Date dataFinalizacao, String nomeResponsavelDepartamento, EspecialidadeDTO especialidadeId, UsuarioDTO usuarioOperarioId) {
         this.id = id;
         this.descricao = descricao;
         this.dataAbertura = dataAbertura;
         this.dataFinalizacao = dataFinalizacao;
         this.nomeResponsavelDepartamento = nomeResponsavelDepartamento;
         this.especialidadeId = especialidadeId;
+        this.usuarioOperarioId = usuarioOperarioId;
     }
+    
+ 
 
     public Integer getId() {
         return id;
@@ -77,6 +81,14 @@ public class OrdemServicoDTO implements Serializable {
 
     public void setEspecialidadeId(EspecialidadeDTO especialidadeId) {
         this.especialidadeId = especialidadeId;
+    }
+
+    public UsuarioDTO getUsuarioOperarioId() {
+        return usuarioOperarioId;
+    }
+
+    public void setUsuarioOperarioId(UsuarioDTO usuarioOperarioId) {
+        this.usuarioOperarioId = usuarioOperarioId;
     }
     
     

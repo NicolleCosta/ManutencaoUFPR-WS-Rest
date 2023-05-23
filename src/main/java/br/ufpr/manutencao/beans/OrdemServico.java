@@ -65,6 +65,11 @@ public class OrdemServico implements Serializable {
     @JoinColumn(name = "especialidade_id", referencedColumnName = "id")
     @ManyToOne
     private Especialidade especialidadeId;
+    
+    @JoinColumn(name = "usuario_id", referencedColumnName = "id")
+    @ManyToOne
+    private Usuario usuarioOperarioId;
+
 
     public OrdemServico() {
     }
@@ -145,6 +150,13 @@ public class OrdemServico implements Serializable {
         this.especialidadeId = especialidadeId;
     }
 
+    public Usuario getUsuarioOperarioId() {
+        return usuarioOperarioId;
+    }
+
+    public void setUsuarioOperarioId(Usuario usuarioOperarioId) {
+        this.usuarioOperarioId = usuarioOperarioId;
+    }
     @Override
     public int hashCode() {
         int hash = 0;

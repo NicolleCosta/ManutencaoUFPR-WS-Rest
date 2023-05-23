@@ -13,7 +13,7 @@ import java.util.Date;
  *
  * @author nicol
  */
-public class ChamadoDTO  implements Serializable{
+public class ChamadoDTO{
     private Integer id;
     private String descricaoLocal;
     private String descricaoProblema;
