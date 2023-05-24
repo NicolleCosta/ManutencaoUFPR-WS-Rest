@@ -132,7 +132,7 @@
                                                     <p class="fw-normal mb-1"> <c:out value="${chamados.id}"/> </p>                            
                                                 </td>
                                                 <td>
-                                                    <p class="fw-normal mb-1"> <c:out value="${chamados.campus}"/> </p>
+                                                    <p class="fw-normal mb-1"> <c:out value="${chamados.predioId.campusId.nome}"/> </p>
                                                 </td>
                                                 <td>
                                                     <p class="fw-normal mb-1"> <c:out value="${atendimentos.dataHoraAtendimento}"/> </p>
