@@ -10,7 +10,7 @@ import java.io.Serializable;
  *
  * @author nicol
  */
-public class MaterialDTO implements Serializable{
+public class MaterialDTO {
     private Integer id;
     private String nome;
 

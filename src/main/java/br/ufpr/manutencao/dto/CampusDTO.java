@@ -10,7 +10,7 @@ import java.io.Serializable;
  *
  * @author nicol
  */
-public class CampusDTO implements Serializable {
+public class CampusDTO {
     private Integer id;
     private String nome;
 

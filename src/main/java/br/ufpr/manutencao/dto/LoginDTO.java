@@ -6,7 +6,7 @@ package br.ufpr.manutencao.dto;
 
 import java.io.Serializable;
 
-public class LoginDTO implements Serializable {
+public class LoginDTO{
 	private String cpf;
 	private String senha;
 	

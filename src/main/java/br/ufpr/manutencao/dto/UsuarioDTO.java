@@ -13,7 +13,7 @@ import java.io.Serializable;
  */
 //ignorar campos desconhecidos no JSON
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class UsuarioDTO implements Serializable{
+public class UsuarioDTO{
     
     private Integer id;
     private String nome;

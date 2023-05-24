@@ -11,7 +11,7 @@ import java.util.Date;
  *
  * @author nicol
  */
-public class ComentarioOperarioDTO implements Serializable  {
+public class ComentarioOperarioDTO{
     private Integer id;
     private String descricao;
     private Date dataHora;
