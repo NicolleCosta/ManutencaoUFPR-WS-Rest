@@ -6,6 +6,7 @@ package br.ufpr.manutencao.resources;
 
 
 import br.ufpr.manutencao.beans.Chamado;
+import br.ufpr.manutencao.beans.Especialidade;
 import br.ufpr.manutencao.beans.Status;
 import br.ufpr.manutencao.beans.Usuario;
 import br.ufpr.manutencao.dto.ChamadoDTO;
@@ -147,6 +148,25 @@ public class ChamadoFacadeREST extends AbstractFacade<Chamado> {
         }  
     }
     
+    @GET
+    @Path("/listaChamadosEmAberto/{id}")
+    @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
+    public List<ChamadoDTO> listaCahamadosEmAberto(@PathParam ("id") Integer id) {
+        Especialidade especialidade = new Especialidade();
+        especialidade.setId(id);
+        TypedQuery<Chamado> query = em.createNamedQuery("Chamado.listaChamadoEmAberto", Chamado.class);
+        query.setParameter("id", id);
+        List<Chamado> chamados = query.getResultList();
+        List<ChamadoDTO> chamadoDTO = new ArrayList<>();
+        for(Chamado c: chamados) {
+            ChamadoDTO dto = new ChamadoDTO();
+            ObjectMapper mapper = new ObjectMapper();
+            dto = mapper.convertValue(c, ChamadoDTO.class);
+            chamadoDTO.add(dto);
+        }
+        
+        return chamadoDTO;
+    }
 
     @GET
     @Path("/chamadoId/{id}")
