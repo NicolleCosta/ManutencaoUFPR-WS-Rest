@@ -6,41 +6,66 @@
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
-<!-- Menu do topo contendo nome do usuÃ¡rio e botÃ£o de logout  -->
+<!--configurações de tela no final do head-->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe"
+        crossorigin="anonymous"></script>
+</head>
+
+<body>
+
+
+<!-- Menu do topo contendo nome do usuariorio e botão de logout  -->
 
 <header class="container-fluid bg-info mb-4">
-    <nav class="navbar navbar-expand-lg navbar-light" role="navigation">
-        <a class="navbar-brand" href="/geral/index.jsp"></a>
-        <div class="headerButtons">
-            <ul class="navbar-nav text-white">
-                <li class="nav-item">
-                    <a class="nav-link" href="/ChamadoServlet"><button type="button" class="buttonYellow">Chamados</button></a>
-                </li>
-                <li class="nav-item">
-                    <a class="buttonYellow" href="/OrdeDeServicoServlet">Ordem de Serviço</a>
-                </li>
-                <li class="nav-item">
-                    <a href="/LocalizacaoServlet"><button type="button" class="buttonYellow">Localização</button></a>
-                </li>
-                <li class="nav-item">
-                    <a href="/UsuarioServlet"><button type="button" class="buttonYellow">Usuário</button></a>
-                <li>
-                <li class="nav-item">
-                    <a href="/CadastroServlet"><button type="button" class="buttonYellow">Operário</button></a>
-                </li>
-                <li class="nav-item">
-                    <a href="/CadastroServlet"><button type="button" class="buttonYellow">Meu Cadastro</button></a>
-                </li>
-                <li class="nav-item">
-                    <a href="LogoutServlet" class="alert-link text-white my-2 my-sm-0"><i class="fas fa-power-off"></i>Sair</a>
-                </li>
-            </ul>
+    <nav class="navbar bg-primary" data-bs-theme="dark">
+
+        <div class="container-fluid">
+            <a class="navbar-brand">Manutenção UFPR</a>
+            <form class="d-flex" role="search">
+
+                <nav class="nav justify-content-end">
+                    <div class="container-md">
+                        <span class="navbar-text">
+                            Olá, <c:out value="${sessionScope.user.nome}"/>!
+                        </span>
+                    </div>
+                </nav>
+
+                <div class="nav-link">
+                    <a href="LogoutServlet" class="alert-link text-white my-2 my-sm-0"><i
+                            class="fas fa-power-off"></i>Sair</a>
+                </div>
+            </form>
         </div>
+
     </nav>
-</header>
-<div class="row">
-    <div class="p-1 col-9 text-left">
-        <p>Seja bem vindo(a) <c:out value="${sessionScope.user.nome}"/>!</p>
+
+    <div class="container" id="navegacaoSuperior">
+        <div class="row align-items-center">
+
+            <div class="col">
+                <a class="nav-link" href="/ChamadoServlet"><button type="button" class="btn btn-warning">Chamados</button></a>
+            </div>  
+            <div class="col">
+                <a class="nav-link" href="/OrdemDeServiçoServlet"><button type="button" class="btn btn-warning ">Ordem de Serviço</button></a>
+            </div>
+            <div class="col">
+                <a href="/LocalizacaoServlet"><button type="button" class="btn btn-warning">Localização</button></a>
+            </div>
+            <div class="col">
+                <a href="/UsuarioServlet"><button type="button" class="btn btn-warning">Usuário</button></a>
+            </div>
+            <div class="col">
+                <a href="/CadastroServlet"><button type="button" class="btn btn-warning">Operário</button></a>
+            </div>
+            <div class="col">
+                <a href="/CadastroServlet"><button type="button" class="btn btn-warning">Meu Cadastro</button></a>
+            </div>
+        </div>
     </div>
-</div>
+</header>
+
 
