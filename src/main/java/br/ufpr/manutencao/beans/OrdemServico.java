@@ -66,7 +66,7 @@ public class OrdemServico implements Serializable {
     @ManyToOne
     private Especialidade especialidadeId;
     
-    @JoinColumn(name = "usuario_id", referencedColumnName = "id")
+    @JoinColumn(name = "usuario_operario_id", referencedColumnName = "id")
     @ManyToOne
     private Usuario usuarioOperarioId;
 

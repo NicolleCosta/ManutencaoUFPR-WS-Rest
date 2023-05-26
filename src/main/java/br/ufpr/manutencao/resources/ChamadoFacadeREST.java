@@ -89,6 +89,12 @@ public class ChamadoFacadeREST extends AbstractFacade<Chamado> {
 
         return chamadosDTO;
     }
+    
+    
+    
+    
+    
+    
 
     @GET
     @Path("/listaChamadosEmAndamento")
@@ -167,6 +173,26 @@ public class ChamadoFacadeREST extends AbstractFacade<Chamado> {
         
         return chamadoDTO;
     }
+    
+    @GET
+    @Path("/listaMeusChamados/{id}")
+    @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
+    public List<ChamadoDTO> listaMeusChamados (@PathParam ("id") Integer id){
+        //verificar se tem que colocar dentro de uma classe igual a linha 161
+        TypedQuery<Chamado> query = em.createNamedQuery("Chamado.listaMeusChamados", Chamado.class);
+        query.setParameter("id", id);
+        List<Chamado> chamados = query.getResultList();
+        List<ChamadoDTO> chamadoDTO = new ArrayList<>();
+        for(Chamado c: chamados) {
+            ChamadoDTO dto = new ChamadoDTO();
+            ObjectMapper mapper = new ObjectMapper();
+            dto = mapper.convertValue(c, ChamadoDTO.class);
+            chamadoDTO.add(dto);
+        }
+        
+        return chamadoDTO;
+    }
+    
 
     @GET
     @Path("/chamadoId/{id}")
