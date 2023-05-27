@@ -47,13 +47,13 @@
         <div class="row align-items-center">
 
             <div class="col">
-                <a class="nav-link" href="/ChamadoServlet"><button type="button" class="btn btn-warning">Chamados</button></a>
+                <a class="nav-link" href="ChamadoServlet?action=mostrarHomeAdmin"><button type="button" class="btn btn-warning">Chamados</button></a>
             </div>  
             <div class="col">
-                <a class="nav-link" href="/OrdemDeServiçoServlet"><button type="button" class="btn btn-warning ">Ordem de Serviço</button></a>
+                <a class="nav-link" href="LocalizacaoServlet?action=mostrarLocalizacao"><button type="button" class="btn btn-warning ">Ordem de Serviço</button></a>
             </div>
             <div class="col">
-                <a href="/LocalizacaoServlet"><button type="button" class="btn btn-warning">Localização</button></a>
+                <a href="LocalizacaoServlet?action=mostrarLocalizacao"><button type="button" class="btn btn-warning">Localização</button></a>
             </div>
             <div class="col">
                 <a href="/UsuarioServlet"><button type="button" class="btn btn-warning">Usuário</button></a>
