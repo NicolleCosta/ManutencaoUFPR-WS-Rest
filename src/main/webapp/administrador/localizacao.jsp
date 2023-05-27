@@ -33,32 +33,68 @@
         <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
         <script type="text/javascript">
             $(document).ready(function () {
-                $("#campus-name").change(function () {
-                    getPredios();
-                });
-            });
+                var campusSelected = {
+                    "campus-name": false,
+                    "campus-bloqueio": false
+                };
 
-            function getPredios() {
-                var campusId = $("#campus-name").val();
-                var url = "AJAXServlet";
-                $.ajax({
-                    url: url,
-                    data: {
-                        campusId: campusId
-                    },
-                    dataType: 'json',
-                    success: function (data) {
-                        $("#predio-name").empty();
-                        $.each(data, function (i, obj) {
-                            $("#predio-name").append('<option value=' + obj.id + '>' + obj.nome + '</option>');
-                        });
-                    },
-                    error: function (request, textStatus, errorThrown) {
-                        alert(request.status + ', Error: ' + request.statusText);
+                $("#campus-name, #campus-bloqueio").change(function () {
+                    var campusSelectorId = $(this).attr('id');
+                    var predioSelectorId = campusSelectorId === "campus-name" ? "predio-name" : "predio-bloqueio";
+
+                    if (!campusSelected[campusSelectorId]) {
+                        campusSelected[campusSelectorId] = true;
+                        $("#" + campusSelectorId + " option[value='']").remove(); // Remove a opção "Selecione" do seletor de campus específico
                     }
+
+                    getPredios(campusSelectorId, predioSelectorId);
                 });
-            }
+
+                function getPredios(campusSelectorId, predioSelectorId) {
+                    if (campusSelected[campusSelectorId]) {
+                        var campusId = $("#" + campusSelectorId).val();
+                        var url = "AJAXServlet";
+                        $.ajax({
+                            url: url,
+                            data: {
+                                campusId: campusId
+                            },
+                            dataType: 'json',
+                            success: function (data) {
+                                $("#" + predioSelectorId).empty();
+                                $.each(data, function (i, obj) {
+                                    $("#" + predioSelectorId).append('<option value=' + obj.id + '>' + obj.nome + '</option>');
+                                });
+
+                                // Remover a opção "Selecione" do seletor de campus após selecionar o prédio
+                                $("#" + campusSelectorId + " option[value='']").remove();
+                            },
+                            error: function (request, textStatus, errorThrown) {
+                                alert(request.status + ', Error: ' + request.statusText);
+                            }
+                        });
+                    }
+                }
+
+                function limparPredio() {
+                    var predioSelectorId = $(this).attr('id') === "campus-name" ? "predio-name" : "predio-bloqueio";
+
+                    if (campusSelected[$(this).attr('id')]) {
+                        var predioSelect = document.getElementById(predioSelectorId);
+                        predioSelect.selectedIndex = 0;
+                    }
+                }
+
+                // Evento que é acionado quando o campus-nome é alterado
+                var campusSelect = document.getElementById("campus-name");
+                campusSelect.addEventListener("change", limparPredio);
+
+                // Evento que é acionado quando o campus-bloqueio é alterado
+                var campusBloqueioSelect = document.getElementById("campus-bloqueio");
+                campusBloqueioSelect.addEventListener("change", limparPredio);
+            });
         </script>
+
 
 
         <!-- Configurações da pagina (fim do head) e Cabeçalho da página -->
@@ -82,7 +118,6 @@
                                             <option value="${campus.id}">${campus.nome}</option>
                                         </c:forEach>
                                     </select>
-
 
                                 </div>
                             </div>
@@ -195,14 +230,14 @@
                             <div>Campus</div>
                             <div>
                                 <div class="dropdown">
-                                    <button class="btn btn-light dropdown-toggle" type="button"
-                                            data-bs-toggle="dropdown" aria-expanded="false">
-                                        Escolha uma opção
-                                    </button>
-                                    <ul class="dropdown-menu">
-                                        <!-- ************************LISTA FOR EACH CAMPUS**************** -->
-                                        <li><a class="dropdown-item" href="#">Lista com FOR EACH AQUI</a></li>
-                                    </ul>
+
+                                    <select id="campus-adicionarPredio" class="form-control" name="campus">
+                                        <option value="">Esolha o Campus</option>
+                                        <c:forEach items="${requestScope.listaCampus}" var="campus">
+                                            <option value="${campus.id}">${campus.nome}</option>
+                                        </c:forEach>
+                                    </select>
+
                                 </div>
                             </div>
                             <div>Prédio</div>
@@ -253,14 +288,14 @@
                             <div>Campus</div>
                             <div>
                                 <div class="dropdown">
-                                    <button class="btn btn-light dropdown-toggle" type="button"
-                                            data-bs-toggle="dropdown" aria-expanded="false">
-                                        Escolha uma opção
-                                    </button>
-                                    <ul class="dropdown-menu">
-                                        <!-- ************************LISTA FOR EACH CAMPUS**************** -->
-                                        <li><a class="dropdown-item" href="#">Lista com FOR EACH AQUI</a></li>
-                                    </ul>
+
+                                    <select id="campus-bloquearCampus" class="form-control" name="campus">
+                                        <option value="">Selecione</option>
+                                        <c:forEach items="${requestScope.listaCampus}" var="campus">
+                                            <option value="${campus.id}">${campus.nome}</option>
+                                        </c:forEach>
+                                    </select>
+
                                 </div>
                             </div>
 
@@ -295,30 +330,30 @@
 
                     <div class="container">
                         <div class="row">
-                            <div>Campus</div>
-                            <div>
+                            <div class="col-4">Campus</div>
+                            <div class="col-8">
                                 <div class="dropdown">
-                                    <button class="btn btn-light dropdown-toggle" type="button"
-                                            data-bs-toggle="dropdown" aria-expanded="false">
-                                        Escolha uma opção
-                                    </button>
-                                    <ul class="dropdown-menu">
-                                        <!-- ************************LISTA FOR EACH CAMPUS**************** -->
-                                        <li><a class="dropdown-item" href="#">Lista com FOR EACH AQUI</a></li>
-                                    </ul>
+
+                                    <select id="campus-bloqueio" class="form-control" name="campus">
+                                        <option value="">Selecione</option>
+                                        <c:forEach items="${requestScope.listaCampus}" var="campus">
+                                            <option value="${campus.id}">${campus.nome}</option>
+                                        </c:forEach>
+                                    </select>
+
                                 </div>
                             </div>
-                            <div>Prédio</div>
-                            <div>
-                                <div class="dropdown">
-                                    <button class="btn btn-light dropdown-toggle" type="button"
-                                            data-bs-toggle="dropdown" aria-expanded="false">
-                                        Escolha uma opção
-                                    </button>
-                                    <ul class="dropdown-menu">
-                                        <!-- ************************LISTA FOR EACH CAMPUS**************** -->
-                                        <li><a class="dropdown-item" href="#">Lista com FOR EACH AQUI</a></li>
-                                    </ul>
+                            <div class="col-4">Prédio</div>
+                            <div class="col-8">
+                                <div class="dropdown">                                
+                                    <select id="predio-bloqueio" class="form-control" name="predio">
+                                        <option value="">Selecione</option>
+                                        <c:forEach items="${requestScope.listaPredios}" var="predio">
+                                            <c:if test="${predio.campusId.id eq '' || predio.campusId.id eq campus.id}">
+                                                <option value="${predio.id}">${predio.nome}</option>
+                                            </c:if>
+                                        </c:forEach>
+                                    </select>
                                 </div>
                             </div>
                         </div>
@@ -331,7 +366,6 @@
             </div>
         </div>
     </div>
-
 </body>
 
 </html>

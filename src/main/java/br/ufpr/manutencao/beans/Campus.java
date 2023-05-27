@@ -24,7 +24,7 @@ import jakarta.persistence.Table;
 @Entity
 @Table(name = "tb_campus")
 @NamedQueries({
-    @NamedQuery(name = "Campus.findAll", query = "SELECT c FROM Campus c"),
+    @NamedQuery(name = "Campus.findAll", query = "SELECT c FROM Campus c ORDER BY LOWER(c.nome) ASC"),
     @NamedQuery(name = "Campus.findById", query = "SELECT c FROM Campus c WHERE c.id = :id"),
     @NamedQuery(name = "Campus.findByNome", query = "SELECT c FROM Campus c WHERE c.nome = :nome")})
 public class Campus implements Serializable {

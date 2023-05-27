@@ -27,7 +27,7 @@ import jakarta.persistence.Table;
 @Table(name = "tb_predio")
 @NamedQueries({
     @NamedQuery(name = "Predio.findAll", query = "SELECT p FROM Predio p"),
-    @NamedQuery(name = "Predio.findById", query = "SELECT p FROM Predio p WHERE p.id = :id"),
+    @NamedQuery(name = "Predio.findById", query = "SELECT p FROM Predio p WHERE p.id = :id ORDER BY LOWER (p.nome) ASC"),
     @NamedQuery(name = "Predio.findByNome", query = "SELECT p FROM Predio p WHERE p.nome = :nome"),
     @NamedQuery(name = "Predio.listar", query = "SELECT p FROM Predio p WHERE p.campusId = :id")})
 public class Predio implements Serializable {
