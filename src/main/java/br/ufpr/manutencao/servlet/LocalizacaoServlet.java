@@ -50,11 +50,11 @@ public class LocalizacaoServlet extends HttpServlet {
                         //Carrega a lista de chamados para apresentar
                         List<CampusDTO> listaCampus = LocalizacaoFacade.buscarCampus();
                         System.out.println(listaCampus);
-                        List<PredioDTO> listaPredios = LocalizacaoFacade.buscarPredios();
-                        System.out.println(listaPredios);
+//                        List<PredioDTO> listaPredios = LocalizacaoFacade.buscarPredios();
+//                        System.out.println(listaPredios);
                         //ADD OBJ NA REQUISIÇÃO
                         request.setAttribute("listaCampus", listaCampus);
-                        request.setAttribute("listaPredios", listaPredios);
+//                        request.setAttribute("listaPredios", listaPredios);
                         //redireciona
                         RequestDispatcher rd = getServletContext().getRequestDispatcher("/administrador/localizacao.jsp");
                         rd.forward(request, response);
