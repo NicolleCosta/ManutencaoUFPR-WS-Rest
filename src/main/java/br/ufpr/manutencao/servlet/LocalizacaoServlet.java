@@ -4,6 +4,11 @@
  */
 package br.ufpr.manutencao.servlet;
 
+import br.ufpr.manutencao.dto.CampusDTO;
+import br.ufpr.manutencao.dto.PredioDTO;
+import br.ufpr.manutencao.facade.FacadeException;
+import br.ufpr.manutencao.facade.LocalizacaoFacade;
+import jakarta.servlet.RequestDispatcher;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
@@ -11,6 +16,7 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import java.util.List;
 
 /**
  *
@@ -31,21 +37,41 @@ public class LocalizacaoServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-                request.setCharacterEncoding("UTF-8");
+        request.setCharacterEncoding("UTF-8");
         String action = request.getParameter("action");
-        if(action==null){
-            //redireciona
-            response.sendRedirect("LogoutServlet");
-        } else{
-            switch (action) {
-                case "retirarMaterial":
-                    break;
-                    
-                default:
-                    //redireciona
-                    response.sendRedirect("LogoutServlet");
+        try {
+            if (action == null) {
+                //redireciona
+                response.sendRedirect("LogoutServlet");
+            } else {
+                switch (action) {
+                    case "mostrarLocalizacao":
+                        System.out.println("estrou no mostrarLocalizacao");
+                        //Carrega a lista de chamados para apresentar
+                        List<CampusDTO> listaCampus = LocalizacaoFacade.buscarCampus();
+                        System.out.println(listaCampus);
+                        List<PredioDTO> listaPredios = LocalizacaoFacade.buscarPredios();
+                        System.out.println(listaPredios);
+                        //ADD OBJ NA REQUISIÇÃO
+                        request.setAttribute("listaCampus", listaCampus);
+                        request.setAttribute("listaPredios", listaPredios);
+                        //redireciona
+                        RequestDispatcher rd = getServletContext().getRequestDispatcher("/administrador/localizacao.jsp");
+                        rd.forward(request, response);
+
+                        break;
+
+                    default:
+                        //redireciona
+                        response.sendRedirect("LogoutServlet");
+                }
             }
-        }  
+        } catch (FacadeException ex) {
+            request.setAttribute("msg", ex);
+            request.setAttribute("page", "LogoutServlet");
+            RequestDispatcher rd = getServletContext().getRequestDispatcher("/erro.jsp");
+            rd.forward(request, response);
+        }
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

@@ -6,6 +6,7 @@ package br.ufpr.manutencao.resources;
 
 
 import br.ufpr.manutencao.beans.Campus;
+import br.ufpr.manutencao.beans.Especialidade;
 import br.ufpr.manutencao.beans.Predio;
 import br.ufpr.manutencao.dto.PredioDTO;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -86,6 +87,15 @@ public class PredioFacadeREST extends AbstractFacade<Predio> {
         
         return predioDTO;
     }
+    
+    @GET
+    @Path("/lista")
+    @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
+    public List<Predio> listarTodos() {
+        return super.findAll();
+    }
+
+    
 
     @GET
     @Path("{from}/{to}")
@@ -93,6 +103,7 @@ public class PredioFacadeREST extends AbstractFacade<Predio> {
     public List<Predio> findRange(@PathParam("from") Integer from, @PathParam("to") Integer to) {
         return super.findRange(new int[]{from, to});
     }
+
 
     @GET
     @Path("count")
