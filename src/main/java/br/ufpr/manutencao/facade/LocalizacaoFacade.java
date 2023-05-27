@@ -8,6 +8,7 @@ import br.ufpr.manutencao.dto.CampusDTO;
 import br.ufpr.manutencao.dto.PredioDTO;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.node.ObjectNode;
 import java.io.IOException;
 import java.net.URI;
 import java.net.http.HttpClient;
@@ -22,8 +23,8 @@ import java.util.List;
 public class LocalizacaoFacade {
 
     public static List<CampusDTO> buscarCampus() throws FacadeException {
-         try {
-             // URL do endpoint do backend
+        try {
+            // URL do endpoint do backend
             String backendURL = "http://localhost:8080/manutencaoufpr/webresources/campus/lista";
 
             HttpClient httpClient = HttpClient.newHttpClient();
@@ -46,9 +47,10 @@ public class LocalizacaoFacade {
 
                 // Converte o JSON de resposta para um objeto
                 ObjectMapper mapper = new ObjectMapper();
-                List<CampusDTO> campus = mapper.readValue(responseBody, new TypeReference<List<CampusDTO>>() {});
-                
-                System.out.println("entrou na facade aberto "+ campus);
+                List<CampusDTO> campus = mapper.readValue(responseBody, new TypeReference<List<CampusDTO>>() {
+                });
+
+                System.out.println("entrou na facade aberto " + campus);
                 return campus;
             } else {
                 System.out.println("entrou no else");
@@ -57,15 +59,15 @@ public class LocalizacaoFacade {
             }
         } catch (IOException | InterruptedException e) {
             System.out.println("entrou no erro" + e);
-            
-           // Exceção que ocorre durante a chamada ao backend
+
+            // Exceção que ocorre durante a chamada ao backend
             throw new FacadeException("Erro na chamada ao backend: " + e.getMessage(), e);
         }
     }
 
     public static List<PredioDTO> buscarPredios() throws FacadeException {
         try {
-             // URL do endpoint do backend
+            // URL do endpoint do backend
             String backendURL = "http://localhost:8080/manutencaoufpr/webresources/predio/lista";
 
             HttpClient httpClient = HttpClient.newHttpClient();
@@ -88,9 +90,10 @@ public class LocalizacaoFacade {
 
                 // Converte o JSON de resposta para um objeto
                 ObjectMapper mapper = new ObjectMapper();
-                List<PredioDTO> predios = mapper.readValue(responseBody, new TypeReference<List<PredioDTO>>() {});
-                
-                System.out.println("entrou na facade aberto "+predios);
+                List<PredioDTO> predios = mapper.readValue(responseBody, new TypeReference<List<PredioDTO>>() {
+                });
+
+                System.out.println("entrou na facade aberto " + predios);
                 return predios;
             } else {
                 System.out.println("entrou no else");
@@ -99,10 +102,53 @@ public class LocalizacaoFacade {
             }
         } catch (IOException | InterruptedException e) {
             System.out.println("entrou no erro" + e);
-            
-           // Exceção que ocorre durante a chamada ao backend
+
+            // Exceção que ocorre durante a chamada ao backend
             throw new FacadeException("Erro na chamada ao backend: " + e.getMessage(), e);
         }
     }
-    
+
+    public static List<PredioDTO> listarPredioPorCampus(int id) throws FacadeException {
+        // URL do endpoint do backend
+        String backendURL = "http://localhost:8080/manutencaoufpr/webresources/predio/lista/" + id;
+
+        HttpClient httpClient = HttpClient.newHttpClient();
+
+        // Requisição GET
+        HttpRequest request = HttpRequest.newBuilder()
+                .uri(URI.create(backendURL))
+                .header("Content-Type", "application/json")
+                .build();
+
+        try {
+            // Chamada ao backend
+            HttpResponse<String> response = httpClient.send(request, HttpResponse.BodyHandlers.ofString());
+
+            // Verificação do código de status da resposta
+            int statusCode = response.statusCode();
+
+            // Se o código de status for 200 (OK), processa a resposta do backend
+            if (statusCode == 200) {
+                String responseBody = response.body();
+
+                // Converte o JSON de resposta para um objeto
+                ObjectMapper mapper = new ObjectMapper();
+                List<PredioDTO> predios = mapper.readValue(responseBody, new TypeReference<List<PredioDTO>>() {
+                });
+
+                System.out.println("entrou na facade aberto " + predios);
+                return predios;
+            } else {
+                System.out.println("entrou no else");
+                // Se o código de status for diferente de 200
+                throw new FacadeException("Erro ao listar chamados: " + response.body());
+            }
+        } catch (IOException | InterruptedException e) {
+            System.out.println("entrou no erro" + e);
+
+            // Exceção que ocorre durante a chamada ao backend
+            throw new FacadeException("Erro na chamada ao backend: " + e.getMessage(), e);
+        }
+    }
+
 }

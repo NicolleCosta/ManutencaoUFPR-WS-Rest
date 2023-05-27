@@ -4,6 +4,11 @@
  */
 package br.ufpr.manutencao.servlet;
 
+import br.ufpr.manutencao.dto.PredioDTO;
+import br.ufpr.manutencao.facade.FacadeException;
+import br.ufpr.manutencao.facade.LocalizacaoFacade;
+import com.google.gson.Gson;
+import jakarta.servlet.RequestDispatcher;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
@@ -11,13 +16,14 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import java.util.List;
 
 /**
  *
  * @author nicol
  */
-@WebServlet(name = "AjaxServlet", urlPatterns = {"/AjaxServlet"})
-public class AjaxServlet extends HttpServlet {
+@WebServlet(name = "AJAXServlet", urlPatterns = {"/AJAXServlet"})
+public class AJAXServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -29,19 +35,25 @@ public class AjaxServlet extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
-        try (PrintWriter out = response.getWriter()) {
-            /* TODO output your page here. You may use following sample code. */
-            out.println("<!DOCTYPE html>");
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Servlet AjaxServlet</title>");            
-            out.println("</head>");
-            out.println("<body>");
-            out.println("<h1>Servlet AjaxServlet at " + request.getContextPath() + "</h1>");
-            out.println("</body>");
-            out.println("</html>");
+            throws IOException, ServletException {
+
+        try {
+            int campusId = Integer.parseInt(request.getParameter("campusId"));
+            System.out.println("entrou no AJAX");
+            // Busca todos os prédios do campus, em uma lista
+            List<PredioDTO> predios = LocalizacaoFacade.listarPredioPorCampus(campusId);
+            // Transforma a lista de prédios em JSON
+            String json = new Gson().toJson(predios);
+            // Retorna o JSON
+            response.setContentType("application/json");
+            response.setCharacterEncoding("UTF-8");
+            response.getWriter().write(json);
+        } catch (FacadeException ex) {
+            System.out.println("entrou no erro ajax");
+            request.setAttribute("msg", ex);
+            request.setAttribute("page", "LogoutServlet");
+            RequestDispatcher rd = getServletContext().getRequestDispatcher("/erro.jsp");
+            rd.forward(request, response);
         }
     }
 

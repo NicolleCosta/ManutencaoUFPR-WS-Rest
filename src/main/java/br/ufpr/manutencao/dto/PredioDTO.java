@@ -10,10 +10,11 @@ import java.io.Serializable;
  *
  * @author nicol
  */
-public class PredioDTO{
-   private Integer id;
-   private String nome;
-   private CampusDTO campusId; 
+public class PredioDTO {
+
+    private Integer id;
+    private String nome;
+    private CampusDTO campusId;
 
     public PredioDTO() {
     }
@@ -47,6 +48,10 @@ public class PredioDTO{
     public void setCampusId(CampusDTO campusId) {
         this.campusId = campusId;
     }
-   
-   
+
+    @Override
+    public String toString() {
+        return "PredioDTO{" + "id=" + id + ", nome=" + nome + ", campusId=" + campusId + '}';
+    }
+
 }

@@ -4,6 +4,7 @@
     Author     : nicol
 --%>
 
+
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
@@ -29,6 +30,35 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <title>Localização - Administrador</title>
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+        <script type="text/javascript">
+            $(document).ready(function () {
+                $("#campus-name").change(function () {
+                    getPredios();
+                });
+            });
+
+            function getPredios() {
+                var campusId = $("#campus-name").val();
+                var url = "AJAXServlet";
+                $.ajax({
+                    url: url,
+                    data: {
+                        campusId: campusId
+                    },
+                    dataType: 'json',
+                    success: function (data) {
+                        $("#predio-name").empty();
+                        $.each(data, function (i, obj) {
+                            $("#predio-name").append('<option value=' + obj.id + '>' + obj.nome + '</option>');
+                        });
+                    },
+                    error: function (request, textStatus, errorThrown) {
+                        alert(request.status + ', Error: ' + request.statusText);
+                    }
+                });
+            }
+        </script>
 
 
         <!-- Configurações da pagina (fim do head) e Cabeçalho da página -->
@@ -45,6 +75,7 @@
                             <div class="col-4">Campus</div>
                             <div class="col-8">
                                 <div class="dropdown">
+
                                     <select id="campus-name" class="form-control" name="campus">
                                         <option value="">Selecione</option>
                                         <c:forEach items="${requestScope.listaCampus}" var="campus">
@@ -52,25 +83,13 @@
                                         </c:forEach>
                                     </select>
 
-                                    <!--                                <div class="dropdown">
-                                                                        <button class="btn btn-light dropdown-toggle" type="button"
-                                                                                data-bs-toggle="dropdown" aria-expanded="false">
-                                                                            Escolha uma opção
-                                                                        </button>
-                                                                        <ul class="dropdown-menu">
-                                    
-                                                                             ************************LISTA FOR EACH CAMPUS**************** 
-                                    <c:forEach items="${requestScope.listaCampus}" var="campus">
-                                        <li><a class="dropdown-item" href="?campus=${campus.id}">${campus.nome}</a>
-                                    </c:forEach>
 
-                            </ul>-->
                                 </div>
                             </div>
                             <div class="col-4">Prédio</div>
                             <div class="col-8">
-                                <div class="dropdown">
-                                    <select  id="predio-name" class="form-control" name="predio">
+                                <div class="dropdown">                                
+                                    <select id="predio-name" class="form-control" name="predio">
                                         <option value="">Selecione</option>
                                         <c:forEach items="${requestScope.listaPredios}" var="predio">
                                             <c:if test="${predio.campusId.id eq '' || predio.campusId.id eq campus.id}">
@@ -78,21 +97,14 @@
                                             </c:if>
                                         </c:forEach>
                                     </select>
-                                    <!--                                    <ul class="dropdown-menu">
-                                                                             ************************LISTA FOR EACH CAMPUS**************** 
-                                    <c:forEach items="${requestScope.listaPredios}" var="predios">
-                                   <li><a class="dropdown-item" href="#">${predios.nome}</a></li>
-                                    </c:forEach>
-                                </ul>-->
                                 </div>
-
-
                             </div>
-
                         </div>
                     </div>
                 </div>
             </div>
+
+
             <div class="col">
                 <div class="w-100">
                     <h1>Nova Localização</h1>
@@ -102,18 +114,13 @@
                                 <button type="button" class="btn btn-warning" data-bs-toggle="modal"
                                         data-bs-target="#novoCampus">Campus</button>
                             </div>
-
                             <div class="col"><button type="button" class="btn btn-warning" data-bs-toggle="modal"
                                                      data-bs-target="#novoPredio">Predio</button>
-
-
                             </div>
-
                         </div>
                     </div>
                 </div>
             </div>
-
         </div>
     </div>
 
@@ -129,14 +136,13 @@
                             <div class="col"> <button type="button" class="btn btn-warning" type="button"
                                                       data-bs-toggle="modal" data-bs-target="#bloquearPredio">Prédio</button>
                             </div>
-
                         </div>
-
                     </div>
                 </div>
             </div>
         </div>
     </div>
+
     <!-- ********************************MODAIS********************************* -->
 
 
