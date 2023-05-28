@@ -9,6 +9,7 @@ import br.ufpr.manutencao.beans.Campus;
 import java.util.List;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
+import jakarta.persistence.TypedQuery;
 import jakarta.ws.rs.Consumes;
 import jakarta.ws.rs.DELETE;
 import jakarta.ws.rs.GET;
@@ -65,9 +66,11 @@ public class CampusFacadeREST extends AbstractFacade<Campus> {
     @Path("/lista")
     @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
     public List<Campus> listarTodos() {
-        System.out.println("entrou aqui");
-        return super.findAll();
+        TypedQuery<Campus> query = getEntityManager().createNamedQuery("Campus.findAll", Campus.class);
+        return query.getResultList();
     }
+    
+   
 
     @GET
     @Path("{from}/{to}")

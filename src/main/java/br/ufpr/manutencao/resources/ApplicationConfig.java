@@ -3,6 +3,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package br.ufpr.manutencao.resources;
+
 import jakarta.ws.rs.ApplicationPath;
 import jakarta.ws.rs.core.Application;
 import java.util.Set;
@@ -20,14 +21,12 @@ public class ApplicationConfig extends Application {
         addRestResourceClasses(resources);
         return resources;
     }
-  
+
     /**
-     * Do not modify addRestResourceClasses() method.
-     * It is automatically populated with
-     * all resources defined in the project.
-     * If required, comment out calling this method in getClasses().
+     * Do not modify addRestResourceClasses() method. It is automatically
+     * populated with all resources defined in the project. If required, comment
+     * out calling this method in getClasses().
      */
-    
     private void addRestResourceClasses(Set<Class<?>> resources) {
         resources.add(br.ufpr.manutencao.resources.CampusFacadeREST.class);
         resources.add(br.ufpr.manutencao.resources.ChamadoFacadeREST.class);
@@ -41,5 +40,5 @@ public class ApplicationConfig extends Application {
         resources.add(br.ufpr.manutencao.resources.TipoUsuarioFacadeREST.class);
         resources.add(br.ufpr.manutencao.resources.UsuarioFacadeREST.class);
     }
-    
+
 }

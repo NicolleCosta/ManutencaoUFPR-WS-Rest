@@ -58,7 +58,26 @@ public class LocalizacaoServlet extends HttpServlet {
                         //redireciona
                         RequestDispatcher rd = getServletContext().getRequestDispatcher("/administrador/localizacao.jsp");
                         rd.forward(request, response);
+                        break;
 
+                    case "novoCampus":
+                        //pega valor do formulário
+                        String nome = request.getParameter("nome");
+                        //cria novo objeto
+                        CampusDTO campus = new CampusDTO();
+
+                        //adiciona os atributos a esse objeto
+                        campus.setNome(nome);
+                        campus.setStatus(true);
+
+                        //Requisicao por Facade
+                        LocalizacaoFacade.adicionarCampus(campus);
+
+                        //redireciona
+                        request.setAttribute("info", " Campus adicionado com sucesso!");
+                        request.setAttribute("page", "localizacao.jsp");
+                        rd = getServletContext().getRequestDispatcher("/LocalizacaoServlet?action=mostrarLocalizacao");
+                        rd.forward(request, response);
                         break;
 
                     default:
