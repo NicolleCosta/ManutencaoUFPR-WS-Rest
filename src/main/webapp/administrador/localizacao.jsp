@@ -166,9 +166,9 @@
                     <h1>Bloquear</h1>
                     <div class="container text-center">
                         <div class="row row-cols-3">
-                            <div class="col"> <button type="button" class="btn btn-warning" type="button"
+                            <div class="col"> <button type="button" class="btn btn-warning"
                                                       data-bs-toggle="modal" data-bs-target="#bloquearCampus">Campus</button></div>
-                            <div class="col"> <button type="button" class="btn btn-warning" type="button"
+                            <div class="col"> <button type="button" class="btn btn-warning" 
                                                       data-bs-toggle="modal" data-bs-target="#bloquearPredio">Prédio</button>
                             </div>
                         </div>
@@ -182,33 +182,34 @@
 
 
     <!-- ************MODAL NOVO CAMPUS**************************** -->
-
-    <div class="modal fade" id="novoCampus" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
-         aria-labelledby="staticBackdropLabel" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h1 class="modal-title fs-5" id="staticBackdropLabel">NOVA LOCALIZAÇÃO - CAMPUS</h1>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    <p class="fw-bold">preencha abaixo o nome do novo campus</p>
-                    <div class="container">
-                        <div class="row">
-                            <div>Campus</div>
-                            <div>
-                                <input type="text" class="form-control text-bg-light" id="nomeNovoCampus">
+    <form action="LocalizacaoServlet?action=novoCampus" method="POST">
+        <div class="modal fade" id="novoCampus" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+             aria-labelledby="staticBackdropLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h1 class="modal-title fs-5" id="staticBackdropLabel">NOVA LOCALIZAÇÃO - CAMPUS</h1>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <p class="fw-bold">preencha abaixo o nome do novo campus</p>
+                        <div class="container">
+                            <div class="row">
+                                <div>Campus</div>
+                                <div>
+                                    <input type="text" class="form-control text-bg-light" id="nomeNovoCampus" name="nome">
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-                    <button type="button" class="btn btn-warning">Cadastrar</button>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                        <button type="submit" class="btn btn-warning">Cadastrar</button>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
+    </form>
 
 
     <!-- ************MODAL NOVO PRÉDIO**************************** -->

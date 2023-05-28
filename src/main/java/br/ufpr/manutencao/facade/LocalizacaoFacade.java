@@ -6,6 +6,7 @@ package br.ufpr.manutencao.facade;
 
 import br.ufpr.manutencao.dto.CampusDTO;
 import br.ufpr.manutencao.dto.PredioDTO;
+import br.ufpr.manutencao.dto.UsuarioDTO;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
@@ -151,4 +152,37 @@ public class LocalizacaoFacade {
         }
     }
 
+    public static void adicionarCampus(CampusDTO campus) throws FacadeException {
+
+        HttpClient httpClient = HttpClient.newHttpClient();
+        ObjectMapper mapper = new ObjectMapper();
+        try {
+            // Corpo da requisição
+            String requestBody = mapper.writeValueAsString(campus);
+
+            // URL do endpoint do backend
+            String backendURL = "http://localhost:8080/manutencaoufpr/webresources/campus";
+
+            // Requisição POST com o corpo da requisição
+            HttpRequest request = HttpRequest.newBuilder()
+                    .uri(URI.create(backendURL))
+                    .header("Content-Type", "application/json")
+                    .POST(HttpRequest.BodyPublishers.ofString(requestBody))
+                    .build();
+
+            // Envio da requisição e obtenção da resposta
+            HttpResponse<String> response = httpClient.send(request, HttpResponse.BodyHandlers.ofString());
+
+            // Verificação do código de status
+            int statusCode = response.statusCode();
+            if (statusCode == 200) {
+                System.out.println("Campus adicionado com sucesso!");
+            } else {
+                System.out.println("Falha ao adicionar o campus. Código de status: " + statusCode);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw new FacadeException("Erro na requisição: " + e.getMessage());
+        }
+    }
 }

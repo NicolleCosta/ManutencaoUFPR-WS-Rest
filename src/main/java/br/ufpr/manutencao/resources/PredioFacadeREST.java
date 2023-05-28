@@ -92,7 +92,8 @@ public class PredioFacadeREST extends AbstractFacade<Predio> {
     @Path("/lista")
     @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
     public List<Predio> listarTodos() {
-        return super.findAll();
+        TypedQuery<Predio> query = getEntityManager().createNamedQuery("Predio.findAll", Predio.class);
+        return query.getResultList();
     }
 
     
