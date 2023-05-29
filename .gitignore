@@ -44,8 +44,8 @@ dist/
 nbdist/
 .nb-gradle/
 /nbproject
-.\web\WEB-INF\glassfish-web.xml
-.\web\WEB-INF\glassfish-ressources.xml
+./web/WEB-INF/glassfish-web.xml
+./web/WEB-INF/glassfish-ressources.xml
 
 # Folder config file
 Desktop.ini

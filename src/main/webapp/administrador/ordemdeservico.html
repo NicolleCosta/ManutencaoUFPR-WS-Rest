@@ -73,13 +73,13 @@
     </header>
 
     <div class="w-100">
-        <h1 class="text-center">USUARIOS</h1>
+        <h1 class="text-center">Ordem De Serviço</h1>
     </div>
     <div class="container text-center">
         <div class="row">
             <div class="col-sm-8">
                 <form class="d-flex" role="search">
-                    <input class="form-control me-2" type="search" placeholder="Buscar Usuario" aria-label="Search">
+                    <input class="form-control me-2" type="search" placeholder="Buscar Ordem De Serviço" aria-label="Search">
                     <button class="btn btn-warning" type="submit">Buscar</button>
                 </form>
             </div>
@@ -95,29 +95,51 @@
         <table class="table align-middle mb-0 bg-white table-hover">
             <thead class="bg-light">
                 <tr>
-                    <th>Nome</th>
-                    <th>Situação</th>
-                    <th></th>
-
+                    <th>Ordem de Serviço</th>
+                    <th>Campus</th>
+                    <th>Operário</th>
+                    <th>Especialidade</th>
+                    <th>Status</th>
+                    <th>Detalhes</th>
 
                 </tr>
             </thead>
-            <tbody data-bs-toggle="modal" data-bs-target="#modalUsuario">
-                <c:forEach var="chamados" items="${requestScope.usuario}">
+            <tbody data-bs-toggle="modal" data-bs-target="#modalOdermDeServico">
+                <c:forEach var="chamados" items="${requestScope.ordemdeservico}">
                     <tr>
                         <td>
                             <p class="fw-normal mb-1">
-                                <c:out value="${usuario.nome}" />
+                                <c:out value="${ordemdeservico.id}" />
                             </p>
                         </td>
+
+
                         <td>
                             <p class="fw-normal mb-1">
-                                <c:out value="${usuario.status}" />
+                                <c:out value="${ordemdeservico.campus.nome}" />
                             </p>
                         </td>
 
                         <td>
-                            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalUsuario">
+                            <p class="fw-normal mb-1">
+                                <c:out value="${ordemdeservico.operario.nome}" />
+                            </p>
+                        </td>
+                        <td>
+                            <p class="fw-normal mb-1">
+                                <c:out value="${ordemdeservico.operario.especialidade}" />
+                            </p>
+                        </td>
+                        <td>
+                            <p class="fw-normal mb-1">
+                                <c:out value="${ordemdeservico.status}" />
+                            </p>
+                        </td>
+                        
+                        
+
+                        <td>
+                            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalOdermDeServico">
                                 Detalhes
                               </button>
                         </td>
@@ -129,80 +151,97 @@
 
 
 
-    <!--********** MODAL USUARIO**************-->
+    <!--********** MODAL Ordem de Serviço**************-->
 
-    <div class="modal fade" id="modalUsuario" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
-    aria-labelledby="staticBackdropLabel" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h1 class="modal-title fs-5" id="staticBackdropLabel">USUARIO</h1>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                <div class="container text-right">
-                    <div class="row row-cols-2">
-                        <div class="col">
-                            <p>id Usuario</p>
-                        </div>
-                        <div class="col">
-                            <p>#201822569</p>
-                        </div>
-
-                    </div>
-                </div>
-             
-
-
-                <div class="container">
+    <div class="modal fade" id="modalOdermDeServico"  data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="chamadoModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
                     <div class="row">
-                        <div>Nome</div>
-                        <div>
-                            <input type="text" class="form-control text-bg-light" id="nome" readonly>
-                        </div>
-
-                        <div class="container text-right">
-                            <div class="row row-cols-3">
-                                <div class="col">
-                                    <p>CPF</p>
-                                    <input type="text" class="form-control text-bg-light" id="cpf" readonly>
-                                </div>
-                                <div class="col">
-                                    <p>Telefone</p>
-                                    <input type="number" class="form-control text-bg-light" id="telefone" readonly>
-                                </div>
-                                <div class="col">
-                                    <p>Situação</p>
-                                    <input type="text" class="form-control text-bg-light" id="situação" readonly>
-                                </div>
-        
+                        <div class="col-sm-6">
+                            <div class="w-50">
+                                <p class="text-body-secondary">Ordem de Serviço</p>
                             </div>
                         </div>
-
-                        <div>Email</div>
-                        <div>
-                            <input type="text" class="form-control text-bg-light" id="email" readonly>
+                        <div class="col-sm-4">
+                            <p>Id Ordem de Serviço</p>
                         </div>
+                        <div class="col-sm-2">
+                            <p class="text-center">#20203659</p>
+                        </div>
+                    </div>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+
+                <div class="modal-body">
+                    <form>
+
+                        <div class="container">
+
+                            <div class="row">
+                                <div class="col-sm-6">
+                                    <label for="recipient-name" class="col-form-label">Campus:</label>
+                                    <input type="text" class="form-control text-bg-light" id="campus-name" readonly>
+                                </div>
+
+                                <div class="col-sm-6">
+                                    <label for="recipient-name" class="col-form-label">Predio</label>
+                                    <input type="text" class="form-control text-bg-light" id="predio-name" readonly>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <label for="message-text" class="col-form-label">Descrição do Local</label>
+                                    <textarea class="form-control text-bg-light" id="local-text" readonly></textarea>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <label for="message-text" class="col-form-label">Descrição do Problema</label>
+                                    <textarea class="form-control text-bg-light" id="problema-text" readonly></textarea>
+                                </div>
+
+                            </div>
+
+                            <div class="row">
+                                <div class="col-sm-4">
+                                    <label for="recipient-name" class="col-form-label">Status</label>
+                                    <input type="text" class="form-control text-bg-light" id="status" readonly>
+                                </div>
+
+
+                                <div class="col-sm-4">
+                                    <label for="recipient-name" class="col-form-label">Data e Hora</label>
+                                    <input type="text" class="form-control text-bg-light" id="Data" readonly>
+                                </div>
+                            </div>
+                            <!-- ***************** FOR EACH COMENTÁRIO ************************** -->
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <label for="message-text" class="col-form-label">Comentário Operário</label>
+                                    <textarea class="form-control text-bg-light" id="problema-text" readonly></textarea>
+                                </div>
+
+                            </div>
 
 
 
-                        
 
-
+                    </form>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <div class="row text-left">
+                    <div class="col-sm-4">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" aria-label="Close">Fechar</button>
                     </div>
 
                 </div>
-            
 
-
-        </div>
-        <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-            <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#modalBloqueio">Bloquear</button>
+            </div>
         </div>
     </div>
-</div>
-</div>
 
 
  <!--********** MODAL CONFIRMA BLOQUEIO**************-->
