@@ -63,7 +63,7 @@
                             success: function (data) {
                                 $("#" + predioSelectorId).empty();
                                 $.each(data, function (i, obj) {
-                                    $("#" + predioSelectorId).append('<option value=' + obj.id + '>' + obj.nome + '</option>');
+                                    $("#" + predioSelectorId).append("<option value=" + obj.id + ">" + obj.nome + "</option>");
                                 });
 
                                 // Remover a opção "Selecione" do seletor de campus após selecionar o prédio
@@ -102,6 +102,12 @@
 
         <!-- Corpo da página -->
     <div class="container">
+        <c:if test="${requestScope.info != null || param.info != null}" >
+            <div class="alert alert-success alert-dismissible fade show">
+                <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                <span>${requestScope.info == null ? param.info : requestScope.info}</span>
+            </div>
+        </c:if>
         <div class="row">
             <div class="col">
                 <div class="w-100">
@@ -192,7 +198,7 @@
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
-                        <p class="fw-bold">preencha abaixo o nome do novo campus</p>
+                        <p class="fw-bold">Preencha abaixo o nome do novo campus</p>
                         <div class="container">
                             <div class="row">
                                 <div>Campus</div>
@@ -213,56 +219,45 @@
 
 
     <!-- ************MODAL NOVO PRÉDIO**************************** -->
-
-    <div class="modal fade" id="novoPredio" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
-         aria-labelledby="staticBackdropLabel" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h1 class="modal-title fs-5" id="staticBackdropLabel">NOVA LOCALIZAÇÃO - PRÉDIO</h1>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    <p class="fw-bold">Escolha o Campus e Preencha o nome do novo prédio</p>
-
-
-                    <div class="container">
-                        <div class="row">
-                            <div>Campus</div>
-                            <div>
-                                <div class="dropdown">
-
-                                    <select id="campus-adicionarPredio" class="form-control" name="campus">
-                                        <option value="">Esolha o Campus</option>
-                                        <c:forEach items="${requestScope.listaCampus}" var="campus">
-                                            <option value="${campus.id}">${campus.nome}</option>
-                                        </c:forEach>
-                                    </select>
-
+    <form action="LocalizacaoServlet?action=novoPredio" method="POST">
+        <div class="modal fade" id="novoPredio" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+             aria-labelledby="staticBackdropLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h1 class="modal-title fs-5" id="staticBackdropLabel">NOVA LOCALIZAÇÃO - PRÉDIO</h1>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <p class="fw-bold">Escolha o Campus e Preencha o nome do novo prédio</p>
+                        <div class="container">
+                            <div class="row">
+                                <div>Campus</div>
+                                <div>
+                                    <div class="dropdown">
+                                        <select id="campus-adicionarPredio" class="form-control" name="campusSelecionado">
+                                            <option value="">Esolha o Campus</option>
+                                            <c:forEach items="${requestScope.listaCampus}" var="campus">
+                                                <option value="${campus.id}">${campus.nome}</option>
+                                            </c:forEach>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div>Prédio</div>
+                                <div>
+                                    <input type="text" class="form-control text-bg-light" id="nomeNovoPredio" name="nome">
                                 </div>
                             </div>
-                            <div>Prédio</div>
-                            <div>
-                                <input type="text" class="form-control text-bg-light" id="nomeNovoPredio">
-                            </div>
-
-
                         </div>
-
                     </div>
-
-
-
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-                    <button type="button" class="btn btn-warning">Cadastrar</button>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                        <button type="submit" class="btn btn-warning">Cadastrar</button>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
-
-
+    </form>
 
 
 
