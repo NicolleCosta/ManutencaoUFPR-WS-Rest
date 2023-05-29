@@ -26,10 +26,10 @@ import jakarta.persistence.Table;
 @Entity
 @Table(name = "tb_predio")
 @NamedQueries({
-    @NamedQuery(name = "Predio.findAll", query = "SELECT p FROM Predio p"),
-    @NamedQuery(name = "Predio.findById", query = "SELECT p FROM Predio p WHERE p.id = :id ORDER BY LOWER (p.nome) ASC"),
-    @NamedQuery(name = "Predio.findByNome", query = "SELECT p FROM Predio p WHERE p.nome = :nome"),
-    @NamedQuery(name = "Predio.listar", query = "SELECT p FROM Predio p WHERE p.campusId = :id")})
+    @NamedQuery(name = "Predio.findAll", query = "SELECT p FROM Predio p WHERE p.status = 'true' "),
+    @NamedQuery(name = "Predio.findById", query = "SELECT p FROM Predio p WHERE p.id = :id AND p.status = 'true' ORDER BY LOWER (p.nome) ASC"),
+    @NamedQuery(name = "Predio.findByNome", query = "SELECT p FROM Predio p WHERE p.nome = :nome AND p.status = 'true'"),
+    @NamedQuery(name = "Predio.listar", query = "SELECT p FROM Predio p WHERE p.campusId = :id AND p.status = 'true' ORDER BY LOWER (p.nome) ASC")})
 public class Predio implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -43,6 +43,8 @@ public class Predio implements Serializable {
     @JoinColumn(name = "campus_id", referencedColumnName = "id")
     @ManyToOne
     private Campus campusId;
+    @Column(name = "status")
+    private boolean status;
     // Retirado para nao gerar problema de looping já que está em outra classe   
 //    @OneToMany(mappedBy = "predioId")
 //    private Collection<Chamado> chamadoCollection;
@@ -77,6 +79,16 @@ public class Predio implements Serializable {
     public void setCampusId(Campus campusId) {
         this.campusId = campusId;
     }
+
+    public boolean isStatus() {
+        return status;
+    }
+
+    public void setStatus(boolean status) {
+        this.status = status;
+    }
+    
+    
 
 //    public Collection<Chamado> getChamadoCollection() {
 //        return chamadoCollection;

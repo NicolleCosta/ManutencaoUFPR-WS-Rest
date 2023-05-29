@@ -15,15 +15,19 @@ public class PredioDTO {
     private Integer id;
     private String nome;
     private CampusDTO campusId;
+    private boolean status;
 
     public PredioDTO() {
     }
 
-    public PredioDTO(Integer id, String nome, CampusDTO campusId) {
+    public PredioDTO(Integer id, String nome, CampusDTO campusId, boolean status) {
         this.id = id;
         this.nome = nome;
         this.campusId = campusId;
+        this.status = status;
     }
+
+
 
     public Integer getId() {
         return id;
@@ -49,9 +53,19 @@ public class PredioDTO {
         this.campusId = campusId;
     }
 
+    public boolean isStatus() {
+        return status;
+    }
+
+    public void setStatus(boolean status) {
+        this.status = status;
+    }
+
     @Override
     public String toString() {
-        return "PredioDTO{" + "id=" + id + ", nome=" + nome + ", campusId=" + campusId + '}';
+        return "PredioDTO{" + "id=" + id + ", nome=" + nome + ", campusId=" + campusId + ", status=" + status + '}';
     }
+
+
 
 }

@@ -24,9 +24,9 @@ import jakarta.persistence.Table;
 @Entity
 @Table(name = "tb_campus")
 @NamedQueries({
-    @NamedQuery(name = "Campus.findAll", query = "SELECT c FROM Campus c ORDER BY LOWER(c.nome) ASC"),
-    @NamedQuery(name = "Campus.findById", query = "SELECT c FROM Campus c WHERE c.id = :id"),
-    @NamedQuery(name = "Campus.findByNome", query = "SELECT c FROM Campus c WHERE c.nome = :nome")})
+    @NamedQuery(name = "Campus.findAll", query = "SELECT c FROM Campus c WHERE c.status = 'true' ORDER BY LOWER(c.nome) ASC"),
+    @NamedQuery(name = "Campus.findById", query = "SELECT c FROM Campus c WHERE c.id = :id AND c.status = 'true'"),
+    @NamedQuery(name = "Campus.findByNome", query = "SELECT c FROM Campus c WHERE c.nome = :nome AND c.status = 'true'")})
 public class Campus implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -35,10 +35,11 @@ public class Campus implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
     @Column(name = "id")
-    private Integer id;
-    
+    private Integer id;   
     @Column(name = "nome")
     private String nome;
+    @Column(name = "status")
+    private boolean status;
     
 // Retirado para nao gerar problema de looping já que está em outra classe       
 //    @OneToMany(mappedBy = "campusId")
@@ -66,6 +67,16 @@ public class Campus implements Serializable {
     public void setNome(String nome) {
         this.nome = nome;
     }
+
+    public boolean isStatus() {
+        return status;
+    }
+
+    public void setStatus(boolean status) {
+        this.status = status;
+    }
+    
+    
 
 //    public Collection<Predio> getPredioCollection() {
 //        return predioCollection;
