@@ -51,9 +51,10 @@ public class ChamadoFacadeREST extends AbstractFacade<Chamado> {
     }
 
     @PUT
-    @Path("{id}")
+    @Path("/{id}")
     @Consumes({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
     public void edit(@PathParam("id") Integer id, Chamado entity) {
+        System.out.println(entity.getOrdemServicoId().getUsuarioOperarioId().getId());
         super.edit(entity);
     }
 
@@ -206,6 +207,17 @@ public class ChamadoFacadeREST extends AbstractFacade<Chamado> {
         return chamadoDTO;
     }
 
+    @PUT
+    @Path("/associar/{idChamado}/{idUsuario}")
+    @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
+    public boolean associarOrdemServico (@PathParam("idChamado") Integer idChamado, @PathParam("idUsuario") Integer idUsuario) {
+        TypedQuery<Chamado> query = em.createNamedQuery("Chamado.associarOS", Chamado.class);
+        query.setParameter("idChamado", idChamado);
+        query.setParameter("idUsuario", idUsuario);
+        int linhasAfetadas = query.executeUpdate();
+        return linhasAfetadas > 0;
+    }
+    
 
     @GET
     @Path("count")
