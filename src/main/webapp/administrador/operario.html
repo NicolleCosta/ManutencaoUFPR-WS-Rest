@@ -76,10 +76,15 @@
     </div>
     <div class="container text-center">
         <div class="row">
-            <div class="col-sm-8">
+            <div class="col">
                 <form class="d-flex" role="search">
                     <input class="form-control me-2" type="search" placeholder="Buscar Operário" aria-label="Search">
-                    <button class="btn btn-warning" type="submit">Buscar</button>
+                    <button class="btn btn-warning" type="submit" >Buscar</button>
+                </form>
+            </div>
+            <div class="col">
+                
+                    <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#novoOperarioModal">Novo Operário</button>
                 </form>
             </div>
 
@@ -599,6 +604,218 @@
          </div>
      </div>
  </div>
+
+
+    <!--********** MODAL Novo OPERARIO **************-->
+
+    <div class="modal fade" id="novoOperarioModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+    aria-labelledby="novoOperarioModal" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-centered modal-dialog-scrollable">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="modalOperario">Novo Operário</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="container text-right">
+                    <div class="row row-cols-2">
+                        <div class="col">
+                            <p>id Operário</p>
+                        </div>
+                        <div class="col">
+                            <p>#201822569</p>
+                        </div>
+
+                    </div>
+                </div>
+
+
+
+                <div class="container">
+                    <div class="row">
+                        <div>Nome</div>
+                        <div>
+                            <input type="text" class="form-control text-bg-light" id="nome" >
+                        </div>
+
+                        <div class="container text-right">
+                            <div class="row row-cols-3">
+                                <div class="col">
+                                    <label>CPF</label>
+                                    <input type="text" class="form-control text-bg-light" id="cpf" >
+                                </div>
+                                <div class="col">
+                                    <label>Telefone</label>
+                                    <input type="text" class="form-control text-bg-light" id="telefone" >
+                                </div>
+                                <div class="col">
+                                    <label>Situação</label>
+                                    <input type="text" class="form-control text-bg-light" id="situação">
+                                </div>
+
+                            </div>
+                        </div>
+
+
+                        <div>
+                            <label>Email</label>
+                            <input type="text" class="form-control text-bg-light" id="email" >
+                        </div>
+
+
+                        <div>
+                            <label>Especialidades</label>
+                            <!-- ****************Não sei se vai funcionar aqui salvar as especialidades por estarem em div diferentes mas vamos tentar ****************** -->
+                            <div class="row">
+                                <div class="col">
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" value="" id="civilCheck">
+                                        <label class="form-check-label" for="flexCheckDefault">
+                                            Civil
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="col">
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" value="" id="pinturaCheck">
+                                        <label class="form-check-label" for="flexCheckChecked">
+                                            Pintura
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="col">
+
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" value=""
+                                            id="hidraulicaCheck">
+                                        <label class="form-check-label" for="flexCheckChecked">
+                                            Hidraulica
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col">
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" value="" id="eletricaCheck">
+                                        <label class="form-check-label" for="flexCheckChecked">
+                                            Elétrica
+                                        </label>
+                                    </div>
+                                </div>
+
+
+                                <div class="col">
+
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" value=""
+                                            id="carpintariaCheck">
+                                        <label class="form-check-label" for="flexCheckChecked">
+                                            Carpintaria
+                                        </label>
+                                    </div>
+                                </div>
+
+                                <div class="col">
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" value=""
+                                            id="azulejistaCheck">
+                                        <label class="form-check-label" for="flexCheckChecked">
+                                            Azulejista
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col">
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" value="" id="gesseiroCheck">
+                                        <label class="form-check-label" for="flexCheckChecked">
+                                            Gesseiro
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="col">
+
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" value=""
+                                            id="vidraceiroCheck">
+                                        <label class="form-check-label" for="flexCheckChecked">
+                                            Vidraceiro
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="col">
+
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" value=""
+                                            id="SerralheriaCheck">
+                                        <label class="form-check-label" for="flexCheckChecked">
+                                            Serralheria
+                                        </label>
+                                    </div>
+
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col">
+
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" value="" id="armadorCheck">
+                                        <label class="form-check-label" for="flexCheckChecked">
+                                            Armador
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="col">
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" value="" id="soldadorCheck">
+                                        <label class="form-check-label" for="flexCheckChecked">
+                                            Soldador
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="col">
+                                    
+                                </div>
+
+                            </div>
+                        </div>
+
+
+
+
+
+
+
+
+                    </div>
+
+                </div>
+
+
+
+            </div>
+            <div class="modal-footer">
+                
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                <button type="button" class="btn btn-warning">Salvar</button>
+                
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
+
+
+
+
 
 
 
