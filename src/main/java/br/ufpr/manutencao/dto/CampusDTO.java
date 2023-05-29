@@ -4,8 +4,6 @@
  */
 package br.ufpr.manutencao.dto;
 
-import java.io.Serializable;
-
 /**
  *
  * @author nicol

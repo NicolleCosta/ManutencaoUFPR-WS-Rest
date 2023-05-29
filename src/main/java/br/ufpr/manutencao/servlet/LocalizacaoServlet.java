@@ -60,11 +60,38 @@ public class LocalizacaoServlet extends HttpServlet {
                         rd.forward(request, response);
                         break;
 
-                    case "novoCampus":
+                    case "novoPredio":
+                        
                         //pega valor do formulário
+                        int campusSelecionado = Integer.parseInt(request.getParameter("campusSelecionado"));
                         String nome = request.getParameter("nome");
+                        
                         //cria novo objeto
                         CampusDTO campus = new CampusDTO();
+                        campus.setId(campusSelecionado);
+                        PredioDTO predio = new PredioDTO();
+
+                        //adiciona os atributos a esse objeto
+                        predio.setCampusId(campus);
+                        predio.setNome(nome);
+                        predio.setStatus(true);
+         
+                        //Requisicao por Facade
+                        LocalizacaoFacade.adicionarPredio(predio);
+
+                        //redireciona
+                        request.setAttribute("info", " Predio adicionado com sucesso!");
+                        request.setAttribute("page", "localizacao.jsp");
+                        rd = getServletContext().getRequestDispatcher("/LocalizacaoServlet?action=mostrarLocalizacao");
+                        rd.forward(request, response);
+                        break;
+                        
+                        case "novoCampus":
+                        //pega valor do formulário
+                        nome = request.getParameter("nome");
+                        
+                        //cria novo objeto
+                        campus = new CampusDTO();
 
                         //adiciona os atributos a esse objeto
                         campus.setNome(nome);
