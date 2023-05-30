@@ -4,7 +4,6 @@
  */
 package br.ufpr.manutencao.resources;
 
-
 import br.ufpr.manutencao.beans.Campus;
 import java.util.List;
 import jakarta.persistence.EntityManager;
@@ -49,6 +48,14 @@ public class CampusFacadeREST extends AbstractFacade<Campus> {
         super.edit(entity);
     }
 
+    @PUT
+    @Path("bloquear/{id}")
+    public void bloquearCampus(@PathParam("id") Integer id) {
+        Campus campus = super.find(id);
+        campus.setStatus(false);
+        super.edit(campus);
+    }
+
     @DELETE
     @Path("{id}")
     public void remove(@PathParam("id") Integer id) {
@@ -69,8 +76,6 @@ public class CampusFacadeREST extends AbstractFacade<Campus> {
         TypedQuery<Campus> query = getEntityManager().createNamedQuery("Campus.findAll", Campus.class);
         return query.getResultList();
     }
-    
-   
 
     @GET
     @Path("{from}/{to}")
@@ -90,5 +95,5 @@ public class CampusFacadeREST extends AbstractFacade<Campus> {
     protected EntityManager getEntityManager() {
         return em;
     }
-    
+
 }

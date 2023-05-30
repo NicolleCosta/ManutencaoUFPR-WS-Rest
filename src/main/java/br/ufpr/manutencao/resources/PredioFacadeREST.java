@@ -52,6 +52,14 @@ public class PredioFacadeREST extends AbstractFacade<Predio> {
     public void edit(@PathParam("id") Integer id, Predio entity) {
         super.edit(entity);
     }
+    
+    @PUT
+    @Path("bloquear/{id}")
+    public void bloquearPredio(@PathParam("id") Integer id) {
+        Predio predio = super.find(id);
+        predio.setStatus(false);
+        super.edit(predio);
+    }
 
     @DELETE
     @Path("{id}")

@@ -86,7 +86,7 @@ public class LocalizacaoServlet extends HttpServlet {
                         rd.forward(request, response);
                         break;
                         
-                        case "novoCampus":
+                    case "novoCampus":
                         //pega valor do formulário
                         nome = request.getParameter("nome");
                         
@@ -102,6 +102,36 @@ public class LocalizacaoServlet extends HttpServlet {
 
                         //redireciona
                         request.setAttribute("info", " Campus adicionado com sucesso!");
+                        request.setAttribute("page", "localizacao.jsp");
+                        rd = getServletContext().getRequestDispatcher("/LocalizacaoServlet?action=mostrarLocalizacao");
+                        rd.forward(request, response);
+                        break;
+                        
+                    case "bloquearCampus":
+                        //pega valor do formulário
+                        campusSelecionado = Integer.parseInt(request.getParameter("campusId"));;
+                        
+
+                        //Requisicao por Facade
+                        LocalizacaoFacade.bloquearCampus(campusSelecionado);
+
+                        //redireciona
+                        request.setAttribute("info", " Campus bloqueado com sucesso!");
+                        request.setAttribute("page", "localizacao.jsp");
+                        rd = getServletContext().getRequestDispatcher("/LocalizacaoServlet?action=mostrarLocalizacao");
+                        rd.forward(request, response);
+                        break;
+                        
+                        
+                     case "bloquearPredio":
+                        //pega valor do formulário
+                        int predioSelecionado = Integer.parseInt(request.getParameter("predioId"));
+                      
+                        //Requisicao por Facade
+                        LocalizacaoFacade.bloquearPredio(predioSelecionado);
+
+                        //redireciona
+                        request.setAttribute("info", " Predio bloqueado com sucesso!");
                         request.setAttribute("page", "localizacao.jsp");
                         rd = getServletContext().getRequestDispatcher("/LocalizacaoServlet?action=mostrarLocalizacao");
                         rd.forward(request, response);

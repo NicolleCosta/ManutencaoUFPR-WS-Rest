@@ -265,103 +265,97 @@
 
 
     <!-- ************MODAL BLOQUEAR CAMPUS**************************** -->
-
-    <div class="modal fade" id="bloquearCampus" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
-         aria-labelledby="staticBackdropLabel" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h1 class="modal-title fs-5" id="staticBackdropLabel">CONFIRMAÇÃO DE BLOQUEIO - Campus</h1>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    <p class="fw-bold">Tem certeza que deseja BLOQUEAR o campus abaixo?</p>
-                    <p class="text-center text-danger">Caso bloqueie esta localização não estará mais disponível para
-                        seleção para abertura de chamados, <strong>esta ação não pode ser revertída.</strong></p>
-
-                    <div class="container">
-                        <div class="row">
-                            <div>Campus</div>
-                            <div>
-                                <div class="dropdown">
-
-                                    <select id="campus-bloquearCampus" class="form-control" name="campus">
-                                        <option value="">Selecione</option>
-                                        <c:forEach items="${requestScope.listaCampus}" var="campus">
-                                            <option value="${campus.id}">${campus.nome}</option>
-                                        </c:forEach>
-                                    </select>
-
+    <form action="LocalizacaoServlet?action=bloquearCampus" method="POST">
+        <div class="modal fade" id="bloquearCampus" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+             aria-labelledby="staticBackdropLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h1 class="modal-title fs-5" id="staticBackdropLabel">CONFIRMAÇÃO DE BLOQUEIO - Campus</h1>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <p class="fw-bold">Tem certeza que deseja BLOQUEAR o campus abaixo?</p>
+                        <p class="text-center text-danger">Caso bloqueie esta localização não estará mais disponível para
+                            seleção para abertura de chamados, <strong>esta ação não pode ser revertída.</strong></p>
+                        <div class="container">
+                            <div class="row">
+                                <div>Campus</div>
+                                <div>
+                                    <div class="dropdown">
+                                        <select id="campus-bloquearCampus" class="form-control" name="campusId">
+                                            <option value="">Selecione</option>
+                                            <c:forEach items="${requestScope.listaCampus}" var="campus">
+                                                <option value="${campus.id}">${campus.nome}</option>
+                                            </c:forEach>
+                                        </select>
+                                    </div>
                                 </div>
                             </div>
-
-
                         </div>
                     </div>
-
-
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-                    <button type="button" class="btn btn-danger">Bloquear</button>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                        <button type="submit" class="btn btn-danger">Bloquear</button>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
-
+    </form>
     <!-- ************MODAL BLOQUEAR PRÉDIO**************************** -->
+    <form action="LocalizacaoServlet?action=bloquearPredio" method="POST">
+        <div class="modal fade" id="bloquearPredio" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+             aria-labelledby="staticBackdropLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h1 class="modal-title fs-5" id="staticBackdropLabel">CONFIRMAÇÃO DE BLOQUEIO - PRÉDIO</h1>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <p class="fw-bold">Tem certeza que deseja BLOQUEAR o PRÉDIO abaixo?</p>
+                        <p class="text-center text-danger">Caso bloqueie esta localização não estará mais disponível para
+                            seleção para abertura de chamados, <strong>esta ação não pode ser revertída.</strong></p>
 
-    <div class="modal fade" id="bloquearPredio" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
-         aria-labelledby="staticBackdropLabel" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h1 class="modal-title fs-5" id="staticBackdropLabel">CONFIRMAÇÃO DE BLOQUEIO - PRÉDIO</h1>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    <p class="fw-bold">Tem certeza que deseja BLOQUEAR o PRÉDIO abaixo?</p>
-                    <p class="text-center text-danger">Caso bloqueie esta localização não estará mais disponível para
-                        seleção para abertura de chamados, <strong>esta ação não pode ser revertída.</strong></p>
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-4">Campus</div>
+                                <div class="col-8">
+                                    <div class="dropdown">
 
-                    <div class="container">
-                        <div class="row">
-                            <div class="col-4">Campus</div>
-                            <div class="col-8">
-                                <div class="dropdown">
+                                        <select id="campus-bloqueio" class="form-control" name="campusId">
+                                            <option value="">Selecione</option>
+                                            <c:forEach items="${requestScope.listaCampus}" var="campus">
+                                                <option value="${campus.id}">${campus.nome}</option>
+                                            </c:forEach>
+                                        </select>
 
-                                    <select id="campus-bloqueio" class="form-control" name="campus">
-                                        <option value="">Selecione</option>
-                                        <c:forEach items="${requestScope.listaCampus}" var="campus">
-                                            <option value="${campus.id}">${campus.nome}</option>
-                                        </c:forEach>
-                                    </select>
-
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="col-4">Prédio</div>
-                            <div class="col-8">
-                                <div class="dropdown">                                
-                                    <select id="predio-bloqueio" class="form-control" name="predio">
-                                        <option value="">Selecione</option>
-                                        <c:forEach items="${requestScope.listaPredios}" var="predio">
-                                            <c:if test="${predio.campusId.id eq '' || predio.campusId.id eq campus.id}">
-                                                <option value="${predio.id}">${predio.nome}</option>
-                                            </c:if>
-                                        </c:forEach>
-                                    </select>
+                                <div class="col-4">Prédio</div>
+                                <div class="col-8">
+                                    <div class="dropdown">                                
+                                        <select id="predio-bloqueio" class="form-control" name="predioId">
+                                            <option value="">Selecione</option>
+                                            <c:forEach items="${requestScope.listaPredios}" var="predio">
+                                                <c:if test="${predio.campusId.id eq '' || predio.campusId.id eq campus.id}">
+                                                    <option value="${predio.id}">${predio.nome}</option>
+                                                </c:if>
+                                            </c:forEach>
+                                        </select>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-                    <button type="button" class="btn btn-danger">Bloquear</button>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                        <button type="submit" class="btn btn-danger">Bloquear</button>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
+    </form>
 </body>
 
 </html>
