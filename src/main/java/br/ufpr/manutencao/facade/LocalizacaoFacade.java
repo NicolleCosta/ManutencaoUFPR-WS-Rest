@@ -178,7 +178,7 @@ public class LocalizacaoFacade {
 
             // Verificação do código de status
             int statusCode = response.statusCode();
-            if (statusCode == 200) {
+            if (statusCode == 200 || statusCode == 204) {
                 System.out.println("Campus adicionado com sucesso!");
             } else {
                 System.out.println("Falha ao adicionar o campus. Código de status: " + statusCode);
@@ -190,8 +190,8 @@ public class LocalizacaoFacade {
         }
     }
 
-    public static void adicionarPredio(PredioDTO predio)throws FacadeException, JsonProcessingException {
-        
+    public static void adicionarPredio(PredioDTO predio) throws FacadeException, JsonProcessingException {
+
         HttpClient httpClient = HttpClient.newHttpClient();
         ObjectMapper mapper = new ObjectMapper();
 
@@ -204,8 +204,8 @@ public class LocalizacaoFacade {
         // Requisição POST com o corpo da requisição
         HttpRequest request = HttpRequest.newBuilder()
                 .uri(URI.create(backendURL))
-                .header("Content-Type", "application/json")
-                .POST(HttpRequest.BodyPublishers.ofString(requestBody))
+                .header("Content-Type", "application/json; charset=UTF-8") // Adicione o charset ao cabeçalho Content-Type
+                .POST(HttpRequest.BodyPublishers.ofString(requestBody, StandardCharsets.UTF_8))
                 .build();
         try {
             // Envio da requisição e obtenção da resposta
@@ -213,10 +213,73 @@ public class LocalizacaoFacade {
 
             // Verificação do código de status
             int statusCode = response.statusCode();
-            if (statusCode == 200) {
+            if (statusCode == 200 || statusCode == 204) {
                 System.out.println("Prédio adicionado com sucesso!");
             } else {
                 System.out.println("Falha ao adicionar o campus. Código de status: " + statusCode);
+                System.out.println("Corpo da resposta: " + response.body());
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw new FacadeException("Erro na requisição: " + e.getMessage());
+        }
+    }
+
+    public static void bloquearCampus(int campusId) throws FacadeException, JsonProcessingException {
+        HttpClient httpClient = HttpClient.newHttpClient();
+
+        // URL do endpoint do backend
+        String backendURL = "http://localhost:8080/manutencaoufpr/webresources/campus/bloquear/" + campusId;
+
+        // Requisição PUT
+        HttpRequest request = HttpRequest.newBuilder()
+                .uri(URI.create(backendURL))
+                .header("Content-Type", "application/json")
+                .PUT(HttpRequest.BodyPublishers.noBody())
+                .build();
+
+        try {
+            // Envio da requisição e obtenção da resposta
+            HttpResponse<String> response = httpClient.send(request, HttpResponse.BodyHandlers.ofString());
+
+            // Verificação do código de status
+            int statusCode = response.statusCode();
+            if (statusCode == 200 || statusCode == 200) {
+                System.out.println("Campus bloqueado com sucesso!");
+            } else {
+                System.out.println("Falha ao bloquear o campus. Código de status: " + statusCode);
+                System.out.println("Corpo da resposta: " + response.body());
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw new FacadeException("Erro na requisição: " + e.getMessage());
+        }
+    }
+
+    public static void bloquearPredio(int predioId) throws FacadeException, JsonProcessingException {
+        HttpClient httpClient = HttpClient.newHttpClient();
+ 
+
+        // URL do endpoint do backend
+        String backendURL = "http://localhost:8080/manutencaoufpr/webresources/predio/bloquear/"+ predioId;
+
+        // Requisição PUT com o corpo da requisição
+        HttpRequest request = HttpRequest.newBuilder()
+                .uri(URI.create(backendURL))
+                .header("Content-Type", "application/json; charset=UTF-8") // Adicione o charset ao cabeçalho Content-Type
+                .PUT(HttpRequest.BodyPublishers.noBody())
+                .build();
+
+        try {
+            // Envio da requisição e obtenção da resposta
+            HttpResponse<String> response = httpClient.send(request, HttpResponse.BodyHandlers.ofString());
+
+            // Verificação do código de status
+            int statusCode = response.statusCode();
+            if (statusCode == 200 || statusCode == 204) {
+                System.out.println("Prédio bloqueado com sucesso!");
+            } else {
+                System.out.println("Falha ao bloquear o prédio. Código de status: " + statusCode);
                 System.out.println("Corpo da resposta: " + response.body());
             }
         } catch (Exception e) {
