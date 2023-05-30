@@ -39,15 +39,17 @@
                 };
 
                 $("#campus-name, #campus-bloqueio").change(function () {
-                    var campusSelectorId = $(this).attr('id');
-                    var predioSelectorId = campusSelectorId === "campus-name" ? "predio-name" : "predio-bloqueio";
+                    if (!$(this).hasClass('campus-modal')) {
+                        var campusSelectorId = $(this).attr('id');
+                        var predioSelectorId = campusSelectorId === "campus-name" ? "predio-name" : "predio-bloqueio";
 
-                    if (!campusSelected[campusSelectorId]) {
-                        campusSelected[campusSelectorId] = true;
-                        $("#" + campusSelectorId + " option[value='']").remove(); // Remove a opção "Selecione" do seletor de campus específico
+                        if (!campusSelected[campusSelectorId]) {
+                            campusSelected[campusSelectorId] = true;
+                            $("#" + campusSelectorId + " option[value='']").remove(); // Remove a opção "Selecione" do seletor de campus específico
+                        }
+
+                        getPredios(campusSelectorId, predioSelectorId);
                     }
-
-                    getPredios(campusSelectorId, predioSelectorId);
                 });
 
                 function getPredios(campusSelectorId, predioSelectorId) {
@@ -62,8 +64,14 @@
                             dataType: 'json',
                             success: function (data) {
                                 $("#" + predioSelectorId).empty();
+                                $("#tabela-predios tbody").empty(); // Limpa as linhas da tabela de prédios
+
                                 $.each(data, function (i, obj) {
                                     $("#" + predioSelectorId).append("<option value=" + obj.id + ">" + obj.nome + "</option>");
+
+                                    // Adiciona uma nova linha na tabela de prédios
+                                    var newRow = "<tr><td>" + obj.nome + "</td></tr>";
+                                    $("#tabela-predios tbody").append(newRow);
                                 });
 
                                 // Remover a opção "Selecione" do seletor de campus após selecionar o prédio
@@ -76,6 +84,52 @@
                     }
                 }
 
+                // Função para atualizar os prédios na modal
+                function updateModalPredios(campusSelectorId, predioSelectorId) {
+                    var campusId = $("#" + campusSelectorId).val();
+                    var url = "AJAXServlet";
+                    $.ajax({
+                        url: url,
+                        data: {
+                            campusId: campusId
+                        },
+                        dataType: 'json',
+                        success: function (data) {
+                            $("#" + predioSelectorId).empty();
+
+                            $.each(data, function (i, obj) {
+                                $("#" + predioSelectorId).append("<option value=" + obj.id + ">" + obj.nome + "</option>");
+                            });
+
+                            // Remover a opção "Selecione" do seletor de campus específico na modal após selecionar o prédio
+                            $("#" + campusSelectorId + " option[value='']").remove();
+                        },
+                        error: function (request, textStatus, errorThrown) {
+                            alert(request.status + ', Error: ' + request.statusText);
+                        }
+                    });
+                }
+
+                // Evento que é acionado quando o campus-nome é alterado
+                var campusSelect = document.getElementById("campus-name");
+                campusSelect.addEventListener("change", function () {
+                    if ($(this).hasClass('campus-modal')) {
+                        updateModalPredios("campus-name", "predio-name");
+                    } else {
+                        limparPredio.call(this);
+                    }
+                });
+
+                // Evento que é acionado quando o campus-bloqueio é alterado
+                var campusBloqueioSelect = document.getElementById("campus-bloqueio");
+                campusBloqueioSelect.addEventListener("change", function () {
+                    if ($(this).hasClass('campus-modal')) {
+                        updateModalPredios("campus-bloqueio", "predio-bloqueio");
+                    } else {
+                        limparPredio.call(this);
+                    }
+                });
+
                 function limparPredio() {
                     var predioSelectorId = $(this).attr('id') === "campus-name" ? "predio-name" : "predio-bloqueio";
 
@@ -84,14 +138,6 @@
                         predioSelect.selectedIndex = 0;
                     }
                 }
-
-                // Evento que é acionado quando o campus-nome é alterado
-                var campusSelect = document.getElementById("campus-name");
-                campusSelect.addEventListener("change", limparPredio);
-
-                // Evento que é acionado quando o campus-bloqueio é alterado
-                var campusBloqueioSelect = document.getElementById("campus-bloqueio");
-                campusBloqueioSelect.addEventListener("change", limparPredio);
             });
         </script>
 
@@ -102,7 +148,7 @@
 
         <!-- Corpo da página -->
     <div class="container">
-        <c:if test="${requestScope.info != null || param.info != null}" >
+        <c:if test="${requestScope.info != null || param.info != null}">
             <div class="alert alert-success alert-dismissible fade show">
                 <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
                 <span>${requestScope.info == null ? param.info : requestScope.info}</span>
@@ -117,34 +163,32 @@
                             <div class="col-4">Campus</div>
                             <div class="col-8">
                                 <div class="dropdown">
-
                                     <select id="campus-name" class="form-control" name="campus">
                                         <option value="">Selecione</option>
                                         <c:forEach items="${requestScope.listaCampus}" var="campus">
                                             <option value="${campus.id}">${campus.nome}</option>
                                         </c:forEach>
                                     </select>
-
                                 </div>
                             </div>
-                            <div class="col-4">Prédio</div>
                             <div class="col-8">
-                                <div class="dropdown">                                
-                                    <select id="predio-name" class="form-control" name="predio">
-                                        <option value="">Selecione</option>
-                                        <c:forEach items="${requestScope.listaPredios}" var="predio">
-                                            <c:if test="${predio.campusId.id eq '' || predio.campusId.id eq campus.id}">
-                                                <option value="${predio.id}">${predio.nome}</option>
-                                            </c:if>
-                                        </c:forEach>
-                                    </select>
+                                <div class="dropdown">     
+                                    <table id="tabela-predios" class="table">
+                                        <thead>
+                                            <tr>
+                                                <th scope="col">Prédios</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <!-- Linhas da tabela de prédios serão adicionadas dinamicamente -->
+                                        </tbody>
+                                    </table>     
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-
 
             <div class="col">
                 <div class="w-100">
@@ -163,199 +207,198 @@
                 </div>
             </div>
         </div>
-    </div>
 
-    <div class="container">
-        <div class="row">
-            <div class="col">
-                <div class="w-100">
-                    <h1>Bloquear</h1>
-                    <div class="container text-center">
-                        <div class="row row-cols-3">
-                            <div class="col"> <button type="button" class="btn btn-warning"
-                                                      data-bs-toggle="modal" data-bs-target="#bloquearCampus">Campus</button></div>
-                            <div class="col"> <button type="button" class="btn btn-warning" 
-                                                      data-bs-toggle="modal" data-bs-target="#bloquearPredio">Prédio</button>
+        <div class="container">
+            <div class="row">
+                <div class="col">
+                    <div class="w-100">
+                        <h1>Bloquear</h1>
+                        <div class="container text-center">
+                            <div class="row row-cols-3">
+                                <div class="col"> <button type="button" class="btn btn-warning"
+                                                          data-bs-toggle="modal" data-bs-target="#bloquearCampus">Campus</button></div>
+                                <div class="col"> <button type="button" class="btn btn-warning" 
+                                                          data-bs-toggle="modal" data-bs-target="#bloquearPredio">Prédio</button>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
 
-    <!-- ********************************MODAIS********************************* -->
+        <!-- ********************************MODAIS********************************* -->
 
 
-    <!-- ************MODAL NOVO CAMPUS**************************** -->
-    <form action="LocalizacaoServlet?action=novoCampus" method="POST">
-        <div class="modal fade" id="novoCampus" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
-             aria-labelledby="staticBackdropLabel" aria-hidden="true">
-            <div class="modal-dialog modal-dialog-centered">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h1 class="modal-title fs-5" id="staticBackdropLabel">NOVA LOCALIZAÇÃO - CAMPUS</h1>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <div class="modal-body">
-                        <p class="fw-bold">Preencha abaixo o nome do novo campus</p>
-                        <div class="container">
-                            <div class="row">
-                                <div>Campus</div>
-                                <div>
-                                    <input type="text" class="form-control text-bg-light" id="nomeNovoCampus" name="nome">
-                                </div>
-                            </div>
+        <!-- ************MODAL NOVO CAMPUS**************************** -->
+        <form action="LocalizacaoServlet?action=novoCampus" method="POST">
+            <div class="modal fade" id="novoCampus" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+                 aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h1 class="modal-title fs-5" id="staticBackdropLabel">NOVA LOCALIZAÇÃO - CAMPUS</h1>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-                        <button type="submit" class="btn btn-warning">Cadastrar</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </form>
-
-
-    <!-- ************MODAL NOVO PRÉDIO**************************** -->
-    <form action="LocalizacaoServlet?action=novoPredio" method="POST">
-        <div class="modal fade" id="novoPredio" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
-             aria-labelledby="staticBackdropLabel" aria-hidden="true">
-            <div class="modal-dialog modal-dialog-centered">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h1 class="modal-title fs-5" id="staticBackdropLabel">NOVA LOCALIZAÇÃO - PRÉDIO</h1>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <div class="modal-body">
-                        <p class="fw-bold">Escolha o Campus e Preencha o nome do novo prédio</p>
-                        <div class="container">
-                            <div class="row">
-                                <div>Campus</div>
-                                <div>
-                                    <div class="dropdown">
-                                        <select id="campus-adicionarPredio" class="form-control" name="campusSelecionado">
-                                            <option value="">Esolha o Campus</option>
-                                            <c:forEach items="${requestScope.listaCampus}" var="campus">
-                                                <option value="${campus.id}">${campus.nome}</option>
-                                            </c:forEach>
-                                        </select>
-                                    </div>
-                                </div>
-                                <div>Prédio</div>
-                                <div>
-                                    <input type="text" class="form-control text-bg-light" id="nomeNovoPredio" name="nome">
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-                        <button type="submit" class="btn btn-warning">Cadastrar</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </form>
-
-
-
-
-
-
-    <!-- ************MODAL BLOQUEAR CAMPUS**************************** -->
-    <form action="LocalizacaoServlet?action=bloquearCampus" method="POST">
-        <div class="modal fade" id="bloquearCampus" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
-             aria-labelledby="staticBackdropLabel" aria-hidden="true">
-            <div class="modal-dialog modal-dialog-centered">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h1 class="modal-title fs-5" id="staticBackdropLabel">CONFIRMAÇÃO DE BLOQUEIO - Campus</h1>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <div class="modal-body">
-                        <p class="fw-bold">Tem certeza que deseja BLOQUEAR o campus abaixo?</p>
-                        <p class="text-center text-danger">Caso bloqueie esta localização não estará mais disponível para
-                            seleção para abertura de chamados, <strong>esta ação não pode ser revertída.</strong></p>
-                        <div class="container">
-                            <div class="row">
-                                <div>Campus</div>
-                                <div>
-                                    <div class="dropdown">
-                                        <select id="campus-bloquearCampus" class="form-control" name="campusId">
-                                            <option value="">Selecione</option>
-                                            <c:forEach items="${requestScope.listaCampus}" var="campus">
-                                                <option value="${campus.id}">${campus.nome}</option>
-                                            </c:forEach>
-                                        </select>
+                        <div class="modal-body">
+                            <p class="fw-bold">Preencha abaixo o nome do novo campus</p>
+                            <div class="container">
+                                <div class="row">
+                                    <div>Campus</div>
+                                    <div>
+                                        <input type="text" class="form-control text-bg-light" id="nomeNovoCampus" name="nome">
                                     </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-                        <button type="submit" class="btn btn-danger">Bloquear</button>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                            <button type="submit" class="btn btn-warning">Cadastrar</button>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
-    </form>
-    <!-- ************MODAL BLOQUEAR PRÉDIO**************************** -->
-    <form action="LocalizacaoServlet?action=bloquearPredio" method="POST">
-        <div class="modal fade" id="bloquearPredio" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
-             aria-labelledby="staticBackdropLabel" aria-hidden="true">
-            <div class="modal-dialog modal-dialog-centered">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h1 class="modal-title fs-5" id="staticBackdropLabel">CONFIRMAÇÃO DE BLOQUEIO - PRÉDIO</h1>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <div class="modal-body">
-                        <p class="fw-bold">Tem certeza que deseja BLOQUEAR o PRÉDIO abaixo?</p>
-                        <p class="text-center text-danger">Caso bloqueie esta localização não estará mais disponível para
-                            seleção para abertura de chamados, <strong>esta ação não pode ser revertída.</strong></p>
+        </form>
 
-                        <div class="container">
-                            <div class="row">
-                                <div class="col-4">Campus</div>
-                                <div class="col-8">
-                                    <div class="dropdown">
 
-                                        <select id="campus-bloqueio" class="form-control" name="campusId">
-                                            <option value="">Selecione</option>
-                                            <c:forEach items="${requestScope.listaCampus}" var="campus">
-                                                <option value="${campus.id}">${campus.nome}</option>
-                                            </c:forEach>
-                                        </select>
-
+        <!-- ************MODAL NOVO PRÉDIO**************************** -->
+        <form action="LocalizacaoServlet?action=novoPredio" method="POST">
+            <div class="modal fade" id="novoPredio" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+                 aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h1 class="modal-title fs-5" id="staticBackdropLabel">NOVA LOCALIZAÇÃO - PRÉDIO</h1>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <p class="fw-bold">Escolha o Campus e Preencha o nome do novo prédio</p>
+                            <div class="container">
+                                <div class="row">
+                                    <div>Campus</div>
+                                    <div>
+                                        <div class="dropdown">
+                                            <select id="campus-adicionarPredio" class="form-control campus-principal" name="campusSelecionado">
+                                                <option value="">Esolha o Campus</option>
+                                                <c:forEach items="${requestScope.listaCampus}" var="campus">
+                                                    <option value="${campus.id}">${campus.nome}</option>
+                                                </c:forEach>
+                                            </select>
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="col-4">Prédio</div>
-                                <div class="col-8">
-                                    <div class="dropdown">                                
-                                        <select id="predio-bloqueio" class="form-control" name="predioId">
-                                            <option value="">Selecione</option>
-                                            <c:forEach items="${requestScope.listaPredios}" var="predio">
-                                                <c:if test="${predio.campusId.id eq '' || predio.campusId.id eq campus.id}">
-                                                    <option value="${predio.id}">${predio.nome}</option>
-                                                </c:if>
-                                            </c:forEach>
-                                        </select>
+                                    <div>Prédio</div>
+                                    <div>
+                                        <input type="text" class="form-control text-bg-light" id="nomeNovoPredio" name="nome">
                                     </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-                        <button type="submit" class="btn btn-danger">Bloquear</button>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                            <button type="submit" class="btn btn-warning">Cadastrar</button>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
-    </form>
-</body>
+        </form>
+
+
+
+
+
+
+        <!-- ************MODAL BLOQUEAR CAMPUS**************************** -->
+        <form action="LocalizacaoServlet?action=bloquearCampus" method="POST">
+            <div class="modal fade" id="bloquearCampus" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+                 aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h1 class="modal-title fs-5" id="staticBackdropLabel">CONFIRMAÇÃO DE BLOQUEIO - Campus</h1>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <p class="fw-bold">Tem certeza que deseja BLOQUEAR o campus abaixo?</p>
+                            <p class="text-center text-danger">Caso bloqueie esta localização não estará mais disponível para
+                                seleção para abertura de chamados, <strong>esta ação não pode ser revertída.</strong></p>
+                            <div class="container">
+                                <div class="row">
+                                    <div>Campus</div>
+                                    <div>
+                                        <div class="dropdown">
+                                            <select id="campus-bloquearCampus" class="form-control" name="campusId">
+                                                <option value="">Selecione</option>
+                                                <c:forEach items="${requestScope.listaCampus}" var="campus">
+                                                    <option value="${campus.id}">${campus.nome}</option>
+                                                </c:forEach>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                            <button type="submit" class="btn btn-danger">Bloquear</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+        <!-- ************MODAL BLOQUEAR PRÉDIO**************************** -->
+        <form action="LocalizacaoServlet?action=bloquearPredio" method="POST">
+            <div class="modal fade" id="bloquearPredio" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+                 aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h1 class="modal-title fs-5" id="staticBackdropLabel">CONFIRMAÇÃO DE BLOQUEIO - PRÉDIO</h1>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <p class="fw-bold">Tem certeza que deseja BLOQUEAR o PRÉDIO abaixo?</p>
+                            <p class="text-center text-danger">Caso bloqueie esta localização não estará mais disponível para
+                                seleção para abertura de chamados, <strong>esta ação não pode ser revertída.</strong></p>
+
+                            <div class="container">
+                                <div class="row">
+                                    <div class="col-4">Campus</div>
+                                    <div class="col-8">
+                                        <div class="dropdown">
+
+                                            <select id="campus-bloqueio" class="form-control campus-modal" name="campusId">
+                                                <option value="">Selecione</option>
+                                                <c:forEach items="${requestScope.listaCampus}" var="campus">
+                                                    <option value="${campus.id}">${campus.nome}</option>
+                                                </c:forEach>
+                                            </select>
+
+                                        </div>
+                                    </div>
+                                    <div class="col-4">Prédio</div>
+                                    <div class="col-8">
+                                        <div class="dropdown">                                
+                                            <select id="predio-bloqueio" class="form-control campus-modal" name="predioId">
+                                                <option value="">Selecione</option>
+                                                <c:forEach items="${requestScope.listaPredios}" var="predio">
+                                                    <c:if test="${predio.campusId.id eq '' || predio.campusId.id eq campus.id}">
+                                                        <option value="${predio.id}">${predio.nome}</option>
+                                                    </c:if>
+                                                </c:forEach>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                            <button type="submit" class="btn btn-danger">Bloquear</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </body>
 
 </html>
