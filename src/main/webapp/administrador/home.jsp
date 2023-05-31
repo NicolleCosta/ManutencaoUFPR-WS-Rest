@@ -166,7 +166,7 @@
                                                 </p>
                                             </td>
                                             <td>
-                                                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#chamadoModal2<c:out value="${chamados.id}"/>">
+                                                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#chamadoModal<c:out value="${chamados.id}"/>">
                                                     Detalhes
                                                 </button>
 
