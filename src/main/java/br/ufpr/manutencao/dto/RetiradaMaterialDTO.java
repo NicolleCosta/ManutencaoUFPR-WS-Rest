@@ -4,6 +4,7 @@
  */
 package br.ufpr.manutencao.dto;
 
+import jakarta.json.bind.annotation.JsonbDateFormat;
 import java.io.Serializable;
 import java.util.Date;
 
@@ -15,6 +16,7 @@ public class RetiradaMaterialDTO{
     private Integer id;
     private Integer quantidade;
     private String unidade;
+    @JsonbDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'")
     private Date dataHora;
     private MaterialDTO materialId;
     private OrdemServicoDTO ordemServicoId;
