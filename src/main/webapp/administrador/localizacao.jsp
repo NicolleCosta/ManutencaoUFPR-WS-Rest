@@ -141,8 +141,6 @@
             });
         </script>
 
-
-
         <!-- Configurações da pagina (fim do head) e Cabeçalho da página -->
         <%@include file="header.jsp" %>
 

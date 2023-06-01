@@ -4,6 +4,7 @@
  */
 package br.ufpr.manutencao.beans;
 
+import jakarta.json.bind.annotation.JsonbDateFormat;
 import java.io.Serializable;
 import java.util.Collection;
 import java.util.Date;
@@ -47,9 +48,11 @@ public class OrdemServico implements Serializable {
     private String descricao;
     @Column(name = "data_abertura")
     @Temporal(TemporalType.TIMESTAMP)
+    @JsonbDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'")
     private Date dataAbertura;
     @Column(name = "data_finalizacao")
     @Temporal(TemporalType.TIMESTAMP)
+    @JsonbDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'")
     private Date dataFinalizacao;
     @Column(name = "nome_responsavel_departamento")
     private String nomeResponsavelDepartamento;

@@ -4,6 +4,7 @@
  */
 package br.ufpr.manutencao.beans;
 
+import jakarta.json.bind.annotation.JsonbDateFormat;
 import java.io.Serializable;
 import java.util.Date;
 import jakarta.persistence.Basic;
@@ -46,6 +47,7 @@ public class RetiradaMaterial implements Serializable {
     private String unidade;
     @Column(name = "data_hora")
     @Temporal(TemporalType.TIMESTAMP)
+    @JsonbDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'")
     private Date dataHora;
     @JoinColumn(name = "material_id", referencedColumnName = "id")
     @ManyToOne
