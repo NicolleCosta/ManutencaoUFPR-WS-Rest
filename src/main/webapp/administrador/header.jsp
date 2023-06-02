@@ -62,7 +62,7 @@
                 <a href="/CadastroServlet"><button type="button" class="btn btn-warning">Operário</button></a>
             </div>
             <div class="col">
-                <a href="administrador/meuCadastro.jsp"><button type="button" class="btn btn-warning">Meu Cadastro</button></a>
+                <a href="CadastroServlet?action=mostrarMeuCadastro"><button type="button" class="btn btn-warning">Meu Cadastro</button></a>
             </div>
         </div>
     </div>

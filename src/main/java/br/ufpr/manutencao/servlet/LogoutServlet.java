@@ -38,7 +38,7 @@ public class LogoutServlet extends HttpServlet {
         if(session!= null) {
             session.removeAttribute("nome");
             session.invalidate();
-            request.setAttribute("msg", " Usuário desconectado com sucesso");
+            request.setAttribute("msg", " Usuário desconectado");
             request.setAttribute("page", request.getContextPath() + "/");
             RequestDispatcher rd = getServletContext().getRequestDispatcher("/geral/index.jsp");
             rd.forward(request, response);

@@ -4,6 +4,10 @@
  */
 package br.ufpr.manutencao.servlet;
 
+import br.ufpr.manutencao.dto.UsuarioDTO;
+import br.ufpr.manutencao.facade.FacadeException;
+import br.ufpr.manutencao.facade.UsuarioFacade;
+import jakarta.servlet.RequestDispatcher;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
@@ -11,6 +15,7 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 
 /**
  *
@@ -33,20 +38,65 @@ public class CadastroServlet extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         request.setCharacterEncoding("UTF-8");
         String action = request.getParameter("action");
-        if(action==null){
-            //redireciona
-            response.sendRedirect("LogoutServlet");
-        } else{
-            switch (action) {
-                case "retirarMaterial":
-                    break;
-                    
-                default:
-                    //redireciona
-                    response.sendRedirect("LogoutServlet");
+        try {
+            if (action == null) {
+                //redireciona
+                response.sendRedirect("LogoutServlet");
+            } else {
+                switch (action) {
+                    case "mostrarMeuCadastro":
+                        HttpSession session = request.getSession();
+                        UsuarioDTO user = (UsuarioDTO) session.getAttribute("user");
+                        int id = user.getId();
+                        //BUSCA OBJETO NO BD via Facade
+                        UsuarioDTO admin = UsuarioFacade.buscaPorID(id);
+                        request.setAttribute("admin", admin);
+                        //ENVIA VIA FOWARD
+                        RequestDispatcher rd = request.getRequestDispatcher("/administrador/meuCadastro.jsp");
+                        rd.forward(request, response);
+                        break;
+
+                    case "alterarCadastro":
+                        session = request.getSession();
+                        user = (UsuarioDTO) session.getAttribute("user");
+                        id = user.getId();
+                        //BUSCA OBJETO NO BD via Facade
+                        UsuarioDTO usuario = UsuarioFacade.buscaPorID(id);
+                      
+                        String nome = request.getParameter("nome");
+                        String telefone = request.getParameter("telefone");
+                        String email = request.getParameter("email");
+                        String senha = request.getParameter("senha");
+                        
+                        //adiciona os valores a esse objeto
+                        usuario.setNome(nome);
+                        usuario.setEmail(email);
+                        usuario.setTelefone(telefone);
+                        usuario.setSenha(senha);
+                        
+                        //função para atualizar no bd via Facade
+                        UsuarioFacade.aterarUsuario(usuario);
+
+                        //redireciona
+                        request.setAttribute("info", " Usuário atualizado");
+                        request.setAttribute("page", "/meuCadastro.jsp");
+                        rd = getServletContext().getRequestDispatcher("/CadastroServlet?action=mostrarMeuCadastro");
+                        rd.forward(request, response);
+
+
+                    default:
+                        //redireciona
+                        response.sendRedirect("LogoutServlet");
+                }
             }
-        }  
+        } catch (FacadeException ex) {
+            request.setAttribute("msg", ex);
+            request.setAttribute("page", "LogoutServlet");
+            RequestDispatcher rd = getServletContext().getRequestDispatcher("/erro.jsp");
+            rd.forward(request, response);
+        }
     }
+
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
      * Handles the HTTP <code>GET</code> method.
