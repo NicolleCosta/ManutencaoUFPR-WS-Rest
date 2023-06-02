@@ -53,23 +53,23 @@
                             <div class="row row-cols-2">
                                 <div class="col-4">Nome Completo</div>
                                 <div class="col-8">
-                                    <input required maxlength="99" type="text" class="form-control text-bg-light" id="nomeCompletoAdm" value="${admin.nome}">
+                                    <input required maxlength="99" type="text" class="form-control text-bg-light" id="nomeCompletoAdm" name ="nome" value="${admin.nome}">
                                 </div>
                                 <div class="col-4">CPF</div>
                                 <div class="col-8">
-                                    <input type="text" class="form-control text-bg-light" id="cpf" value="${admin.cpf}" readonly>
+                                    <input type="text" class="form-control text-bg-light" id="cpf" name ="cpf" value="${admin.cpf}" readonly>
                                 </div>
                                 <div class="col-4">Telefone</div>
                                 <div class="col-8">
-                                    <input type="text" class="form-control text-bg-light" id="telefone" value="${admin.telefone}" required>
+                                    <input type="text" class="form-control text-bg-light" id="telefone" name ="telefone" value="${admin.telefone}" required>
                                 </div>
                                 <div class="col-4">Email</div>
                                 <div class="col-8">
-                                    <input type="email" class="form-control text-bg-light" id="email" maxlength="99" value="${admin.email}" required>
+                                    <input type="email" class="form-control text-bg-light" id="email" name ="email" maxlength="99" value="${admin.email}" required>
                                 </div>
                                 <div class="col-4">Senha</div>
                                 <div class="col-8">
-                                    <input type="password" class="form-control text-bg-light" id="senha" maxlength="99" value="${admin.senha}" required>
+                                    <input type="password" class="form-control text-bg-light" id="senha" name ="senha" maxlength="99" value="${admin.senha}" required>
                                 </div>
                                 <div class="col-4">Confirma Senha</div>
                                 <div class="col-8">
@@ -77,23 +77,31 @@
                                            maxlength="99" value="${admin.senha}" required>
                                 </div>
                                 <script>
-                                    // Fecha o alerta de erro automaticamente
-                                    document.addEventListener('DOMContentLoaded', function () {
-                                        const senhaInput = document.getElementById('senha');
-                                        const senha2Input = document.getElementById('senha2');
-                                        const senhaErrorMessage = 'Senhas diferentes! Para dar continuidade é necessário que as senhas sejam iguais.';
+  document.addEventListener('DOMContentLoaded', function() {
+    const senha1 = document.getElementById('senha');
+    const senha2 = document.getElementById('senha2');
+    const erroSenhaIncorreta = document.getElementById('erroSenhaIncorreta');
+    const submitButton = document.getElementById('submitButton');
 
-                                        function validatePasswords() {
-                                            if (senhaInput.value !== senha2Input.value) {
-                                                senha2Input.setCustomValidity(senhaErrorMessage);
-                                            } else {
-                                                senha2Input.setCustomValidity('');
-                                            }
-                                        }
-                                        senha2Input.addEventListener('input', validatePasswords);
-                                    });
-                                </script>
-                                <button type="submit" class="btn btn-warning" ${not senha eq senha2 ? 'disabled' : ''}>Salvar</button>
+    function validaSenhas() {
+      const senhasIguais = senha1.value === senha2.value;
+
+      erroSenhaIncorreta.style.display = senhasIguais ? 'none' : 'block';
+      submitButton.disabled = !senhasIguais;
+    }
+
+    senha1.addEventListener('input', validaSenhas);
+    senha2.addEventListener('input', validaSenhas);
+
+    // Verifica as senhas ao carregar a página
+    validaSenhas();
+  });
+</script>
+
+
+<button type="submit" class="btn btn-warning" id="submitButton">Salvar</button>
+<div id="erroSenhaIncorreta" style="display: none; color: red;">Senhas diferentes! Para dar continuidade é necessário que as senhas sejam iguais.</div>
+
                             </div>
                         </div>
                     </form>

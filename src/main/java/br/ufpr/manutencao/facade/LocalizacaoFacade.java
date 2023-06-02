@@ -1,4 +1,4 @@
-/*
+ /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
@@ -244,7 +244,7 @@ public class LocalizacaoFacade {
 
             // Verificação do código de status
             int statusCode = response.statusCode();
-            if (statusCode == 200 || statusCode == 200) {
+            if (statusCode == 200 || statusCode == 204) {
                 System.out.println("Campus bloqueado com sucesso!");
             } else {
                 System.out.println("Falha ao bloquear o campus. Código de status: " + statusCode);
