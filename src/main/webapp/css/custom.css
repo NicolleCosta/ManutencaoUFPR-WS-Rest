@@ -10,3 +10,18 @@
     line-height: 24px;
   
   }
+
+
+
+  .container, .container-fluid, .container-lg, .container-md, .container-sm, .container-xl, .container-xxl{
+
+    --bs-gutter-x: 0.0rem;
+
+  }
+
+
+
+  #navegacaoSuperior{
+    margin-right: 0px;
+    margin-left: 0px;
+  }
