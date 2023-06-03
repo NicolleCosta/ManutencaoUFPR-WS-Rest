@@ -87,16 +87,10 @@ public class ChamadoFacadeREST extends AbstractFacade<Chamado> {
             dto = mapper.convertValue(c, ChamadoDTO.class);
             chamadosDTO.add(dto);
         }
-
         return chamadosDTO;
     }
     
     
-    
-    
-    
-    
-
     @GET
     @Path("/listaChamadosEmAndamento")
     @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
@@ -113,7 +107,6 @@ public class ChamadoFacadeREST extends AbstractFacade<Chamado> {
             dto = mapper.convertValue(c, ChamadoDTO.class);
             chamadosDTO.add(dto);
         }
-
         return chamadosDTO;
     }
 

@@ -4,7 +4,9 @@
  */
 package br.ufpr.manutencao.servlet;
 
+import br.ufpr.manutencao.dto.ChamadoDTO;
 import br.ufpr.manutencao.dto.UsuarioDTO;
+import br.ufpr.manutencao.facade.ChamadoFacade;
 import br.ufpr.manutencao.facade.FacadeException;
 import br.ufpr.manutencao.facade.UsuarioFacade;
 import jakarta.servlet.RequestDispatcher;
@@ -16,6 +18,7 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
+import java.util.List;
 
 /**
  *
@@ -62,18 +65,18 @@ public class CadastroServlet extends HttpServlet {
                         id = user.getId();
                         //BUSCA OBJETO NO BD via Facade
                         UsuarioDTO usuario = UsuarioFacade.buscaPorID(id);
-                      
+
                         String nome = request.getParameter("nome");
                         String telefone = request.getParameter("telefone");
                         String email = request.getParameter("email");
                         String senha = request.getParameter("senha");
-                        
+
                         //adiciona os valores a esse objeto
                         usuario.setNome(nome);
                         usuario.setEmail(email);
                         usuario.setTelefone(telefone);
                         usuario.setSenha(senha);
-                        
+
                         //função para atualizar no bd via Facade
                         UsuarioFacade.aterarUsuario(usuario);
 
@@ -82,12 +85,27 @@ public class CadastroServlet extends HttpServlet {
                         request.setAttribute("page", "/meuCadastro.jsp");
                         rd = getServletContext().getRequestDispatcher("/CadastroServlet?action=mostrarMeuCadastro");
                         rd.forward(request, response);
+                        break;
 
+                    case "mostrarUsuariosAdmin":
+                        System.out.println("estrou no mostrarUsuariosAdmin");
+                        //Carrega a lista de chamados para apresentar
+                        List<UsuarioDTO> usuarios = UsuarioFacade.buscarUsuarios();
+                        System.out.println(usuarios);
+
+                        //ADD OBJ NA REQUISIÇÃO
+                        request.setAttribute("usuarios", usuarios);
+                        //redireciona
+                        rd = getServletContext().getRequestDispatcher("/administrador/usuarios.jsp");
+                        rd.forward(request, response);
+                        break;
 
                     default:
                         //redireciona
                         response.sendRedirect("LogoutServlet");
+                        break;
                 }
+
             }
         } catch (FacadeException ex) {
             request.setAttribute("msg", ex);
