@@ -56,7 +56,7 @@
                 <a href="LocalizacaoServlet?action=mostrarLocalizacao"><button type="button" class="btn btn-warning">Localização</button></a>
             </div>
             <div class="col">
-                <a href="/Usuario.jsp"><button type="button" class="btn btn-warning">Usuário</button></a>
+                <a href="CadastroServlet?action=mostrarUsuariosAdmin"><button type="button" class="btn btn-warning">Usuário</button></a>
             </div>
             <div class="col">
                 <a href="/CadastroServlet"><button type="button" class="btn btn-warning">Operário</button></a>

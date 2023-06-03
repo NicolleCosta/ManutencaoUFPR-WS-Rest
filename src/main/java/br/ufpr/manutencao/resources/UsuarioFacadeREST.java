@@ -4,6 +4,7 @@
  */
 package br.ufpr.manutencao.resources;
 
+import br.ufpr.manutencao.beans.TipoUsuario;
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -29,6 +30,7 @@ import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
 import java.io.IOException;
 import br.ufpr.manutencao.dto.UsuarioDTO;
+import java.util.ArrayList;
 
 /**
  *
@@ -107,6 +109,24 @@ public class UsuarioFacadeREST extends AbstractFacade<Usuario> {
     @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
     public List<Usuario> findAll() {
         return super.findAll();
+    }
+    
+    @GET
+    @Path("/listaUsuarios")
+    @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
+    public List<UsuarioDTO> listaUsuarios() {
+        TipoUsuario tipoUsuario = em.find(TipoUsuario.class, 1);
+        TypedQuery<Usuario> query = em.createNamedQuery("Usuario.listaUsuarios", Usuario.class);
+        query.setParameter("id", tipoUsuario);
+        List<Usuario> usuarios = query.getResultList();
+        List<UsuarioDTO> chamadosDTO = new ArrayList<>();
+        for (Usuario u : usuarios) {
+            UsuarioDTO dto = new UsuarioDTO();
+            ObjectMapper mapper = new ObjectMapper();
+            dto = mapper.convertValue(u, UsuarioDTO.class);
+            chamadosDTO.add(dto);
+        }
+        return chamadosDTO;
     }
 
     @GET
