@@ -100,6 +100,19 @@ public class CadastroServlet extends HttpServlet {
                         rd.forward(request, response);
                         break;
 
+                    case "mostrarOperariosAdmin":
+                        System.out.println("estrou no mostrarOperariosAdmin");
+                        //Carrega a lista de chamados para apresentar
+                        List<UsuarioDTO> operarios = UsuarioFacade.buscarOperarios();
+                        System.out.println(operarios);
+
+                        //ADD OBJ NA REQUISIÇÃO
+                        request.setAttribute("operarios", operarios);
+                        //redireciona
+                        rd = getServletContext().getRequestDispatcher("/administrador/operarios.jsp");
+                        rd.forward(request, response);
+                        break;
+
                     default:
                         //redireciona
                         response.sendRedirect("LogoutServlet");
