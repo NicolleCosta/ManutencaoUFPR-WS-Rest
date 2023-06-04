@@ -59,7 +59,7 @@
                 <a href="CadastroServlet?action=mostrarUsuariosAdmin"><button type="button" class="btn btn-warning">Usuário</button></a>
             </div>
             <div class="col">
-                <a href="/CadastroServlet"><button type="button" class="btn btn-warning">Operário</button></a>
+                <a href="CadastroServlet?action=mostrarOperariosAdmin"><button type="button" class="btn btn-warning">Operário</button></a>
             </div>
             <div class="col">
                 <a href="CadastroServlet?action=mostrarMeuCadastro"><button type="button" class="btn btn-warning">Meu Cadastro</button></a>

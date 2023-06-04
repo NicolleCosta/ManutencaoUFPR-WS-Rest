@@ -53,36 +53,34 @@ public class UsuarioFacadeREST extends AbstractFacade<Usuario> {
     public void create(Usuario entity) {
         super.create(entity);
     }
-    
+
     @POST
     @Path("/login")
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
-   public Response login(LoginDTO login) {    
-    try {
-        TypedQuery<Usuario> query = em.createNamedQuery("Usuario.findByCpfAndSenha", Usuario.class);
-        query.setParameter("cpf", login.getCpf());
-        query.setParameter("senha", login.getSenha());
-        System.out.println(login.getSenha()); 
-        System.out.println(login.getCpf()); 
-        Usuario usuario = query.getSingleResult();
-        System.out.println("aqui em baixo o usuario"); 
-        System.out.println(usuario); 
-        ObjectMapper mapper = new ObjectMapper();
-        UsuarioDTO usuarioDTO = mapper.convertValue(usuario, UsuarioDTO.class);
-        System.out.println("retornou o usuario: "+ usuarioDTO );
-        
-        // Cria um Response indicando sucesso
-        return Response.ok(usuarioDTO).build();
-    } catch (NoResultException e) {
-        // Cria um Response indicando falha
-        return Response.status(Response.Status.UNAUTHORIZED)
-                       .entity("Login inválido")
-                       .build();
-    }
-}
+    public Response login(LoginDTO login) {
+        try {
+            TypedQuery<Usuario> query = em.createNamedQuery("Usuario.findByCpfAndSenha", Usuario.class);
+            query.setParameter("cpf", login.getCpf());
+            query.setParameter("senha", login.getSenha());
+            System.out.println(login.getSenha());
+            System.out.println(login.getCpf());
+            Usuario usuario = query.getSingleResult();
+            System.out.println("aqui em baixo o usuario");
+            System.out.println(usuario);
+            ObjectMapper mapper = new ObjectMapper();
+            UsuarioDTO usuarioDTO = mapper.convertValue(usuario, UsuarioDTO.class);
+            System.out.println("retornou o usuario: " + usuarioDTO);
 
-     
+            // Cria um Response indicando sucesso
+            return Response.ok(usuarioDTO).build();
+        } catch (NoResultException e) {
+            // Cria um Response indicando falha
+            return Response.status(Response.Status.UNAUTHORIZED)
+                    .entity("Login inválido")
+                    .build();
+        }
+    }
 
     @PUT
     @Path("{id}")
@@ -110,7 +108,7 @@ public class UsuarioFacadeREST extends AbstractFacade<Usuario> {
     public List<Usuario> findAll() {
         return super.findAll();
     }
-    
+
     @GET
     @Path("/listaUsuarios")
     @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
@@ -119,15 +117,34 @@ public class UsuarioFacadeREST extends AbstractFacade<Usuario> {
         TypedQuery<Usuario> query = em.createNamedQuery("Usuario.listaUsuarios", Usuario.class);
         query.setParameter("id", tipoUsuario);
         List<Usuario> usuarios = query.getResultList();
-        List<UsuarioDTO> chamadosDTO = new ArrayList<>();
+        List<UsuarioDTO> usuariosDTO = new ArrayList<>();
         for (Usuario u : usuarios) {
             UsuarioDTO dto = new UsuarioDTO();
             ObjectMapper mapper = new ObjectMapper();
             dto = mapper.convertValue(u, UsuarioDTO.class);
-            chamadosDTO.add(dto);
+            usuariosDTO.add(dto);
         }
-        return chamadosDTO;
+        return usuariosDTO;
     }
+    
+    @GET
+    @Path("/listaOperarios")
+    @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
+    public List<UsuarioDTO> listaOperarios() {
+        TipoUsuario tipoUsuario = em.find(TipoUsuario.class, 2);
+        TypedQuery<Usuario> query = em.createNamedQuery("Usuario.listaUsuarios", Usuario.class);
+        query.setParameter("id", tipoUsuario);
+        List<Usuario> usuarios = query.getResultList();
+        List<UsuarioDTO> usuariosDTO = new ArrayList<>();
+        for (Usuario u : usuarios) {
+            UsuarioDTO dto = new UsuarioDTO();
+            ObjectMapper mapper = new ObjectMapper();
+            dto = mapper.convertValue(u, UsuarioDTO.class);
+            usuariosDTO.add(dto);
+        }
+        return usuariosDTO;
+    }
+
 
     @GET
     @Path("{from}/{to}")
@@ -147,5 +164,5 @@ public class UsuarioFacadeREST extends AbstractFacade<Usuario> {
     protected EntityManager getEntityManager() {
         return em;
     }
-    
+
 }

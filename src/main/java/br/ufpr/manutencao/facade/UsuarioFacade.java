@@ -150,4 +150,46 @@ public class UsuarioFacade {
         }
     }
 
+    public static List<UsuarioDTO> buscarOperarios() throws FacadeException {
+        try {
+             // URL do endpoint do backend
+            String backendURL = "http://localhost:8080/manutencaoufpr/webresources/usuario/listaOperarios";
+
+            HttpClient httpClient = HttpClient.newHttpClient();
+
+            // Requisição GET 
+            HttpRequest request = HttpRequest.newBuilder()
+                    .uri(URI.create(backendURL))
+                    .header("Content-Type", "application/json")
+                    .build();
+
+            // Chamada ao backend
+            HttpResponse<String> response = httpClient.send(request, HttpResponse.BodyHandlers.ofString());
+
+            // Verificação do código de status da resposta
+            int statusCode = response.statusCode();
+
+            //  Se o código de status for 200 (OK), processa a resposta do backend
+            if (statusCode == 200) {
+                String responseBody = response.body();
+
+                // Converte o JSON de resposta para um objeto
+                ObjectMapper mapper = new ObjectMapper();
+                List<UsuarioDTO> operarios = mapper.readValue(responseBody, new TypeReference<List<UsuarioDTO>>() {});
+                
+                System.out.println("entrou na facade aberto "+ operarios);
+                return operarios;
+            } else {
+                System.out.println("entrou no else");
+                // Se o código de status for diferente de 200
+                throw new FacadeException("Erro ao listar chamados: " + response.body());
+            }
+        } catch (IOException | InterruptedException e) {
+            System.out.println("entrou no erro" + e);
+            
+           // Exceção que ocorre durante a chamada ao backend
+            throw new FacadeException("Erro na chamada ao backend: " + e.getMessage(), e);
+        }
+    }
+
 }
