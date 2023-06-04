@@ -60,14 +60,18 @@
                         </td>
                         <td><span class="badge badge-sm c-status" style="background-color:
                                   <c:choose>
-                                      <c:when test="${usuario.bloqueio eq 'false'}">green</c:when>
-                                      <c:otherwise>red</c:otherwise>
+                                      <c:when test="${usuario.bloqueio eq 'false'}">green
+                                       <c:set var="status" value="Ativo" />
+                                      </c:when>
+                                      <c:otherwise>red
+                                       <c:set var="status" value="Bloqueado" />
+                                      </c:otherwise>
                                   </c:choose>;">
-                                <c:out value="${usuario.bloqueio}"/>
+                                <c:out value="${status}"/>
                             </span>
                         </td>
                         <td>
-                            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalUsuario" value ="${usuario.id}">
+         <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalUsuario<c:out value="${usuario.id}"/>">
                                 Detalhes
                             </button>
                         </td>
@@ -80,10 +84,8 @@
 
 
     <!--********** MODAL USUARIO**************-->
-
-    <div class="modal fade" id="modalUsuario" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
-         aria-labelledby="staticBackdropLabel" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered">
+    <c:forEach var="usuario" items="${requestScope.usuarios}">
+        <div id="modalUsuario<c:out value="${usuario.id}"/>" class="modal fade"  data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
             <div class="modal-content">
                 <div class="modal-header">
                     <h1 class="modal-title fs-5" id="staticBackdropLabel">Usuário</h1>
@@ -96,7 +98,7 @@
                                 <p>id Usuário</p>
                             </div>
                             <div class="col">
-                                <p>#201822569</p>
+                                <p>#${usuario.id}</p>
                             </div>
                         </div>
                     </div>
@@ -104,28 +106,28 @@
                         <div class="row">
                             <div>Nome</div>
                             <div>
-                                <input type="text" class="form-control text-bg-light" id="nome" readonly>
+                                <input type="text" class="form-control text-bg-light" id="nome" readonly value="${usuario.nome}">
                             </div>
 
                             <div class="container text-right">
                                 <div class="row row-cols-3">
                                     <div class="col">
                                         <p>CPF</p>
-                                        <input type="text" class="form-control text-bg-light" id="cpf" readonly>
+                                        <input type="text" class="form-control text-bg-light" id="cpf" readonly value="${usuario.cpf}">
                                     </div>
                                     <div class="col">
                                         <p>Telefone</p>
-                                        <input type="number" class="form-control text-bg-light" id="telefone" readonly>
+                                        <input type="text" class="form-control text-bg-light" id="telefone" readonly value="${usuario.telefone}" >
                                     </div>
                                     <div class="col">
                                         <p>Situação</p>
-                                        <input type="text" class="form-control text-bg-light" id="situação" readonly>
+                                        <input type="text" class="form-control text-bg-light" id="situação" readonly value="${usuario.status}">
                                     </div>
                                 </div>
                             </div>
                             <div>Email</div>
                             <div>
-                                <input type="text" class="form-control text-bg-light" id="email" readonly>
+                                <input type="text" class="form-control text-bg-light" id="email" readonly value="${usuario.email}">
                             </div>
                         </div>
                     </div>
@@ -133,11 +135,11 @@
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
                     <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#modalBloqueio">Bloquear</button>
+                
                 </div>
             </div>
         </div>
-    </div>
-
+</c:forEach>
 
     <!--********** MODAL CONFIRMA BLOQUEIO**************-->
     <div class="modal fade" id="modalBloqueio" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
