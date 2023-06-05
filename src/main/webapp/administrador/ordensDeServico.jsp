@@ -56,15 +56,15 @@
             <thead class="bg-light">
                 <tr>
                     <th>Ordem de Serviço</th>
-                    <th>Campus</th>
-                    <th>Operário</th>
+                    <th>Data abertura</th>
                     <th>Especialidade</th>
+                    <th>Operário</th>
                     <th>Status</th>
                     <th>Detalhes</th>
                 </tr>
             </thead>
             <tbody data-bs-toggle="modal" data-bs-target="#modalOdermDeServico">
-                <c:forEach var="ordem" items="${requestScope.ordensDeServico}">
+                <c:forEach var="ordem" items="${requestScope.ordensServico}">
                     <tr>
                         <td>
                             <p class="fw-normal mb-1">
@@ -72,30 +72,36 @@
                             </p>
                         </td>
 
-
                         <td>
                             <p class="fw-normal mb-1">
-                                <c:out value="${ordem.campus.nome}" />
-                            </p>
-                        </td>
-
-                        <td>
-                            <p class="fw-normal mb-1">
-                                <c:out value="${ordem.operario.nome}" />
+                                <fmt:formatDate value="${ordem.dataAbertura}" pattern="dd/MM/yyyy"/>
                             </p>
                         </td>
                         <td>
                             <p class="fw-normal mb-1">
-                                <c:out value="${ordem.operario.especialidade}" />
+                                <c:out value="${ordem.especialidadeId.nome}" />
                             </p>
                         </td>
                         <td>
                             <p class="fw-normal mb-1">
-                                <c:out value="${ordem.status.nome}" />
+                                <c:out value="${ordem.usuarioOperarioId.nome}" />
                             </p>
                         </td>
                         <td>
-                            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalOdermDeServico">
+                            <span class="badge badge-sm c-status" style="background-color:
+                                  <c:choose>
+                                      <c:when test="${ordem.dataFinalizacao eq null}"> orange
+                                          <c:set var="status" value="Aberta" />
+                                      </c:when>
+                                      <c:otherwise>green
+                                          <c:set var="status" value="Finalizada" />
+                                      </c:otherwise>
+                                  </c:choose>;">
+                                <c:out value="${status}"/>
+                            </span>
+                        </td>
+                        <td>
+                            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalOdermDeServico<c:out value="${ordem.id}" />" data-id="${ordem.id}">
                                 Detalhes
                             </button>
                         </td>
@@ -108,87 +114,88 @@
 
 
     <!--********** MODAL Ordem de Serviço**************-->
-
-    <div class="modal fade" id="modalOdermDeServico"  data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="chamadoModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <div class="row">
-                        <div class="col-sm-6">
-                            <div class="w-50">
-                                <p class="text-body-secondary">Ordem de Serviço</p>
+    <c:forEach var="ordem" items="${requestScope.ordensServico}">
+        <div class="modal fade" id="modalOdermDeServico<c:out value="${ordem.id}" />"  data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="chamadoModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <div class="w-50">
+                                    <p class="text-body-secondary">Ordem de Serviço</p>
+                                </div>
+                            </div>
+                            <div class="col-sm-4">
+                                <p>Id Ordem de Serviço</p>
+                            </div>
+                            <div class="col-sm-2">
+                                <p class="text-center">#20203659</p>
                             </div>
                         </div>
-                        <div class="col-sm-4">
-                            <p>Id Ordem de Serviço</p>
-                        </div>
-                        <div class="col-sm-2">
-                            <p class="text-center">#20203659</p>
-                        </div>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+
+                    <div class="modal-body">
+                        <form>
+
+                            <div class="container">
+
+                                <div class="row">
+                                    <div class="col-sm-6">
+                                        <label for="recipient-name" class="col-form-label">Campus:</label>
+                                        <input type="text" class="form-control text-bg-light" id="campus-name" readonly>
+                                    </div>
+
+                                    <div class="col-sm-6">
+                                        <label for="recipient-name" class="col-form-label">Predio</label>
+                                        <input type="text" class="form-control text-bg-light" id="predio-name" readonly>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <label for="message-text" class="col-form-label">Descrição do Local</label>
+                                        <textarea class="form-control text-bg-light" id="local-text" readonly></textarea>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <label for="message-text" class="col-form-label">Descrição do Problema</label>
+                                        <textarea class="form-control text-bg-light" id="problema-text" readonly></textarea>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-4">
+                                        <label for="recipient-name" class="col-form-label">Status</label>
+                                        <input type="text" class="form-control text-bg-light" id="status" readonly>
+                                    </div>
+
+
+                                    <div class="col-sm-4">
+                                        <label for="recipient-name" class="col-form-label">Data e Hora</label>
+                                        <input type="text" class="form-control text-bg-light" id="Data" readonly>
+                                    </div>
+                                </div>
+                                <!-- ***************** FOR EACH COMENTÁRIO ************************** -->
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <label for="message-text" class="col-form-label">Comentário Operário</label>
+                                        <textarea class="form-control text-bg-light" id="problema-text" readonly></textarea>
+                                    </div>
+                                </div>
+                        </form>
+                    </div>
                 </div>
-
-                <div class="modal-body">
-                    <form>
-
-                        <div class="container">
-
-                            <div class="row">
-                                <div class="col-sm-6">
-                                    <label for="recipient-name" class="col-form-label">Campus:</label>
-                                    <input type="text" class="form-control text-bg-light" id="campus-name" readonly>
-                                </div>
-
-                                <div class="col-sm-6">
-                                    <label for="recipient-name" class="col-form-label">Predio</label>
-                                    <input type="text" class="form-control text-bg-light" id="predio-name" readonly>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-sm-12">
-                                    <label for="message-text" class="col-form-label">Descrição do Local</label>
-                                    <textarea class="form-control text-bg-light" id="local-text" readonly></textarea>
-                                </div>
-                            </div>
-
-                            <div class="row">
-                                <div class="col-sm-12">
-                                    <label for="message-text" class="col-form-label">Descrição do Problema</label>
-                                    <textarea class="form-control text-bg-light" id="problema-text" readonly></textarea>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-sm-4">
-                                    <label for="recipient-name" class="col-form-label">Status</label>
-                                    <input type="text" class="form-control text-bg-light" id="status" readonly>
-                                </div>
-
-
-                                <div class="col-sm-4">
-                                    <label for="recipient-name" class="col-form-label">Data e Hora</label>
-                                    <input type="text" class="form-control text-bg-light" id="Data" readonly>
-                                </div>
-                            </div>
-                            <!-- ***************** FOR EACH COMENTÁRIO ************************** -->
-                            <div class="row">
-                                <div class="col-sm-12">
-                                    <label for="message-text" class="col-form-label">Comentário Operário</label>
-                                    <textarea class="form-control text-bg-light" id="problema-text" readonly></textarea>
-                                </div>
-                            </div>
-                    </form>
-                </div>
-            </div>
-            <div class="modal-footer">
-                <div class="row text-left">
-                    <div class="col-sm-4">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" aria-label="Close">Fechar</button>
+                <div class="modal-footer">
+                    <div class="row text-left">
+                        <div class="col-sm-4">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" aria-label="Close">Fechar</button>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
+    </c:forEach>
 </body>
 </html>
 

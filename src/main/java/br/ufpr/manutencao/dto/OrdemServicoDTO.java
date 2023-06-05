@@ -93,7 +93,10 @@ public class OrdemServicoDTO {
     public void setUsuarioOperarioId(UsuarioDTO usuarioOperarioId) {
         this.usuarioOperarioId = usuarioOperarioId;
     }
-    
-    
-    
+
+    @Override
+    public String toString() {
+        return "OrdemServicoDTO{" + "id=" + id + ", descricao=" + descricao + ", dataAbertura=" + dataAbertura + ", dataFinalizacao=" + dataFinalizacao + ", nomeResponsavelDepartamento=" + nomeResponsavelDepartamento + ", especialidadeId=" + especialidadeId + ", usuarioOperarioId=" + usuarioOperarioId + '}';
+    }
+      
 }
