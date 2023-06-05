@@ -43,6 +43,13 @@
                 <span>${requestScope.msg == null ? param.msg : requestScope.msg}</span>
             </div>
         </c:if>
+        <div class="container">
+        <c:if test="${requestScope.info != null || param.info != null}">
+            <div class="alert alert-success alert-dismissible fade show">
+                <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                <span>${requestScope.info == null ? param.info : requestScope.info}</span>
+            </div>
+        </c:if>
         <div class="row">
             <div class="col">
                 <div class="w-100">
