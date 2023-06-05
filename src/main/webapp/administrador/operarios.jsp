@@ -71,7 +71,7 @@
                         </td>
                         <td>
                             <button type="button" class="btn btn-primary" data-bs-toggle="modal"
-                                    data-bs-target="#modalOperarioo<c:out value="${operario.id}"/>">
+                                    data-bs-target="#modalOperario<c:out value="${operario.id}"/>">
                                 Detalhes
                             </button>
                         </td>
