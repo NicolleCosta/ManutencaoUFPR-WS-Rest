@@ -34,6 +34,12 @@
 
         <!-- Corpo da página -->
     <div class="w-100">
+        <c:if test="${requestScope.info != null || param.info != null}">
+            <div class="alert alert-success alert-dismissible fade show">
+                <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                <span>${requestScope.info == null ? param.info : requestScope.info}</span>
+            </div>
+        </c:if>
         <h1 class="text-center">Operários</h1>
     </div>
     <div class="container text-center">
@@ -297,7 +303,7 @@
 
 
     <!--********** MODAL NOVO OPERARIO **************-->
-    <form action="UsuarioServlet?action=novoOperario" method="POST">
+    <form action="CadastroServlet?action=novoOperario" method="POST">
         <div class="modal fade" id="novoOperarioModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
              aria-labelledby="novoOperarioModal" aria-hidden="true">
             <div class="modal-dialog modal-lg modal-dialog-centered modal-dialog-scrollable">
@@ -335,7 +341,7 @@
                                     <br>
                                     <c:forEach var="especialidade" items="${requestScope.especialidades}">
                                         <c:if test="${especialidade.nome != 'N/A'}">
-                                            <input type="radio" name="opcao" value="${especialidade.nome}"> ${especialidade.nome} <br>
+                                            <input type="radio" name="especialidade" value="${especialidade.id}"> ${especialidade.nome} <br>
                                         </c:if>
                                     </c:forEach>
 

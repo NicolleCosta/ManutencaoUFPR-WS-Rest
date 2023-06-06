@@ -6,6 +6,7 @@ package br.ufpr.manutencao.servlet;
 
 import br.ufpr.manutencao.dto.ChamadoDTO;
 import br.ufpr.manutencao.dto.EspecialidadeDTO;
+import br.ufpr.manutencao.dto.TipoUsuarioDTO;
 import br.ufpr.manutencao.dto.UsuarioDTO;
 import br.ufpr.manutencao.facade.ChamadoFacade;
 import br.ufpr.manutencao.facade.EspecialidadeFacade;
@@ -114,6 +115,36 @@ public class CadastroServlet extends HttpServlet {
                         request.setAttribute("especialidades", especialidades);
                         //redireciona
                         rd = getServletContext().getRequestDispatcher("/administrador/operarios.jsp");
+                        rd.forward(request, response);
+                        break;
+
+                    case "novoOperario":
+                        System.out.println("entrou serveletnovo usuario");
+                        nome = request.getParameter("nome");
+                        String cpf = request.getParameter("cpf");
+                        telefone = request.getParameter("telefone");
+                        email = request.getParameter("email");
+                        int especialidade = Integer.parseInt(request.getParameter("especialidade"));
+                        
+                        usuario = new UsuarioDTO();
+                        //adiciona os valores a esse objeto
+                        usuario.setNome(nome);
+                        usuario.setCpf(cpf);
+                        usuario.setTelefone(telefone);
+                        usuario.setEmail(email);
+                        usuario.setSenha(cpf);
+                        usuario.setBloqueio(false);
+                        usuario.setEspecialidadeId(new EspecialidadeDTO(especialidade));
+                        usuario.setTipoUsuarioId(new TipoUsuarioDTO(2));
+                        
+                        System.out.println("Usuario : "+usuario);
+                        //função para atualizar no bd via Facade
+                        UsuarioFacade.adicionarUsuario(usuario);
+                        
+                        //redireciona
+                        request.setAttribute("info", " Operário cadastrado");
+                        request.setAttribute("page", "/operarios.jsp");
+                        rd = getServletContext().getRequestDispatcher("/CadastroServlet?action=mostrarOperariosAdmin");
                         rd.forward(request, response);
                         break;
 
