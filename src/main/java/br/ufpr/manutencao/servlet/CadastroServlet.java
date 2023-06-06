@@ -5,8 +5,10 @@
 package br.ufpr.manutencao.servlet;
 
 import br.ufpr.manutencao.dto.ChamadoDTO;
+import br.ufpr.manutencao.dto.EspecialidadeDTO;
 import br.ufpr.manutencao.dto.UsuarioDTO;
 import br.ufpr.manutencao.facade.ChamadoFacade;
+import br.ufpr.manutencao.facade.EspecialidadeFacade;
 import br.ufpr.manutencao.facade.FacadeException;
 import br.ufpr.manutencao.facade.UsuarioFacade;
 import jakarta.servlet.RequestDispatcher;
@@ -105,9 +107,11 @@ public class CadastroServlet extends HttpServlet {
                         //Carrega a lista de chamados para apresentar
                         List<UsuarioDTO> operarios = UsuarioFacade.buscarOperarios();
                         System.out.println(operarios);
-
+                        List<EspecialidadeDTO> especialidades = EspecialidadeFacade.buscarEspecialidades();
+                        System.out.println(especialidades);
                         //ADD OBJ NA REQUISIÇÃO
                         request.setAttribute("operarios", operarios);
+                        request.setAttribute("especialidades", especialidades);
                         //redireciona
                         rd = getServletContext().getRequestDispatcher("/administrador/operarios.jsp");
                         rd.forward(request, response);
