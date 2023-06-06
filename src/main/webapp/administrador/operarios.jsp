@@ -33,6 +33,23 @@
         <%@include file="header.jsp" %>
 
         <!-- Corpo da página -->
+    <div class="w-100">
+        <h1 class="text-center">Operários</h1>
+    </div>
+    <div class="container text-center">
+        <div class="row">
+            <div class="col">
+                <form class="d-flex" role="search">
+                    <input class="form-control me-2" type="search" placeholder="Buscar Operário" aria-label="Search">
+                    <button class="btn btn-warning" type="submit" >Buscar</button>
+                </form>
+            </div>
+            <div class="col">               
+                <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#novoOperarioModal">Novo Operário</button>
+            </div>
+        </div>
+    </div>
+
     <div class="table-secondary">
         <table class="table align-middle mb-0 bg-white table-hover">
             <thead class="bg-light">
@@ -80,8 +97,6 @@
             </tbody>
         </table>
     </div>
-
-
 
     <!--********** MODAL OPERARIO **************-->
     <c:forEach var="operario" items="${requestScope.operarios}">
@@ -131,115 +146,14 @@
                                     <label>Email</label>
                                     <input type="text" class="form-control text-bg-light" id="email" readonly>
                                 </div>
-
-
                                 <div>
                                     <label>Especialidades</label>
-                                    <!-- ****************Não sei se vai funcionar aqui salvar as especialidades por estarem em div diferentes mas vamos tentar ****************** -->
-                                    <div class="row">
-                                        <div class="col">
-                                            <div class="form-check">
-                                                <input class="form-check-input" type="checkbox" value="" id="civilCheck" checked disabled>
-                                                <label class="form-check-label" for="flexCheckDefault">
-                                                    Civil
-                                                </label>
-                                            </div>
-                                        </div>
-                                        <div class="col">
-                                            <div class="form-check">
-                                                <input class="form-check-input" type="checkbox" value="" id="pinturaCheck" checked disabled>
-                                                <label class="form-check-label" for="flexCheckChecked">
-                                                    Pintura
-                                                </label>
-                                            </div>
-                                        </div>
-                                        <div class="col">
-
-                                            <div class="form-check">
-                                                <input class="form-check-input" type="checkbox" value=""
-                                                       id="hidraulicaCheck" checked disabled>
-                                                <label class="form-check-label" for="flexCheckChecked">
-                                                    Hidraulica
-                                                </label>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col">
-                                            <div class="form-check">
-                                                <input class="form-check-input" type="checkbox" value="" id="eletricaCheck"  disabled>
-                                                <label class="form-check-label" for="flexCheckChecked">
-                                                    Elétrica
-                                                </label>
-                                            </div>
-                                        </div>
-                                        <div class="col">
-                                            <div class="form-check">
-                                                <input class="form-check-input" type="checkbox" value=""
-                                                       id="carpintariaCheck" disabled>
-                                                <label class="form-check-label" for="flexCheckChecked">
-                                                    Carpintaria
-                                                </label>
-                                            </div>
-                                        </div>
-                                        <div class="col">
-                                            <div class="form-check">
-                                                <input class="form-check-input" type="checkbox" value="" id="azulejistaCheck" disabled>
-                                                <label class="form-check-label" for="flexCheckChecked">
-                                                    Azulejista
-                                                </label>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col">
-                                            <div class="form-check">
-                                                <input class="form-check-input" type="checkbox" value="" id="gesseiroCheck" disabled>
-                                                <label class="form-check-label" for="flexCheckChecked">
-                                                    Gesseiro
-                                                </label>
-                                            </div>
-                                        </div>
-                                        <div class="col">
-                                            <div class="form-check">
-                                                <input class="form-check-input" type="checkbox" value=""
-                                                       id="vidraceiroCheck" disabled>
-                                                <label class="form-check-label" for="flexCheckChecked">
-                                                    Vidraceiro
-                                                </label>
-                                            </div>
-                                        </div>
-                                        <div class="col">
-                                            <div class="form-check">
-                                                <input class="form-check-input" type="checkbox" value=""
-                                                       id="SerralheriaCheck" disabled>
-                                                <label class="form-check-label" for="flexCheckChecked">
-                                                    Serralheria
-                                                </label>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col">
-
-                                            <div class="form-check">
-                                                <input class="form-check-input" type="checkbox" value="" id="armadorCheck" disabled>
-                                                <label class="form-check-label" for="flexCheckChecked">
-                                                    Armador
-                                                </label>
-                                            </div>
-                                        </div>
-                                        <div class="col">
-                                            <div class="form-check">
-                                                <input class="form-check-input" type="checkbox" value="" id="soldadorCheck" disabled>
-                                                <label class="form-check-label" for="flexCheckChecked">
-                                                    Soldador
-                                                </label>
-                                            </div>
-                                        </div>
-                                        <div class="col">
-                                        </div>
-                                    </div>
+                                    <br>
+                                    <c:forEach var="especialidade" items="${requestScope.especialidades}">
+                                        <c:if test="${especialidade.nome != 'N/A'}">
+                                            <input type="radio" name="opcao" value="${especialidade.nome}"> ${especialidade.nome} <br>
+                                        </c:if>
+                                    </c:forEach>
                                 </div>
                             </div>
                         </div>
@@ -256,235 +170,134 @@
                 </div>
             </div>
         </div>
-</c:forEach>
-        <!--********** MODAL EDITAR OPERARIO **************-->
+    </c:forEach>
+    <!--********** MODAL EDITAR OPERARIO **************-->
 
-        <div class="modal fade" id="editarOperarioModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
-             aria-labelledby="modalOperarioLabel" aria-hidden="true">
-            <div class="modal-dialog modal-lg modal-dialog-centered modal-dialog-scrollable">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h1 class="modal-title fs-5" id="modalOperario">Operário</h1>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <div class="modal-body">
-                        <div class="container text-right">
-                            <div class="row row-cols-2">
-                                <div class="col">
-                                    <p>id Operário</p>
-                                </div>
-                                <div class="col">
-                                    <p>#201822569</p>
-                                </div>
+    <div class="modal fade" id="editarOperarioModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+         aria-labelledby="modalOperarioLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg modal-dialog-centered modal-dialog-scrollable">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="modalOperario">Operário</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="container text-right">
+                        <div class="row row-cols-2">
+                            <div class="col">
+                                <p>id Operário</p>
                             </div>
-                        </div>
-                        <div class="container">
-                            <div class="row">
-                                <div>Nome</div>
-                                <div>
-                                    <input type="text" class="form-control text-bg-light" id="nome" >
-                                </div>
-                                <div class="container text-right">
-                                    <div class="row row-cols-3">
-                                        <div class="col">
-                                            <label>CPF</label>
-                                            <input type="text" class="form-control text-bg-light" id="cpf" readonly>
-                                        </div>
-                                        <div class="col">
-                                            <label>Telefone</label>
-                                            <input type="text" class="form-control text-bg-light" id="telefone" >
-                                        </div>
-                                        <div class="col">
-                                            <label>Situação</label>
-                                            <input type="text" class="form-control text-bg-light" id="situação" readonly>
-                                        </div>
-
-                                    </div>
-                                </div>
-                                <div>
-                                    <label>Email</label>
-                                    <input type="text" class="form-control text-bg-light" id="email" >
-                                </div>
-                                <div>
-                                    <label>Especialidades</label>
-                                    <!-- ****************Não sei se vai funcionar aqui salvar as especialidades por estarem em div diferentes mas vamos tentar ****************** -->
-                                    <div class="row">
-                                        <div class="col">
-                                            <div class="form-check">
-                                                <input class="form-check-input" type="checkbox" value="" id="civilCheck">
-                                                <label class="form-check-label" for="flexCheckDefault">
-                                                    Civil
-                                                </label>
-                                            </div>
-                                        </div>
-                                        <div class="col">
-                                            <div class="form-check">
-                                                <input class="form-check-input" type="checkbox" value="" id="pinturaCheck">
-                                                <label class="form-check-label" for="flexCheckChecked">
-                                                    Pintura
-                                                </label>
-                                            </div>
-                                        </div>
-                                        <div class="col">
-
-                                            <div class="form-check">
-                                                <input class="form-check-input" type="checkbox" value=""
-                                                       id="hidraulicaCheck">
-                                                <label class="form-check-label" for="flexCheckChecked">
-                                                    Hidraulica
-                                                </label>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col">
-                                            <div class="form-check">
-                                                <input class="form-check-input" type="checkbox" value="" id="eletricaCheck">
-                                                <label class="form-check-label" for="flexCheckChecked">
-                                                    Elétrica
-                                                </label>
-                                            </div>
-                                        </div>
-                                        <div class="col">
-                                            <div class="form-check">
-                                                <input class="form-check-input" type="checkbox" value=""
-                                                       id="carpintariaCheck">
-                                                <label class="form-check-label" for="flexCheckChecked">
-                                                    Carpintaria
-                                                </label>
-                                            </div>
-                                        </div>
-                                        <div class="col">
-                                            <div class="form-check">
-                                                <input class="form-check-input" type="checkbox" value=""
-                                                       id="azulejistaCheck">
-                                                <label class="form-check-label" for="flexCheckChecked">
-                                                    Azulejista
-                                                </label>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col">
-                                            <div class="form-check">
-                                                <input class="form-check-input" type="checkbox" value="" id="gesseiroCheck">
-                                                <label class="form-check-label" for="flexCheckChecked">
-                                                    Gesseiro
-                                                </label>
-                                            </div>
-                                        </div>
-                                        <div class="col">
-                                            <div class="form-check">
-                                                <input class="form-check-input" type="checkbox" value=""
-                                                       id="vidraceiroCheck">
-                                                <label class="form-check-label" for="flexCheckChecked">
-                                                    Vidraceiro
-                                                </label>
-                                            </div>
-                                        </div>
-                                        <div class="col">
-
-                                            <div class="form-check">
-                                                <input class="form-check-input" type="checkbox" value=""
-                                                       id="SerralheriaCheck">
-                                                <label class="form-check-label" for="flexCheckChecked">
-                                                    Serralheria
-                                                </label>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col">
-
-                                            <div class="form-check">
-                                                <input class="form-check-input" type="checkbox" value="" id="armadorCheck">
-                                                <label class="form-check-label" for="flexCheckChecked">
-                                                    Armador
-                                                </label>
-                                            </div>
-                                        </div>
-                                        <div class="col">
-                                            <div class="form-check">
-                                                <input class="form-check-input" type="checkbox" value="" id="soldadorCheck">
-                                                <label class="form-check-label" for="flexCheckChecked">
-                                                    Soldador
-                                                </label>
-                                            </div>
-                                        </div>
-                                        <div class="col">
-                                        </div>
-                                    </div>
-                                </div>
+                            <div class="col">
+                                <p>#201822569</p>
                             </div>
                         </div>
                     </div>
-                    <div class="modal-footer">
+                    <div class="container">
+                        <div class="row">
+                            <div>Nome</div>
+                            <div>
+                                <input type="text" class="form-control text-bg-light" id="nome" >
+                            </div>
+                            <div class="container text-right">
+                                <div class="row row-cols-3">
+                                    <div class="col">
+                                        <label>CPF</label>
+                                        <input type="text" class="form-control text-bg-light" id="cpf" readonly>
+                                    </div>
+                                    <div class="col">
+                                        <label>Telefone</label>
+                                        <input type="text" class="form-control text-bg-light" id="telefone" >
+                                    </div>
+                                    <div class="col">
+                                        <label>Situação</label>
+                                        <input type="text" class="form-control text-bg-light" id="situação" readonly>
+                                    </div>
 
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-                        <button type="button" class="btn btn-warning">Salvar</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-
-
-
-
-        <!--********** MODAL CONFIRMA BLOQUEIO**************-->
-        <div class="modal fade" id="modalBloqueio" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
-             aria-labelledby="staticBackdropLabel" aria-hidden="true">
-            <div class="modal-dialog modal-dialog-centered">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h1 class="modal-title fs-5" id="staticBackdropLabel">CONFIRMAÇÃO DE BLOQUEIO - OPERÁRIO</h1>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <div class="modal-body">
-                        <p class="fw-bold">Tem certeza que deseja BLOQUEAR o Operário?</p>
-
-                        <div>Nome</div>
-                        <div>
-                            <input type="text" class="form-control text-bg-light" id="nome" readonly>
+                                </div>
+                            </div>
+                            <div>
+                                <label>Email</label>
+                                <input type="text" class="form-control text-bg-light" id="email" >
+                            </div>
+                            <div>
+                                <label>Especialidades</label>
+                                <br>
+                                <c:forEach var="especialidade" items="${requestScope.especialidades}">
+                                    <c:if test="${especialidade.nome != 'N/A'}">
+                                        <input type="radio" name="opcao" value="${especialidade.nome}"> ${especialidade.nome} <br>
+                                    </c:if>
+                                </c:forEach>
+                            </div>
                         </div>
                     </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-                        <button type="button" class="btn btn-danger">Bloquear</button>
-                    </div>
+                </div>
+                <div class="modal-footer">
+
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                    <button type="button" class="btn btn-warning">Salvar</button>
                 </div>
             </div>
         </div>
+    </div>
 
 
 
-        <!--********** MODAL CONFIRMA DESBLOQUEIO**************-->
-        <div class="modal fade" id="modalDesbloqueio" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
-             aria-labelledby="staticBackdropLabel" aria-hidden="true">
-            <div class="modal-dialog modal-dialog-centered">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h1 class="modal-title fs-5" id="staticBackdropLabel">CONFIRMAÇÃO DE DESBLOQUEIO - OPERÁRIO</h1>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+
+
+    <!--********** MODAL CONFIRMA BLOQUEIO**************-->
+    <div class="modal fade" id="modalBloqueio" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+         aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="staticBackdropLabel">CONFIRMAÇÃO DE BLOQUEIO - OPERÁRIO</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <p class="fw-bold">Tem certeza que deseja BLOQUEAR o Operário?</p>
+
+                    <div>Nome</div>
+                    <div>
+                        <input type="text" class="form-control text-bg-light" id="nome" readonly>
                     </div>
-                    <div class="modal-body">
-                        <p class="fw-bold">Tem certeza que deseja DESBLOQUEAR o Operário?</p>
-                        <div>Nome</div>
-                        <div>
-                            <input type="text" class="form-control text-bg-light" id="nome" readonly>
-                        </div>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-                        <button type="button" class="btn btn-warning">Desbloqueio</button>
-                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                    <button type="button" class="btn btn-danger">Bloquear</button>
                 </div>
             </div>
         </div>
+    </div>
 
 
-        <!--********** MODAL Novo OPERARIO **************-->
 
+    <!--********** MODAL CONFIRMA DESBLOQUEIO**************-->
+    <div class="modal fade" id="modalDesbloqueio" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+         aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="staticBackdropLabel">CONFIRMAÇÃO DE DESBLOQUEIO - OPERÁRIO</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <p class="fw-bold">Tem certeza que deseja DESBLOQUEAR o Operário?</p>
+                    <div>Nome</div>
+                    <div>
+                        <input type="text" class="form-control text-bg-light" id="nome" readonly>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                    <button type="button" class="btn btn-warning">Desbloqueio</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <!--********** MODAL NOVO OPERARIO **************-->
+    <form action="UsuarioServlet?action=novoOperario" method="POST">
         <div class="modal fade" id="novoOperarioModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
              aria-labelledby="novoOperarioModal" aria-hidden="true">
             <div class="modal-dialog modal-lg modal-dialog-centered modal-dialog-scrollable">
@@ -494,162 +307,49 @@
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
-                        <div class="container text-right">
-                            <div class="row row-cols-2">
-                                <div class="col">
-                                    <p>id Operário</p>
-                                </div>
-                                <div class="col">
-                                    <p>#201822569</p>
-                                </div>
-
-                            </div>
-                        </div>
                         <div class="container">
                             <div class="row">
                                 <div>Nome</div>
                                 <div>
-                                    <input type="text" class="form-control text-bg-light" id="nome" >
+                                    <input type="text" class="form-control text-bg-light" id="nome" name="nome" required>
                                 </div>
 
                                 <div class="container text-right">
-                                    <div class="row row-cols-3">
+                                    <div class="row row-cols-2">
                                         <div class="col">
                                             <label>CPF</label>
-                                            <input type="text" class="form-control text-bg-light" id="cpf" >
+                                            <input type="text" class="form-control text-bg-light" id="cpf" name="cpf" required>
                                         </div>
                                         <div class="col">
                                             <label>Telefone</label>
-                                            <input type="text" class="form-control text-bg-light" id="telefone" >
-                                        </div>
-                                        <div class="col">
-                                            <label>Situação</label>
-                                            <input type="text" class="form-control text-bg-light" id="situação">
+                                            <input type="text" class="form-control text-bg-light" id="telefone" name="telefone" required>
                                         </div>
                                     </div>
                                 </div>
                                 <div>
                                     <label>Email</label>
-                                    <input type="text" class="form-control text-bg-light" id="email" >
+                                    <input type="text" class="form-control text-bg-light" id="email" name="email" required>
                                 </div>
                                 <div>
                                     <label>Especialidades</label>
-                                    <!-- ****************Não sei se vai funcionar aqui salvar as especialidades por estarem em div diferentes mas vamos tentar ****************** -->
-                                    <div class="row">
-                                        <div class="col">
-                                            <div class="form-check">
-                                                <input class="form-check-input" type="checkbox" value="" id="civilCheck">
-                                                <label class="form-check-label" for="flexCheckDefault">
-                                                    Civil
-                                                </label>
-                                            </div>
-                                        </div>
-                                        <div class="col">
-                                            <div class="form-check">
-                                                <input class="form-check-input" type="checkbox" value="" id="pinturaCheck">
-                                                <label class="form-check-label" for="flexCheckChecked">
-                                                    Pintura
-                                                </label>
-                                            </div>
-                                        </div>
-                                        <div class="col">
-                                            <div class="form-check">
-                                                <input class="form-check-input" type="checkbox" value=""
-                                                       id="hidraulicaCheck">
-                                                <label class="form-check-label" for="flexCheckChecked">
-                                                    Hidraulica
-                                                </label>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col">
-                                            <div class="form-check">
-                                                <input class="form-check-input" type="checkbox" value="" id="eletricaCheck">
-                                                <label class="form-check-label" for="flexCheckChecked">
-                                                    Elétrica
-                                                </label>
-                                            </div>
-                                        </div>
-                                        <div class="col">
+                                    <br>
+                                    <c:forEach var="especialidade" items="${requestScope.especialidades}">
+                                        <c:if test="${especialidade.nome != 'N/A'}">
+                                            <input type="radio" name="opcao" value="${especialidade.nome}"> ${especialidade.nome} <br>
+                                        </c:if>
+                                    </c:forEach>
 
-                                            <div class="form-check">
-                                                <input class="form-check-input" type="checkbox" value=""
-                                                       id="carpintariaCheck">
-                                                <label class="form-check-label" for="flexCheckChecked">
-                                                    Carpintaria
-                                                </label>
-                                            </div>
-                                        </div>
-                                        <div class="col">
-                                            <div class="form-check">
-                                                <input class="form-check-input" type="checkbox" value=""
-                                                       id="azulejistaCheck">
-                                                <label class="form-check-label" for="flexCheckChecked">
-                                                    Azulejista
-                                                </label>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col">
-                                            <div class="form-check">
-                                                <input class="form-check-input" type="checkbox" value="" id="gesseiroCheck">
-                                                <label class="form-check-label" for="flexCheckChecked">
-                                                    Gesseiro
-                                                </label>
-                                            </div>
-                                        </div>
-                                        <div class="col">
-                                            <div class="form-check">
-                                                <input class="form-check-input" type="checkbox" value=""
-                                                       id="vidraceiroCheck">
-                                                <label class="form-check-label" for="flexCheckChecked">
-                                                    Vidraceiro
-                                                </label>
-                                            </div>
-                                        </div>
-                                        <div class="col">
-                                            <div class="form-check">
-                                                <input class="form-check-input" type="checkbox" value=""
-                                                       id="SerralheriaCheck">
-                                                <label class="form-check-label" for="flexCheckChecked">
-                                                    Serralheria
-                                                </label>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col">
-
-                                            <div class="form-check">
-                                                <input class="form-check-input" type="checkbox" value="" id="armadorCheck">
-                                                <label class="form-check-label" for="flexCheckChecked">
-                                                    Armador
-                                                </label>
-                                            </div>
-                                        </div>
-                                        <div class="col">
-                                            <div class="form-check">
-                                                <input class="form-check-input" type="checkbox" value="" id="soldadorCheck">
-                                                <label class="form-check-label" for="flexCheckChecked">
-                                                    Soldador
-                                                </label>
-                                            </div>
-                                        </div>
-                                        <div class="col">
-                                        </div>
-                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-                        <button type="button" class="btn btn-warning">Salvar</button>
+                        <button type="submit" class="btn btn-warning">Salvar</button>
                     </div>
                 </div>
             </div>
         </div>
-    </body>
+    </form>
+</body>
 </html>

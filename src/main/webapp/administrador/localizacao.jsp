@@ -370,7 +370,6 @@
                                                     <option value="${campus.id}">${campus.nome}</option>
                                                 </c:forEach>
                                             </select>
-
                                         </div>
                                     </div>
                                     <div class="col-4">Prédio</div>
