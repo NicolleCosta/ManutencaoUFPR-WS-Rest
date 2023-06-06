@@ -20,6 +20,10 @@ public class EspecialidadeDTO{
     public EspecialidadeDTO() {
     }
 
+    public EspecialidadeDTO(Integer id) {
+        this.id = id;
+    }
+
     public EspecialidadeDTO(Integer id, String nome) {
         this.id = id;
         this.nome = nome;

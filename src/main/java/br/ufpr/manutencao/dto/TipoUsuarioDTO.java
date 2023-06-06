@@ -17,6 +17,10 @@ public class TipoUsuarioDTO{
     public TipoUsuarioDTO() {
     }
 
+    public TipoUsuarioDTO(Integer id) {
+        this.id = id;
+    }
+
     public TipoUsuarioDTO(Integer id, String nome) {
         this.id = id;
         this.nome = nome;
