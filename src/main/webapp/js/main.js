@@ -1,30 +1,16 @@
-const chamadoModal = document.getElementById('chamadoModal')
-const detalhesButton = document.getElementById('detalhesButton')
+$(document).ready(function() {
 
-modalChamado.addEventListener('shown.bs.modal', () => {
-  detalhesButton.focus()
-})
+const btn = document.getElementById('closeX');
+const modal = document.getElementById('MyModal');
 
-if (chamadoModal) {
-    chamadoModal.addEventListener('show.bs.modal', event => {
-    // Button that triggered the modal
-    const button = event.relatedTarget
-    // Extract info from data-bs-* attributes
-    const recipient = button.getAttribute('data-bs-whatever')
-    // If necessary, you could initiate an Ajax request here
-    // and then do the updating in a callback.
+btn.addEventListener('click', () => {
+  modal.style.display = 'none';
+});
 
-    // Update the modal's content.
-    const modalTitle = chamadoModal.querySelector('.modal-title')
-    const modalBodyInput = chamadoModal.querySelector('.modal-body input')
+window.onclick = function(event) {
+  if (event.target == modal) {
+    modal.style.display = "none";
+  }
+};
 
-    modalTitle.textContent = `New message to ${recipient}`
-    modalBodyInput.value = recipient
-  })
-}
-
-
-
-
-const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]')
-const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl))
+});

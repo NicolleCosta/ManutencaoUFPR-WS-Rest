@@ -67,7 +67,7 @@
                                        <c:set var="status" value="Bloqueado" />
                                       </c:otherwise>
                                   </c:choose>;">
-                                <c:out value="${status}"/>
+                                <c:out value="${usuario.bloqueio}"/>
                             </span>
                         </td>
                         <td>

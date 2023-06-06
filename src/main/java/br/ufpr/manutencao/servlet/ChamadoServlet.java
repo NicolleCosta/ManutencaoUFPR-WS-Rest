@@ -59,7 +59,8 @@ public class ChamadoServlet extends HttpServlet {
                         rd.forward(request, response);
 
                     break;
-
+                    
+                    
                     default:
                         //redireciona
                         response.sendRedirect("LogoutServlet");
