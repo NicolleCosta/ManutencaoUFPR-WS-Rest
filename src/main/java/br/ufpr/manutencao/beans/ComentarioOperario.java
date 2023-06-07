@@ -32,6 +32,7 @@ import jakarta.persistence.TemporalType;
     @NamedQuery(name = "ComentarioOperario.findById", query = "SELECT c FROM ComentarioOperario c WHERE c.id = :id"),
     @NamedQuery(name = "ComentarioOperario.findByDescricao", query = "SELECT c FROM ComentarioOperario c WHERE c.descricao = :descricao"),
     @NamedQuery(name = "ComentarioOperario.findByDataHora", query = "SELECT c FROM ComentarioOperario c WHERE c.dataHora = :dataHora"),
+    @NamedQuery(name = "ComentarioOperario.listarPorId", query = "SELECT c FROM ComentarioOperario c WHERE c.ordemServicoId.id = :id"),
     @NamedQuery(name = "ComentarioOperario.findByAnexo", query = "SELECT c FROM ComentarioOperario c WHERE c.anexo = :anexo")})
 public class ComentarioOperario implements Serializable {
 
