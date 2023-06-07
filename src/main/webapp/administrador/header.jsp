@@ -19,7 +19,7 @@
 
 <!-- Menu do topo contendo nome do usuariorio e botão de logout  -->
 
-<header class="container-fluid bg-info mb-4">
+<header class="container-fluid mb-4">
     <nav class="navbar bg-primary" data-bs-theme="dark">
 
         <div class="container-fluid">
@@ -43,27 +43,31 @@
 
     </nav>
 
-    <div class="container" id="navegacaoSuperior">
-        <div class="row align-items-center">
+    <!-- ************************** MENU NAVEGAÇÃO SUPERIOR ADMINISTRADOR *************************** -->
+    <div class="container p-3" id="navegacaoSuperior">
+        <div class="row d-grid gap-2 d-md-flex justify-content-md-center">
 
-            <div class="col">
+            <div class="col-md-auto">
                 <a class="nav-link" href="ChamadoServlet?action=mostrarHomeAdmin"><button type="button" class="btn btn-warning">Chamados</button></a>
-            </div>  
-            <div class="col">
+            </div>
+            <div class="col-md-auto">
                 <a class="nav-link" href="OrdemDeServicoServlet?action=mostrarOdemDeServico"><button type="button" class="btn btn-warning ">Ordem de Serviço</button></a>
             </div>
-            <div class="col">
+
+            <div class="col-md-auto">
                 <a href="LocalizacaoServlet?action=mostrarLocalizacao"><button type="button" class="btn btn-warning">Localização</button></a>
             </div>
-            <div class="col">
+            <div class="col-md-auto">
                 <a href="CadastroServlet?action=mostrarUsuariosAdmin"><button type="button" class="btn btn-warning">Usuário</button></a>
-            </div>
-            <div class="col">
+                    </div>            
+            <div class="col-md-auto">
                 <a href="CadastroServlet?action=mostrarOperariosAdmin"><button type="button" class="btn btn-warning">Operário</button></a>
             </div>
-            <div class="col">
+            <div class="col-md-auto">
                 <a href="CadastroServlet?action=mostrarMeuCadastro"><button type="button" class="btn btn-warning">Meu Cadastro</button></a>
             </div>
+
+
         </div>
     </div>
 </header>
