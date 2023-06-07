@@ -42,9 +42,6 @@
     </div>
 
     <!--**************** TABELA CHAMADOS EM ANDAMENTO************* -->
-    <div class="w-100">
-        <h2 class="text-center">Chamados Em Aberto</h2>
-    </div>
 
     <div class="container-fluid display-table">
         <div class="row display-table-row">
@@ -171,36 +168,25 @@
                             </table>
                         </div>
 
-                        <!--********** MODAL CHAMADO **************-->
+                        <!--********** MODAL CHAMADOS ABERTOS **************-->
                         <c:forEach var="chamado" items="${requestScope.chamadosAbertos}">
 
                         <div class="modal fade" data-bs-keyboard="false" tabindex="-1" aria-labelledby="chamadoModalLabel"
                         aria-hidden="true"   id="chamadoModal<c:out value="${chamados.chamado.id}"/>">
                        
-                        <div class="modal-dialog">
+                        <div class="modal-dialog modal-lg">
                             <div class="modal-content">
                                 <div class="modal-header">
-                                    <div class="row">
-                                        <div class="col-sm-8">
-                                            <div class="w-50">
-                                                <p class="text-body-secondary" id="chamadoModal">Chamado</p>
-                       
-                                            </div>
-                                        </div>
-                                        <div class="col-sm-2">
-                                            <p>Id Chamado</p>
-                                        </div>
-                                        <div class="col-sm-2">
-                                            <p class="text-center"><c:out value="${chamado.id}"/></p>
-                                        </div>
-                                    </div>
-                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                     <h3 class="text-primary" id="chamadoModal">Chamado</h3>
+                                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                    
                                 </div>
                        
                                 <div class="modal-body">
                        
                        
                                     <div class="container">
+                                        <p>Id Chamado: <c:out value="${chamado.id}"/></p>
                        
                                         <div class="row">
                                             <div class="col-sm-12">
@@ -210,7 +196,7 @@
                                         </div>
                                         <div class="row">
                                             <div class="col-sm-6">
-                                                <label for="recipient-name" class="col-form-label">Campus:</label>
+                                                <label for="recipient-name" class="col-form-label">Campus</label>
                                                 <input type="text" class="form-control text-bg-light" id="campus-name" value="<c:out value="${chamado.predioId.campusId.nome}" />" readonly>
                                             </div>
                        
@@ -222,14 +208,14 @@
                                         <div class="row">
                                             <div class="col-sm-12">
                                                 <label for="message-text" class="col-form-label">Descrição do Local</label>
-                                                <textarea class="form-control text-bg-light" id="local-text" value="<c:out value="${chamado.descricaoLocal}"/>"  readonly></textarea>
+                                                <textarea class="form-control text-bg-light" id="local-text" readonly><c:out value="${chamado.descricaoLocal}"/></textarea>
                                             </div>
                                         </div>
                        
                                         <div class="row">
                                             <div class="col-sm-12">
                                                 <label for="message-text" class="col-form-label">Descrição do Problema</label>
-                                                <textarea class="form-control text-bg-light" id="problema-text" value="<c:out value="${chamado.descricaoProblema}"/>" readonly></textarea>
+                                                <textarea class="form-control text-bg-light" id="problema-text" readonly><c:out value="${chamado.descricaoProblema}"/></textarea>
                                             </div>
                        
                                         </div>
@@ -242,7 +228,7 @@
                        
                                             <div class="col-sm-4">
                                                 <label for="recipient-name" class="col-form-label">Ordem de Serviço</label>
-                                                <input type="text" class="form-control text-bg-light" id="ordem-de-servico" readonly>
+                                                <input type="text" class="form-control text-bg-light" id="ordem-de-servico" value="Em Aberto" readonly>
                                             </div>
                        
                                             <div class="col-sm-4">
@@ -257,14 +243,13 @@
                        
                                 <div class="modal-footer">
                                     <div class="row text-left">
-                                        <div class="col-sm-8">
+                                        <div class="d-grid gap-2 d-md-flex justify-content-md-end">
                                             <button type="button" class="btn btn-secondary" data-bs-toggle="modal"
                                                 data-bs-target="#associarModal">Associar</button>
-                                        </div>
-                                        <div class="col-sm-4">
-                                            <button type="button" class="btn btn-warning" data-bs-toggle="modal"
+                                                <button type="button" class="btn btn-warning" data-bs-toggle="modal"
                                                 data-bs-target="#novaOrdemDeServicoModal">Nova Ordem De Serviço</button>
                                         </div>
+
                        
                                     </div>
                        
