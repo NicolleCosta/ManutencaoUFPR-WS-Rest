@@ -27,6 +27,9 @@ import jakarta.persistence.Table;
     @NamedQuery(name = "Status.findAll", query = "SELECT s FROM Status s"),
     @NamedQuery(name = "Status.findById", query = "SELECT s FROM Status s WHERE s.id = :id"),
     @NamedQuery(name = "Status.findByNome", query = "SELECT s FROM Status s WHERE s.nome = :nome")})
+    @NamedQuery(name = "status.fecharChamado", query = "UPDATE Chamado c SET c.statusId.id = 3 WHERE c.ordemServicoId.id = :id")
+
+
 public class Status implements Serializable {
 
     private static final long serialVersionUID = 1L;

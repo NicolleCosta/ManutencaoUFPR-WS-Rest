@@ -6,9 +6,13 @@ package br.ufpr.manutencao.resources;
 
 
 import br.ufpr.manutencao.beans.ComentarioOperario;
+import br.ufpr.manutencao.beans.OrdemServico;
+import br.ufpr.manutencao.dto.ComentarioOperarioDTO;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import java.util.List;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
+import jakarta.persistence.TypedQuery;
 import jakarta.ws.rs.Consumes;
 import jakarta.ws.rs.DELETE;
 import jakarta.ws.rs.GET;
@@ -18,6 +22,7 @@ import jakarta.ws.rs.Path;
 import jakarta.ws.rs.PathParam;
 import jakarta.ws.rs.Produces;
 import jakarta.ws.rs.core.MediaType;
+import java.util.ArrayList;
 
 /**
  *
@@ -87,4 +92,27 @@ public class ComentarioOperarioFacadeREST extends AbstractFacade<ComentarioOpera
         return em;
     }
     
+    @GET
+    @Path("/listarComentarioPorIdOS/{id}")
+     @Consumes({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
+    public List<ComentarioOperarioDTO> listarComentariosPorId(@PathParam("id") Integer id){
+        //OrdemServico ordemServico = new OrdemServico();
+        //ordemServico.setId(ordemservicoId);
+        //ComentarioOperario comentarioOperario = new ComentarioOperario();
+        //comentarioOperario.setOrdemServicoId(ordemServico);
+        TypedQuery<ComentarioOperario> query = em.createNamedQuery("ComentarioOperario.listarPorId", ComentarioOperario.class);
+        query.setParameter("id", id);
+        List<ComentarioOperario> comentarioOperario = new ArrayList<>();
+        comentarioOperario = query.getResultList();
+        List<ComentarioOperarioDTO> comentarioOperarioDTO = new ArrayList<>();
+        
+        for (ComentarioOperario c: comentarioOperario) {
+            ComentarioOperarioDTO dto = new ComentarioOperarioDTO();
+            ObjectMapper mapper = new ObjectMapper();
+            dto = mapper.convertValue(c, ComentarioOperarioDTO.class);
+            comentarioOperarioDTO.add(dto);
+            }
+        return comentarioOperarioDTO;
+    }
+
 }
