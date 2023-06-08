@@ -5,7 +5,9 @@
 package br.ufpr.manutencao.servlet;
 
 import br.ufpr.manutencao.dto.ChamadoDTO;
+import br.ufpr.manutencao.dto.EspecialidadeDTO;
 import br.ufpr.manutencao.facade.ChamadoFacade;
+import br.ufpr.manutencao.facade.EspecialidadeFacade;
 import br.ufpr.manutencao.facade.FacadeException;
 import jakarta.servlet.RequestDispatcher;
 import java.io.IOException;
@@ -36,40 +38,43 @@ public class ChamadoServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-                request.setCharacterEncoding("UTF-8");
+        request.setCharacterEncoding("UTF-8");
         String action = request.getParameter("action");
-        try{
-            if(action==null){
+        try {
+            if (action == null) {
                 //redireciona
                 response.sendRedirect("LogoutServlet");
-            } else{
+            } else {
                 switch (action) {
                     case "mostrarHomeAdmin":
                         System.out.println("estrou no mostrarhomeAdmin");
                         //Carrega a lista de chamados para apresentar
-                         List<ChamadoDTO> chamadosAbertos = ChamadoFacade.buscarChamadosAbertos();
-                         System.out.println(chamadosAbertos);
-                         List<ChamadoDTO> chamadosEmAndamento = ChamadoFacade.buscarChamadosEmAndamento();
-                    System.out.println(chamadosEmAndamento);
+                        List<ChamadoDTO> chamadosAbertos = ChamadoFacade.buscarChamadosAbertos();
+                        System.out.println(chamadosAbertos);
+
+                        List<ChamadoDTO> chamadosEmAndamento = ChamadoFacade.buscarChamadosEmAndamento();
+                        System.out.println(chamadosEmAndamento);
+List<EspecialidadeDTO> especialidades = EspecialidadeFacade.buscarEspecialidades();
                         //ADD OBJ NA REQUISIÇÃO
                         request.setAttribute("chamadosAbertos", chamadosAbertos);
-                         request.setAttribute("chamadosEmAndamento", chamadosEmAndamento);
+                        request.setAttribute("chamadosEmAndamento", chamadosEmAndamento);
+                        request.setAttribute("especialidades", especialidades);
                         //redireciona
                         RequestDispatcher rd = getServletContext().getRequestDispatcher("/administrador/home.jsp");
                         rd.forward(request, response);
-                    break;
-                    
+                        break;
+
                     default:
                         //redireciona
                         response.sendRedirect("LogoutServlet");
                 }
             }
-        } catch(FacadeException ex) {
+        } catch (FacadeException ex) {
             request.setAttribute("msg", ex);
             request.setAttribute("page", "LogoutServlet");
             RequestDispatcher rd = getServletContext().getRequestDispatcher("/erro.jsp");
             rd.forward(request, response);
-        }        
+        }
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

@@ -19,6 +19,7 @@ import jakarta.persistence.ManyToOne;
 import jakarta.persistence.NamedQueries;
 import jakarta.persistence.NamedQuery;
 import jakarta.persistence.OneToMany;
+import jakarta.persistence.PrePersist;
 import jakarta.persistence.Table;
 import jakarta.persistence.Temporal;
 import jakarta.persistence.TemporalType;
@@ -32,10 +33,10 @@ import jakarta.persistence.TemporalType;
 @NamedQueries({
     @NamedQuery(name = "OrdemServico.findAll", query = "SELECT o FROM OrdemServico o"),
     @NamedQuery(name = "OrdemServico.findById", query = "SELECT o FROM OrdemServico o WHERE o.id = :id"),
-    @NamedQuery(name = "OrdemServico.findByDescricao", query = "SELECT o FROM OrdemServico o WHERE o.descricao = :descricao"),
+    @NamedQuery(name = "OrdemServico.findByNumeroOS", query = "SELECT o FROM OrdemServico o WHERE o.numeroOS = :numeroOS"),
+    @NamedQuery(name = "OrdemServico.findByDescricao", query = "SELECT o FROM OrdemServico o WHERE o.descricaoProblema = :descricao"),
     @NamedQuery(name = "OrdemServico.findByDataAbertura", query = "SELECT o FROM OrdemServico o WHERE o.dataAbertura = :dataAbertura"),
-    @NamedQuery(name = "OrdemServico.findByDataFinalizacao", query = "SELECT o FROM OrdemServico o WHERE o.dataFinalizacao = :dataFinalizacao"),
-    @NamedQuery(name = "OrdemServico.findByNomeResponsavelDepartamento", query = "SELECT o FROM OrdemServico o WHERE o.nomeResponsavelDepartamento = :nomeResponsavelDepartamento")})
+    @NamedQuery(name = "OrdemServico.findByDataFinalizacao", query = "SELECT o FROM OrdemServico o WHERE o.dataFinalizacao = :dataFinalizacao")})
 public class OrdemServico implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -44,19 +45,24 @@ public class OrdemServico implements Serializable {
     @Basic(optional = false)
     @Column(name = "id")
     private Integer id;
-    @Column(name = "descricao")
-    private String descricao;
+    @Column(name = "descricao_local")
+    private String descricaoLocal;
+
     @Column(name = "data_abertura")
     @Temporal(TemporalType.TIMESTAMP)
     @JsonbDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'")
     private Date dataAbertura;
+
     @Column(name = "data_finalizacao")
     @Temporal(TemporalType.TIMESTAMP)
     @JsonbDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'")
     private Date dataFinalizacao;
-    @Column(name = "nome_responsavel_departamento")
-    private String nomeResponsavelDepartamento;
-    
+    @Column(name = "descricao_problema")
+    private String descricaoProblema;
+    @Basic(optional = false)
+    @Column(name = "numero_os")
+    private String numeroOS;
+
     // Retirado para nao gerar problema de looping já que está em outra classe   
 //    @OneToMany(mappedBy = "ordemServicoId")
 //    private Collection<RetiradaMaterial> retiradaMaterialCollection;
@@ -64,15 +70,13 @@ public class OrdemServico implements Serializable {
 //    private Collection<ComentarioOperario> comentarioOperarioCollection;
 //    @OneToMany(mappedBy = "ordemServicoId")
 //    private Collection<Chamado> chamadoCollection;
-    
     @JoinColumn(name = "especialidade_id", referencedColumnName = "id")
     @ManyToOne
     private Especialidade especialidadeId;
-    
+
     @JoinColumn(name = "usuario_operario_id", referencedColumnName = "id")
     @ManyToOne
     private Usuario usuarioOperarioId;
-
 
     public OrdemServico() {
     }
@@ -89,12 +93,12 @@ public class OrdemServico implements Serializable {
         this.id = id;
     }
 
-    public String getDescricao() {
-        return descricao;
+    public String getDescricaoLocal() {
+        return descricaoLocal;
     }
 
-    public void setDescricao(String descricao) {
-        this.descricao = descricao;
+    public void setDescricaoLocal(String descricaoLocal) {
+        this.descricaoLocal = descricaoLocal;
     }
 
     public Date getDataAbertura() {
@@ -113,13 +117,22 @@ public class OrdemServico implements Serializable {
         this.dataFinalizacao = dataFinalizacao;
     }
 
-    public String getNomeResponsavelDepartamento() {
-        return nomeResponsavelDepartamento;
+    public String getDescricaoProblema() {
+        return descricaoProblema;
     }
 
-    public void setNomeResponsavelDepartamento(String nomeResponsavelDepartamento) {
-        this.nomeResponsavelDepartamento = nomeResponsavelDepartamento;
+    public void setDescricaoProblema(String descricaoProblema) {
+        this.descricaoProblema = descricaoProblema;
     }
+
+    public String getNumeroOS() {
+        return numeroOS;
+    }
+
+    public void setNumeroOS(String numeroOS) {
+        this.numeroOS = numeroOS;
+    }
+
 //
 //    public Collection<RetiradaMaterial> getRetiradaMaterialCollection() {
 //        return retiradaMaterialCollection;
@@ -144,7 +157,6 @@ public class OrdemServico implements Serializable {
 //    public void setChamadoCollection(Collection<Chamado> chamadoCollection) {
 //        this.chamadoCollection = chamadoCollection;
 //    }
-
     public Especialidade getEspecialidadeId() {
         return especialidadeId;
     }
@@ -160,6 +172,12 @@ public class OrdemServico implements Serializable {
     public void setUsuarioOperarioId(Usuario usuarioOperarioId) {
         this.usuarioOperarioId = usuarioOperarioId;
     }
+
+    @PrePersist
+    public void prePersist() {
+        this.dataAbertura = new Date();
+    }
+
     @Override
     public int hashCode() {
         int hash = 0;
@@ -184,5 +202,5 @@ public class OrdemServico implements Serializable {
     public String toString() {
         return "br.ufpr.manutencao.beans.OrdemServico[ id=" + id + " ]";
     }
-    
+
 }
