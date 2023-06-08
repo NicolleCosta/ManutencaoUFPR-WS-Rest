@@ -57,9 +57,7 @@ public class ChamadoServlet extends HttpServlet {
                         //redireciona
                         RequestDispatcher rd = getServletContext().getRequestDispatcher("/administrador/home.jsp");
                         rd.forward(request, response);
-
                     break;
-                    
                     
                     default:
                         //redireciona
