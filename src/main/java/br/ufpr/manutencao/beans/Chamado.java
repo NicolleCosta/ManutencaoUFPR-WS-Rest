@@ -41,7 +41,9 @@ import jakarta.persistence.TemporalType;
     @NamedQuery(name = "Chamado.listaMeusChamados", query = "SELECT c FROM Chamado c WHERE c.ordemServicoId.usuarioOperarioId.id = :id"),
    //@NamedQuery(name = "Chamado.atualizarstatus", query = "UPDATE Chamado c SET c.statusId.id = 3 WHERE c.ordemServicoId.id = :id"),
     //@NamedQuery(name = "Chamado.associarOS", query = "UPDATE Chamado c SET c.usuarioOperarioId.id = :idUsuario WHERE c.id = :idChamado"),
-    @NamedQuery(name = "Chamado.findByDataHora", query = "SELECT c FROM Chamado c WHERE c.dataHora = :dataHora")})
+    @NamedQuery(name = "Chamado.findByDataHora", query = "SELECT c FROM Chamado c WHERE c.dataHora = :dataHora"),
+    @NamedQuery(name = "Chamado.atualizarIdOSChamado", query = "UPDATE Chamado c SET c.ordemServicoId = :novoIdOS WHERE c.id = :chamadoId")
+})
 public class Chamado implements Serializable {
 
     private static final long serialVersionUID = 1L;

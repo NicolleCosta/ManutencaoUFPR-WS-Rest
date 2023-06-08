@@ -98,10 +98,10 @@
                                                 <span class="badge badge-sm c-status" style="background-color:
                                                       <c:choose>
                                                           <c:when test="${chamado.statusId.nome eq 'Aberto'}">orange
-                                                              
+
                                                           </c:when>
                                                           <c:otherwise>green
-                                    
+
                                                           </c:otherwise>
                                                       </c:choose>;">
                                                     <c:out value="${chamado.statusId.nome}"/>
@@ -117,180 +117,72 @@
                                 </tbody>
                             </table>
                         </div>
-
-
-                        <!-- *********************TABELA CHAMADOS EM ANDAMENTO ********************** -->
-                        <div class="w-100">
-                            <h2 class="text-center">Chamados Em Andamento</h2>
-                        </div>
-
-
-                        <!-- tabela -->
-                        <div class="table-responsive-sm w-100 py-2">
-                            <table class="table align-middle mb-0 bg-white">
-                                <thead class="bg-light">
-                                    <tr>
-                                        <th>ID</th>
-                                        <th>Campus</th>
-                                        <th>Usuário</th>
-                                        <th>Ordem de Serviço Associada</th>
-                                        <th>Status</th>
-                                    </tr>
-                                </thead>
-                                <tbody data-bs-toggle="modal" data-bs-target="#chamadoModal<c:out value="${chamados.chamado.id}"/>">
-                                    <c:forEach var="chamados" items="${requestScope.chamadosEmAndamento}">
-                                        <tr>
-                                            <td>
-                                                <p class="fw-normal mb-1">
-                                                    <c:out value="${chamados.id}"/>
-                                                </p>
-                                            </td>
-                                            <td>
-                                                <p class="fw-normal mb-1">
-                                                    <c:out
-                                                        value="${chamados.predioId.campusId.nome}" />
-                                                </p>
-                                            </td>
-                                            <td>
-                                                <p class="fw-normal mb-1">
-                                                    <c:out value="${chamados.dataHora}" />
-                                                </p>
-                                            </td>
-                                            <td>
-
-                                            </td>
-                                            <td>
-                                                <button  type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#chamadoModal<c:out value="${chamado.id}"/>">
-                                                    Detalhes
-                                                </button>
-                                            </td>
-                                        </tr>
-                                    </c:forEach>
-                                </tbody>
-                            </table>
-                        </div>
-
-                        <!--********** MODAL CHAMADOS ABERTOS **************-->
-                        <c:forEach var="chamado" items="${requestScope.chamadosAbertos}">
-                            <div class="modal fade" data-bs-keyboard="false" tabindex="-1" aria-labelledby="chamadoModalLabel"
-                                 aria-hidden="true"   id="chamadoModal<c:out value="${chamado.id}"/>">
-                                <div class="modal-dialog modal-lg">
-                                    <div class="modal-content">
-                                        <div class="modal-header">
-                                            <h3 class="text-primary" id="chamadoModal">Chamado</h3>
-                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-
-                                        </div>
-
-                                        <div class="modal-body">
-
-
-                                            <div class="container">
-                                                <p>Id Chamado: <c:out value="${chamado.id}"/></p>
-
-                                                <div class="row">
-                                                    <div class="col-sm-12">
-                                                        <label for="recipient-name" class="col-form-label">Usuario</label>
-                                                        <input type="text" class="form-control text-bg-light" id="recipient-name" value="<c:out value="${chamado.usuarioId.nome}"/>" readonly>
-                                                    </div>
-                                                </div>
-                                                <div class="row">
-                                                    <div class="col-sm-6">
-                                                        <label for="recipient-name" class="col-form-label">Campus</label>
-                                                        <input type="text" class="form-control text-bg-light" id="campus-name" value="<c:out value="${chamado.predioId.campusId.nome}" />" readonly>
-                                                    </div>
-
-                                                    <div class="col-sm-6">
-                                                        <label for="recipient-name" class="col-form-label">Predio</label>
-                                                        <input type="text" class="form-control text-bg-light" id="predio-name" value="<c:out value="${chamado.predioId.nome}"/>" readonly>
-                                                    </div>
-                                                </div>
-                                                <div class="row">
-                                                    <div class="col-sm-12">
-                                                        <label for="message-text" class="col-form-label">Descrição do Local</label>
-                                                        <textarea class="form-control text-bg-light" id="local-text" readonly><c:out value="${chamado.descricaoLocal}"/></textarea>
-                                                    </div>
-                                                </div>
-
-                                                <div class="row">
-                                                    <div class="col-sm-12">
-                                                        <label for="message-text" class="col-form-label">Descrição do Problema</label>
-                                                        <textarea class="form-control text-bg-light" id="problema-text" readonly><c:out value="${chamado.descricaoProblema}"/></textarea>
-                                                    </div>
-
-                                                </div>
-
-                                                <div class="row">
-                                                    <div class="col-sm-4">
-                                                        <label for="recipient-name" class="col-form-label">Status</label>
-                                                        <input type="text" class="form-control text-bg-light" id="status" value="<c:out value="${chamado.statusId.nome}"/>" readonly>
-                                                    </div>
-
-                                                    <div class="col-sm-4">
-                                                        <label for="recipient-name" class="col-form-label">Ordem de Serviço</label>
-                                                        <input type="text" class="form-control text-bg-light" id="ordem-de-servico" value="Em Aberto" readonly>
-                                                    </div>
-
-                                                    <div class="col-sm-4">
-                                                        <label for="recipient-name" class="col-form-label">Data e Hora</label>
-                                                        <input type="text" class="form-control text-bg-light" id="Data" pattern="dd/MM/yyyy - HH:mm:ss" value="<c:out value="${chamado.dataHora}"/>" readonly>
-                                                    </div>
-                                                </div>
-
-                                            </div>
-
-                                        </div>
-
-                                        <div class="modal-footer">
-                                            <div class="row text-left">
-                                                <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-                                                    <button type="button" class="btn btn-secondary" data-bs-toggle="modal"
-                                                            data-bs-target="#associarModal">Associar</button>
-                                                    <button type="button" class="btn btn-warning" data-bs-toggle="modal"
-                                                            data-bs-target="#novaOrdemDeServicoModal">Nova Ordem De Serviço</button>
-                                                </div>
-
-
-                                            </div>
-
-                                        </div>
-
-                                    </div>
-                                </div>
-
-                            </div>
-                        </c:forEach>
-
-
                     </div>
                 </div>
             </div>
         </div>
+    </div>
 
 
 
-        <!--********** MODAL CHAMADO EM ABERTO **************-->
+    <!-- *********************TABELA CHAMADOS EM ANDAMENTO ********************** -->
+    <div class="w-100">
+        <h2 class="text-center">Chamados Em Andamento</h2>
+    </div>
 
-        <div class="modal fade" id="chamadoModal2" data-bs-keyboard="false" tabindex="-1" aria-labelledby="chamadoModalLabel"
-             aria-hidden="true">
+    <!-- tabela -->
+    <div class="table-responsive-sm w-100 py-2">
+        <table class="table align-middle mb-0 bg-white">
+            <thead class="bg-light">
+                <tr>
+                    <th>ID</th>
+                    <th>Campus</th>
+                    <th>Usuário</th>
+                    <th>Ordem de Serviço Associada</th>
+                    <th>Status</th>
+                </tr>
+            </thead>
+            <tbody data-bs-toggle="modal" data-bs-target="#chamadoModal<c:out value="${chamados.chamado.id}"/>">
+                <c:forEach var="chamados" items="${requestScope.chamadosEmAndamento}">
+                    <tr>
+                        <td>
+                            <p class="fw-normal mb-1">
+                                <c:out value="${chamados.id}"/>
+                            </p>
+                        </td>
+                        <td>
+                            <p class="fw-normal mb-1">
+                                <c:out
+                                    value="${chamados.predioId.campusId.nome}" />
+                            </p>
+                        </td>
+                        <td>
+                            <p class="fw-normal mb-1">
+                                <c:out value="${chamados.dataHora}" />
+                            </p>
+                        </td>
+                        <td>
 
-            <div class="modal-dialog">
+                        </td>
+                        <td>
+                            <button  type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#chamadoModal<c:out value="${chamado.id}"/>">
+                                Detalhes
+                            </button>
+                        </td>
+                    </tr>
+                </c:forEach>
+            </tbody>
+        </table>
+    </div>
+
+    <!--********** MODAL CHAMADOS ABERTOS **************-->
+    <c:forEach var="chamado" items="${requestScope.chamadosAbertos}">
+        <div class="modal fade" data-bs-keyboard="false" tabindex="-1" aria-labelledby="chamadoModalLabel"
+             aria-hidden="true"   id="chamadoModal<c:out value="${chamado.id}"/>">
+            <div class="modal-dialog modal-lg">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <div class="row">
-                            <div class="col-sm-8">
-                                <div class="w-50">
-                                    <p class="text-body-secondary" id="chamadoModal">Chamado</p>
-
-                                </div>
-                            </div>
-                            <div class="col-sm-2">
-                                <p>Id Chamado</p>
-                            </div>
-                            <div class="col-sm-2">
-                                <p class="text-center">#20203659</p>
-                            </div>
-                        </div>
+                        <h3 class="text-primary" id="chamadoModal">Chamado</h3>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
 
@@ -298,35 +190,36 @@
 
 
                         <div class="container">
+                            <p>Id Chamado: <c:out value="${chamado.id}"/></p>
 
                             <div class="row">
                                 <div class="col-sm-12">
                                     <label for="recipient-name" class="col-form-label">Usuario</label>
-                                    <input type="text" class="form-control text-bg-light" id="recipient-name" readonly>
+                                    <input type="text" class="form-control text-bg-light" id="recipient-name" value="<c:out value="${chamado.usuarioId.nome}"/>" readonly>
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="col-sm-6">
-                                    <label for="recipient-name" class="col-form-label">Campus:</label>
-                                    <input type="text" class="form-control text-bg-light" id="campus-name" readonly>
+                                    <label for="recipient-name" class="col-form-label">Campus</label>
+                                    <input type="text" class="form-control text-bg-light" id="campus-name" value="<c:out value="${chamado.predioId.campusId.nome}" />" readonly>
                                 </div>
 
                                 <div class="col-sm-6">
                                     <label for="recipient-name" class="col-form-label">Predio</label>
-                                    <input type="text" class="form-control text-bg-light" id="predio-name" readonly>
+                                    <input type="text" class="form-control text-bg-light" id="predio-name" value="<c:out value="${chamado.predioId.nome}"/>" readonly>
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="col-sm-12">
                                     <label for="message-text" class="col-form-label">Descrição do Local</label>
-                                    <textarea class="form-control text-bg-light" id="local-text" readonly></textarea>
+                                    <textarea class="form-control text-bg-light" id="local-text" readonly><c:out value="${chamado.descricaoLocal}"/></textarea>
                                 </div>
                             </div>
 
                             <div class="row">
                                 <div class="col-sm-12">
                                     <label for="message-text" class="col-form-label">Descrição do Problema</label>
-                                    <textarea class="form-control text-bg-light" id="problema-text" readonly></textarea>
+                                    <textarea class="form-control text-bg-light" id="problema-text" readonly><c:out value="${chamado.descricaoProblema}"/></textarea>
                                 </div>
 
                             </div>
@@ -334,163 +227,143 @@
                             <div class="row">
                                 <div class="col-sm-4">
                                     <label for="recipient-name" class="col-form-label">Status</label>
-                                    <input type="text" class="form-control text-bg-light" id="status" readonly>
+                                    <input type="text" class="form-control text-bg-light" id="status" value="<c:out value="${chamado.statusId.nome}"/>" readonly>
                                 </div>
 
                                 <div class="col-sm-4">
                                     <label for="recipient-name" class="col-form-label">Ordem de Serviço</label>
-                                    <input type="text" class="form-control text-bg-light" id="ordem-de-servico" readonly>
+                                    <input type="text" class="form-control text-bg-light" id="ordem-de-servico" value="Não Associada" readonly>
                                 </div>
 
                                 <div class="col-sm-4">
                                     <label for="recipient-name" class="col-form-label">Data e Hora</label>
-                                    <input type="text" class="form-control text-bg-light" id="Data" readonly>
+                                    <input type="text" class="form-control text-bg-light" id="Data" pattern="dd/MM/yyyy - HH:mm:ss" value="<fmt:formatDate value="${chamado.dataHora}" pattern="dd/MM/yyyy - HH:mm:ss" />" readonly>
                                 </div>
                             </div>
-
                         </div>
-
                     </div>
-
                     <div class="modal-footer">
                         <div class="row text-left">
-                            <div class="col-sm-8">
+                            <div class="d-grid gap-2 d-md-flex justify-content-md-end">
                                 <button type="button" class="btn btn-secondary" data-bs-toggle="modal"
-                                        data-bs-target="#associarModal">Associar</button>
-                            </div>
-                            <div class="col-sm-4">
+                                        data-bs-target="#associarModal<c:out value="${chamado.id}"/>">Associar</button>
                                 <button type="button" class="btn btn-warning" data-bs-toggle="modal"
-                                        data-bs-target="#novaOrdemDeServicoModal">Nova Ordem De Serviço</button>
+                                        data-bs-target="#novaOrdemDeServicoModal<c:out value="${chamado.id}"/>">Nova Ordem De Serviço</button>
                             </div>
-
                         </div>
-
                     </div>
-
                 </div>
             </div>
-
         </div>
+    </c:forEach>
 
 
 
-        <!--********** MODAL CHAMADO EM ANDAMENTO **************-->
+    <!--********** MODAL CHAMADO EM ANDAMENTO **************-->
 
-        <div class="modal fade" id="chamadoEmAndamentoModal" data-bs-keyboard="false" tabindex="-1" aria-labelledby="chamadoEmAndamentoModalLabel"
-             aria-hidden="true">
+    <div class="modal fade" id="chamadoEmAndamentoModal" data-bs-keyboard="false" tabindex="-1" aria-labelledby="chamadoEmAndamentoModalLabel"
+         aria-hidden="true">
 
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <div class="row">
+                        <div class="col-sm-8">
+                            <div class="w-50">
+                                <p class="text-body-secondary" id="chamadoEmAndamentoModal">Chamado</p>
+                            </div>
+                        </div>
+                        <div class="col-sm-2">
+                            <p>Id Chamado</p>
+                        </div>
+                        <div class="col-sm-2">
+                            <p class="text-center">#20203659</p>
+                        </div>
+                    </div>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+
+                <div class="modal-body">
+
+
+                    <div class="container">
+
                         <div class="row">
-                            <div class="col-sm-8">
-                                <div class="w-50">
-                                    <p class="text-body-secondary" id="chamadoEmAndamentoModal">Chamado</p>
-
-                                </div>
-                            </div>
-                            <div class="col-sm-2">
-                                <p>Id Chamado</p>
-                            </div>
-                            <div class="col-sm-2">
-                                <p class="text-center">#20203659</p>
+                            <div class="col-sm-12">
+                                <label for="recipient-name" class="col-form-label">Usuario</label>
+                                <input type="text" class="form-control text-bg-light" id="recipient-name" readonly>
                             </div>
                         </div>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-
-                    <div class="modal-body">
-
-
-                        <div class="container">
-
-                            <div class="row">
-                                <div class="col-sm-12">
-                                    <label for="recipient-name" class="col-form-label">Usuario</label>
-                                    <input type="text" class="form-control text-bg-light" id="recipient-name" readonly>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-sm-6">
-                                    <label for="recipient-name" class="col-form-label">Campus:</label>
-                                    <input type="text" class="form-control text-bg-light" id="campus-name" readonly>
-                                </div>
-
-                                <div class="col-sm-6">
-                                    <label for="recipient-name" class="col-form-label">Predio</label>
-                                    <input type="text" class="form-control text-bg-light" id="predio-name" readonly>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-sm-12">
-                                    <label for="message-text" class="col-form-label">Descrição do Local</label>
-                                    <textarea class="form-control text-bg-light" id="local-text" readonly></textarea>
-                                </div>
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <label for="recipient-name" class="col-form-label">Campus:</label>
+                                <input type="text" class="form-control text-bg-light" id="campus-name" readonly>
                             </div>
 
-                            <div class="row">
-                                <div class="col-sm-12">
-                                    <label for="message-text" class="col-form-label">Descrição do Problema</label>
-                                    <textarea class="form-control text-bg-light" id="problema-text" readonly></textarea>
-                                </div>
-
+                            <div class="col-sm-6">
+                                <label for="recipient-name" class="col-form-label">Predio</label>
+                                <input type="text" class="form-control text-bg-light" id="predio-name" readonly>
                             </div>
-
-                            <div class="row">
-                                <div class="col-sm-4">
-                                    <label for="recipient-name" class="col-form-label">Status</label>
-                                    <input type="text" class="form-control text-bg-light" id="status" readonly>
-                                </div>
-
-                                <div class="col-sm-4">
-                                    <label for="recipient-name" class="col-form-label">Ordem de Serviço</label>
-                                    <input type="text" class="form-control text-bg-light" id="ordem-de-servico" readonly>
-                                </div>
-
-                                <div class="col-sm-4">
-                                    <label for="recipient-name" class="col-form-label">Data e Hora</label>
-                                    <input type="text" class="form-control text-bg-light" id="Data" readonly>
-                                </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <label for="message-text" class="col-form-label">Descrição do Local</label>
+                                <textarea class="form-control text-bg-light" id="local-text" readonly></textarea>
                             </div>
+                        </div>
 
-                            <!-- *********************** FOR EACH ********************** -->
-                            <div class="row">
-                                <div class="col-sm-12">
-                                    <label for="message-text" class="col-form-label">Comentário Operário</label>
-                                    <textarea class="form-control text-bg-light" id="problema-text" readonly></textarea>
-                                </div>
-
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <label for="message-text" class="col-form-label">Descrição do Problema</label>
+                                <textarea class="form-control text-bg-light" id="problema-text" readonly></textarea>
                             </div>
-
-
-
-
 
                         </div>
 
-                    </div>
-
-                    <div class="modal-footer">
-                        <div class="row text-left">
-                            <div class="col">
-                                <button type="button" class="btn btn-warning" data-bs-dismiss="modal" aria-label="Close">Fechar</button>
+                        <div class="row">
+                            <div class="col-sm-4">
+                                <label for="recipient-name" class="col-form-label">Status</label>
+                                <input type="text" class="form-control text-bg-light" id="status" readonly>
                             </div>
 
+                            <div class="col-sm-4">
+                                <label for="recipient-name" class="col-form-label">Ordem de Serviço</label>
+                                <input type="text" class="form-control text-bg-light" id="ordem-de-servico" readonly>
+                            </div>
+
+                            <div class="col-sm-4">
+                                <label for="recipient-name" class="col-form-label">Data e Hora</label>
+                                <input type="text" class="form-control text-bg-light" id="Data" readonly>
+                            </div>
+                        </div>
+
+                        <!-- *********************** FOR EACH ********************** -->
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <label for="message-text" class="col-form-label">Comentário Operário</label>
+                                <textarea class="form-control text-bg-light" id="problema-text" readonly></textarea>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <div class="row text-left">
+                        <div class="col">
+                            <button type="button" class="btn btn-warning" data-bs-dismiss="modal" aria-label="Close">Fechar</button>
                         </div>
 
                     </div>
 
                 </div>
+
             </div>
-
         </div>
+    </div>
 
 
-
-
-
-        <!--********** MODAL NOVA ORDEM DE SERVIÇO **************-->
-        <div class="modal fade" id="novaOrdemDeServicoModal" data-bs-backdrop="static" data-bs-keyboard="false"
+    <!--********** MODAL NOVA ORDEM DE SERVIÇO **************-->
+    <c:forEach var="chamado" items="${requestScope.chamadosAbertos}">
+        <div class="modal fade" id="novaOrdemDeServicoModal<c:out value="${chamado.id}"/>" data-bs-backdrop="static" data-bs-keyboard="false"
              tabindex="-1" aria-labelledby="novaOrdemDeServicoModalLabel" aria-hidden="true">
             <div class="modal-dialog">
                 <div class="modal-content">
@@ -506,71 +379,80 @@
                                 <p>Id Chamado</p>
                             </div>
                             <div class="col-sm-2">
-                                <p class="text-center">#20203659</p>
+                                <p class="text-center"># <c:out value="${chamado.id}"/></p>
                             </div>
                         </div>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
+                    <form action="OrdemDeServicoServlet?action=novaOrdemServico" method="POST">
+                        <div class="modal-body">
 
-                    <div class="modal-body">
 
+                            <input type="text" class="form-control text-bg-light" id="id-chamado" name="idChamado" value="<c:out value="${chamado.id}" />" hidden>
 
-                        <div class="container">
-                            <div class="row">
-                                <div class="col-sm-6">
-                                    <label for="recipient-name" class="col-form-label">Campus:</label>
-                                    <input type="text" class="form-control text-bg-light" id="campus-name" readonly>
+                            <div class="container">
+                                <div class="row">
+                                    <div class="col-sm-6">
+                                        <label for="recipient-name" class="col-form-label">Campus:</label>
+                                        <input type="text" class="form-control text-bg-light" id="campus-name" name="campus" value="<c:out value="${chamado.predioId.campusId.nome}" />" readonly>
+
+                                    </div>
+
+                                    <div class="col-sm-6">
+                                        <label for="recipient-name" class="col-form-label">Predio</label>
+                                        <input type="text" class="form-control text-bg-light" id="predio-name" name ="predio" value="<c:out value="${chamado.predioId.nome}"/>" readonly>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <label for="message-text" class="col-form-label">Descrição do Local</label>
+                                        <textarea class="form-control text-bg-light" id="local-text" name="descricaoLocal" required><c:out value="${chamado.descricaoLocal}"/></textarea>
+                                    </div>
                                 </div>
 
-                                <div class="col-sm-6">
-                                    <label for="recipient-name" class="col-form-label">Predio</label>
-                                    <input type="text" class="form-control text-bg-light" id="predio-name" readonly>
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <label for="message-text" class="col-form-label">Descrição do Problema</label>
+                                        <textarea class="form-control text-bg-light" id="problema-text" name="descricaoProblema" required><c:out value="${chamado.descricaoProblema}"/></textarea>
+                                    </div>
+                                </div>
+                                <div>
+                                    <label>Especialidades</label>
+                                    <br>
+                                    <c:forEach var="especialidade" items="${requestScope.especialidades}">
+                                        <c:if test="${especialidade.nome != 'N/A'}">
+                                            <input type="radio" name="especialidade" value="${especialidade.id}"> ${especialidade.nome} <br>
+                                        </c:if>
+                                    </c:forEach>
+
+                                </div>
+
+                                <div class="row">
+                                    <div class="col">
+                                        <label for="recipient-name" class="col-form-label">Digite aqui o número da Ordem de Serviço</label>
+                                        <input type="text" class="form-control text-bg-light" id="ordem-de-servico" name="numeroOS" required>
+                                    </div>
                                 </div>
                             </div>
-                            <div class="row">
-                                <div class="col-sm-12">
-                                    <label for="message-text" class="col-form-label">Descrição do Local</label>
-                                    <textarea class="form-control text-bg-light" id="local-text" readonly></textarea>
-                                </div>
-                            </div>
 
-                            <div class="row">
-                                <div class="col-sm-12">
-                                    <label for="message-text" class="col-form-label">Descrição do Problema</label>
-                                    <textarea class="form-control text-bg-light" id="problema-text" readonly></textarea>
-                                </div>
-
-                            </div>
-
-                            <div class="row">
-                                <div class="col">
-                                    <label for="recipient-name" class="col-form-label">Digite aqui o número da Ordem de Serviço</label>
-                                    <input type="text" class="form-control text-bg-light" id="ordem-de-servico">
+                        </div>
+                        <div class="modal-footer">
+                            <div class="row text-left">
+                                <div class="col-sm-4">
+                                    <button type="submit" class="btn btn-warning" >Cadastrar</button>
                                 </div>
                             </div>
                         </div>
-
-                    </div>
-
-                    <div class="modal-footer">
-                        <div class="row text-left">
-                            <div class="col-sm-4">
-                                <button type="button" class="btn btn-warning" data-bs-toggle="modal"
-                                        data-bs-target="#novaOrdemDeServicoModal">Cadastrar</button>
-                            </div>
-
-                        </div>
-
-                    </div>
+                    </form>
                 </div>
             </div>
         </div>
+    </c:forEach>
 
 
-
-
-        <!--********** MODAL ASSOCIAR **************-->
-        <div class="modal fade" id="associarModal" data-bs-keyboard="false" tabindex="-1"
+    <!--********** MODAL ASSOCIAR **************-->
+    <c:forEach var="chamado" items="${requestScope.chamadosAbertos}">
+        <div class="modal fade" id="associarModal<c:out value="${chamado.id}"/>" data-bs-keyboard="false" tabindex="-1"
              aria-labelledby="associarModalLabel" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered">
                 <div class="modal-content">
@@ -584,8 +466,7 @@
                             <div class="col-sm-2">
                                 <p>Id Chamado</p>
                             </div>
-                            <div class="col-sm-2">
-                                <p class="text-center">#20203659</p>
+                            <div class="col-sm-2"> <p class="text-center"># <c:out value="${chamado.id}"/></p> 
                             </div>
                         </div>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
@@ -600,33 +481,32 @@
                                 <div class="row">
                                     <div class="col-sm-6">
                                         <label for="recipient-name" class="col-form-label">Campus:</label>
-                                        <input type="text" class="form-control text-bg-light" id="campus-name" readonly>
+                                        <input type="text" class="form-control text-bg-light" id="campus-name"  value="<c:out value="${chamado.predioId.campusId.nome}"/>" readonly>
                                     </div>
 
                                     <div class="col-sm-6">
                                         <label for="recipient-name" class="col-form-label">Predio</label>
-                                        <input type="text" class="form-control text-bg-light" id="predio-name" readonly>
+                                        <input type="text" class="form-control text-bg-light" id="predio-name" value="<c:out value="${chamado.predioId.nome}"/>"  readonly>
                                     </div>
-                                </div>
+                                </div>    
                                 <div class="row">
                                     <div class="col-sm-12">
                                         <label for="message-text" class="col-form-label">Descrição do Local</label>
-                                        <textarea class="form-control text-bg-light" id="local-text" readonly></textarea>
+                                        <textarea class="form-control text-bg-light" id="local-text" readonly><c:out value="${chamado.descricaoLocal}"/></textarea>
                                     </div>
                                 </div>
 
                                 <div class="row">
                                     <div class="col-sm-12">
                                         <label for="message-text" class="col-form-label">Descrição do Problema</label>
-                                        <textarea class="form-control text-bg-light" id="problema-text" readonly></textarea>
+                                        <textarea class="form-control text-bg-light" id="problema-text" readonly><c:out value="${chamado.descricaoProblema}"/></textarea>
                                     </div>
 
                                 </div>
 
                                 <div class="row">
                                     <div class="col-sm-6">
-                                        <label for="recipient-name" class="col-form-label">Ordens de Serviço para o mesmo
-                                            local</label>
+                                        <label for="recipient-name" class="col-form-label">Ordens de Serviço para o mesmo local</label>
                                     </div>
                                     <div class="list-group">
                                         <!--  ********************for each**************************** -->
@@ -655,8 +535,6 @@
                                     </div>
                                 </div>
                             </div>
-
-
                         </form>
                     </div>
 
@@ -665,128 +543,112 @@
 
                             <div>
                                 <button type="button" class="btn btn-warning" data-bs-toggle="modal"
-                                        data-bs-target="#novaOrdemDeServicoModal">Nova Ordem De Serviço</button>
+                                        data-bs-target="#novaOrdemDeServicoModal<c:out value="${chamado.id}"/>">Nova Ordem De Serviço</button>
                             </div>
 
                         </div>
-
                     </div>
-
                 </div>
             </div>
         </div>
+    </c:forEach>
 
 
+    <!--********** MODAL ORDEM DE SERVIÇO **************-->
+    <div class="modal fade" id="ordemDeServico2Modal" data-bs-backdrop="static" tabindex="-1"
+         aria-labelledby="ordemDeServico2ModalLabel" aria-hidden="true">
+
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <div class="row">
+                        <div class="col-sm-8">
+                            <div class="w-50">
+                                <p class="text-body-secondary">Ordem De Serviço</p>
+
+                            </div>
+                        </div>
+                        <div class="col-sm-2">
+                            <p>Id Ordem De Serviço</p>
+                        </div>
+                        <div class="col-sm-2">
+                            <p class="text-center">#20203659</p>
+                        </div>
+                    </div>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+
+                <div class="modal-body">
 
 
-        <!--********** MODAL ORDEM DE SERVIÇO **************-->
-        <div class="modal fade" id="ordemDeServico2Modal" data-bs-backdrop="static" tabindex="-1"
-             aria-labelledby="ordemDeServico2ModalLabel" aria-hidden="true">
+                    <div class="container">
 
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
+
                         <div class="row">
-                            <div class="col-sm-8">
-                                <div class="w-50">
-                                    <p class="text-body-secondary">Ordem De Serviço</p>
+                            <div class="col-sm-6">
+                                <label for="recipient-name" class="col-form-label">Campus:</label>
+                                <input type="text" class="form-control text-bg-light" id="campus-name" readonly>
+                            </div>
 
-                                </div>
-                            </div>
-                            <div class="col-sm-2">
-                                <p>Id Ordem De Serviço</p>
-                            </div>
-                            <div class="col-sm-2">
-                                <p class="text-center">#20203659</p>
+                            <div class="col-sm-6">
+                                <label for="recipient-name" class="col-form-label">Predio</label>
+                                <input type="text" class="form-control text-bg-light" id="predio-name" readonly>
                             </div>
                         </div>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-
-                    <div class="modal-body">
-
-
-                        <div class="container">
-
-
-                            <div class="row">
-                                <div class="col-sm-6">
-                                    <label for="recipient-name" class="col-form-label">Campus:</label>
-                                    <input type="text" class="form-control text-bg-light" id="campus-name" readonly>
-                                </div>
-
-                                <div class="col-sm-6">
-                                    <label for="recipient-name" class="col-form-label">Predio</label>
-                                    <input type="text" class="form-control text-bg-light" id="predio-name" readonly>
-                                </div>
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <label for="message-text" class="col-form-label">Descrição do Local</label>
+                                <textarea class="form-control text-bg-light" id="local-text" readonly></textarea>
                             </div>
-                            <div class="row">
-                                <div class="col-sm-12">
-                                    <label for="message-text" class="col-form-label">Descrição do Local</label>
-                                    <textarea class="form-control text-bg-light" id="local-text" readonly></textarea>
-                                </div>
-                            </div>
+                        </div>
 
-                            <div class="row">
-                                <div class="col-sm-12">
-                                    <label for="message-text" class="col-form-label">Descrição do Problema</label>
-                                    <textarea class="form-control text-bg-light" id="problema-text" readonly></textarea>
-                                </div>
-
-                            </div>
-
-                            <div class="row">
-                                <div class="col-sm-6">
-                                    <label for="recipient-name" class="col-form-label">Status</label>
-                                    <input type="text" class="form-control text-bg-light" id="status" readonly>
-                                </div>
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <label for="message-text" class="col-form-label">Descrição do Problema</label>
+                                <textarea class="form-control text-bg-light" id="problema-text" readonly></textarea>
                             </div>
 
                         </div>
 
-                    </div>
-
-                    <div class="modal-footer">
-                        <div class="row text-left">
-                            <div class="col">
-                                <button type="button" class="btn btn-secondary" data-bs-toggle="modal"
-                                        data-bs-target="#associarModal">Associar</button>
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <label for="recipient-name" class="col-form-label">Status</label>
+                                <input type="text" class="form-control text-bg-light" id="status" readonly>
                             </div>
-                            <div class="col">
-                                <button type="button" class="btn btn-warning" data-bs-toggle="modal"
-                                        data-bs-target="#novaOrdemDeServicoModal">Nova Ordem De Serviço</button>
-                            </div>
-
                         </div>
 
                     </div>
 
                 </div>
-            </div>
 
+                <div class="modal-footer">
+                    <div class="row text-left">
+                        <div class="col">
+                            <button type="button" class="btn btn-secondary" data-bs-toggle="modal"
+                                    data-bs-target="#associarModal">Associar</button>
+                        </div>
+                        <div class="col">
+                            <button type="button" class="btn btn-warning" data-bs-toggle="modal"
+                                    data-bs-target="#novaOrdemDeServicoModal">Nova Ordem De Serviço</button>
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
         </div>
 
-
-        <!-- **************** triggers ******************* -->
-
-        <script>
-            const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]')
-            const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl))
-        </script>
+    </div>
 
 
+    <!-- **************** triggers ******************* -->
 
+    <script>
+        const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]')
+        const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl))
+    </script>
 
-
-
-
-
-
-
-
-
-
-
-    </body>
+</body>
 
 </html>

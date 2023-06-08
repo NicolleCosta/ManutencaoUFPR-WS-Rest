@@ -4,7 +4,6 @@
  */
 package br.ufpr.manutencao.resources;
 
-
 import br.ufpr.manutencao.beans.Chamado;
 import br.ufpr.manutencao.beans.Especialidade;
 import br.ufpr.manutencao.beans.Status;
@@ -15,6 +14,7 @@ import java.util.List;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.NoResultException;
 import jakarta.persistence.PersistenceContext;
+import jakarta.persistence.Query;
 import jakarta.persistence.TypedQuery;
 import jakarta.ws.rs.Consumes;
 import jakarta.ws.rs.DELETE;
@@ -70,7 +70,9 @@ public class ChamadoFacadeREST extends AbstractFacade<Chamado> {
     public List<Chamado> findAll() {
         return super.findAll();
     }
+
     
+
     @GET
     @Path("/listaChamadosAbertos")
     @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
@@ -89,8 +91,7 @@ public class ChamadoFacadeREST extends AbstractFacade<Chamado> {
         }
         return chamadosDTO;
     }
-    
-    
+
     @GET
     @Path("/listaChamadosEmAndamento")
     @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
@@ -110,12 +111,10 @@ public class ChamadoFacadeREST extends AbstractFacade<Chamado> {
         return chamadosDTO;
     }
 
-
-
     @GET
     @Path("/listaChamados/{id}")
     @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
-    public List<ChamadoDTO> findAll(@PathParam ("id") Integer id) {
+    public List<ChamadoDTO> findAll(@PathParam("id") Integer id) {
         System.out.println("entrou aqui");
         Usuario chamado = new Usuario();
         chamado.setId(id);
@@ -124,13 +123,13 @@ public class ChamadoFacadeREST extends AbstractFacade<Chamado> {
         List<Chamado> chamados = query.getResultList();
         List<ChamadoDTO> chamadoDTO = new ArrayList<>();
         System.out.println(chamados);
-        for(Chamado c: chamados) {
+        for (Chamado c : chamados) {
             ChamadoDTO dto = new ChamadoDTO();
             ObjectMapper mapper = new ObjectMapper();
             dto = mapper.convertValue(c, ChamadoDTO.class);
             chamadoDTO.add(dto);
         }
-        
+
         return chamadoDTO;
     }
 
@@ -139,59 +138,58 @@ public class ChamadoFacadeREST extends AbstractFacade<Chamado> {
     @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
     public List<Chamado> listaChamadosPorId(@PathParam("id") Integer id) {
         ArrayList<Chamado> listaChamados = new ArrayList<Chamado>();
-        try{           
+        try {
             return listaChamados;
-        } catch (NoResultException e){
-                    return (List<Chamado>) Response.status(Response.Status.UNAUTHORIZED)
-                       .entity("Sem chamados")
-                       .build();
-        }  
+        } catch (NoResultException e) {
+            return (List<Chamado>) Response.status(Response.Status.UNAUTHORIZED)
+                    .entity("Sem chamados")
+                    .build();
+        }
     }
-    
+
     @GET
     @Path("/listaChamadosEmAberto/{id}")
     @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
-    public List<ChamadoDTO> listaCahamadosEmAberto(@PathParam ("id") Integer id) {
+    public List<ChamadoDTO> listaCahamadosEmAberto(@PathParam("id") Integer id) {
         Especialidade especialidade = new Especialidade();
         especialidade.setId(id);
         TypedQuery<Chamado> query = em.createNamedQuery("Chamado.listaChamadoEmAberto", Chamado.class);
         query.setParameter("id", id);
         List<Chamado> chamados = query.getResultList();
         List<ChamadoDTO> chamadoDTO = new ArrayList<>();
-        for(Chamado c: chamados) {
+        for (Chamado c : chamados) {
             ChamadoDTO dto = new ChamadoDTO();
             ObjectMapper mapper = new ObjectMapper();
             dto = mapper.convertValue(c, ChamadoDTO.class);
             chamadoDTO.add(dto);
         }
-        
+
         return chamadoDTO;
     }
-    
+
     @GET
     @Path("/listaMeusChamados/{id}")
     @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
-    public List<ChamadoDTO> listaMeusChamados (@PathParam ("id") Integer id){
+    public List<ChamadoDTO> listaMeusChamados(@PathParam("id") Integer id) {
         //verificar se tem que colocar dentro de uma classe igual a linha 161
         TypedQuery<Chamado> query = em.createNamedQuery("Chamado.listaMeusChamados", Chamado.class);
         query.setParameter("id", id);
         List<Chamado> chamados = query.getResultList();
         List<ChamadoDTO> chamadoDTO = new ArrayList<>();
-        for(Chamado c: chamados) {
+        for (Chamado c : chamados) {
             ChamadoDTO dto = new ChamadoDTO();
             ObjectMapper mapper = new ObjectMapper();
             dto = mapper.convertValue(c, ChamadoDTO.class);
             chamadoDTO.add(dto);
         }
-        
+
         return chamadoDTO;
     }
-    
 
     @GET
     @Path("/chamadoId/{id}")
     @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
-    public ChamadoDTO findById (@PathParam("id") Integer id) {
+    public ChamadoDTO findById(@PathParam("id") Integer id) {
         Chamado chamado = super.find(id);
         ObjectMapper mapper = new ObjectMapper();
         ChamadoDTO chamadoDTO = mapper.convertValue(chamado, ChamadoDTO.class);
@@ -199,18 +197,32 @@ public class ChamadoFacadeREST extends AbstractFacade<Chamado> {
         System.out.println(chamadoDTO);
         return chamadoDTO;
     }
+    
+    @PUT
+    @Path("/atualizarIdOSChamado/{idChamado}/{idOS}")
+    @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
+    public Response atualizarIdOSChamado(
+            @PathParam("idChamado") Integer idChamado,
+            @PathParam("idOS") Integer idOS) {
+
+        Query query = em.createNamedQuery("Chamado.atualizarIdOSChamado");
+        query.setParameter("novoIdOS", idOS);
+        query.setParameter("idChamado", idChamado);
+        query.executeUpdate();
+
+        return Response.ok().build();
+    }
 
     @PUT
     @Path("/associar/{idChamado}/{idUsuario}")
     @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
-    public boolean associarOrdemServico (@PathParam("idChamado") Integer idChamado, @PathParam("idUsuario") Integer idUsuario) {
+    public boolean associarOrdemServico(@PathParam("idChamado") Integer idChamado, @PathParam("idUsuario") Integer idUsuario) {
         TypedQuery<Chamado> query = em.createNamedQuery("Chamado.associarOS", Chamado.class);
         query.setParameter("idChamado", idChamado);
         query.setParameter("idUsuario", idUsuario);
         int linhasAfetadas = query.executeUpdate();
         return linhasAfetadas > 0;
     }
-    
 
     @GET
     @Path("count")
@@ -223,5 +235,5 @@ public class ChamadoFacadeREST extends AbstractFacade<Chamado> {
     protected EntityManager getEntityManager() {
         return em;
     }
-    
+
 }

@@ -4,11 +4,11 @@
  */
 package br.ufpr.manutencao.resources;
 
-
 import br.ufpr.manutencao.beans.OrdemServico;
 import java.util.List;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
+import jakarta.persistence.TypedQuery;
 import jakarta.ws.rs.Consumes;
 import jakarta.ws.rs.DELETE;
 import jakarta.ws.rs.GET;
@@ -17,6 +17,7 @@ import jakarta.ws.rs.PUT;
 import jakarta.ws.rs.Path;
 import jakarta.ws.rs.PathParam;
 import jakarta.ws.rs.Produces;
+import jakarta.ws.rs.QueryParam;
 import jakarta.ws.rs.core.MediaType;
 
 /**
@@ -60,6 +61,20 @@ public class OrdemServicoFacadeREST extends AbstractFacade<OrdemServico> {
     public OrdemServico find(@PathParam("id") Integer id) {
         return super.find(id);
     }
+@GET
+@Path("buscarIdPorOS")
+@Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
+public Integer buscarIdPorNumeroOS(@QueryParam("numeroOS") String numeroOS) {
+    TypedQuery<OrdemServico> query = em.createNamedQuery(
+            "OrdemServico.findByNumeroOS", OrdemServico.class);
+    query.setParameter("numeroOS", numeroOS);
+    List<OrdemServico> results = query.getResultList();
+    if (results.isEmpty()) {
+        return null;
+    } else {
+        return results.get(0).getId();
+    }
+}
 
     @GET
     @Override
@@ -86,5 +101,5 @@ public class OrdemServicoFacadeREST extends AbstractFacade<OrdemServico> {
     protected EntityManager getEntityManager() {
         return em;
     }
-    
+
 }

@@ -14,29 +14,30 @@ import java.util.Date;
  */
 public class OrdemServicoDTO {
     private Integer id;
-    private String descricao;
+    private String descricaoLocal;
+    private String descricaoProblema;
     @JsonbDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'")
     private Date dataAbertura;
     @JsonbDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'")
     private Date dataFinalizacao;
-    private String nomeResponsavelDepartamento;
+    private String numeroOS;
     private EspecialidadeDTO especialidadeId;
     private UsuarioDTO usuarioOperarioId;
 
     public OrdemServicoDTO() {
     }
 
-    public OrdemServicoDTO(Integer id, String descricao, Date dataAbertura, Date dataFinalizacao, String nomeResponsavelDepartamento, EspecialidadeDTO especialidadeId, UsuarioDTO usuarioOperarioId) {
+
+    public OrdemServicoDTO(Integer id, String descricaoLocal, String descricaoProblema, Date dataAbertura, Date dataFinalizacao, String numeroOS, EspecialidadeDTO especialidadeId, UsuarioDTO usuarioOperarioId) {
         this.id = id;
-        this.descricao = descricao;
+        this.descricaoLocal = descricaoLocal;
+        this.descricaoProblema = descricaoProblema;
         this.dataAbertura = dataAbertura;
         this.dataFinalizacao = dataFinalizacao;
-        this.nomeResponsavelDepartamento = nomeResponsavelDepartamento;
+        this.numeroOS = numeroOS;
         this.especialidadeId = especialidadeId;
         this.usuarioOperarioId = usuarioOperarioId;
     }
-    
- 
 
     public Integer getId() {
         return id;
@@ -46,12 +47,20 @@ public class OrdemServicoDTO {
         this.id = id;
     }
 
-    public String getDescricao() {
-        return descricao;
+    public String getDescricaoLocal() {
+        return descricaoLocal;
     }
 
-    public void setDescricao(String descricao) {
-        this.descricao = descricao;
+    public void setDescricaoLocal(String descricaoLocal) {
+        this.descricaoLocal = descricaoLocal;
+    }
+
+    public String getDescricaoProblema() {
+        return descricaoProblema;
+    }
+
+    public void setDescricaoProblema(String descricaoProblema) {
+        this.descricaoProblema = descricaoProblema;
     }
 
     public Date getDataAbertura() {
@@ -70,12 +79,12 @@ public class OrdemServicoDTO {
         this.dataFinalizacao = dataFinalizacao;
     }
 
-    public String getNomeResponsavelDepartamento() {
-        return nomeResponsavelDepartamento;
+    public String getNumeroOS() {
+        return numeroOS;
     }
 
-    public void setNomeResponsavelDepartamento(String nomeResponsavelDepartamento) {
-        this.nomeResponsavelDepartamento = nomeResponsavelDepartamento;
+    public void setNumeroOS(String numeroOS) {
+        this.numeroOS = numeroOS;
     }
 
     public EspecialidadeDTO getEspecialidadeId() {
@@ -96,7 +105,8 @@ public class OrdemServicoDTO {
 
     @Override
     public String toString() {
-        return "OrdemServicoDTO{" + "id=" + id + ", descricao=" + descricao + ", dataAbertura=" + dataAbertura + ", dataFinalizacao=" + dataFinalizacao + ", nomeResponsavelDepartamento=" + nomeResponsavelDepartamento + ", especialidadeId=" + especialidadeId + ", usuarioOperarioId=" + usuarioOperarioId + '}';
+        return "OrdemServicoDTO{" + "id=" + id + ", descricaoLocal=" + descricaoLocal + ", descricaoProblema=" + descricaoProblema + ", dataAbertura=" + dataAbertura + ", dataFinalizacao=" + dataFinalizacao + ", numeroOS=" + numeroOS + ", especialidadeId=" + especialidadeId + ", usuarioOperarioId=" + usuarioOperarioId + '}';
     }
-      
+
+
 }
