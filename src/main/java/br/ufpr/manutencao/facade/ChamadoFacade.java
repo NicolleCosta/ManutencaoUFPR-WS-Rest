@@ -23,7 +23,7 @@ public class ChamadoFacade {
 
     public static List<ChamadoDTO> buscarChamadosAbertos() throws FacadeException {
         try {
-             // URL do endpoint do backend
+            // URL do endpoint do backend
             String backendURL = "http://localhost:8080/manutencaoufpr/webresources/chamado/listaChamadosAbertos";
 
             HttpClient httpClient = HttpClient.newHttpClient();
@@ -46,9 +46,10 @@ public class ChamadoFacade {
 
                 // Converte o JSON de resposta para um objeto
                 ObjectMapper mapper = new ObjectMapper();
-                List<ChamadoDTO> chamados = mapper.readValue(responseBody, new TypeReference<List<ChamadoDTO>>() {});
-                
-                System.out.println("entrou na facade aberto "+ chamados);
+                List<ChamadoDTO> chamados = mapper.readValue(responseBody, new TypeReference<List<ChamadoDTO>>() {
+                });
+
+                System.out.println("entrou na facade aberto " + chamados);
                 return chamados;
             } else {
                 System.out.println("entrou no else");
@@ -57,15 +58,15 @@ public class ChamadoFacade {
             }
         } catch (IOException | InterruptedException e) {
             System.out.println("entrou no erro" + e);
-            
-           // Exceção que ocorre durante a chamada ao backend
+
+            // Exceção que ocorre durante a chamada ao backend
             throw new FacadeException("Erro na chamada ao backend: " + e.getMessage(), e);
         }
     }
-    
-     public static List<ChamadoDTO> buscarChamadosEmAndamento() throws FacadeException {
+
+    public static List<ChamadoDTO> buscarChamadosEmAndamento() throws FacadeException {
         try {
-             // URL do endpoint do backend
+            // URL do endpoint do backend
             String backendURL = "http://localhost:8080/manutencaoufpr/webresources/chamado/listaChamadosEmAndamento";
 
             HttpClient httpClient = HttpClient.newHttpClient();
@@ -88,7 +89,8 @@ public class ChamadoFacade {
 
                 // Converte o JSON de resposta para um objeto
                 ObjectMapper mapper = new ObjectMapper();
-                List<ChamadoDTO> chamados = mapper.readValue(responseBody, new TypeReference<List<ChamadoDTO>>() {});
+                List<ChamadoDTO> chamados = mapper.readValue(responseBody, new TypeReference<List<ChamadoDTO>>() {
+                });
 
                 return chamados;
             } else {
@@ -96,9 +98,40 @@ public class ChamadoFacade {
                 throw new FacadeException("Erro ao listar chamados: " + response.body());
             }
         } catch (IOException | InterruptedException e) {
-           // Exceção que ocorre durante a chamada ao backend
+            // Exceção que ocorre durante a chamada ao backend
             throw new FacadeException("Erro na chamada ao backend: " + e.getMessage(), e);
         }
     }
-    
+
+    public static void associarChamado(int idChamado, int idOS) throws FacadeException {
+        HttpClient httpClient = HttpClient.newHttpClient();
+
+        // URL do endpoint do backend
+        String backendURL = "http://localhost:8080/manutencaoufpr/webresources/chamados/atualizarIdOSChamado/" + idChamado + "/" + idOS;
+
+        // Requisição PUT sem corpo
+        HttpRequest request = HttpRequest.newBuilder()
+                .uri(URI.create(backendURL))
+                .header("Content-Type", "application/json")
+                .PUT(HttpRequest.BodyPublishers.noBody())
+                .build();
+
+        try {
+            // Chamada ao backend
+            HttpResponse<Void> response = httpClient.send(request, HttpResponse.BodyHandlers.discarding());
+
+            // Verificação do código de status
+            int statusCode = response.statusCode();
+            if (statusCode == 200 || statusCode==204) {
+                System.out.println("Chamado associado à ordem de serviço.");
+            } else {
+                System.out.println("Erro na associação do chamado à ordem de serviço: " + response.body());
+                throw new FacadeException("Erro na associação do chamado à ordem de serviço: " + response.body());
+            }
+        } catch (IOException | InterruptedException e) {
+            // Exceção que ocorre durante a chamada ao backend
+            throw new FacadeException("Erro na chamada ao backend: " + e.getMessage(), e);
+        }
+    }
+
 }

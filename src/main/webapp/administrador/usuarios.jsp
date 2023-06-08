@@ -61,19 +61,20 @@
                         <td><span class="badge badge-sm c-status" style="background-color:
                                   <c:choose>
                                       <c:when test="${usuario.bloqueio eq 'false'}">green
-                                       <c:set var="status" value="Ativo" />
+                                          <c:set var="status" value="Ativo" />
                                       </c:when>
                                       <c:otherwise>red
-                                       <c:set var="status" value="Bloqueado" />
+                                          <c:set var="status" value="Bloqueado" />
                                       </c:otherwise>
                                   </c:choose>;">
-                                <c:out value="${usuario.bloqueio}"/>
+                                <c:out value="${status}"/>
                             </span>
                         </td>
                         <td>
          <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalUsuario<c:out value="${usuario.id}"/>">
                                 Detalhes
                             </button>
+                                
                         </td>
                     </tr>
                 </c:forEach>
