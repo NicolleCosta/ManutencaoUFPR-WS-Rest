@@ -20,6 +20,10 @@ public class PredioDTO {
     public PredioDTO() {
     }
 
+    public PredioDTO(Integer id) {
+        this.id = id;
+    }
+    
     public PredioDTO(Integer id, String nome, CampusDTO campusId, boolean status) {
         this.id = id;
         this.nome = nome;
