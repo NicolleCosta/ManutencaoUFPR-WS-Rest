@@ -73,10 +73,10 @@
                                 <th></th>
                             </tr>
                         </thead>
-                        <tbody data-bs-toggle="modal" data-bs-target="#chamadoModal<c:out value="${chamado.chamado.id}"/>">
+                        <tbody>
                             <c:forEach var="chamado" items="${requestScope.listaChamadosAsc}">
                                 <c:if test="${empty chamado.ordemServicoId}">
-                                    <tr>
+                                    <tr data-bs-toggle="modal" data-bs-target="#chamadoModal<c:out value="${chamado.id}"/>">
                                         <td>
                                             <p class="fw-normal mb-1">
                                                 <c:out value="${chamado.id}" />
@@ -153,7 +153,7 @@
                                 <th></th>
                             </tr>
                         </thead>
-                        <tbody data-bs-toggle="modal" data-bs-target="#chamadoModal<c:out value="${chamados.chamado.id}"/>">
+                        <tbody data-bs-toggle="modal" data-bs-target="#chamadoEmAndamentoModal">
                             <c:forEach var="chamados" items="${requestScope.listaChamadosDesc}">
                                 <c:if test="${not empty chamados.ordemServicoId}">
                                     <tr>
@@ -199,7 +199,7 @@
                                             </span>
                                         </td>
                                         <td>
-                                            <button  type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#chamadoModal<c:out value="${chamado.id}"/>">
+                                            <button  type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#chamadoEmAndamentoModal">
                                                 Detalhes
                                             </button>
                                         </td>
