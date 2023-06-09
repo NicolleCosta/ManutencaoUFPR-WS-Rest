@@ -532,7 +532,6 @@
                                         <label for="message-text" class="col-form-label">Descrição do Problema</label>
                                         <textarea class="form-control text-bg-light" id="problema-text" readonly><c:out value="${chamado.descricaoProblema}"/></textarea>
                                     </div>
-
                                 </div>
 
                                 <div class="row">
@@ -540,29 +539,20 @@
                                         <label for="recipient-name" class="col-form-label">Ordens de Serviço para o mesmo local</label>
                                     </div>
                                     <div class="list-group">
-                                        <!--  ********************for each**************************** -->
-                                        <span data-bs-placement="right"
-                                              data-bs-title="Descrição do problema  Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged."
-                                              data-bs-toggle="tooltip">
-                                            <button data-bs-target="#ordemDeServico2Modal" data-bs-toggle="modal"
-                                                    type="button"
-                                                    class="list-group-item list-group-item-action">#20203669</button>
-                                        </span>
-                                        <span data-bs-placement="right"
-                                              data-bs-title="Descrição do problema  Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged."
-                                              data-bs-toggle="tooltip">
-                                            <button data-bs-target="#ordemDeServico2Modal" data-bs-toggle="modal"
-                                                    type="button"
-                                                    class="list-group-item list-group-item-action">#20203669</button>
-                                        </span>
-                                        <span data-bs-placement="right"
-                                              data-bs-title="Descrição do problema  Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged."
-                                              data-bs-toggle="tooltip">
-                                            <button data-bs-target="#ordemDeServico2Modal" data-bs-toggle="modal"
-                                                    type="button"
-                                                    class="list-group-item list-group-item-action">#20203669</button>
-                                        </span>
-
+                                        <c:forEach var="ordem" items="${requestScope.ordens}">
+                                            <c:if test="${empty ordem.dataFinalizacao}">
+                                                <c:forEach var="chamadoOS" items="${requestScope.listaChamadosAsc}">
+                                                    <c:if test="${not empty chamadoOS.ordemServicoId && chamadoOS.predioId eq chamado.predioId}">
+                                                        <span data-bs-placement="right"
+                                                              data-bs-title="DescriçãoLocal: ${ordem.descricaoLocal}   DescriçãoProblema: ${ordem.descricaoProblema}"
+                                                              data-bs-toggle="tooltip">
+                                                            <button data-bs-target="#ordemDeServico2Modal" data-bs-toggle="modal"
+                                                                    type="button"
+                                                                    class="list-group-item list-group-item-action"># ${ordem.numeroOS}</button>
+                                                        </span></c:if> 
+                                                </c:forEach>
+                                            </c:if>  
+                                        </c:forEach>
                                     </div>
                                 </div>
                             </div>
