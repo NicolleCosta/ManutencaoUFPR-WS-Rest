@@ -88,6 +88,7 @@ public class ChamadoFacadeREST extends AbstractFacade<Chamado> {
         return super.findAll();
     }
 
+
     @GET
     @Path("/listaChamadosAbertos")
     @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
