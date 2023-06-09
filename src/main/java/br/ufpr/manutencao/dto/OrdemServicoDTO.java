@@ -23,12 +23,12 @@ public class OrdemServicoDTO {
     private String numeroOS;
     private EspecialidadeDTO especialidadeId;
     private UsuarioDTO usuarioOperarioId;
+    private PredioDTO predioId;
 
     public OrdemServicoDTO() {
     }
 
-
-    public OrdemServicoDTO(Integer id, String descricaoLocal, String descricaoProblema, Date dataAbertura, Date dataFinalizacao, String numeroOS, EspecialidadeDTO especialidadeId, UsuarioDTO usuarioOperarioId) {
+    public OrdemServicoDTO(Integer id, String descricaoLocal, String descricaoProblema, Date dataAbertura, Date dataFinalizacao, String numeroOS, EspecialidadeDTO especialidadeId, UsuarioDTO usuarioOperarioId, PredioDTO predioId) {
         this.id = id;
         this.descricaoLocal = descricaoLocal;
         this.descricaoProblema = descricaoProblema;
@@ -37,7 +37,10 @@ public class OrdemServicoDTO {
         this.numeroOS = numeroOS;
         this.especialidadeId = especialidadeId;
         this.usuarioOperarioId = usuarioOperarioId;
+        this.predioId = predioId;
     }
+
+
 
     public Integer getId() {
         return id;
@@ -103,10 +106,17 @@ public class OrdemServicoDTO {
         this.usuarioOperarioId = usuarioOperarioId;
     }
 
-    @Override
-    public String toString() {
-        return "OrdemServicoDTO{" + "id=" + id + ", descricaoLocal=" + descricaoLocal + ", descricaoProblema=" + descricaoProblema + ", dataAbertura=" + dataAbertura + ", dataFinalizacao=" + dataFinalizacao + ", numeroOS=" + numeroOS + ", especialidadeId=" + especialidadeId + ", usuarioOperarioId=" + usuarioOperarioId + '}';
+    public PredioDTO getPredioId() {
+        return predioId;
     }
 
+    public void setPredioId(PredioDTO predioId) {
+        this.predioId = predioId;
+    }
 
+    @Override
+    public String toString() {
+        return "OrdemServicoDTO{" + "id=" + id + ", descricaoLocal=" + descricaoLocal + ", descricaoProblema=" + descricaoProblema + ", dataAbertura=" + dataAbertura + ", dataFinalizacao=" + dataFinalizacao + ", numeroOS=" + numeroOS + ", especialidadeId=" + especialidadeId + ", usuarioOperarioId=" + usuarioOperarioId + ", predioId=" + predioId + '}';
+    }
+    
 }

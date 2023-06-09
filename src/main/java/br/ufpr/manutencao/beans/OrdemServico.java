@@ -73,10 +73,13 @@ public class OrdemServico implements Serializable {
     @JoinColumn(name = "especialidade_id", referencedColumnName = "id")
     @ManyToOne
     private Especialidade especialidadeId;
-
     @JoinColumn(name = "usuario_operario_id", referencedColumnName = "id")
     @ManyToOne
     private Usuario usuarioOperarioId;
+    
+    @JoinColumn(name = "predio_id", referencedColumnName = "id")
+    @ManyToOne
+    private Predio predioId;
 
     public OrdemServico() {
     }
@@ -172,6 +175,15 @@ public class OrdemServico implements Serializable {
     public void setUsuarioOperarioId(Usuario usuarioOperarioId) {
         this.usuarioOperarioId = usuarioOperarioId;
     }
+
+    public Predio getPredioId() {
+        return predioId;
+    }
+
+    public void setPredioId(Predio predioId) {
+        this.predioId = predioId;
+    }
+    
 
     @PrePersist
     public void prePersist() {

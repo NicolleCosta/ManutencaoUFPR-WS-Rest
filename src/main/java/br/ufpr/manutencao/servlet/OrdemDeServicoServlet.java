@@ -7,6 +7,7 @@ package br.ufpr.manutencao.servlet;
 import br.ufpr.manutencao.dto.ChamadoDTO;
 import br.ufpr.manutencao.dto.EspecialidadeDTO;
 import br.ufpr.manutencao.dto.OrdemServicoDTO;
+import br.ufpr.manutencao.dto.PredioDTO;
 import br.ufpr.manutencao.facade.ChamadoFacade;
 import br.ufpr.manutencao.facade.FacadeException;
 import br.ufpr.manutencao.facade.OrdemServicoFacade;
@@ -71,6 +72,7 @@ public class OrdemDeServicoServlet extends HttpServlet {
                         String descricaoProblema = request.getParameter("descricaoProblema");
                         String numeroOS = request.getParameter("numeroOS");
                         int especialidade = Integer.parseInt(request.getParameter("especialidade"));
+                        int predio = Integer.parseInt(request.getParameter("predio"));
 
                         OrdemServicoDTO ordem = new OrdemServicoDTO();
 
@@ -78,6 +80,7 @@ public class OrdemDeServicoServlet extends HttpServlet {
                         ordem.setDescricaoProblema(descricaoProblema);
                         ordem.setEspecialidadeId(new EspecialidadeDTO(especialidade));
                         ordem.setNumeroOS(numeroOS);
+                        ordem.setPredioId(new PredioDTO(predio));
 
                         System.out.println(ordem);
 

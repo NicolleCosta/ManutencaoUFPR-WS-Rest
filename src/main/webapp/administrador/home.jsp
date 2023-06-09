@@ -511,8 +511,9 @@
                                                             <label for="recipient-name"
                                                                 class="col-form-label">Predio</label>
                                                             <input type="text" class="form-control text-bg-light"
-                                                                id="predio-name" name="predio" value="<c:out value="
+                                                                id="predio-name" name="predionome" value="<c:out value="
                                                                 ${chamado.predioId.nome}" />" readonly>
+                                                          <input type="hidden" name="predio" value="<c:out value="${chamado.predioId.id}"/>">
                                                         </div>
                                                     </div>
                                                     <div class="row">
