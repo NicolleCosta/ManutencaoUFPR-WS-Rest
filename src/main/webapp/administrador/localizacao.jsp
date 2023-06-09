@@ -152,16 +152,20 @@
                 <span>${requestScope.info == null ? param.info : requestScope.info}</span>
             </div>
         </c:if>
+
+        <div class="p-3">
+            <h1 class="text-primary text-center fw-bold ">Cadastro de Localizações</h1>
+        </div>
+
         <div class="row">
             <div class="col">
-                <div class="w-100">
-                    <h1>Localização</h1>
+                <h2 class="text-center fw-bold text-warning p-3">Consultar</h2>
                     <div class="container text-center">
-                        <div class="row row-cols-2">
-                            <div class="col-4">Campus</div>
-                            <div class="col-8">
+                        <div class="row row-cols-2 p-3">
+                            <div class="col-4 align-middle text-sm-end fw-bold p-3">Campus</div>
+                            <div class="col-8 p-3">
                                 <div class="dropdown">
-                                    <select id="campus-name" class="form-control" name="campus">
+                                    <select id="campus-name" class="form-control text-center" name="campus">
                                         <option value="">Selecione</option>
                                         <c:forEach items="${requestScope.listaCampus}" var="campus">
                                             <option value="${campus.id}">${campus.nome}</option>
@@ -169,14 +173,10 @@
                                     </select>
                                 </div>
                             </div>
-                            <div class="col-8">
+                            <div class="col-4 align-middle text-sm-end fw-bold p-3">Prédios</div>
+                            <div class="col-8 p-3">
                                 <div class="dropdown">     
-                                    <table id="tabela-predios" class="table">
-                                        <thead>
-                                            <tr>
-                                                <th scope="col">Prédios</th>
-                                            </tr>
-                                        </thead>
+                                    <table id="tabela-predios" class="table table-striped table-primary">
                                         <tbody>
                                             <!-- Linhas da tabela de prédios serão adicionadas dinamicamente -->
                                         </tbody>
@@ -185,45 +185,47 @@
                             </div>
                         </div>
                     </div>
-                </div>
+                
             </div>
 
             <div class="col">
-                <div class="w-100">
-                    <h1>Nova Localização</h1>
-                    <div class="container text-center">
-                        <div class="row row-cols-1">
-                            <div class="col">
-                                <button type="button" class="btn btn-warning" data-bs-toggle="modal"
+                
+                    <h2 class="text-center fw-bold text-warning p-3">Nova Localização</h2>
+                    <div class="container text-center py-3">
+                        <div class="d-grid gap-2 col-6 mx-auto">
+                            
+                                <button type="button" class="btn btn-primary fw-bold btn-lg" data-bs-toggle="modal"
                                         data-bs-target="#novoCampus">Campus</button>
-                            </div>
-                            <div class="col"><button type="button" class="btn btn-warning" data-bs-toggle="modal"
-                                                     data-bs-target="#novoPredio">Predio</button>
+                           <button type="button" class="btn btn-primary fw-bold btn-lg" data-bs-toggle="modal"
+                                                     data-bs-target="#novoPredio">Prédio</button>
                             </div>
                         </div>
-                    </div>
-                </div>
-            </div>
-        </div>
 
-        <div class="container">
-            <div class="row">
-                <div class="col">
-                    <div class="w-100">
-                        <h1>Bloquear</h1>
-                        <div class="container text-center">
-                            <div class="row row-cols-3">
-                                <div class="col"> <button type="button" class="btn btn-warning"
-                                                          data-bs-toggle="modal" data-bs-target="#bloquearCampus">Campus</button></div>
-                                <div class="col"> <button type="button" class="btn btn-warning" 
-                                                          data-bs-toggle="modal" data-bs-target="#bloquearPredio">Prédio</button>
+                  
+            
+                            <h2 class="text-center fw-bold text-warning p-3">Bloquear</h2>
+                            <div class="container text-center">
+                                <div class="d-grid gap-2 col-6 mx-auto">
+                                    <button type="button" class="btn btn-outline-danger fw-bold btn-lg"
+                                                              data-bs-toggle="modal" data-bs-target="#bloquearCampus">Campus</button>
+                                     <button type="button" class="btn btn-outline-danger fw-bold btn-lg" 
+                                                              data-bs-toggle="modal" data-bs-target="#bloquearPredio">Prédio</button>
+                                    
                                 </div>
                             </div>
-                        </div>
-                    </div>
+                        
+                   
                 </div>
+
+
+
+
             </div>
+                
+           
+            
         </div>
+
 
         <!-- ********************************MODAIS********************************* -->
 
@@ -235,23 +237,22 @@
                 <div class="modal-dialog modal-dialog-centered">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <h1 class="modal-title fs-5" id="staticBackdropLabel">NOVA LOCALIZAÇÃO - CAMPUS</h1>
+                            <h3 class="modal-title fs-5">NOVA LOCALIZAÇÃO <strong class="text-primary">CAMPUS</strong></h3>
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
                         <div class="modal-body">
-                            <p class="fw-bold">Preencha abaixo o nome do novo campus</p>
+                            <p>Preencha abaixo o nome do novo <strong class="text-primary">campus</strong></p>
                             <div class="container">
                                 <div class="row">
-                                    <div>Campus</div>
-                                    <div>
-                                        <input type="text" class="form-control text-bg-light" id="nomeNovoCampus" name="nome">
-                                    </div>
+                                    
+                                        <input type="text" class="form-control text-bg-light" id="nomeNovoCampus" name="nome" required>
+                                    
                                 </div>
                             </div>
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-                            <button type="submit" class="btn btn-warning">Cadastrar</button>
+                            <button type="submit" class="btn btn-warning fw-bold">Cadastrar</button>
                         </div>
                     </div>
                 </div>
@@ -266,17 +267,17 @@
                 <div class="modal-dialog modal-dialog-centered">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <h1 class="modal-title fs-5" id="staticBackdropLabel">NOVA LOCALIZAÇÃO - PRÉDIO</h1>
+                            <h3 class="modal-title fs-5">NOVA LOCALIZAÇÃO <strong class="text-primary">PRÉDIO</strong></h3>
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
                         <div class="modal-body">
-                            <p class="fw-bold">Escolha o Campus e Preencha o nome do novo prédio</p>
+                              <p>Preencha abaixo o nome do novo <strong class="text-primary">prédio</strong></p>
                             <div class="container">
                                 <div class="row">
                                     <div>Campus</div>
                                     <div>
                                         <div class="dropdown">
-                                            <select id="campus-adicionarPredio" class="form-control campus-principal" name="campusSelecionado">
+                                            <select id="campus-adicionarPredio" class="form-control campus-principal" name="campusSelecionado" required>
                                                 <option value="">Esolha o Campus</option>
                                                 <c:forEach items="${requestScope.listaCampus}" var="campus">
                                                     <option value="${campus.id}">${campus.nome}</option>
@@ -286,14 +287,14 @@
                                     </div>
                                     <div>Prédio</div>
                                     <div>
-                                        <input type="text" class="form-control text-bg-light" id="nomeNovoPredio" name="nome">
+                                        <input type="text" class="form-control text-bg-light" id="nomeNovoPredio" name="nome" required>
                                     </div>
                                 </div>
                             </div>
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-                            <button type="submit" class="btn btn-warning">Cadastrar</button>
+                            <button type="submit" class="btn btn-warning fw-bold">Cadastrar</button>
                         </div>
                     </div>
                 </div>
@@ -312,19 +313,19 @@
                 <div class="modal-dialog modal-dialog-centered">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <h1 class="modal-title fs-5" id="staticBackdropLabel">CONFIRMAÇÃO DE BLOQUEIO - Campus</h1>
+                            <h3 class="modal-title fs-5">CONFIRMAÇÃO DE BLOQUEIO <strong class="text-danger">CAMPUS</strong></h3>
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
                         <div class="modal-body">
-                            <p class="fw-bold">Tem certeza que deseja BLOQUEAR o campus abaixo?</p>
-                            <p class="text-center text-danger">Caso bloqueie esta localização não estará mais disponível para
-                                seleção para abertura de chamados, <strong>esta ação não pode ser revertída.</strong></p>
+                            <p>Tem certeza que deseja <strong class="text-danger"> BLOQUEAR </strong> o CAMPUS abaixo?</p>
+                            <p>Caso bloqueie esta localização não estará mais disponível para
+                                seleção para abertura de chamados, <strong class="text-danger">esta ação não pode ser revertída.</strong></p>
                             <div class="container">
                                 <div class="row">
                                     <div>Campus</div>
                                     <div>
                                         <div class="dropdown">
-                                            <select id="campus-bloquearCampus" class="form-control" name="campusId">
+                                            <select id="campus-bloquearCampus" class="form-control" name="campusId" required>
                                                 <option value="">Selecione</option>
                                                 <c:forEach items="${requestScope.listaCampus}" var="campus">
                                                     <option value="${campus.id}">${campus.nome}</option>
@@ -337,7 +338,7 @@
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-                            <button type="submit" class="btn btn-danger">Bloquear</button>
+                            <button type="submit" class="btn btn-danger fw-bold">Bloquear</button>
                         </div>
                     </div>
                 </div>
@@ -350,13 +351,13 @@
                 <div class="modal-dialog modal-dialog-centered">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <h1 class="modal-title fs-5" id="staticBackdropLabel">CONFIRMAÇÃO DE BLOQUEIO - PRÉDIO</h1>
+                            <h3 class="modal-title fs-5">CONFIRMAÇÃO DE BLOQUEIO <strong class="text-danger">PRÉDIO</strong></h3>
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
                         <div class="modal-body">
-                            <p class="fw-bold">Tem certeza que deseja BLOQUEAR o PRÉDIO abaixo?</p>
-                            <p class="text-center text-danger">Caso bloqueie esta localização não estará mais disponível para
-                                seleção para abertura de chamados, <strong>esta ação não pode ser revertída.</strong></p>
+                            <p>Tem certeza que deseja <strong class="text-danger"> BLOQUEAR </strong> o PRÉDIO abaixo?</p>
+                            <p>Caso bloqueie esta localização não estará mais disponível para
+                                seleção para abertura de chamados, <strong class="text-danger">esta ação não pode ser revertída.</strong></p>
 
                             <div class="container">
                                 <div class="row">
@@ -364,7 +365,7 @@
                                     <div class="col-8">
                                         <div class="dropdown">
 
-                                            <select id="campus-bloqueio" class="form-control campus-modal" name="campusId">
+                                            <select id="campus-bloqueio" class="form-control campus-modal" name="campusId" required>
                                                 <option value="">Selecione</option>
                                                 <c:forEach items="${requestScope.listaCampus}" var="campus">
                                                     <option value="${campus.id}">${campus.nome}</option>
@@ -375,7 +376,7 @@
                                     <div class="col-4">Prédio</div>
                                     <div class="col-8">
                                         <div class="dropdown">                                
-                                            <select id="predio-bloqueio" class="form-control campus-modal" name="predioId">
+                                            <select id="predio-bloqueio" class="form-control campus-modal" name="predioId" required>
                                                 <option value="">Selecione</option>
                                                 <c:forEach items="${requestScope.listaPredios}" var="predio">
                                                     <c:if test="${predio.campusId.id eq '' || predio.campusId.id eq campus.id}">
@@ -390,7 +391,7 @@
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-                            <button type="submit" class="btn btn-danger">Bloquear</button>
+                            <button type="submit" class="btn btn-danger  fw-bold">Bloquear</button>
                         </div>
                     </div>
                 </div>
