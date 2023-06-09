@@ -6,6 +6,7 @@ package br.ufpr.manutencao.resources;
 
 import br.ufpr.manutencao.beans.Chamado;
 import br.ufpr.manutencao.beans.Especialidade;
+import br.ufpr.manutencao.beans.OrdemServico;
 import br.ufpr.manutencao.beans.Status;
 import br.ufpr.manutencao.beans.Usuario;
 import br.ufpr.manutencao.dto.ChamadoDTO;
@@ -51,6 +52,22 @@ public class ChamadoFacadeREST extends AbstractFacade<Chamado> {
     }
 
     @PUT
+    @Path("/associarIdOS/{idChamado}/{idOS}")
+    @Consumes({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
+    public Response associarIdOS(@PathParam("idChamado") Integer idChamado, @PathParam("idOS") Integer idOS) {
+        Chamado chamado = em.find(Chamado.class, idChamado);
+        OrdemServico ordemServico = em.find(OrdemServico.class, idOS);
+
+        if (chamado == null || ordemServico == null) {
+            return Response.status(Response.Status.NOT_FOUND).build();
+        }
+        chamado.setOrdemServicoId(ordemServico);
+        em.merge(chamado);
+
+        return Response.ok().build();
+    }
+
+    @PUT
     @Path("/{id}")
     @Consumes({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
     public void edit(@PathParam("id") Integer id, Chamado entity) {
@@ -70,8 +87,6 @@ public class ChamadoFacadeREST extends AbstractFacade<Chamado> {
     public List<Chamado> findAll() {
         return super.findAll();
     }
-
-    
 
     @GET
     @Path("/listaChamadosAbertos")
@@ -196,21 +211,6 @@ public class ChamadoFacadeREST extends AbstractFacade<Chamado> {
         System.out.println(chamado);
         System.out.println(chamadoDTO);
         return chamadoDTO;
-    }
-    
-    @PUT
-    @Path("/atualizarIdOSChamado/{idChamado}/{idOS}")
-    @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
-    public Response atualizarIdOSChamado(
-            @PathParam("idChamado") Integer idChamado,
-            @PathParam("idOS") Integer idOS) {
-
-        Query query = em.createNamedQuery("Chamado.atualizarIdOSChamado");
-        query.setParameter("novoIdOS", idOS);
-        query.setParameter("idChamado", idChamado);
-        query.executeUpdate();
-
-        return Response.ok().build();
     }
 
     @PUT

@@ -4,7 +4,9 @@
  */
 package br.ufpr.manutencao.facade;
 
+import br.ufpr.manutencao.beans.OrdemServico;
 import br.ufpr.manutencao.dto.ChamadoDTO;
+import br.ufpr.manutencao.dto.OrdemServicoDTO;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
@@ -103,11 +105,11 @@ public class ChamadoFacade {
         }
     }
 
-    public static void associarChamado(int idChamado, int idOS) throws FacadeException {
+    public static void associarChamado(int idChamado, OrdemServicoDTO ordemServico) throws FacadeException {
         HttpClient httpClient = HttpClient.newHttpClient();
 
         // URL do endpoint do backend
-        String backendURL = "http://localhost:8080/manutencaoufpr/webresources/chamados/atualizarIdOSChamado/" + idChamado + "/" + idOS;
+        String backendURL = "http://localhost:8080/manutencaoufpr/webresources/chamado/associarIdOS/" + idChamado + "/" + ordemServico.getId();
 
         // Requisição PUT sem corpo
         HttpRequest request = HttpRequest.newBuilder()
@@ -122,7 +124,7 @@ public class ChamadoFacade {
 
             // Verificação do código de status
             int statusCode = response.statusCode();
-            if (statusCode == 200 || statusCode==204) {
+            if (statusCode == 200 || statusCode == 204) {
                 System.out.println("Chamado associado à ordem de serviço.");
             } else {
                 System.out.println("Erro na associação do chamado à ordem de serviço: " + response.body());

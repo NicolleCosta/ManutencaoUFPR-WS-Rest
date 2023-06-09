@@ -78,24 +78,39 @@ public class OrdemDeServicoServlet extends HttpServlet {
                         ordem.setDescricaoProblema(descricaoProblema);
                         ordem.setEspecialidadeId(new EspecialidadeDTO(especialidade));
                         ordem.setNumeroOS(numeroOS);
-                        
-                         System.out.println(ordem);
 
-                        //função para add OS no bd via Facade
+                        System.out.println(ordem);
+
+                        
+                        // Adicionar a ordem de serviço
                         OrdemServicoFacade.adicionarOS(ordem);
                         
-                        //funcao para id da OS nova via Facade
-                        int idOS= OrdemServicoFacade.buscarIdOS(numeroOS);
-                        System.out.println(idOS);
- 
-                        //funcao para buscar Associar Chamado ao ID da OS
-                        ChamadoFacade.associarChamado(idChamado,idOS);
+                    
+                        //buscar Ordem Servico
+                        OrdemServicoDTO ordemServico = OrdemServicoFacade.buscarOS(numeroOS);
+                    
+                        
 
-                        //redireciona
-                        request.setAttribute("info", "Chamado associado à nova Ordem de Serviço!");
-                        request.setAttribute("page", "/home.jsp");
-                        rd = getServletContext().getRequestDispatcher("/ChamadoServlet?action=mostrarHomeAdmin");
-                        rd.forward(request, response);
+                        // Verificar se a ordem de serviço foi adicionada com sucesso
+                        if (ordemServico != null) {
+
+                            // Associar a ordem de serviço ao chamado
+                            
+                            ChamadoFacade.associarChamado(idChamado, ordemServico);
+
+                            //redireciona
+                            request.setAttribute("info", "Chamado associado à nova Ordem de Serviço!");
+                            request.setAttribute("page", "/home.jsp");
+                            rd = getServletContext().getRequestDispatcher("/ChamadoServlet?action=mostrarHomeAdmin");
+                            rd.forward(request, response);
+
+                        } else {
+                            // Lida com o caso de falha ao adicionar a ordem de serviço
+                            request.setAttribute("error", "Falha ao adicionar a Ordem de Serviço");
+                            request.setAttribute("page", "/home.jsp");
+                            rd = getServletContext().getRequestDispatcher("/ChamadoServlet?action=mostrarHomeAdmin");
+                            rd.forward(request, response);
+                        }
                         break;
 
                     default:
