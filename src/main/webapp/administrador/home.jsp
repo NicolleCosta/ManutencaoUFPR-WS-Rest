@@ -37,14 +37,14 @@
                                     <form class="d-flex" role="search">
                                         <input class="form-control me-2" type="search" placeholder="Buscar Chamado"
                                             aria-label="Search">
-                                        <button class="btn btn-warning" type="submit">Buscar</button>
+                                        <button class="btn btn-warning fw-bold" type="submit">Buscar</button>
                                     </form>
                                 </div>
 
 
                             </div>
 
-                            <!--**************** Chamados Sem Ordem de Serviço Associada************* -->
+                            <!--**************** Chamados Sem Ordem De Serviço Associada************* -->
 
                             <div class="container-fluid display-table p-3">
                                 <div class="row display-table-row">
