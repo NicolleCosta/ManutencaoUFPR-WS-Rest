@@ -182,4 +182,5 @@ public class OrdemServicoFacade {
             throw new FacadeException("Erro na requisição: " + e.getMessage());
         }
     }
+
 }

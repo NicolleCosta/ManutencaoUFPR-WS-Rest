@@ -6,9 +6,11 @@ package br.ufpr.manutencao.servlet;
 
 import br.ufpr.manutencao.dto.ChamadoDTO;
 import br.ufpr.manutencao.dto.EspecialidadeDTO;
+import br.ufpr.manutencao.dto.OrdemServicoDTO;
 import br.ufpr.manutencao.facade.ChamadoFacade;
 import br.ufpr.manutencao.facade.EspecialidadeFacade;
 import br.ufpr.manutencao.facade.FacadeException;
+import br.ufpr.manutencao.facade.OrdemServicoFacade;
 import jakarta.servlet.RequestDispatcher;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -62,15 +64,16 @@ public class ChamadoServlet extends HttpServlet {
 //
 //                        List<ChamadoDTO> chamadosEmAndamento = ChamadoFacade.buscarChamadosEmAndamento();
 //                        System.out.println(chamadosEmAndamento);
+                        List<OrdemServicoDTO> ordens = OrdemServicoFacade.buscarOrdensDeServico();
                         List<EspecialidadeDTO> especialidades = EspecialidadeFacade.buscarEspecialidades();
                         List<ChamadoDTO> chamados = ChamadoFacade.buscarChamados();
                         List<ChamadoDTO> chamadosAsc = new ArrayList<>(chamados);
                         List<ChamadoDTO> chamadosDesc = new ArrayList<>(chamados);
 
-// Ordenar os chamados em ordem crescente de dataHora
+                        // Ordenar os chamados em ordem crescente de dataHora
                         Collections.sort(chamadosAsc, Comparator.comparing(ChamadoDTO::getDataHora));
 
-// Ordenar os chamados em ordem decrescente de dataHora
+                        // Ordenar os chamados em ordem decrescente de dataHora
                         Collections.sort(chamadosDesc, Comparator.comparing(ChamadoDTO::getDataHora));
                         Collections.reverse(chamadosDesc);
 
@@ -79,6 +82,7 @@ public class ChamadoServlet extends HttpServlet {
                         //request.setAttribute("chamadosEmAndamento", chamadosEmAndamento);
 //                        request.setAttribute("chamadosSemOS", chamadosSemOS);
 //                        request.setAttribute("chamadosComOS", chamadosComOS);
+                        request.setAttribute("ordens", ordens);
                         request.setAttribute("especialidades", especialidades);
                         request.setAttribute("listaChamadosAsc", chamadosAsc);
                         request.setAttribute("listaChamadosDesc", chamadosDesc);
