@@ -5,6 +5,8 @@
 package br.ufpr.manutencao.resources;
 
 import br.ufpr.manutencao.beans.OrdemServico;
+import br.ufpr.manutencao.dto.OrdemServicoDTO;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import java.util.List;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
@@ -19,6 +21,7 @@ import jakarta.ws.rs.PathParam;
 import jakarta.ws.rs.Produces;
 import jakarta.ws.rs.QueryParam;
 import jakarta.ws.rs.core.MediaType;
+import jakarta.ws.rs.core.Response;
 
 /**
  *
@@ -61,20 +64,23 @@ public class OrdemServicoFacadeREST extends AbstractFacade<OrdemServico> {
     public OrdemServico find(@PathParam("id") Integer id) {
         return super.find(id);
     }
-@GET
-@Path("buscarIdPorOS")
-@Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
-public Integer buscarIdPorNumeroOS(@QueryParam("numeroOS") String numeroOS) {
-    TypedQuery<OrdemServico> query = em.createNamedQuery(
-            "OrdemServico.findByNumeroOS", OrdemServico.class);
-    query.setParameter("numeroOS", numeroOS);
-    List<OrdemServico> results = query.getResultList();
-    if (results.isEmpty()) {
-        return null;
-    } else {
-        return results.get(0).getId();
+
+    @GET
+    @Path("buscarPorNumeroOS")
+    @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
+    public OrdemServicoDTO buscarPorNumeroOS(@QueryParam("numeroOS") String numeroOS) {
+        TypedQuery<OrdemServico> query = em.createNamedQuery(
+                "OrdemServico.findByNumeroOS", OrdemServico.class);
+        query.setParameter("numeroOS", numeroOS);
+        List<OrdemServico> results = query.getResultList();
+
+        if (results.isEmpty()) {
+            return null;
+        } else {
+            ObjectMapper mapper = new ObjectMapper();
+            return mapper.convertValue(results.get(0), OrdemServicoDTO.class);
+        }
     }
-}
 
     @GET
     @Override
