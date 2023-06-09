@@ -25,8 +25,9 @@
         <title>Home - Administrador</title>
 
         <!-- Configurações da pagina (fim do head) e Cabeçalho da página -->
-        <%@include file="header.jsp" %>
         <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+        <%@include file="header.jsp" %>
+
 
         <!-- Corpo da página -->
     <div class="w-100 p-3">
@@ -549,17 +550,14 @@
                                         </div>
                                         <div class="list-group">
                                             <c:forEach var="ordem" items="${requestScope.ordens}">
-                                                <c:if test="${empty ordem.dataFinalizacao}">
-                                                    <c:forEach var="chamadoOS" items="${requestScope.listaChamadosAsc}">
-                                                        <c:if test="${not empty chamadoOS.ordemServicoId && chamadoOS.predioId eq chamado.predioId}">
-                                                            <span data-bs-placement="right"
-                                                                  data-bs-title="DescriçãoLocal: ${ordem.descricaoLocal}   DescriçãoProblema: ${ordem.descricaoProblema}"
-                                                                  data-bs-toggle="tooltip">
-                                                                <button data-bs-target="#ordemDeServico2Modal" data-bs-toggle="modal"
-                                                                        type="button"
-                                                                        class="list-group-item list-group-item-action"># ${ordem.numeroOS}</button>
-                                                            </span></c:if> 
-                                                    </c:forEach>
+                                                <c:if test="${empty ordem.dataFinalizacao && ordem.predioId.nome == chamado.predioId.nome && ordem.predioId.campusId.nome == chamado.predioId.campusId.nome}">
+                                                    <span data-bs-placement="right"
+                                                          data-bs-title="DescriçãoLocal: ${ordem.descricaoLocal}   DescriçãoProblema: ${ordem.descricaoProblema}"
+                                                          data-bs-toggle="tooltip">
+                                                        <button data-bs-target="#ordemDeServico2Modal<c:out value="${ordem.id}"/>" data-bs-toggle="modal"
+                                                                type="button"
+                                                                class="list-group-item list-group-item-action"># ${ordem.numeroOS}</button>
+                                                    </span>
                                                 </c:if>  
                                             </c:forEach>
                                         </div>
@@ -586,84 +584,87 @@
 
 
         <!--********** MODAL ORDEM DE SERVIÇO **************-->
-        <div class="modal fade" id="ordemDeServico2Modal" data-bs-backdrop="static" tabindex="-1"
-             aria-labelledby="ordemDeServico2ModalLabel" aria-hidden="true">
 
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <div class="row">
-                            <div class="col-sm-8">
-                                <div class="w-50">
-                                    <p class="text-body-secondary">Ordem De Serviço</p>
+            <c:forEach var="ordem" items="${requestScope.ordens}">
+                <div class="modal fade" id="ordemDeServico2Modal<c:out value="${ordem.id}"/>" data-bs-backdrop="static" tabindex="-1"
+                     aria-labelledby="ordemDeServico2ModalLabel" aria-hidden="true">
 
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <div class="row">
+                                    <div class="col-sm-8">
+                                        <div class="w-50">
+                                            <p class="text-body-secondary">Ordem De Serviço</p>
+
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-2">
+                                        <p>Id Ordem De Serviço</p>
+                                    </div>
+                                    <div class="col-sm-2">
+                                        <p class="text-center">#<c:out value="${ordem.id}"/></p>
+                                    </div>
+                                </div>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+
+                            <div class="modal-body">
+
+
+                                <div class="container">
+
+
+                                    <div class="row">
+                                        <div class="col-sm-6">
+                                            <label for="recipient-name" class="col-form-label">Campus:</label>
+                                            <input type="text" class="form-control text-bg-light" id="campus-name" value="<c:out value="${ordem.predioId.campusId.nome}"/>" readonly>
+                                        </div>
+
+                                        <div class="col-sm-6">
+                                            <label for="recipient-name" class="col-form-label">Predio</label>
+                                            <input type="text" class="form-control text-bg-light" id="predio-name" value="<c:out value="${ordem.predioId.nome}"/>" readonly>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-sm-12">
+                                            <label for="message-text" class="col-form-label">Descrição do Local</label>
+                                            <textarea class="form-control text-bg-light" id="local-text" readonly>"<c:out value="${ordem.descricaoLocal}"/>"</textarea>
+                                        </div>
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="col-sm-12">
+                                            <label for="message-text" class="col-form-label">Descrição do Problema</label>
+                                            <textarea class="form-control text-bg-light" id="problema-text" readonly>"<c:out value="${ordem.descricaoProblema}"/>"</textarea>
+                                        </div>
+
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="col-sm-6">
+                                            <label for="recipient-name" class="col-form-label">Status</label>
+                                            <input type="text" class="form-control text-bg-light" id="status" value="<c:out value="${ordem.statusId.nome}"/>" readonly>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
-                            <div class="col-sm-2">
-                                <p>Id Ordem De Serviço</p>
-                            </div>
-                            <div class="col-sm-2">
-                                <p class="text-center">#20203659</p>
-                            </div>
-                        </div>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-
-                    <div class="modal-body">
-
-
-                        <div class="container">
-
-
-                            <div class="row">
-                                <div class="col-sm-6">
-                                    <label for="recipient-name" class="col-form-label">Campus:</label>
-                                    <input type="text" class="form-control text-bg-light" id="campus-name" readonly>
+                            <div class="modal-footer">
+                                <div class="row text-left">
+                                    <div class="col">
+                                        <button type="button" class="btn btn-secondary" data-bs-toggle="modal"
+                                                data-bs-target="#associarModal">Associar</button>
+                                    </div>
+                                    <div class="col">
+                                        <button type="button" class="btn btn-warning" data-bs-toggle="modal"
+                                                data-bs-target="#novaOrdemDeServicoModal">Nova Ordem De Serviço</button>
+                                    </div>
                                 </div>
-
-                                <div class="col-sm-6">
-                                    <label for="recipient-name" class="col-form-label">Predio</label>
-                                    <input type="text" class="form-control text-bg-light" id="predio-name" readonly>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-sm-12">
-                                    <label for="message-text" class="col-form-label">Descrição do Local</label>
-                                    <textarea class="form-control text-bg-light" id="local-text" readonly></textarea>
-                                </div>
-                            </div>
-
-                            <div class="row">
-                                <div class="col-sm-12">
-                                    <label for="message-text" class="col-form-label">Descrição do Problema</label>
-                                    <textarea class="form-control text-bg-light" id="problema-text" readonly></textarea>
-                                </div>
-
-                            </div>
-
-                            <div class="row">
-                                <div class="col-sm-6">
-                                    <label for="recipient-name" class="col-form-label">Status</label>
-                                    <input type="text" class="form-control text-bg-light" id="status" readonly>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="modal-footer">
-                        <div class="row text-left">
-                            <div class="col">
-                                <button type="button" class="btn btn-secondary" data-bs-toggle="modal"
-                                        data-bs-target="#associarModal">Associar</button>
-                            </div>
-                            <div class="col">
-                                <button type="button" class="btn btn-warning" data-bs-toggle="modal"
-                                        data-bs-target="#novaOrdemDeServicoModal">Nova Ordem De Serviço</button>
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
-        </div>
+            </c:forEach>
 
 
         <!-- **************** triggers ******************* -->
@@ -672,6 +673,7 @@
             const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]')
             const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl))
         </script>
+
 
     </body>
 
