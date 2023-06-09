@@ -102,3 +102,15 @@ input[type="number"] {
   margin-right: 5vw;
   margin-top: 10vh;
 }
+
+
+.container-fluid.mb-4#nav-superior{
+  --bs-gutter-x: 0rem;
+  padding-left: 0rem;
+  padding-right: 0rem;
+}
+#nav-superior{
+  --bs-gutter-x: 0rem;
+  padding-left: 0rem;
+  padding-right: 0rem;
+}
