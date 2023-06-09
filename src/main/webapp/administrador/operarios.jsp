@@ -33,24 +33,25 @@
         <%@include file="header.jsp" %>
 
         <!-- Corpo da página -->
-    <div class="w-100">
+    <div class="w-100 p-3">
         <c:if test="${requestScope.info != null || param.info != null}">
             <div class="alert alert-success alert-dismissible fade show">
                 <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
                 <span>${requestScope.info == null ? param.info : requestScope.info}</span>
             </div>
         </c:if>
-        <h1 class="text-center">Operários</h1>
+        <h1 class="text-primary text-center fw-bold">Operários</h1>
     </div>
     <div class="container text-center">
-        <div class="row">
-            <div class="col">
+        <div class="row p-3">
+            <div class="col-4 justify-content-md-end">
                 <form class="d-flex" role="search">
-                    <input class="form-control me-2" type="search" placeholder="Buscar Operário" aria-label="Search">
-                    <button class="btn btn-warning" type="submit" >Buscar</button>
+                    <input class="form-control me-2" type="search" placeholder="Buscar Chamado"
+                        aria-label="Search">
+                    <button class="btn btn-warning fw-bold" type="submit">Buscar</button>
                 </form>
             </div>
-            <div class="col">               
+            <div class="col d-grid gap-2 d-md-flex justify-content-md-end">               
                 <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#novoOperarioModal">Novo Operário</button>
             </div>
         </div>

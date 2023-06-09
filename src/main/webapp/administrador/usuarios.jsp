@@ -122,7 +122,7 @@
                                     </div>
                                     <div class="col">
                                         <p>Situação</p>
-                                        <input type="text" class="form-control text-bg-light" id="situação" readonly value="${usuario.status}">
+                                        <input type="text" class="form-control text-bg-light" id="situação" readonly value="${usuario.bloqueio}">
                                     </div>
                                 </div>
                             </div>
