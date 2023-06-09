@@ -17,6 +17,9 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 /**
@@ -47,18 +50,39 @@ public class ChamadoServlet extends HttpServlet {
             } else {
                 switch (action) {
                     case "mostrarHomeAdmin":
-                        System.out.println("estrou no mostrarhomeAdmin");
+                        System.out.println("entrou no mostrarhomeAdmin");
                         //Carrega a lista de chamados para apresentar
-                        List<ChamadoDTO> chamadosAbertos = ChamadoFacade.buscarChamadosAbertos();
-                        System.out.println(chamadosAbertos);
+//                        List<ChamadoDTO> chamadosSemOS = ChamadoFacade.buscarChamadosSemOS();
+//                        
+//                        
+//                        List<ChamadoDTO> chamadosComOS = ChamadoFacade.buscarChamadosComOS();
+//                        
+//                        List<ChamadoDTO> chamadosAbertos = ChamadoFacade.buscarChamadosAbertos();
+//                        System.out.println(chamadosAbertos);
+//
+//                        List<ChamadoDTO> chamadosEmAndamento = ChamadoFacade.buscarChamadosEmAndamento();
+//                        System.out.println(chamadosEmAndamento);
+                        List<EspecialidadeDTO> especialidades = EspecialidadeFacade.buscarEspecialidades();
+                        List<ChamadoDTO> chamados = ChamadoFacade.buscarChamados();
+                        List<ChamadoDTO> chamadosAsc = new ArrayList<>(chamados);
+                        List<ChamadoDTO> chamadosDesc = new ArrayList<>(chamados);
 
-                        List<ChamadoDTO> chamadosEmAndamento = ChamadoFacade.buscarChamadosEmAndamento();
-                        System.out.println(chamadosEmAndamento);
-List<EspecialidadeDTO> especialidades = EspecialidadeFacade.buscarEspecialidades();
+// Ordenar os chamados em ordem crescente de dataHora
+                        Collections.sort(chamadosAsc, Comparator.comparing(ChamadoDTO::getDataHora));
+
+// Ordenar os chamados em ordem decrescente de dataHora
+                        Collections.sort(chamadosDesc, Comparator.comparing(ChamadoDTO::getDataHora));
+                        Collections.reverse(chamadosDesc);
+
                         //ADD OBJ NA REQUISIÇÃO
-                        request.setAttribute("chamadosAbertos", chamadosAbertos);
-                        request.setAttribute("chamadosEmAndamento", chamadosEmAndamento);
+                        //request.setAttribute("chamadosAbertos", chamadosAbertos);
+                        //request.setAttribute("chamadosEmAndamento", chamadosEmAndamento);
+//                        request.setAttribute("chamadosSemOS", chamadosSemOS);
+//                        request.setAttribute("chamadosComOS", chamadosComOS);
                         request.setAttribute("especialidades", especialidades);
+                        request.setAttribute("listaChamadosAsc", chamadosAsc);
+                        request.setAttribute("listaChamadosDesc", chamadosDesc);
+                        System.out.println("passando os chamados" + chamados);
                         //redireciona
                         RequestDispatcher rd = getServletContext().getRequestDispatcher("/administrador/home.jsp");
                         rd.forward(request, response);
