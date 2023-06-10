@@ -567,44 +567,45 @@
                                         
                                         <c:set var="conditionSatisfied" value="false" />
                                             <div class="accordion" id="accordionExample">
-                                            <c:forEach var="ordem" items="${requestScope.ordens}">
-                                                <c:if test="${empty ordem.dataFinalizacao && ordem.predioId.nome == chamado.predioId.nome && ordem.predioId.campusId.nome == chamado.predioId.campusId.nome}">
-                                                <div class="accordion-item">
-                                                    <h2 class="accordion-header" id="heading${ordem.numeroOS}">
-                                                    <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse${ordem.numeroOS}" aria-expanded="true" aria-controls="collapse${ordem.numeroOS}">
-                                                        #${ordem.numeroOS} -  <strong> Descrição do Local: </strong>  ${ordem.descricaoLocal}
-                                                    </button>
-                                                    </h2>
-                                                    <div id="collapse${ordem.numeroOS}" class="accordion-collapse collapse" aria-labelledby="heading${ordem.numeroOS}" data-bs-parent="#accordionExample">
-                                                    <div class="accordion-body">
-                                                        <table class="table">
-                                                        <thead>
-                                                            <th scope="col">Descrição Problema</th>
-                                                            <th>Especialidade</th>
-                                                            <th></th>
-                                                            </tr>
-                                                        </thead>
-                                                        <tbody>
-                                                            <tr>                                                            
-                                                            <td>${ordem.descricaoProblema}</td>
-                                                            <td>${especialidade.id}</td>
-                                                            <td>
-                                                                <button type="button" class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#ordemDeServico2Modal${ordem.id}">Detalhes</button>
-                                                            </td>
-                                                            </tr>
-                                                        </tbody>
-                                                        </table>
-                                                    </div>
-                                                    </div>
-                                                </div>
-                                                <c:set var="conditionSatisfied" value="true" />
-                                                </c:if>
-                                            </c:forEach>
+                                                <c:forEach var="ordem" items="${requestScope.ordens}">
+                                                    <c:if test="${empty ordem.dataFinalizacao && ordem.predioId.nome == chamado.predioId.nome && ordem.predioId.campusId.nome == chamado.predioId.campusId.nome}">
+                                                        <div class="accordion-item">
+                                                            <h2 class="accordion-header" id="heading${ordem.numeroOS}">
+                                                            <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse${ordem.numeroOS}" aria-expanded="true" aria-controls="collapse${ordem.numeroOS}">
+                                                                #${ordem.numeroOS} -  <strong> Descrição do Local: </strong>  ${ordem.descricaoLocal}
+                                                            </button>
+                                                            </h2>
+                                                            <div id="collapse${ordem.numeroOS}" class="accordion-collapse collapse" aria-labelledby="heading${ordem.numeroOS}" data-bs-parent="#accordionExample">
+                                                                <div class="accordion-body">
+                                                                    <table class="table">
+                                                                    <thead>
+                                                                        <th scope="col">Descrição Problema</th>
+                                                                        <th>Especialidade</th>
+                                                                        <th></th>
+                                                                        </tr>
+                                                                    </thead>
+                                                                    <tbody>
+                                                                        <tr>                                                            
+                                                                        <td>${ordem.descricaoProblema}</td>
+                                                                        <td>${ordem.especialidadeId.nome}</td>
+                                                                        </tr>
+                                                                    </tbody>
+                                                                    </table>
+                                                                    <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                                                                    
+                                                                            <button type="button" class="btn btn-primary btn-sm" type="submit">Associar</button>
+                                                                        </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    <c:set var="conditionSatisfied" value="true" />
+                                                    </c:if>
+                                                </c:forEach>
                                             </div>
                                             <c:if test="${!conditionSatisfied}">
-                                            <div class="alert alert-danger" role="alert">
-                                                Não temos Ordens de Serviço ativas para o local indicado.
-                                            </div>
+                                                <div class="alert alert-danger" role="alert">
+                                                    Não temos Ordens de Serviço ativas para o local indicado.
+                                                </div>
                                             </c:if>
                                           
                                         </div>
@@ -617,7 +618,7 @@
                             <div class="row text-left">
 
                                 <div>
-                                    <button type="button" class="btn btn-warning" data-bs-toggle="modal"
+                                    <button type="button" class="btn btn-warning fw-bold btn-lg" data-bs-toggle="modal"
                                             data-bs-target="#novaOrdemDeServicoModal<c:out value="${chamado.id}"/>">Nova Ordem De Serviço</button>
                                 </div>
 
