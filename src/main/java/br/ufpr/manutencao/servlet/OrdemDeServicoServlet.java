@@ -9,6 +9,7 @@ import br.ufpr.manutencao.dto.ComentarioOperarioDTO;
 import br.ufpr.manutencao.dto.EspecialidadeDTO;
 import br.ufpr.manutencao.dto.OrdemServicoDTO;
 import br.ufpr.manutencao.dto.PredioDTO;
+import br.ufpr.manutencao.dto.UsuarioDTO;
 import br.ufpr.manutencao.facade.ChamadoFacade;
 import br.ufpr.manutencao.facade.ComentarioOperarioFacade;
 import br.ufpr.manutencao.facade.FacadeException;
@@ -21,6 +22,7 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
@@ -54,6 +56,9 @@ public class OrdemDeServicoServlet extends HttpServlet {
             } else {
                 switch (action) {
                     case "mostrarOdemDeServico":
+                        HttpSession session = request.getSession();
+                        UsuarioDTO user = (UsuarioDTO) session.getAttribute("user");
+                        
                         System.out.println("estrou no mostrarOdemDeServico");
                         //Carrega a lista de chamados para apresentar
                         List<OrdemServicoDTO> ordensServico = OrdemServicoFacade.buscarOrdensDeServico();
@@ -66,8 +71,16 @@ public class OrdemDeServicoServlet extends HttpServlet {
                         //ADD OBJ NA REQUISIÇÃO
                         request.setAttribute("ordensServico", ordensServico);
                         request.setAttribute("comentarios", comentarios);
+                        
+                        RequestDispatcher rd = null;
+
                         //redireciona
-                        RequestDispatcher rd = getServletContext().getRequestDispatcher("/administrador/ordensDeServico.jsp");
+                        if (user.getTipoUsuarioId().getId().equals(3)) {
+                            rd = getServletContext().getRequestDispatcher("/administrador/ordensDeServico.jsp");
+                        }
+                        if (user.getTipoUsuarioId().getId().equals(5)) {
+                            rd = getServletContext().getRequestDispatcher("/gerente/ordensDeServico.jsp");
+                        }
                         rd.forward(request, response);
 
                         break;

@@ -55,10 +55,18 @@ public class CadastroServlet extends HttpServlet {
                         UsuarioDTO user = (UsuarioDTO) session.getAttribute("user");
                         int id = user.getId();
                         //BUSCA OBJETO NO BD via Facade
-                        UsuarioDTO admin = UsuarioFacade.buscaPorID(id);
-                        request.setAttribute("admin", admin);
-                        //ENVIA VIA FOWARD
-                        RequestDispatcher rd = request.getRequestDispatcher("/administrador/meuCadastro.jsp");
+                        UsuarioDTO dados = UsuarioFacade.buscaPorID(id);
+                        request.setAttribute("usuario", dados);
+
+                        RequestDispatcher rd = null;
+                        //redireciona
+                        if (user.getTipoUsuarioId().getId().equals(3)) {
+                            rd = getServletContext().getRequestDispatcher("/administrador/meuCadastro.jsp");
+                        }
+                        if (user.getTipoUsuarioId().getId().equals(5)) {
+                            rd = getServletContext().getRequestDispatcher("/gerente/meuCadastro.jsp");
+                        }
+  
                         rd.forward(request, response);
                         break;
 
@@ -101,8 +109,16 @@ public class CadastroServlet extends HttpServlet {
 
                         //ADD OBJ NA REQUISIÇÃO
                         request.setAttribute("usuarios", usuarios);
+
+                        rd = null;
+
                         //redireciona
-                        rd = getServletContext().getRequestDispatcher("/administrador/usuarios.jsp");
+                        if (user.getTipoUsuarioId().getId().equals(3)) {
+                            rd = getServletContext().getRequestDispatcher("/administrador/usuarios.jsp");
+                        }
+                        if (user.getTipoUsuarioId().getId().equals(5)) {
+                            rd = getServletContext().getRequestDispatcher("/gerente/usuarios.jsp");
+                        }
                         rd.forward(request, response);
                         break;
 
@@ -121,7 +137,7 @@ public class CadastroServlet extends HttpServlet {
                         request.setAttribute("especialidades", especialidades);
 
                         rd = null;
-                       
+
                         //redireciona
                         if (user.getTipoUsuarioId().getId().equals(3)) {
                             rd = getServletContext().getRequestDispatcher("/administrador/operarios.jsp");
