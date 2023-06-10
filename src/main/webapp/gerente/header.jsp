@@ -67,7 +67,7 @@ crossorigin="anonymous"></script>
                     <a href="OrdemDeServicoServlet?action=mostrarOdemDeServico"><button type="button" class="btn btn-warning">Ordens de Serviço</button></a>
                 </div>
                 <div class="col-md-auto">
-                    <a href="ChamadoServlet?action=mostrarChamadosGer"><button type="button" class="btn btn-warning">Chamados</button></a>
+                    <a href="ChamadoServlet?action=mostrarChamados"><button type="button" class="btn btn-warning">Chamados</button></a>
                 </div>
                 <div class="col-md-auto">
                     <a href="CadastroServlet?action=mostrarMeuCadastro"><button type="button" class="btn btn-warning">Meu Cadastro</button></a>

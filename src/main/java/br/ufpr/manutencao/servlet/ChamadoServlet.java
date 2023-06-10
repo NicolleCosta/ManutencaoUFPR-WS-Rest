@@ -5,9 +5,12 @@
 package br.ufpr.manutencao.servlet;
 
 import br.ufpr.manutencao.dto.ChamadoDTO;
+import br.ufpr.manutencao.dto.ComentarioOperarioDTO;
 import br.ufpr.manutencao.dto.EspecialidadeDTO;
 import br.ufpr.manutencao.dto.OrdemServicoDTO;
+import br.ufpr.manutencao.dto.UsuarioDTO;
 import br.ufpr.manutencao.facade.ChamadoFacade;
+import br.ufpr.manutencao.facade.ComentarioOperarioFacade;
 import br.ufpr.manutencao.facade.EspecialidadeFacade;
 import br.ufpr.manutencao.facade.FacadeException;
 import br.ufpr.manutencao.facade.OrdemServicoFacade;
@@ -19,6 +22,7 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -51,8 +55,11 @@ public class ChamadoServlet extends HttpServlet {
                 response.sendRedirect("LogoutServlet");
             } else {
                 switch (action) {
-                    case "mostrarHomeAdmin":
-                        System.out.println("entrou no mostrarhomeAdmin");
+                    case "mostrarChamados":
+                        HttpSession session = request.getSession();
+                        UsuarioDTO user = (UsuarioDTO) session.getAttribute("user");
+                        
+                        System.out.println("entrou na Servlet mostrar Chamados");
                         //Carrega a lista de chamados para apresentar
 //                        List<ChamadoDTO> chamadosSemOS = ChamadoFacade.buscarChamadosSemOS();
 //                        
@@ -69,6 +76,10 @@ public class ChamadoServlet extends HttpServlet {
                         List<ChamadoDTO> chamados = ChamadoFacade.buscarChamados();
                         List<ChamadoDTO> chamadosAsc = new ArrayList<>(chamados);
                         List<ChamadoDTO> chamadosDesc = new ArrayList<>(chamados);
+                        List<ComentarioOperarioDTO> comentarios = ComentarioOperarioFacade.buscarComentarios();
+                         
+                        // Ordenar os comentarios em ordem crescente de dataHora
+                        Collections.sort(comentarios, Comparator.comparing(ComentarioOperarioDTO::getDataHora));
 
                         // Ordenar os chamados em ordem crescente de dataHora
                         Collections.sort(chamadosAsc, Comparator.comparing(ChamadoDTO::getDataHora));
@@ -82,14 +93,26 @@ public class ChamadoServlet extends HttpServlet {
                         //request.setAttribute("chamadosEmAndamento", chamadosEmAndamento);
 //                        request.setAttribute("chamadosSemOS", chamadosSemOS);
 //                        request.setAttribute("chamadosComOS", chamadosComOS);
+                        
                         request.setAttribute("ordens", ordens);
                         request.setAttribute("especialidades", especialidades);
+                        request.setAttribute("comentarios", comentarios);
                         request.setAttribute("listaChamadosAsc", chamadosAsc);
                         request.setAttribute("listaChamadosDesc", chamadosDesc);
                         System.out.println("passando os chamados" + chamados);
+                        
+                        RequestDispatcher rd = null;
                         //redireciona
-                        RequestDispatcher rd = getServletContext().getRequestDispatcher("/administrador/home.jsp");
+                        if (user.getTipoUsuarioId().getId().equals(3)) {
+                             System.out.println("entrou no direcionamento administrador");
+                            rd = getServletContext().getRequestDispatcher("/administrador/home.jsp");
+                        }
+                        if (user.getTipoUsuarioId().getId().equals(5)) {
+                            System.out.println("entrou no direcionamento gerente");
+                            rd = getServletContext().getRequestDispatcher("/gerente/chamados.jsp");
+                        }
                         rd.forward(request, response);
+  
                         break;
                         
                         case "mostrarHomeGer":
