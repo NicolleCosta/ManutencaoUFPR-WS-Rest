@@ -48,32 +48,29 @@ crossorigin="anonymous"></script>
         <div class="container p-3" id="navegacaoSuperior">
             <div class="row d-grid gap-2 d-md-flex justify-content-md-center">
                 <div class="col-md-auto">
-                    <a class="nav-link" href="ChamadoServlet?action=mostrarHomeGer"><button type="button"
-                                                                      class="btn btn-warning">Home</button></a>
+                    <a class="nav-link" href="ChamadoServlet?action=mostrarHomeGer"><button type="button" class="btn btn-warning">Home</button></a>
                 </div>
                 <div class="col-md-auto">
-                    <a class="nav-link" href="CadastroServlet?action=mostrarOperariosAdmin"><button type="button"
-                                                                      class="btn btn-warning">Operários</button></a>
+                    <a class="nav-link" href="CadastroServlet?action=mostrarOperariosAdmin"><button type="button" class="btn btn-warning">Operários</button></a>
                 </div>
                 <div class="col-md-auto">
-                    <a class="nav-link" href="funcionarios.jsp"><button type="button"
-                                                                          class="btn btn-warning">Funcionários</button></a>
+                    <a class="nav-link" href="funcionarios.jsp"><button type="button" class="btn btn-warning">Funcionários</button></a>
                 </div>
 
                 <div class="col-md-auto">
-                    <a href="CadastroServlet?action=mostrarUsuariosGer"><button type="button" class="btn btn-warning">Usuários</button></a>
+                    <a href="CadastroServlet?action=mostrarUsuariosAdmin"><button type="button" class="btn btn-warning">Usuários</button></a>
                 </div>
                 <div class="col-md-auto">
                     <a class="nav-link" href="relatorios.jsp"><button type="button" class="btn btn-warning ">Relatórios</button></a>
                 </div>
                 <div class="col-md-auto">
-                    <a href="OrdemDeServicoServlet?action=mostrarOdemDeServicoGer"><button type="button" class="btn btn-warning">Ordens de Serviço</button></a>
+                    <a href="OrdemDeServicoServlet?action=mostrarOdemDeServico"><button type="button" class="btn btn-warning">Ordens de Serviço</button></a>
                 </div>
                 <div class="col-md-auto">
                     <a href="ChamadoServlet?action=mostrarChamadosGer"><button type="button" class="btn btn-warning">Chamados</button></a>
                 </div>
                 <div class="col-md-auto">
-                    <a href="CadastroServlet?action=mostrarMeuCadastroGerente"><button type="button" class="btn btn-warning">Meu Cadastro</button></a>
+                    <a href="CadastroServlet?action=mostrarMeuCadastro"><button type="button" class="btn btn-warning">Meu Cadastro</button></a>
                 </div>
             </div>
         </div>

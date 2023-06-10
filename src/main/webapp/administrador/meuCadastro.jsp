@@ -54,7 +54,7 @@
                 <div class="col">
 
                     <h1 class="text-primary text-center fw-bold p-3">Meu Cadastro</h1>
-                    <jsp:useBean id="admin" class="br.ufpr.manutencao.dto.UsuarioDTO"
+                    <jsp:useBean id="usuario" class="br.ufpr.manutencao.dto.UsuarioDTO"
                                  scope="request" />
                     <form action="CadastroServlet?action=alterarCadastro" method="POST"
                           class="mt-5 submit-jsp">
@@ -66,30 +66,30 @@
                                     <input required maxlength="99" type="text"
                                            class="form-control text-bg-light"
                                            id="nomeCompletoAdm" name="nome"
-                                           value="${admin.nome}">
+                                           value="${usuario.nome}">
                                 </div>
                                 <div class="col-4 text-sm-end fw-bold p-3">CPF</div>
                                 <div class="col-6 p-3">
                                     <input type="text" class="form-control text-bg-light"
-                                           id="cpf" name="cpf" value="${admin.cpf}" readonly>
+                                           id="cpf" name="cpf" value="${usuario.cpf}" readonly>
                                 </div>
                                 <div class="col-4 text-sm-end fw-bold p-3">Telefone</div>
                                 <div class="col-6 p-3">
                                     <input type="text" class="form-control text-bg-light"
                                            id="telefone" name="telefone"
-                                           value="${admin.telefone}" required>
+                                           value="${usuario.telefone}" required>
                                 </div>
                                 <div class="col-4 text-sm-end fw-bold p-3">Email</div>
                                 <div class="col-6 p-3">
                                     <input type="email" class="form-control text-bg-light"
                                            id="email" name="email" maxlength="99"
-                                           value="${admin.email}" required>
+                                           value="${usuario.email}" required>
                                 </div>
                                 <div class="col-4 text-sm-end fw-bold p-3">Senha</div>
                                 <div class="col-6 p-3">
                                     <input type="password"
                                            class="form-control text-bg-light" id="senha"
-                                           name="senha" maxlength="99" value="${admin.senha}"
+                                           name="senha" maxlength="99" value="${usuario.senha}"
                                            required>
                                 </div>
                                 <div class="col-4 text-sm-end fw-bold p-3">Confirma Senha
@@ -97,7 +97,7 @@
                                 <div class="col-6 p-3">
                                     <input type="password"
                                            class="form-control text-bg-light" id="senha2"
-                                           maxlength="99" value="${admin.senha}" required>
+                                           maxlength="99" value="${usuario.senha}" required>
                                 </div>
                                 <script>
                                     document.addEventListener('DOMContentLoaded', function () {
