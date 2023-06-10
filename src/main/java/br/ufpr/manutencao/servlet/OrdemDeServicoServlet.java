@@ -65,7 +65,7 @@ public class OrdemDeServicoServlet extends HttpServlet {
                         System.out.println(ordensServico);
                          List<ComentarioOperarioDTO> comentarios = ComentarioOperarioFacade.buscarComentarios();
                          
-                        // Ordenar os chamados em ordem crescente de dataHora
+                        // Ordenar os comentarios em ordem crescente de dataHora
                         Collections.sort(comentarios, Comparator.comparing(ComentarioOperarioDTO::getDataHora));
 
                         //ADD OBJ NA REQUISIÇÃO
@@ -126,14 +126,45 @@ public class OrdemDeServicoServlet extends HttpServlet {
                             //redireciona
                             request.setAttribute("info", "Chamado associado à nova Ordem de Serviço!");
                             request.setAttribute("page", "/home.jsp");
-                            rd = getServletContext().getRequestDispatcher("/ChamadoServlet?action=mostrarHomeAdmin");
+                            rd = getServletContext().getRequestDispatcher("/ChamadoServlet?action=mostrarChamados");
                             rd.forward(request, response);
 
                         } else {
                             // Lida com o caso de falha ao adicionar a ordem de serviço
                             request.setAttribute("error", "Falha ao adicionar a Ordem de Serviço");
                             request.setAttribute("page", "/home.jsp");
-                            rd = getServletContext().getRequestDispatcher("/ChamadoServlet?action=mostrarHomeAdmin");
+                            rd = getServletContext().getRequestDispatcher("/ChamadoServlet?action=mostrarChamados");
+                            rd.forward(request, response);
+                        }
+                        break;
+                        
+                        case "associarOrdemServico":
+                        System.out.println("entrou na associarOrdemServico");
+
+                        idChamado = Integer.parseInt(request.getParameter("idChamado"));
+                        
+                        numeroOS = request.getParameter("numeroOS");
+                        System.out.println("numeroOS"+ numeroOS);
+                   
+                        //buscar Ordem Servico
+                        ordemServico = OrdemServicoFacade.buscarOS(numeroOS);
+   
+                        // Verificar se a ordem de serviço foi adicionada com sucesso
+                        if (ordemServico != null) {
+                            // Associar a ordem de serviço ao chamado                  
+                            ChamadoFacade.associarChamado(idChamado, ordemServico);
+
+                            //redireciona
+                            request.setAttribute("info", "Chamado associado à nova Ordem de Serviço!");
+                            request.setAttribute("page", "/home.jsp");
+                            rd = getServletContext().getRequestDispatcher("/ChamadoServlet?action=mostrarChamados");
+                            rd.forward(request, response);
+
+                        } else {
+                            // Lida com o caso de falha ao adicionar a ordem de serviço
+                            request.setAttribute("error", "Falha ao adicionar a Ordem de Serviço");
+                            request.setAttribute("page", "/home.jsp");
+                            rd = getServletContext().getRequestDispatcher("/ChamadoServlet?action=mostrarChamados");
                             rd.forward(request, response);
                         }
                         break;

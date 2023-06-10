@@ -24,7 +24,7 @@
     <nav class="navbar bg-primary" data-bs-theme="dark">
 
         <div class="container-fluid">
-            <a class="navbar-brand fw-bold px-3 p-2" href="ChamadoServlet?action=mostrarHomeAdmin">Manutenção
+            <a class="navbar-brand fw-bold px-3 p-2" href="ChamadoServlet?action=mostrarChamados">Manutenção
                 UFPR</a>
             <form class="d-flex" role="search">
 
@@ -52,7 +52,7 @@
         <div class="row d-grid gap-2 d-md-flex justify-content-md-center">
 
             <div class="col-md-auto">
-                <a class="nav-link" href="ChamadoServlet?action=mostrarHomeAdmin"><button type="button" class="btn btn-warning fw-bold btn-lg">Chamados</button></a>
+                <a class="nav-link" href="ChamadoServlet?action=mostrarChamados"><button type="button" class="btn btn-warning fw-bold btn-lg">Chamados</button></a>
             </div>
             <div class="col-md-auto">
                 <a class="nav-link" href="OrdemDeServicoServlet?action=mostrarOdemDeServico"><button type="button" class="btn btn-warning fw-bold btn-lg ">Ordem de Serviço</button></a>
