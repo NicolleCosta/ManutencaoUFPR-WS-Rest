@@ -482,7 +482,7 @@
                                     <div class="row">
                                         <div class="col">
                                             <label for="recipient-name" class="col-form-label fw-bold text-primary">Digite aqui o número da Ordem de Serviço</label>
-                                            <input type="text" class="form-control text-bg-primary fw-bold p-3" id="ordem-de-servico" name="numeroOS" required>
+                                            <input type="text" class="form-control text-bg-primary fw-bold text-dark p-3" style="--bs-bg-opacity: .25;" id="ordem-de-servico" name="numeroOS" required>
                                         </div>
                                     </div>
                                 </div>
@@ -524,7 +524,7 @@
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
 
-                        <div class="modal-body">
+                                <div class="modal-body">
                             <form>
                                 <div class="container">                                
                                     <div class="row justify-content-end">
@@ -581,8 +581,6 @@
                                                                     <thead>
                                                                         <th scope="col">Descrição Problema</th>
                                                                         <th>Especialidade</th>
-                                                                        <th></th>
-                                                                        </tr>
                                                                     </thead>
                                                                     <tbody>
                                                                         <tr>                                                            
@@ -592,8 +590,7 @@
                                                                     </tbody>
                                                                     </table>
                                                                     <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-                                                                    
-                                                                            <button type="button" class="btn btn-primary btn-sm" type="submit">Associar</button>
+                                                                        <button type="button" class="btn btn-primary btn-sm" type="submit">Associar</button>
                                                                         </div>
                                                                 </div>
                                                             </div>
@@ -631,86 +628,7 @@
 
         </c:forEach>
 
-        <!--********** MODAL ORDEM DE SERVIÇO **************-->
         
-            <div class="modal fade" id="ordemDeServico2Modal${ordem.id}" data-bs-keyboard="false" tabindex="-1"
-            aria-labelledby="ordemDeServico2ModalLabel" aria-hidden="true">
-
-            <div class="modal-dialog modal-lg">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <div class="row">
-                        <div class="col-sm-8">
-                            <div class="w-50">
-                                <p class="text-body-secondary">Ordem De Serviço</p>
-
-                            </div>
-                        </div>
-                        <div class="col-sm-2">
-                            <p>Id Ordem De Serviço</p>
-                        </div>
-                        <div class="col-sm-2">
-                            <p class="text-center">#${ordem.id}</p>
-                        </div>
-                    </div>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-
-                <div class="modal-body">
-
-
-                    <div class="container">
-
-
-                        <div class="row">
-                            <div class="col-sm-6">
-                                <label for="recipient-name" class="col-form-label">Campus</label>
-                                <input type="text" class="form-control text-bg-light" id="campus-name" value="${ordem.predioId.campusId.nome}" readonly>
-                            </div>
-
-                            <div class="col-sm-6">
-                                <label for="recipient-name" class="col-form-label">Prédio</label>
-                                <input type="text" class="form-control text-bg-light" id="predio-name" value="${ordem.predioId.nome}" readonly>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-sm-12">
-                                <label for="message-text" class="col-form-label">Descrição do Local</label>
-                                <textarea class="form-control text-bg-light" id="local-text" readonly>${ordem.descricaoLocal}</textarea>
-                            </div>
-                        </div>
-
-                        <div class="row">
-                            <div class="col-sm-12">
-                                <label for="message-text" class="col-form-label">Descrição do Problema</label>
-                                <textarea class="form-control text-bg-light" id="problema-text" readonly>${ordem.descricaoProblema}</textarea>
-                            </div>
-
-                        </div>
-
-                        <div class="row">
-                            <div class="col-sm-6">
-                                <label for="recipient-name" class="col-form-label">Status</label>
-                                <input type="text" class="form-control text-bg-light" id="status" value="${ordem.statusId.nome}" readonly>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="modal-footer">
-                    <div class="row text-left">
-                        <div class="col">
-                            <button type="button" class="btn btn-secondary" data-bs-toggle="modal"
-                                    data-bs-target="#associarModal">Associar</button>
-                        </div>
-                        <div class="col">
-                            <button type="button" class="btn btn-warning" data-bs-toggle="modal"
-                                    data-bs-target="#novaOrdemDeServicoModal">Nova Ordem De Serviço</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            </div>
-            </div>
         
 
 
