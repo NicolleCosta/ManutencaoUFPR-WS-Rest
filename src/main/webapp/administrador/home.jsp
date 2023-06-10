@@ -215,7 +215,7 @@
 
 
 
-        <!--********** MODAL CHAMADOS ABERTOS **************-->
+        <!--********** MODAL CHAMADOS ABERTOS / SEM ORDEM DE SERVIÇO ASSOCIADA **************-->
         <c:forEach var="chamado" items="${requestScope.listaChamadosAsc}">
             <div class="modal fade" data-bs-keyboard="false" tabindex="-1" aria-labelledby="chamadoModalLabel"
                  aria-hidden="true"   id="chamadoModal<c:out value="${chamado.id}"/>">
@@ -308,7 +308,7 @@
 
 
 
-        <!--********** MODAL CHAMADO EM ANDAMENTO **************-->
+        <!--********** MODAL CHAMADO EM ANDAMENTO / COM ORDEM DE SERVIÇO ASSOCIADA **************-->
         <c:forEach var="chamados" items="${requestScope.listaChamadosDesc}">
         <div class="modal fade" id="chamadoEmAndamentoModal<c:out value="${chamado.id}"/>" data-bs-keyboard="false" tabindex="-1" aria-labelledby="chamadoEmAndamentoModalLabel"
              aria-hidden="true">
@@ -317,17 +317,7 @@
                 <div class="modal-content">
                     <div class="modal-header">
                         <div class="row">
-                            <div class="col-sm-8">
-                                <div class="w-50">
-                                    <p class="text-body-secondary" id="chamadoEmAndamentoModal">Chamado</p>
-                                </div>
-                            </div>
-                            <div class="col-sm-2">
-                                <p>Id Chamado</p>
-                            </div>
-                            <div class="col-sm-2">
-                                <p class="text-center"><c:out value="${chamados.id}"/></p>
-                            </div>
+                            <h3 class="modal-title text-primary">Chamado</h3>
                         </div>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
@@ -336,34 +326,42 @@
 
 
                         <div class="container">
+                            <div class="row justify-content-end">
+                                <div class="col-sm-4 text-sm-end">
+                                    <p class="fw-bold">Nº Chamado</p>
+                                </div>
+                                <div class="col-sm-4">
+                                    <input type="text"id="numero-os" class="form-control text-bg-light" value="${chamados.id}" readonly>
+                                </div>
+                            </div>
 
                             <div class="row">
                                 <div class="col-sm-12">
-                                    <label for="recipient-name" class="col-form-label">Usuario</label>
+                                    <label for="recipient-name" class="fw-bold col-form-label">Usuario</label>
                                     <input type="text" class="form-control text-bg-light" value="${chamados.usuarioId.nome}" id="recipient-name" readonly>
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="col-sm-6">
-                                    <label for="recipient-name" class="col-form-label">Campus</label>
+                                    <label for="recipient-name" class=" fw-bold col-form-label">Campus</label>
                                     <input type="text" class="form-control text-bg-light" id="campus-name" value="${chamados.predioId.campusId.nome}" readonly>
                                 </div>
 
                                 <div class="col-sm-6">
-                                    <label for="recipient-name" class="col-form-label">Prédio</label>
+                                    <label for="recipient-name" class="fw-bold col-form-label">Prédio</label>
                                     <input type="text" class="form-control text-bg-light" id="predio-name" value="${chamados.predioId.nome}" readonly>
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="col-sm-12">
-                                    <label for="message-text" class="col-form-label">Descrição do Local</label>
+                                    <label for="message-text" class="fw-bold col-form-label">Descrição do Local</label>
                                     <textarea class="form-control text-bg-light" id="local-text" readonly>${chamados.descricaoLocal}</textarea>
                                 </div>
                             </div>
 
                             <div class="row">
                                 <div class="col-sm-12">
-                                    <label for="message-text" class="col-form-label">Descrição do Problema</label>
+                                    <label for="message-text" class="fw-bold col-form-label">Descrição do Problema</label>
                                     <textarea class="form-control text-bg-light" id="problema-text" readonly>${chamados.descricaoProblema}</textarea>
                                 </div>
 
@@ -371,25 +369,25 @@
 
                             <div class="row">
                                 <div class="col-sm-4">
-                                    <label for="recipient-name" class="col-form-label">Status</label>
-                                    <input type="text" class="form-control text-bg-light" value="${chamados.statusId.nome}" id="status" readonly>
+                                    <label for="recipient-name" class="fw-bold col-form-label">Status</label>
+                                    <input type="text" class="form-control text-bg-warning" value="${chamados.statusId.nome}" id="status" readonly>
                                 </div>
 
                                 <div class="col-sm-4">
-                                    <label for="recipient-name" class="col-form-label">Ordem de Serviço</label>
-                                    <input type="text" class="form-control text-bg-light" value="${chamados.ordemServicoId.numeroOS}" id="ordem-de-servico" readonly>
+                                    <label for="recipient-name" class="fw-bold col-form-label">Ordem de Serviço</label>
+                                    <input type="text" class="form-control text-bg-primary fw-bold" value="${chamados.ordemServicoId.numeroOS}" id="ordem-de-servico" readonly>
                                 </div>
 
                                 <div class="col-sm-4">
-                                    <label for="recipient-name" class="col-form-label">Data e Hora</label>
-                                    <input type="text" class="form-control text-bg-light" id="Data" value="${chamados.dataHora}" readonly>
+                                    <label for="recipient-name" class="fw-bold col-form-label">Data e Hora</label>
+                                    <input type="text" class="form-control text-bg-light" id="Data" value="<fmt:formatDate value="${chamados.dataHora}" pattern="dd/MM/yyyy - HH:mm:ss" />" readonly>
                                 </div>
                             </div>
 
                             <!-- *********************** FOR EACH ********************** -->
-                            <div class="row">
+                            <div class="row p-2">
                                 <div class="col-sm-12">
-                                    <label for="message-text" class="col-form-label">Comentário Operário</label>
+                                    <label for="message-text" class="col-form-label fw-bold">Comentário Operário</label>
                                     <textarea class="form-control text-bg-light" id="problema-text" readonly></textarea>
                                 </div>
                             </div>
@@ -398,7 +396,7 @@
                     <div class="modal-footer">
                         <div class="row text-left">
                             <div class="col">
-                                <button type="button" class="btn btn-warning" data-bs-dismiss="modal" aria-label="Close">Fechar</button>
+                                <button type="button" class="btn btn-secondary fw-bold" data-bs-dismiss="modal" aria-label="Close">Fechar</button>
                             </div>
 
                         </div>
@@ -500,15 +498,6 @@
                 </div>
             </div>
         </c:forEach>
-
-
-
-
-           
-
-
-
-
 
 
         <!--********** MODAL ASSOCIAR **************-->
