@@ -91,6 +91,9 @@ public class CadastroServlet extends HttpServlet {
                         break;
 
                     case "mostrarUsuariosAdmin":
+                        session = request.getSession();
+                        user = (UsuarioDTO) session.getAttribute("user");
+
                         System.out.println("estrou no mostrarUsuariosAdmin");
                         //Carrega a lista de chamados para apresentar
                         List<UsuarioDTO> usuarios = UsuarioFacade.buscarUsuarios();
@@ -104,6 +107,9 @@ public class CadastroServlet extends HttpServlet {
                         break;
 
                     case "mostrarOperariosAdmin":
+                        session = request.getSession();
+                        user = (UsuarioDTO) session.getAttribute("user");
+
                         System.out.println("estrou no mostrarOperariosAdmin");
                         //Carrega a lista de chamados para apresentar
                         List<UsuarioDTO> operarios = UsuarioFacade.buscarOperarios();
@@ -113,8 +119,16 @@ public class CadastroServlet extends HttpServlet {
                         //ADD OBJ NA REQUISIÇÃO
                         request.setAttribute("operarios", operarios);
                         request.setAttribute("especialidades", especialidades);
+
+                        rd = null;
+                       
                         //redireciona
-                        rd = getServletContext().getRequestDispatcher("/administrador/operarios.jsp");
+                        if (user.getTipoUsuarioId().getId().equals(3)) {
+                            rd = getServletContext().getRequestDispatcher("/administrador/operarios.jsp");
+                        }
+                        if (user.getTipoUsuarioId().getId().equals(5)) {
+                            rd = getServletContext().getRequestDispatcher("/gerente/operarios.jsp");
+                        }
                         rd.forward(request, response);
                         break;
 
@@ -195,8 +209,8 @@ public class CadastroServlet extends HttpServlet {
                         rd = getServletContext().getRequestDispatcher("/CadastroServlet?action=mostrarOperariosAdmin");
                         rd.forward(request, response);
                         break;
-                        
-                        case "alterarModoBloqueioUsuario":
+
+                    case "alterarModoBloqueioUsuario":
                         id = Integer.parseInt(request.getParameter("id"));
 
                         //BUSCA OBJETO NO BD via Facade

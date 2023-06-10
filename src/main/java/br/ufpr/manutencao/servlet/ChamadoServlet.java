@@ -91,6 +91,14 @@ public class ChamadoServlet extends HttpServlet {
                         RequestDispatcher rd = getServletContext().getRequestDispatcher("/administrador/home.jsp");
                         rd.forward(request, response);
                         break;
+                        
+                        case "mostrarHomeGer":
+                        System.out.println("entrou no mostrarHomeGer");
+                        
+                        //redireciona
+                        rd = getServletContext().getRequestDispatcher("/gerente/home.jsp");
+                        rd.forward(request, response);
+                        break;
 
                     default:
                         //redireciona

@@ -75,7 +75,7 @@ public class LoginServlet extends HttpServlet {
                         break;
                         
                     case "gerente":
-                        response.sendRedirect("/portalGerente.jsp");
+                        response.sendRedirect("ChamadoServlet?action=mostrarHomeGer");
                         break;
                         
                     default:
