@@ -1,5 +1,8 @@
-<%-- Document : meuCadastro Created on : 31 de mai de 2023, 20:50:17 Author : nicol --%>
-
+<%-- 
+    Document   : meuCadastro
+    Created on : 10 de jun de 2023, 13:54:55
+    Author     : nicol
+--%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
@@ -11,10 +14,9 @@
     </c:redirect>
 </c:if>
 <c:if test="${ sessionScope.user != null }">
-    <c:if test="${ sessionScope.user.tipoUsuarioId.nome != 'administrador'}">
+    <c:if test="${ sessionScope.user.tipoUsuarioId.nome != 'gerente'}">
         <c:redirect url="/geral/index.jsp">
-            <c:param name="msg"
-                     value="Usuário não possui permissão para acessar essa página." />
+            <c:param name="msg" value="Usuário não possui permissão para acessar essa página." />
         </c:redirect>
     </c:if>
 </c:if>
@@ -25,15 +27,12 @@
         <meta charset="UTF-8" />
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>Meu Cadastro - Administrador</title>
-
-
+        <title>Cadastro - Gerente</title>
 
         <!-- Configurações da pagina (fim do head) e Cabeçalho da página -->
+        
         <%@include file="header.jsp" %>
-        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-
-        <!-- Corpo da página -->
+            <!-- Corpo da página -->
     <div class="container">
         <c:if test="${requestScope.msg != null || param.msg != null}">
             <div class="alert alert-danger alert-dismissible fade show">

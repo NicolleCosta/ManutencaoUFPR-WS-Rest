@@ -35,8 +35,7 @@
         <!-- Configurações da pagina (fim do head) e Cabeçalho da página -->
 
         <%@include file="header.jsp" %>
-    </head>
-    <body>
+
 
         <div class="w-100 p-3">
             <h1 class="text-primary text-center fw-bold ">Ordem de Serviço</h1>
