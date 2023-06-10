@@ -518,83 +518,94 @@
                 <div class="modal-dialog modal-lg">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <div class="row">
-                                <div class="col-sm-8">
-                                    <div class="w-50">
-                                        <p class="text-body-secondary">Associar à Ordem de Serviço Existente</p>
-                                    </div>
-                                </div>
-                                <div class="col-sm-2">
-                                    <p>Id Chamado</p>
-                                </div>
-                                <div class="col-sm-2"> <p class="text-center"># <c:out value="${chamado.id}"/></p> 
-                                </div>
+                            <div class="row">                        
+                                <h3 class="modal-title text-primary">Associar à Ordem de Serviço <strong class="text-primary">Existente</strong></h3>
                             </div>
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
 
                         <div class="modal-body">
                             <form>
-
-                                <div class="container">
+                                <div class="container">                                
+                                    <div class="row justify-content-end">
+                                        <div class="col-sm-4 text-sm-end">
+                                            <p class="fw-bold">Nº Chamado</p>
+                                        </div>
+                                        <div class="col-sm-4">
+                                            <input type="text"id="numero-os" class="form-control text-bg-light" value="${chamado.id}" readonly>
+                                        </div>
+                                    </div>
 
 
                                     <div class="row">
                                         <div class="col-sm-6">
-                                            <label for="recipient-name" class="col-form-label">Campus</label>
+                                            <label class="col-form-label fw-bold">Campus</label>
                                             <input type="text" class="form-control text-bg-light" id="campus-name"  value="${chamado.predioId.campusId.nome}" readonly>
                                         </div>
 
                                         <div class="col-sm-6">
-                                            <label for="recipient-name" class="col-form-label">Prédio</label>
+                                            <label class="col-form-label fw-bold">Prédio</label>
                                             <input type="text" class="form-control text-bg-light" id="predio-name" value="${chamado.predioId.nome}"  readonly>
                                         </div>
                                     </div>    
                                     <div class="row">
                                         <div class="col-sm-12">
-                                            <label for="message-text" class="col-form-label">Descrição do Local</label>
+                                            <label class="col-form-label fw-bold">Descrição do Local</label>
                                             <textarea class="form-control text-bg-light" id="local-text" readonly>${chamado.descricaoLocal}</textarea>
                                         </div>
                                     </div>
 
                                     <div class="row">
                                         <div class="col-sm-12">
-                                            <label for="message-text" class="col-form-label">Descrição do Problema</label>
+                                            <label class="col-form-label fw-bold">Descrição do Problema</label>
                                             <textarea class="form-control text-bg-light" id="problema-text" readonly>${chamado.descricaoProblema}</textarea>
                                         </div>
                                     </div>
 
                                     <div class="row">
-                                        <div class="col-sm-6">
-                                            <label for="recipient-name" class="col-form-label">Ordens de Serviço para o mesmo local</label>
-                                        </div>
-
+                                        <label class="col-form-label text-primary fw-bold">Ordens de Serviço para o mesmo local</label>
                                         
-                                                <table class="table">
-                                                    <thead>
-                                                    <tr>
-                                                        <th scope="col">#</th>
-                                                        <th scope="col">Descrição Local</th>
-                                                        <th scope="col">Descrição Problema</th>
-                                                        <th></th>
-                                                    </tr>
-                                                    </thead>
-                                                    <c:forEach var="ordem" items="${requestScope.ordens}">
-                                                        <c:if test="${empty ordem.dataFinalizacao && ordem.predioId.nome == chamado.predioId.nome && ordem.predioId.campusId.nome == chamado.predioId.campusId.nome}">
-                                                            <tbody>
-                                                                <td>#${ordem.numeroOS}</td>
-                                                                <td>${ordem.descricaoLocal}</td>
-                                                                <td>${ordem.descricaoProblema}</td>
-                                                                <td><button type="button" class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#ordemDeServico2Modal${ordem.id}">Detalhes</button></td>
-                                                            </tbody>    
-                                                    
-                                                        </c:if> 
-                                                    </c:forEach>
-                                                    
-                                                    
-                                                 
-                                                    
-                                                </table>
+                                        <c:set var="conditionSatisfied" value="false" />
+                                            <div class="accordion" id="accordionExample">
+                                            <c:forEach var="ordem" items="${requestScope.ordens}">
+                                                <c:if test="${empty ordem.dataFinalizacao && ordem.predioId.nome == chamado.predioId.nome && ordem.predioId.campusId.nome == chamado.predioId.campusId.nome}">
+                                                <div class="accordion-item">
+                                                    <h2 class="accordion-header" id="heading${ordem.numeroOS}">
+                                                    <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse${ordem.numeroOS}" aria-expanded="true" aria-controls="collapse${ordem.numeroOS}">
+                                                        #${ordem.numeroOS} -  <strong> Descrição do Local: </strong>  ${ordem.descricaoLocal}
+                                                    </button>
+                                                    </h2>
+                                                    <div id="collapse${ordem.numeroOS}" class="accordion-collapse collapse" aria-labelledby="heading${ordem.numeroOS}" data-bs-parent="#accordionExample">
+                                                    <div class="accordion-body">
+                                                        <table class="table">
+                                                        <thead>
+                                                            <th scope="col">Descrição Problema</th>
+                                                            <th>Especialidade</th>
+                                                            <th></th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                            <tr>                                                            
+                                                            <td>${ordem.descricaoProblema}</td>
+                                                            <td>${especialidade.id}</td>
+                                                            <td>
+                                                                <button type="button" class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#ordemDeServico2Modal${ordem.id}">Detalhes</button>
+                                                            </td>
+                                                            </tr>
+                                                        </tbody>
+                                                        </table>
+                                                    </div>
+                                                    </div>
+                                                </div>
+                                                <c:set var="conditionSatisfied" value="true" />
+                                                </c:if>
+                                            </c:forEach>
+                                            </div>
+                                            <c:if test="${!conditionSatisfied}">
+                                            <div class="alert alert-danger" role="alert">
+                                                Não temos Ordens de Serviço ativas para o local indicado.
+                                            </div>
+                                            </c:if>
                                           
                                         </div>
                                     </div>
@@ -652,12 +663,12 @@
 
                         <div class="row">
                             <div class="col-sm-6">
-                                <label for="recipient-name" class="col-form-label">Campus:</label>
+                                <label for="recipient-name" class="col-form-label">Campus</label>
                                 <input type="text" class="form-control text-bg-light" id="campus-name" value="${ordem.predioId.campusId.nome}" readonly>
                             </div>
 
                             <div class="col-sm-6">
-                                <label for="recipient-name" class="col-form-label">Predio</label>
+                                <label for="recipient-name" class="col-form-label">Prédio</label>
                                 <input type="text" class="form-control text-bg-light" id="predio-name" value="${ordem.predioId.nome}" readonly>
                             </div>
                         </div>
