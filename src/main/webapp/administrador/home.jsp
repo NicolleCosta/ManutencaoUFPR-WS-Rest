@@ -199,7 +199,7 @@
                                             </span>
                                         </td>
                                         <td>
-                                            <button  type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#chamadoEmAndamentoModal">
+                                            <button  type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#chamadoEmAndamentoModal<c:out value="${chamado.id}"/>">
                                                 Detalhes
                                             </button>
                                         </td>
@@ -300,8 +300,8 @@
 
 
         <!--********** MODAL CHAMADO EM ANDAMENTO **************-->
-
-        <div class="modal fade" id="chamadoEmAndamentoModal" data-bs-keyboard="false" tabindex="-1" aria-labelledby="chamadoEmAndamentoModalLabel"
+        <c:forEach var="chamados" items="${requestScope.listaChamadosDesc}">
+        <div class="modal fade" id="chamadoEmAndamentoModal<c:out value="${chamado.id}"/>" data-bs-keyboard="false" tabindex="-1" aria-labelledby="chamadoEmAndamentoModalLabel"
              aria-hidden="true">
 
             <div class="modal-dialog">
@@ -317,7 +317,7 @@
                                 <p>Id Chamado</p>
                             </div>
                             <div class="col-sm-2">
-                                <p class="text-center">#20203659</p>
+                                <p class="text-center"><c:out value="${chamados.id}"/></p>
                             </div>
                         </div>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
@@ -331,31 +331,31 @@
                             <div class="row">
                                 <div class="col-sm-12">
                                     <label for="recipient-name" class="col-form-label">Usuario</label>
-                                    <input type="text" class="form-control text-bg-light" id="recipient-name" readonly>
+                                    <input type="text" class="form-control text-bg-light" value="${chamados.usuarioId.nome}" id="recipient-name" readonly>
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="col-sm-6">
-                                    <label for="recipient-name" class="col-form-label">Campus:</label>
-                                    <input type="text" class="form-control text-bg-light" id="campus-name" readonly>
+                                    <label for="recipient-name" class="col-form-label">Campus</label>
+                                    <input type="text" class="form-control text-bg-light" id="campus-name" value="${chamados.predioId.campusId.nome}" readonly>
                                 </div>
 
                                 <div class="col-sm-6">
-                                    <label for="recipient-name" class="col-form-label">Predio</label>
-                                    <input type="text" class="form-control text-bg-light" id="predio-name" readonly>
+                                    <label for="recipient-name" class="col-form-label">Prédio</label>
+                                    <input type="text" class="form-control text-bg-light" id="predio-name" value="${chamados.predioId.nome}" readonly>
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="col-sm-12">
                                     <label for="message-text" class="col-form-label">Descrição do Local</label>
-                                    <textarea class="form-control text-bg-light" id="local-text" readonly></textarea>
+                                    <textarea class="form-control text-bg-light" id="local-text" readonly>${chamados.descricaoLocal}</textarea>
                                 </div>
                             </div>
 
                             <div class="row">
                                 <div class="col-sm-12">
                                     <label for="message-text" class="col-form-label">Descrição do Problema</label>
-                                    <textarea class="form-control text-bg-light" id="problema-text" readonly></textarea>
+                                    <textarea class="form-control text-bg-light" id="problema-text" readonly>${chamados.descricaoProblema}</textarea>
                                 </div>
 
                             </div>
@@ -363,17 +363,17 @@
                             <div class="row">
                                 <div class="col-sm-4">
                                     <label for="recipient-name" class="col-form-label">Status</label>
-                                    <input type="text" class="form-control text-bg-light" id="status" readonly>
+                                    <input type="text" class="form-control text-bg-light" value="${chamados.statusId.nome}" id="status" readonly>
                                 </div>
 
                                 <div class="col-sm-4">
                                     <label for="recipient-name" class="col-form-label">Ordem de Serviço</label>
-                                    <input type="text" class="form-control text-bg-light" id="ordem-de-servico" readonly>
+                                    <input type="text" class="form-control text-bg-light" value="${chamados.ordemServicoId.numeroOS}" id="ordem-de-servico" readonly>
                                 </div>
 
                                 <div class="col-sm-4">
                                     <label for="recipient-name" class="col-form-label">Data e Hora</label>
-                                    <input type="text" class="form-control text-bg-light" id="Data" readonly>
+                                    <input type="text" class="form-control text-bg-light" id="Data" value="${chamados.dataHora}" readonly>
                                 </div>
                             </div>
 
@@ -399,7 +399,7 @@
                 </div>
             </div>
         </div>
-
+        </c:forEach>
         <!--********** MODAL NOVA ORDEM DE SERVIÇO **************-->
         <c:forEach var="chamado" items="${requestScope.listaChamadosAsc}">
             <div class="modal fade" id="novaOrdemDeServicoModal<c:out value="${chamado.id}"/>" data-bs-backdrop="static" data-bs-keyboard="false"
