@@ -5,10 +5,12 @@
 package br.ufpr.manutencao.servlet;
 
 import br.ufpr.manutencao.dto.ChamadoDTO;
+import br.ufpr.manutencao.dto.ComentarioOperarioDTO;
 import br.ufpr.manutencao.dto.EspecialidadeDTO;
 import br.ufpr.manutencao.dto.OrdemServicoDTO;
 import br.ufpr.manutencao.dto.PredioDTO;
 import br.ufpr.manutencao.facade.ChamadoFacade;
+import br.ufpr.manutencao.facade.ComentarioOperarioFacade;
 import br.ufpr.manutencao.facade.FacadeException;
 import br.ufpr.manutencao.facade.OrdemServicoFacade;
 import jakarta.servlet.RequestDispatcher;
@@ -19,6 +21,8 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 /**
@@ -54,9 +58,14 @@ public class OrdemDeServicoServlet extends HttpServlet {
                         //Carrega a lista de chamados para apresentar
                         List<OrdemServicoDTO> ordensServico = OrdemServicoFacade.buscarOrdensDeServico();
                         System.out.println(ordensServico);
+                         List<ComentarioOperarioDTO> comentarios = ComentarioOperarioFacade.buscarComentarios();
+                         
+                        // Ordenar os chamados em ordem crescente de dataHora
+                        Collections.sort(comentarios, Comparator.comparing(ComentarioOperarioDTO::getDataHora));
 
                         //ADD OBJ NA REQUISIÇÃO
                         request.setAttribute("ordensServico", ordensServico);
+                        request.setAttribute("comentarios", comentarios);
                         //redireciona
                         RequestDispatcher rd = getServletContext().getRequestDispatcher("/administrador/ordensDeServico.jsp");
                         rd.forward(request, response);
