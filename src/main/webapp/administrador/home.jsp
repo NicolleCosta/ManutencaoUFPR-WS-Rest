@@ -337,31 +337,31 @@
 
                             <div class="row">
                                 <div class="col-sm-12">
-                                    <label for="recipient-name" class="fw-bold col-form-label">Usuario</label>
+                                    <label class="fw-bold col-form-label">Usuario</label>
                                     <input type="text" class="form-control text-bg-light" value="${chamados.usuarioId.nome}" id="recipient-name" readonly>
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="col-sm-6">
-                                    <label for="recipient-name" class=" fw-bold col-form-label">Campus</label>
+                                    <label class=" fw-bold col-form-label">Campus</label>
                                     <input type="text" class="form-control text-bg-light" id="campus-name" value="${chamados.predioId.campusId.nome}" readonly>
                                 </div>
 
                                 <div class="col-sm-6">
-                                    <label for="recipient-name" class="fw-bold col-form-label">Prédio</label>
+                                    <label class="fw-bold col-form-label">Prédio</label>
                                     <input type="text" class="form-control text-bg-light" id="predio-name" value="${chamados.predioId.nome}" readonly>
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="col-sm-12">
-                                    <label for="message-text" class="fw-bold col-form-label">Descrição do Local</label>
+                                    <label class="fw-bold col-form-label">Descrição do Local</label>
                                     <textarea class="form-control text-bg-light" id="local-text" readonly>${chamados.descricaoLocal}</textarea>
                                 </div>
                             </div>
 
                             <div class="row">
                                 <div class="col-sm-12">
-                                    <label for="message-text" class="fw-bold col-form-label">Descrição do Problema</label>
+                                    <label class="fw-bold col-form-label">Descrição do Problema</label>
                                     <textarea class="form-control text-bg-light" id="problema-text" readonly>${chamados.descricaoProblema}</textarea>
                                 </div>
 
@@ -369,17 +369,17 @@
 
                             <div class="row">
                                 <div class="col-sm-4">
-                                    <label for="recipient-name" class="fw-bold col-form-label">Status</label>
+                                    <label class="fw-bold col-form-label">Status</label>
                                     <input type="text" class="form-control text-bg-warning" value="${chamados.statusId.nome}" id="status" readonly>
                                 </div>
 
                                 <div class="col-sm-4">
-                                    <label for="recipient-name" class="fw-bold col-form-label">Ordem de Serviço</label>
+                                    <label class="fw-bold col-form-label">Ordem de Serviço</label>
                                     <input type="text" class="form-control text-bg-primary fw-bold" value="${chamados.ordemServicoId.numeroOS}" id="ordem-de-servico" readonly>
                                 </div>
 
                                 <div class="col-sm-4">
-                                    <label for="recipient-name" class="fw-bold col-form-label">Data e Hora</label>
+                                    <label class="fw-bold col-form-label">Data e Hora</label>
                                     <input type="text" class="form-control text-bg-light" id="Data" value="<fmt:formatDate value="${chamados.dataHora}" pattern="dd/MM/yyyy - HH:mm:ss" />" readonly>
                                 </div>
                             </div>
@@ -387,7 +387,7 @@
                             <!-- *********************** FOR EACH ********************** -->
                             <div class="row p-2">
                                 <div class="col-sm-12">
-                                    <label for="message-text" class="col-form-label fw-bold">Comentário Operário</label>
+                                    <label class="col-form-label fw-bold">Comentário Operário</label>
                                     <textarea class="form-control text-bg-light" id="problema-text" readonly></textarea>
                                 </div>
                             </div>
