@@ -117,12 +117,12 @@
                     </div>
                     <div class="modal-body">
                         <div class="container text-right">
-                            <div class="row row-cols-2">
+                            <div class="row row-cols-6">
                                 <div class="col">
                                     <p>id Operário</p>
                                 </div>
                                 <div class="col">
-                                    <p>#201822569</p>
+                                    <p># <c:out value="${operario.id}"/></p>
                                 </div>
                             </div>
                         </div>
@@ -130,178 +130,212 @@
                             <div class="row">
                                 <div>Nome</div>
                                 <div>
-                                    <input type="text" class="form-control text-bg-light" id="nome" readonly>
+                                    <input type="text" class="form-control text-bg-light" id="nome" value="${operario.nome}" readonly>
                                 </div>
                                 <div class="container text-right">
                                     <div class="row row-cols-3">
                                         <div class="col">
                                             <label>CPF</label>
-                                            <input type="text" class="form-control text-bg-light" id="cpf" readonly>
+                                            <input type="text" class="form-control text-bg-light" id="cpf" value="${operario.cpf}" readonly>
                                         </div>
                                         <div class="col">
                                             <label>Telefone</label>
-                                            <input type="text" class="form-control text-bg-light" id="telefone" readonly>
+                                            <input type="text" class="form-control text-bg-light" id="telefone" value="${operario.telefone}" readonly>
                                         </div>
                                         <div class="col">
                                             <label>Situação</label>
-                                            <input type="text" class="form-control text-bg-light" id="situação" readonly>
+                                            <c:choose>
+                                                <c:when test="${operario.bloqueio eq 'false'}">
+                                                    <c:set var="status" value="Ativo" />
+                                                </c:when>
+                                                <c:otherwise>
+                                                    <c:set var="status" value="Bloqueado" />
+                                                </c:otherwise>
+                                            </c:choose>
+                                            <input type="text" class="form-control text-bg-light" id="situação" value="${status}" readonly>
                                         </div>
 
                                     </div>
                                 </div>
                                 <div>
                                     <label>Email</label>
-                                    <input type="text" class="form-control text-bg-light" id="email" readonly>
+                                    <input type="text" class="form-control text-bg-light" id="email"  value="${operario.email}" readonly>
                                 </div>
-                                <div>
-                                    <label>Especialidades</label>
-                                    <br>
-                                    <c:forEach var="especialidade" items="${requestScope.especialidades}">
-                                        <c:if test="${especialidade.nome != 'N/A'}">
-                                            <input type="radio" name="opcao" value="${especialidade.nome}"> ${especialidade.nome} <br>
-                                        </c:if>
-                                    </c:forEach>
+                                <div class="row row-cols-6">
+                                    <div>
+                                        <label>Especialidade:</label>
+                                    </div>
+                                    <div>
+                                        <p> <c:out value="${operario.especialidadeId.nome}"/></p>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-warning" data-bs-toggle="modal"
-                                data-bs-target="#modalDesbloqueio" disabled>Desbloquear</button>
-                        <button type="button" class="btn btn-danger" data-bs-toggle="modal"
-                                data-bs-target="#modalBloqueio">Bloquear</button>
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-                        <button type="button" class="btn btn-warning" data-bs-toggle="modal"
-                                data-bs-target="#editarOperarioModal">Editar</button>
+                                data-bs-target="#modalDesbloqueio<c:out value="${operario.id}"/>" <c:if test="${operario.bloqueio==false}"> disabled </c:if>>Desbloquear</button>
+                                <button type="button" class="btn btn-danger" data-bs-toggle="modal"
+                                        data-bs-target="#modalBloqueio<c:out value="${operario.id}"/>"  <c:if test="${operario.bloqueio== true}"> disabled </c:if>>Bloquear</button>
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                                <button type="button" class="btn btn-warning" data-bs-toggle="modal"
+                                        data-bs-target="#editarOperarioModal<c:out value="${operario.id}"/>">Editar</button>
                     </div>
                 </div>
             </div>
         </div>
     </c:forEach>
+
     <!--********** MODAL EDITAR OPERARIO **************-->
+    <c:forEach var="operario" items="${requestScope.operarios}"> 
+        <div class="modal fade" id="editarOperarioModal<c:out value="${operario.id}"/>" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+             aria-labelledby="editarOperarioModalLabel" aria-hidden="true">
+            <form action="CadastroServlet?action=alterarCadastroOperario" method="POST" class="mt-5 submit-jsp">
+                <div class="modal-dialog modal-lg modal-dialog-centered modal-dialog-scrollable">
+                    <div class="modal-content">
 
-    <div class="modal fade" id="editarOperarioModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
-         aria-labelledby="modalOperarioLabel" aria-hidden="true">
-        <div class="modal-dialog modal-lg modal-dialog-centered modal-dialog-scrollable">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h1 class="modal-title fs-5" id="modalOperario">Operário</h1>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    <div class="container text-right">
-                        <div class="row row-cols-2">
-                            <div class="col">
-                                <p>id Operário</p>
-                            </div>
-                            <div class="col">
-                                <p>#201822569</p>
-                            </div>
+                        <div class="modal-header">
+                            <h1 class="modal-title fs-5" id="modalOperario">Operário</h1>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
-                    </div>
-                    <div class="container">
-                        <div class="row">
-                            <div>Nome</div>
-                            <div>
-                                <input type="text" class="form-control text-bg-light" id="nome" >
-                            </div>
-                            <div class="container text-right">
-                                <div class="row row-cols-3">
-                                    <div class="col">
-                                        <label>CPF</label>
-                                        <input type="text" class="form-control text-bg-light" id="cpf" readonly>
-                                    </div>
-                                    <div class="col">
-                                        <label>Telefone</label>
-                                        <input type="text" class="form-control text-bg-light" id="telefone" >
-                                    </div>
-                                    <div class="col">
-                                        <label>Situação</label>
-                                        <input type="text" class="form-control text-bg-light" id="situação" readonly>
-                                    </div>
 
+                        <div class="modal-body">
+                            <div class="container text-right">
+                                <div class="row row-cols-2">
+                                    <div class="col">
+                                        <p>id Operário</p>
+                                    </div>
+                                    <div class="col">
+                                        <p># <c:out value="${operario.id}"/></p>
+                                    </div>
+                                    <input type="text" class="form-control text-bg-light" id="id" name="id" value="${operario.id}" hidden>
                                 </div>
                             </div>
-                            <div>
-                                <label>Email</label>
-                                <input type="text" class="form-control text-bg-light" id="email" >
-                            </div>
-                            <div>
-                                <label>Especialidades</label>
-                                <br>
-                                <c:forEach var="especialidade" items="${requestScope.especialidades}">
-                                    <c:if test="${especialidade.nome != 'N/A'}">
-                                        <input type="radio" name="opcao" value="${especialidade.nome}"> ${especialidade.nome} <br>
-                                    </c:if>
-                                </c:forEach>
+                            <div class="container">
+                                <div class="row">
+                                    <div>Nome</div>
+                                    <div>
+                                        <input type="text" class="form-control text-bg-light" id="nome" name="nome" value="${operario.nome}" required>
+                                    </div>
+                                    <div class="container text-right">
+                                        <div class="row row-cols-3">
+                                            <div class="col">
+                                                <label>CPF</label>
+                                                <input type="text" class="form-control text-bg-light" id="cpf" name="cpf" value="${operario.cpf}" readonly>
+                                            </div>
+                                            <div class="col">
+                                                <label>Telefone</label>
+                                                <input type="text" class="form-control text-bg-light" id="telefone" name="telefone" value="${operario.telefone}" required>
+                                            </div>
+                                            <div class="col">
+                                                <label>Situação</label><c:choose>
+                                                    <c:when test="${operario.bloqueio eq 'false'}">
+                                                        <c:set var="status" value="Ativo" />
+                                                    </c:when>
+                                                    <c:otherwise>
+                                                        <c:set var="status" value="Bloqueado" />
+                                                    </c:otherwise>
+                                                </c:choose>
+                                                <input type="text" class="form-control text-bg-light" id="situação" value="${status}" readonly>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <label>Email</label>
+                                        <input type="text" class="form-control text-bg-light" id="email" name="email" value="${operario.email}" required>
+                                    </div>
+                                    <div>
+                                        <label>Especialidades</label>
+                                        <br>
+
+                                        <c:forEach var="especialidade" items="${requestScope.especialidades}">
+                                            <c:if test="${especialidade.nome != 'N/A'}">
+                                                <input type="radio" name="especialidade" value="${especialidade.id}"  <c:if test="${operario.especialidadeId != null && operario.especialidadeId.id == especialidade.id}"> checked="checked"</c:if> required>
+                                                ${especialidade.nome} <br>
+                                            </c:if>
+                                        </c:forEach>
+
+                                    </div>
+                                </div>
                             </div>
                         </div>
+                        <div class="modal-footer">
+
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                            <button type="submit" class="btn btn-warning">Salvar</button>
+                        </div>
+
                     </div>
                 </div>
-                <div class="modal-footer">
-
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-                    <button type="button" class="btn btn-warning">Salvar</button>
-                </div>
-            </div>
+            </form>
         </div>
-    </div>
-
+    </c:forEach>
 
 
 
 
     <!--********** MODAL CONFIRMA BLOQUEIO**************-->
-    <div class="modal fade" id="modalBloqueio" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
-         aria-labelledby="staticBackdropLabel" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h1 class="modal-title fs-5" id="staticBackdropLabel">CONFIRMAÇÃO DE BLOQUEIO - OPERÁRIO</h1>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    <p class="fw-bold">Tem certeza que deseja BLOQUEAR o Operário?</p>
+    <c:forEach var="operario" items="${requestScope.operarios}"> 
+        <div class="modal fade" id="modalBloqueio${operario.id}" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+             aria-labelledby="staticBackdropLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
+                <form action="CadastroServlet?action=alterarModoBloqueioOperario" method="POST" class="mt-5 submit-jsp">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h1 class="modal-title fs-5" id="staticBackdropLabel">CONFIRMAÇÃO DE BLOQUEIO - OPERÁRIO</h1>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <p class="fw-bold">Tem certeza que deseja BLOQUEAR o Operário?</p>
+                            <input type="text" class="form-control text-bg-light" id="id" name="id" value="${operario.id}" hidden>
 
-                    <div>Nome</div>
-                    <div>
-                        <input type="text" class="form-control text-bg-light" id="nome" readonly>
+                            <div>Nome</div>
+                            <div>
+                                <input type="text" class="form-control text-bg-light" id="nome" value="${operario.nome}" readonly>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                            <button type="submit" class="btn btn-danger">Bloquear</button>
+                        </div>
                     </div>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-                    <button type="button" class="btn btn-danger">Bloquear</button>
-                </div>
+                </form>
             </div>
         </div>
-    </div>
+    </c:forEach>
 
 
 
     <!--********** MODAL CONFIRMA DESBLOQUEIO**************-->
-    <div class="modal fade" id="modalDesbloqueio" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
-         aria-labelledby="staticBackdropLabel" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h1 class="modal-title fs-5" id="staticBackdropLabel">CONFIRMAÇÃO DE DESBLOQUEIO - OPERÁRIO</h1>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    <p class="fw-bold">Tem certeza que deseja DESBLOQUEAR o Operário?</p>
-                    <div>Nome</div>
-                    <div>
-                        <input type="text" class="form-control text-bg-light" id="nome" readonly>
+    <c:forEach var="operario" items="${requestScope.operarios}"> 
+        <div class="modal fade" id="modalDesbloqueio${operario.id}" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+             aria-labelledby="staticBackdropLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
+                <form action="CadastroServlet?action=alterarModoBloqueioOperario" method="POST" class="mt-5 submit-jsp">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h1 class="modal-title fs-5" id="staticBackdropLabel">CONFIRMAÇÃO DE DESBLOQUEIO - OPERÁRIO</h1>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <p class="fw-bold">Tem certeza que deseja DESBLOQUEAR o Operário?</p>
+                            <input type="text" class="form-control text-bg-light" id="id" name="id" value="${operario.id}" hidden>
+
+                            <div>Nome</div>
+                            <div>
+                                <input type="text" class="form-control text-bg-light" id="nome" value="${operario.nome}" readonly>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                            <button type="sumit" class="btn btn-warning">Desbloqueio</button>
+                        </div>
                     </div>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-                    <button type="button" class="btn btn-warning">Desbloqueio</button>
-                </div>
+                </form>
             </div>
         </div>
-    </div>
-
+    </c:forEach>
 
     <!--********** MODAL NOVO OPERARIO **************-->
     <form action="CadastroServlet?action=novoOperario" method="POST">

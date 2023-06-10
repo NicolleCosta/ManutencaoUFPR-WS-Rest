@@ -125,7 +125,7 @@ public class CadastroServlet extends HttpServlet {
                         telefone = request.getParameter("telefone");
                         email = request.getParameter("email");
                         int especialidade = Integer.parseInt(request.getParameter("especialidade"));
-                        
+
                         usuario = new UsuarioDTO();
                         //adiciona os valores a esse objeto
                         usuario.setNome(nome);
@@ -136,14 +136,62 @@ public class CadastroServlet extends HttpServlet {
                         usuario.setBloqueio(false);
                         usuario.setEspecialidadeId(new EspecialidadeDTO(especialidade));
                         usuario.setTipoUsuarioId(new TipoUsuarioDTO(2));
-                        
-                        System.out.println("Usuario : "+usuario);
+
+                        System.out.println("Usuario : " + usuario);
                         //função para atualizar no bd via Facade
                         UsuarioFacade.adicionarUsuario(usuario);
-                        
+
                         //redireciona
                         request.setAttribute("info", " Operário cadastrado");
                         request.setAttribute("page", "/operarios.jsp");
+                        rd = getServletContext().getRequestDispatcher("/CadastroServlet?action=mostrarOperariosAdmin");
+                        rd.forward(request, response);
+                        break;
+
+                    case "alterarCadastroOperario":
+                        id = Integer.parseInt(request.getParameter("id"));
+
+                        //BUSCA OBJETO NO BD via Facade
+                        usuario = UsuarioFacade.buscaPorID(id);
+
+                        nome = request.getParameter("nome");
+                        telefone = request.getParameter("telefone");
+                        email = request.getParameter("email");
+                        especialidade = Integer.parseInt(request.getParameter("especialidade"));
+
+                        //altera os valores desse objeto
+                        usuario.setNome(nome);
+                        usuario.setEmail(email);
+                        usuario.setTelefone(telefone);
+                        usuario.setEspecialidadeId(new EspecialidadeDTO(especialidade));
+
+                        //função para atualizar no bd via Facade
+                        UsuarioFacade.aterarUsuario(usuario);
+
+                        //redireciona
+                        request.setAttribute("info", " Operário atualizado");
+                        rd = getServletContext().getRequestDispatcher("/CadastroServlet?action=mostrarOperariosAdmin");
+                        rd.forward(request, response);
+                        break;
+
+                    case "alterarModoBloqueioOperario":
+                        id = Integer.parseInt(request.getParameter("id"));
+
+                        //BUSCA OBJETO NO BD via Facade
+                        usuario = UsuarioFacade.buscaPorID(id);
+
+                        //altera os valores desse objeto
+                        if (usuario.getBloqueio() == true) {
+                            usuario.setBloqueio(false);
+                        } else {
+                            usuario.setBloqueio(true);
+                        }
+
+                        //função para atualizar no bd via Facade
+                        UsuarioFacade.aterarUsuario(usuario);
+
+                        //redireciona
+                        request.setAttribute("info", "Status operário atualizado");
                         rd = getServletContext().getRequestDispatcher("/CadastroServlet?action=mostrarOperariosAdmin");
                         rd.forward(request, response);
                         break;
