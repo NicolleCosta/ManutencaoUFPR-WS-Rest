@@ -53,12 +53,12 @@
 
             <!-- Texto Título -->
             <div class="w-100">
-                <h2 class="text-center fw-bold text-warning p-3">Chamados Sem Ordem De Seriço
+                <h2 class="text-center fw-bold text-warning p-3">Chamados Sem Ordem De Serviço
                     Associada</h2>
             </div>
 
             <!-- tabela -->
-            <div class="table-secondary table-sm p-3">
+            <div class="table-secondary table-sm p-3 text-center">
                 <!-- tabela -->
                 <div class="table-secondary">
                     <table class="table align-middle mb-0 bg-white table-hover">
@@ -139,7 +139,7 @@
                 </div>
 
                 <!-- tabela -->
-                <div class="table-secondary table-sm p-3">
+                <div class="table-secondary table-sm p-3 text-center">
                     <table class="table align-middle mb-0 bg-white">
                         <thead class="bg-light">
                             <tr>
