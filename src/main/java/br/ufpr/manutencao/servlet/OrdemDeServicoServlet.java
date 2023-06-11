@@ -141,9 +141,9 @@ public class OrdemDeServicoServlet extends HttpServlet {
                         case "associarOrdemServico":
                         System.out.println("entrou na associarOrdemServico");
 
-                        idChamado = Integer.parseInt(request.getParameter("idChamado"));
+                        idChamado = Integer.parseInt(request.getParameter("chamado"));
                         
-                        numeroOS = request.getParameter("numeroOS");
+                        numeroOS = request.getParameter("numero");
                         System.out.println("numeroOS"+ numeroOS);
                    
                         //buscar Ordem Servico
