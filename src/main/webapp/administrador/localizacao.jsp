@@ -31,6 +31,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <title>Localização - Administrador</title>
         <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+        
         <script type="text/javascript">
             $(document).ready(function () {
                 var campusSelected = {
@@ -304,46 +305,85 @@
 
 
 
-
-
-        <!-- ************MODAL BLOQUEAR CAMPUS**************************** -->
-        <form action="LocalizacaoServlet?action=bloquearCampus" method="POST">
-            <div class="modal fade" id="bloquearCampus" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
-                 aria-labelledby="staticBackdropLabel" aria-hidden="true">
-                <div class="modal-dialog modal-dialog-centered">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h3 class="modal-title fs-5">CONFIRMAÇÃO DE BLOQUEIO <strong class="text-danger">CAMPUS</strong></h3>
-                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                        </div>
-                        <div class="modal-body">
-                            <p>Tem certeza que deseja <strong class="text-danger"> BLOQUEAR </strong> o CAMPUS abaixo?</p>
-                            <p>Caso bloqueie esta localização não estará mais disponível para
-                                seleção para abertura de chamados, <strong class="text-danger">esta ação não pode ser revertída.</strong></p>
-                            <div class="container">
-                                <div class="row">
-                                    <div>Campus</div>
-                                    <div>
-                                        <div class="dropdown">
-                                            <select id="campus-bloquearCampus" class="form-control" name="campusId" required>
-                                                <option value="">Selecione</option>
-                                                <c:forEach items="${requestScope.listaCampus}" var="campus">
-                                                    <option value="${campus.id}">${campus.nome}</option>
-                                                </c:forEach>
-                                            </select>
-                                        </div>
-                                    </div>
-                                </div>
+<!-- ************MODAL BLOQUEAR CAMPUS**************************** -->
+<div class="modal fade" id="bloquearCampus" data-bs-backdrop="true" data-bs-keyboard="false" tabindex="-1"
+     aria-labelledby="bloquearCampusLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title fs-5">CONFIRMAÇÃO DE BLOQUEIO <strong class="text-danger">CAMPUS</strong></h3>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <p>Selecione o campus que deseja <strong class="text-danger"> BLOQUEAR </strong> abaixo.</p>
+                <p>Caso bloqueie esta localização não estará mais disponível para seleção para abertura de chamados.</p>
+                <div class="alert alert-danger d-flex align-items-start" role="alert">
+                    <div>
+                        <strong class="text-danger">Atenção!</strong> Esta ação não pode ser revertida.
+                    </div>
+                </div>
+                <div class="container">
+                    <div class="row">
+                        <div>Campus</div>
+                        <div>
+                            <div class="dropdown">
+                                <select id="campus-campusId" class="form-control" name="campus-campusId" required>
+                                    <option value="">Selecione</option>
+                                    <c:forEach items="${requestScope.listaCampus}" var="campus">
+                                        <option value="${campus.id}">${campus.nome}</option>
+                                    </c:forEach>
+                                </select>
                             </div>
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-                            <button type="submit" class="btn btn-danger fw-bold">Bloquear</button>
                         </div>
                     </div>
                 </div>
             </div>
-        </form>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                <button type="button" class="btn btn-danger" id="bloquearButton">Bloquear</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--********** MODAL CONFIRMA BLOQUEIO**************-->
+<c:forEach var="campus" items="${requestScope.listaCampus}">
+    <div class="modal fade" id="modalBloqueio${campus.id}" data-bs-backdrop="static" data-bs-keyboard="false"
+         tabindex="-1" aria-labelledby="modalBoqueioLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <form action="LocalizacaoServlet?action=bloquearCampus" method="POST">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Confirmação de Bloqueio</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <input type="hidden" id="campusId${campus.id}" name="campusId" value="${campus.id}"/>
+                        <p>Deseja realmente bloquear o campus <strong>${campus.nome}</strong>?</p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="submit" class="btn btn-danger">Bloquear</button>
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</c:forEach>
+
+
+
+
+
+
+
+
+
+
+
+
+
         <!-- ************MODAL BLOQUEAR PRÉDIO**************************** -->
         <form action="LocalizacaoServlet?action=bloquearPredio" method="POST">
             <div class="modal fade" id="bloquearPredio" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
@@ -397,6 +437,25 @@
                 </div>
             </div>
         </form>
+                <script>
+               $(document).ready(function() {
+                    // Handle click event on "Bloquear" button in the first modal
+                     $("#bloquearButton").click(function() {
+                    // Get the selected campus value
+                    var campusId = $("#campus-campusId").val();
+
+                    // Set the value of the hidden input field in the second modal
+                    $("#campusId" + campusId).val(campusId);
+
+                    // Open the second modal
+                    $("#modalBloqueio" + campusId).modal("show");
+                });
+
+                // Close the first modal when the second modal is about to be shown
+                $("#modalBloqueio" + campusId).on("show.bs.modal", function() {
+                    $("#bloquearCampus").modal("hide");
+                });
+                });</script>
     </body>
 
 </html>
