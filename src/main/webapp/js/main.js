@@ -15,3 +15,16 @@ $(document).ready(function () {
 
 });
 
+$(document).ready(function() {
+        // Handle click event on "Bloquear" button in the first modal
+        $("#bloquearButton").click(function() {
+            // Get the selected campus value
+            var campusId = $("#campus-campusId").val();
+
+            // Set the value of the hidden input field in the second modal
+            $("#campusId" + campusId).val(campusId);
+
+            // Open the second modal
+            $("#modalBloqueio" + campusId).modal("show");
+        });
+    });
