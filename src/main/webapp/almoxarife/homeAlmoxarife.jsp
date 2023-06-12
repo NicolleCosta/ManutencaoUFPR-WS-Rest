@@ -1,4 +1,4 @@
-<!-- <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@page contentType="text/html" pageEncoding="UTF-8" %>
@@ -14,8 +14,7 @@
             <c:param name="msg" value="Usuário não possui permissão para acessar essa página." />
         </c:redirect>
     </c:if>
-</c:if> -->
-
+</c:if>
 
 
 
@@ -29,73 +28,27 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Home Almoxarife</title>
 
-    
-        <!-- EXCLUIR ESSA LINHA ABAIXO ESTÁ NO HEADER -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">
-
-
-        <!-- Configurações da pagina (fim do head) e Cabeçalho da página -->
-        <%@include file="header.jsp" %>
+     <!-- Configurações da pagina (fim do head) e Cabeçalho da página -->
+    <%@include file="header.jsp" %>
 
 
 
 </head>
 
 
- <!-- EXCLUIR DAQUI ---- ESTÁ NO HEADER -->
-<body>
-
-
-
-   
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe"
-        crossorigin="anonymous"></script>
-
-
-    <header class="container-fluid bg-info mb-4">
-        <nav class="navbar bg-primary" data-bs-theme="dark">
-
-            <div class="container-fluid">
-                <a class="navbar-brand">Manutenção UFPR</a>
-                <form class="d-flex" role="search">
-
-                    <nav class="nav justify-content-end">
-                        <div class="container-md">
-                            <span class="navbar-text">
-                                Olá, Almoxarife
-                            </span>
-                        </div>
-                    </nav>
-
-                    <li class="nav-link">
-                        <a href="LogoutServlet" class="alert-link text-white my-2 my-sm-0"><i
-                                class="fas fa-power-off"></i>Sair</a>
-                    </li>
-                </form>
-            </div>
-
-        </nav>
-
-
-    </header>
- <!-- ATÉ AQUI ---- ESTÁ NO HEADER -->
-
 
 
  <!-- Corpo da página -->
 
-<!--  <div class="w-100 p-3">
+<div class="w-100 p-3">
     <c:if test="${requestScope.info != null || param.info != null}">
         <div class="alert alert-success alert-dismissible fade show">
             <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
             <span>${requestScope.info == null ? param.info : requestScope.info}</span>
         </div>
     </c:if>
-    <h1 class="text-primary text-center fw-bold">Operários</h1>
 </div>
- -->
+
 
 
 

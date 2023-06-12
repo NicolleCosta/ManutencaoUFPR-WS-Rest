@@ -124,7 +124,7 @@
                                 </tbody>
                             </table>
                         </div>
-
+            
         <!-- Modals -->
         <c:forEach var="o" items="${requestScope.ordensServico}">
             <div class="modal fade" data-bs-keyboard="false" tabindex="-1" aria-labelledby="ordemModalLabel"
