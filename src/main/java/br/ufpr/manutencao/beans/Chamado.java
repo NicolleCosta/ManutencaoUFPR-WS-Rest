@@ -4,7 +4,6 @@
  */
 package br.ufpr.manutencao.beans;
 
-
 import jakarta.json.bind.annotation.JsonbDateFormat;
 import java.io.Serializable;
 import java.util.Date;
@@ -39,10 +38,19 @@ import jakarta.persistence.TemporalType;
     @NamedQuery(name = "Chamado.listar", query = "Select c FROM Chamado c WHERE c.usuarioId = :id"),
     @NamedQuery(name = "Chamado.listaChamadoEmAberto", query = "SELECT c FROM Chamado c WHERE c.ordemServicoId.especialidadeId.id = :id AND c.ordemServicoId.usuarioOperarioId.id = null"),
     @NamedQuery(name = "Chamado.listaMeusChamados", query = "SELECT c FROM Chamado c WHERE c.ordemServicoId.usuarioOperarioId.id = :id"),
-   //@NamedQuery(name = "Chamado.atualizarstatus", query = "UPDATE Chamado c SET c.statusId.id = 3 WHERE c.ordemServicoId.id = :id"),
+    //@NamedQuery(name = "Chamado.atualizarstatus", query = "UPDATE Chamado c SET c.statusId.id = 3 WHERE c.ordemServicoId.id = :id"),
     //@NamedQuery(name = "Chamado.associarOS", query = "UPDATE Chamado c SET c.usuarioOperarioId.id = :idUsuario WHERE c.id = :idChamado"),
     @NamedQuery(name = "Chamado.findByDataHora", query = "SELECT c FROM Chamado c WHERE c.dataHora = :dataHora"),
-    @NamedQuery(name = "Chamado.atualizarIdOSChamado", query = "UPDATE Chamado c SET c.ordemServicoId = :novoIdOS WHERE c.id = :chamadoId")
+    @NamedQuery(name = "Chamado.atualizarIdOSChamado", query = "UPDATE Chamado c SET c.ordemServicoId = :novoIdOS WHERE c.id = :chamadoId"),
+// ------------------------- Dados da Home Gerente ------------------------------------------------
+    @NamedQuery(name = "Chamado.contaMais30DiasAbertos", query = "SELECT COUNT(c) FROM Chamado c WHERE c.dataHora < :dia AND c.statusId.id = 1"),  
+    @NamedQuery(name = "Chamado.contaMais30DiasSemOS", query = "SELECT COUNT(c) FROM Chamado c WHERE c.dataHora < :dia AND c.statusId.id = 1 AND c.ordemServicoId.id = null"),
+    @NamedQuery(name = "Chamado.contaAbertos", query = "SELECT COUNT(c) FROM Chamado c WHERE c.statusId.id = 1"),
+    @NamedQuery(name = "Chamado.contaAbertosSemOS", query = "SELECT COUNT(c) FROM Chamado c WHERE c.statusId.id = 1 AND c.ordemServicoId.id = null"),
+    @NamedQuery(name = "Chamado.contaAno", query = "SELECT COUNT(c) FROM Chamado c WHERE EXTRACT(YEAR FROM c.dataHora) = EXTRACT(YEAR FROM :data)"),
+
+    @NamedQuery(name = "Chamado.contaEncerradoAno", query = "SELECT COUNT(c) FROM Chamado c WHERE c.statusId.id = 2 AND EXTRACT(YEAR FROM c.dataHora) = EXTRACT(YEAR FROM :data) AND c.statusId.id = 2")
+
 })
 public class Chamado implements Serializable {
 
@@ -178,5 +186,5 @@ public class Chamado implements Serializable {
     public String toString() {
         return "br.ufpr.manutencao.beans.Chamado[ id=" + id + " ]";
     }
-    
+
 }
