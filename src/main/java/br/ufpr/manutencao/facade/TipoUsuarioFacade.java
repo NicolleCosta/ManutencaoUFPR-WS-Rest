@@ -4,7 +4,7 @@
  */
 package br.ufpr.manutencao.facade;
 
-import br.ufpr.manutencao.dto.CampusDTO;import br.ufpr.manutencao.dto.EspecialidadeDTO;
+import br.ufpr.manutencao.dto.TipoUsuarioDTO;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import java.io.IOException;
@@ -18,12 +18,12 @@ import java.util.List;
  *
  * @author nicol
  */
-public class EspecialidadeFacade {
+public class TipoUsuarioFacade {
 
-    public static List<EspecialidadeDTO> buscarEspecialidades() throws FacadeException {
+    public static List<TipoUsuarioDTO> buscarTiposUsuarios() throws FacadeException {
         try {
             // URL do endpoint do backend
-            String backendURL = "http://localhost:8080/manutencaoufpr/webresources/especialidade";
+            String backendURL = "http://localhost:8080/manutencaoufpr/webresources/tipousuario";
 
             HttpClient httpClient = HttpClient.newHttpClient();
 
@@ -45,15 +45,15 @@ public class EspecialidadeFacade {
 
                 // Converte o JSON de resposta para um objeto
                 ObjectMapper mapper = new ObjectMapper();
-                List<EspecialidadeDTO> especialidades = mapper.readValue(responseBody, new TypeReference<List<EspecialidadeDTO>>() {
+                List<TipoUsuarioDTO> tipoUsuarios = mapper.readValue(responseBody, new TypeReference<List<TipoUsuarioDTO>>() {
                 });
 
-                System.out.println("entrou na facade aberto " + especialidades);
-                return especialidades;
+                System.out.println("entrou na facade aberto " + tipoUsuarios);
+                return tipoUsuarios;
             } else {
                 System.out.println("entrou no else");
                 // Se o código de status for diferente de 200
-                throw new FacadeException("Erro ao listar especialidade: " + response.body());
+                throw new FacadeException("Erro ao listar tipoUsuario: " + response.body());
             }
         } catch (IOException | InterruptedException e) {
             System.out.println("entrou no erro" + e);

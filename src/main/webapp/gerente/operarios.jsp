@@ -239,7 +239,6 @@
                                                 </c:choose>
                                                 <input type="text" class="form-control text-bg-light" id="situação" value="${status}" readonly>
                                             </div>
-
                                         </div>
                                     </div>
                                     <div>

@@ -33,7 +33,9 @@ import jakarta.persistence.TypedQuery;
 @Table(name = "tb_usuario")
 @NamedQueries({
     @NamedQuery(name = "Usuario.findAll", query = "SELECT u FROM Usuario u"),
-    @NamedQuery(name = "Usuario.listaUsuarios", query = "SELECT u FROM Usuario u WHERE u.tipoUsuarioId = :id" ),
+    @NamedQuery(name = "Usuario.listaUsuarios", query = "SELECT u FROM Usuario u WHERE u.tipoUsuarioId = :id"),
+
+    @NamedQuery(name = "Usuario.listaFuncionarios", query = "SELECT u FROM Usuario u WHERE u.tipoUsuarioId <> :idUsu AND u.tipoUsuarioId <> :idOpe"),
     @NamedQuery(name = "Usuario.findById", query = "SELECT u FROM Usuario u WHERE u.id = :id"),
     @NamedQuery(name = "Usuario.findByNome", query = "SELECT u FROM Usuario u WHERE u.nome = :nome"),
     @NamedQuery(name = "Usuario.findByCpf", query = "SELECT u FROM Usuario u WHERE u.cpf = :cpf"),
@@ -63,27 +65,25 @@ public class Usuario implements Serializable {
     private String senha;
     @Column(name = "bloqueio")
     private Boolean bloqueio;
-    
+
 // Retirado para nao gerar problema de looping já que está em outra classe       
 //    @OneToMany(mappedBy = "usuarioId")
 //    private Collection<RetiradaMaterial> retiradaMaterialCollection;
-    
     @JoinColumn(name = "especialidade_id", referencedColumnName = "id")
     @ManyToOne
-   // @JsonBackReference
+    // @JsonBackReference
     private Especialidade especialidadeId;
-    
+
     @JoinColumn(name = "tipo_usuario_id", referencedColumnName = "id")
     @ManyToOne
-   // @JsonBackReference
+    // @JsonBackReference
     private TipoUsuario tipoUsuarioId;
-    
+
 // Retirado para nao gerar problema de looping já que está em outra classe   
 //    @OneToMany(mappedBy = "usuarioId")
 //    private Collection<ComentarioOperario> comentarioOperarioCollection;
 //    @OneToMany(mappedBy = "usuarioId")
 //    private Collection<Chamado> chamadoCollection;
-
     public Usuario() {
     }
 
@@ -154,7 +154,6 @@ public class Usuario implements Serializable {
 //    public void setRetiradaMaterialCollection(Collection<RetiradaMaterial> retiradaMaterialCollection) {
 //        this.retiradaMaterialCollection = retiradaMaterialCollection;
 //    }
-
     public Especialidade getEspecialidadeId() {
         return especialidadeId;
     }
@@ -186,7 +185,6 @@ public class Usuario implements Serializable {
 //    public void setChamadoCollection(Collection<Chamado> chamadoCollection) {
 //        this.chamadoCollection = chamadoCollection;
 //    }
-
     @Override
     public int hashCode() {
         int hash = 0;
@@ -211,7 +209,5 @@ public class Usuario implements Serializable {
     public String toString() {
         return "br.ufpr.manutencao.beans.Usuario[ id=" + id + " ]";
     }
-    
 
-    
 }

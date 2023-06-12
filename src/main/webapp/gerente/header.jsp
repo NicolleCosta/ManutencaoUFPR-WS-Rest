@@ -54,7 +54,7 @@ crossorigin="anonymous"></script>
                     <a class="nav-link" href="CadastroServlet?action=mostrarOperariosAdmin"><button type="button" class="btn btn-warning">Operários</button></a>
                 </div>
                 <div class="col-md-auto">
-                    <a class="nav-link" href="funcionarios.jsp"><button type="button" class="btn btn-warning">Funcionários</button></a>
+                    <a class="nav-link" href="CadastroServlet?action=mostrarFuncionariosGer"><button type="button" class="btn btn-warning">Funcionários</button></a>
                 </div>
 
                 <div class="col-md-auto">
