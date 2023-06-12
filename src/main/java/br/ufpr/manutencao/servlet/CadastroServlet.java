@@ -8,7 +8,7 @@ import br.ufpr.manutencao.dto.ChamadoDTO;
 import br.ufpr.manutencao.dto.EspecialidadeDTO;
 import br.ufpr.manutencao.dto.TipoUsuarioDTO;
 import br.ufpr.manutencao.dto.UsuarioDTO;
-import br.ufpr.manutencao.facade.ChamadoFacade;
+import br.ufpr.manutencao.facade.TipoUsuarioFacade;
 import br.ufpr.manutencao.facade.EspecialidadeFacade;
 import br.ufpr.manutencao.facade.FacadeException;
 import br.ufpr.manutencao.facade.UsuarioFacade;
@@ -245,6 +245,80 @@ public class CadastroServlet extends HttpServlet {
                         //redireciona
                         request.setAttribute("info", "Situação do usuário atualizada");
                         rd = getServletContext().getRequestDispatcher("/CadastroServlet?action=mostrarUsuariosAdmin");
+                        rd.forward(request, response);
+                        break;
+                        
+                        
+                        case "mostrarFuncionariosGer":
+                        System.out.println("entrou no mostrarFuncionariosGer");
+                        //Carrega a lista de chamados para apresentar
+                        List<UsuarioDTO> funcionarios = UsuarioFacade.buscarfuncionarios();
+                        System.out.println(funcionarios);
+                        List<TipoUsuarioDTO> tiposUsuario = TipoUsuarioFacade.buscarTiposUsuarios();
+                        System.out.println(tiposUsuario);
+                        //ADD OBJ NA REQUISIÇÃO
+                        request.setAttribute("funcionarios", funcionarios);
+                        request.setAttribute("tiposUsuario", tiposUsuario);
+
+                        //redireciona
+                        rd = getServletContext().getRequestDispatcher("/gerente/funcionarios.jsp");
+                        rd.forward(request, response);
+                        break;
+                        
+                        
+                        case "alterarCadastroFuncionario":
+                        id = Integer.parseInt(request.getParameter("id"));
+
+                        //BUSCA OBJETO NO BD via Facade
+                        usuario = UsuarioFacade.buscaPorID(id);
+
+                        nome = request.getParameter("nome");
+                        telefone = request.getParameter("telefone");
+                        email = request.getParameter("email");
+                        int tipoUsuario = Integer.parseInt(request.getParameter("tipoUsuario"));
+
+                        //altera os valores desse objeto
+                        usuario.setNome(nome);
+                        usuario.setEmail(email);
+                        usuario.setTelefone(telefone);
+                        usuario.setTipoUsuarioId(new TipoUsuarioDTO(tipoUsuario));
+
+                        //função para atualizar no bd via Facade
+                        UsuarioFacade.aterarUsuario(usuario);
+
+                        //redireciona
+                        request.setAttribute("info", " Funcionário atualizado!");
+                        rd = getServletContext().getRequestDispatcher("/CadastroServlet?action=mostrarFuncionariosGer");
+                        rd.forward(request, response);
+                        break;
+                        
+                        case "novoFuncionario":
+                        System.out.println("entrou serveletnovo usuario");
+                        nome = request.getParameter("nome");
+                        cpf = request.getParameter("cpf");
+                        telefone = request.getParameter("telefone");
+                        email = request.getParameter("email");
+                        tipoUsuario = Integer.parseInt(request.getParameter("tipoUsuario"));
+
+                        usuario = new UsuarioDTO();
+                        //adiciona os valores a esse objeto
+                        usuario.setNome(nome);
+                        usuario.setCpf(cpf);
+                        usuario.setTelefone(telefone);
+                        usuario.setEmail(email);
+                        usuario.setSenha(cpf);
+                        usuario.setBloqueio(false);
+                        usuario.setEspecialidadeId(new EspecialidadeDTO(1));
+                        usuario.setTipoUsuarioId(new TipoUsuarioDTO(tipoUsuario));
+
+                        System.out.println("Usuario : " + usuario);
+                        //função para atualizar no bd via Facade
+                        UsuarioFacade.adicionarUsuario(usuario);
+
+                        //redireciona
+                        request.setAttribute("info", " Funcionário cadastrado");
+                        request.setAttribute("page", "/funcionarios.jsp");
+                        rd = getServletContext().getRequestDispatcher("/CadastroServlet?action=mostrarFuncionariosGer");
                         rd.forward(request, response);
                         break;
 

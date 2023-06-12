@@ -68,6 +68,12 @@
             <version>4.4.16</version>
             <type>jar</type>
         </dependency>
+        <dependency>
+            <groupId>org.apache.httpcomponents</groupId>
+            <artifactId>httpclient</artifactId>
+            <version>4.5.14</version>
+            <type>jar</type>
+        </dependency>
     </dependencies>
     
     <build>

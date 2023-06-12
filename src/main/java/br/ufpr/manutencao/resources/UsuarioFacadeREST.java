@@ -126,7 +126,7 @@ public class UsuarioFacadeREST extends AbstractFacade<Usuario> {
         }
         return usuariosDTO;
     }
-    
+
     @GET
     @Path("/listaOperarios")
     @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
@@ -145,6 +145,25 @@ public class UsuarioFacadeREST extends AbstractFacade<Usuario> {
         return usuariosDTO;
     }
 
+    @GET
+    @Path("/listaFuncionarios")
+    @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
+    public List<UsuarioDTO> listaFuncionarios() {
+        TipoUsuario usuario = em.find(TipoUsuario.class, 1);
+        TipoUsuario operario = em.find(TipoUsuario.class, 2);
+        TypedQuery<Usuario> query = em.createNamedQuery("Usuario.listaFuncionarios", Usuario.class);
+        query.setParameter("idUsu", usuario);
+        query.setParameter("idOpe", operario);
+        List<Usuario> usuarios = query.getResultList();
+        List<UsuarioDTO> usuariosDTO = new ArrayList<>();
+        for (Usuario u : usuarios) {
+            UsuarioDTO dto = new UsuarioDTO();
+            ObjectMapper mapper = new ObjectMapper();
+            dto = mapper.convertValue(u, UsuarioDTO.class);
+            usuariosDTO.add(dto);
+        }
+        return usuariosDTO;
+    }
 
     @GET
     @Path("{from}/{to}")
