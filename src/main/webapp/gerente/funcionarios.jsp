@@ -101,7 +101,7 @@
                             </td>
                             <td>
                                 <button type="button" class="btn btn-primary" data-bs-toggle="modal"
-                                        data-bs-target="#modalFuncionario"<c:out value="${funcionario.id}"/>>
+                                        data-bs-target="#modalFuncionario<c:out value="${funcionario.id}"/>">
                                     Detalhes
                                 </button>
                             </td>
@@ -139,9 +139,9 @@
                             <div class="row">
                                 <div>Nome</div>
                                 <div>
-                                    <input type="text" class="form-control text-bg-light" id="nome" value="${funcionario.nome} readonly>
-                                           </div>
-                                           <div class="container text-right">
+                                    <input type="text" class="form-control text-bg-light" id="nome" value="${funcionario.nome}" readonly>
+                                </div>
+                                <div class="container text-right">
                                     <div class="row row-cols-3">
                                         <div class="col">
                                             <label>CPF</label>
@@ -179,20 +179,34 @@
                         </div>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#modalDesbloqueio<c:out value="${funcionario.id}"/>" <c:if test="${funcionario.bloqueio==false}"> disabled </c:if>>Desbloquear</button>
-                        <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#modalBloqueio<c:out value="${funcionario.id}"/>"  <c:if test="${funcionario.bloqueio== true}"> disabled </c:if>>Bloquear</button>
-                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-                            <button type="button" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#editarFuncionarioModal<c:out value="${funcionario.id}"/>">Editar</button>
+                        <button type="button" class="btn btn-warning"
+                                data-bs-toggle="modal" data-bs-target="#modalDesbloqueio<c:out value='${funcionario.id}'/>"
+                                <c:if test="${funcionario.bloqueio == false}">disabled</c:if>
+                                <c:if test="${sessionScope.user.id == funcionario.id}">disabled</c:if>
+                                    >Desbloquear</button>
+
+                                <button type="button" class="btn btn-danger"
+                                        data-bs-toggle="modal" data-bs-target="#modalBloqueio<c:out value='${funcionario.id}'/>"
+                                <c:if test="${funcionario.bloqueio == true}">disabled</c:if>
+                                <c:if test="${sessionScope.user.id == funcionario.id}">disabled</c:if>
+                                    >Bloquear</button>
+
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+
+                                <button type="button" class="btn btn-warning"
+                                        data-bs-toggle="modal" data-bs-target="#editarFuncionarioModal<c:out value='${funcionario.id}'/>"
+                                <c:if test="${sessionScope.user.id == funcionario.id}">disabled</c:if>
+                                    >Editar</button>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
     </c:forEach>
 
 
     <!--********** MODAL EDITAR Funcionario **************-->
     <c:forEach var="funcionario" items="${requestScope.funcionarios}">
-        <div class="modal fade" id="editarFuncionarioModall<c:out value="${funcionario.id}"/>" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+        <div class="modal fade" id="editarFuncionarioModal<c:out value="${funcionario.id}"/>" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
              aria-labelledby="editarFuncionarioModal" aria-hidden="true">
             <form action="CadastroServlet?action=alterarCadastroFuncionario" method="POST" class="mt-5 submit-jsp">
                 <div class="modal-dialog modal-lg modal-dialog-centered modal-dialog-scrollable">
@@ -231,7 +245,7 @@
                                             </div>
                                             <div class="col">
                                                 <label>Situação</label>
-                                                ><c:choose>
+                                                <c:choose>
                                                     <c:when test="${funcionario.bloqueio eq 'false'}">
                                                         <c:set var="status" value="Ativo" />
                                                     </c:when>
@@ -259,12 +273,13 @@
                                 </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="modal-footer">
+                        <div class="modal-footer">
 
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-                        <button type="submit" class="btn btn-warning">Salvar</button>
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                            <button type="submit" class="btn btn-warning">Salvar</button>
+                        </div>
                     </div>
+
                 </div>
             </form>
         </div>
@@ -278,7 +293,7 @@
         <div class="modal fade" id="modalBloqueio${funcionario.id}" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
              aria-labelledby="staticBackdropLabel" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered">
-                <form action="CadastroServlet?action=alterarModoBloqueioOperario" method="POST" class="mt-5 submit-jsp">
+                <form action="CadastroServlet?action=alterarModoBloqueioFuncionario" method="POST" class="mt-5 submit-jsp">
                     <div class="modal-content">
                         <div class="modal-header">
                             <h1 class="modal-title fs-5" id="staticBackdropLabel">CONFIRMAÇÃO DE BLOQUEIO - Funcionário</h1>
@@ -309,7 +324,7 @@
         <div class="modal fade" id="modalDesbloqueio${funcionario.id}" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
              aria-labelledby="staticBackdropLabel" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered">
-                <form action="CadastroServlet?action=alterarModoBloqueioOperario" method="POST" class="mt-5 submit-jsp">
+                <form action="CadastroServlet?action=alterarModoBloqueioFuncionario" method="POST" class="mt-5 submit-jsp">
                     <div class="modal-content">
                         <div class="modal-header">
                             <h1 class="modal-title fs-5" id="staticBackdropLabel">CONFIRMAÇÃO DE DESBLOQUEIO - Funcionário</h1>

@@ -204,7 +204,29 @@ public class CadastroServlet extends HttpServlet {
                         rd.forward(request, response);
                         break;
 
-                    case "alterarModoBloqueioOperario":
+                    case "alterarModoBloqueioFuncionario":
+                        id = Integer.parseInt(request.getParameter("id"));
+
+                        //BUSCA OBJETO NO BD via Facade
+                        usuario = UsuarioFacade.buscaPorID(id);
+
+                        //altera os valores desse objeto
+                        if (usuario.getBloqueio() == true) {
+                            usuario.setBloqueio(false);
+                        } else {
+                            usuario.setBloqueio(true);
+                        }
+
+                        //função para atualizar no bd via Facade
+                        UsuarioFacade.aterarUsuario(usuario);
+
+                        //redireciona
+                        request.setAttribute("info", "Situação do funcionário atualizada");
+                        rd = getServletContext().getRequestDispatcher("/CadastroServlet?action=mostrarFuncionariosGer");
+                        rd.forward(request, response);
+                        break;
+                        
+                        case "alterarModoBloqueioOperario":
                         id = Integer.parseInt(request.getParameter("id"));
 
                         //BUSCA OBJETO NO BD via Facade
