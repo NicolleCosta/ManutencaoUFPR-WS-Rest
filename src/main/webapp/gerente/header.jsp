@@ -64,7 +64,7 @@ crossorigin="anonymous"></script>
                     <a class="nav-link" href="relatorios.jsp"><button type="button" class="btn btn-warning ">Relatórios</button></a>
                 </div>
                 <div class="col-md-auto">
-                    <a href="OrdemDeServicoServlet?action=mostrarOdemDeServico"><button type="button" class="btn btn-warning">Ordens de Serviço</button></a>
+                    <a href="OrdemDeServicoServlet?action=mostrarOrdemDeServico"><button type="button" class="btn btn-warning">Ordens de Serviço</button></a>
                 </div>
                 <div class="col-md-auto">
                     <a href="ChamadoServlet?action=mostrarChamados"><button type="button" class="btn btn-warning">Chamados</button></a>

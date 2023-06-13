@@ -70,8 +70,8 @@ public class LoginServlet extends HttpServlet {
                         response.sendRedirect("ChamadoServlet?action=mostrarChamados");
                         break;
                         
-                    case "almoxarifado":
-                        response.sendRedirect("/funcionario/atendimentos.jsp");
+                    case "almoxarife":
+                        response.sendRedirect("OrdemDeServicoServlet?action=mostrarOrdemDeServico");
                         break;
                         
                     case "gerente":

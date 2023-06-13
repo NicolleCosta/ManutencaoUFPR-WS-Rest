@@ -28,6 +28,10 @@ public class OrdemServicoDTO {
     public OrdemServicoDTO() {
     }
 
+    public OrdemServicoDTO(Integer id) {
+        this.id = id;
+    }
+
     public OrdemServicoDTO(Integer id, String descricaoLocal, String descricaoProblema, Date dataAbertura, Date dataFinalizacao, String numeroOS, EspecialidadeDTO especialidadeId, UsuarioDTO usuarioOperarioId, PredioDTO predioId) {
         this.id = id;
         this.descricaoLocal = descricaoLocal;

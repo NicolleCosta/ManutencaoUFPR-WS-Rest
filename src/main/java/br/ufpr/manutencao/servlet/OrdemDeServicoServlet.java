@@ -55,11 +55,11 @@ public class OrdemDeServicoServlet extends HttpServlet {
                 response.sendRedirect("LogoutServlet");
             } else {
                 switch (action) {
-                    case "mostrarOdemDeServico":
+                    case "mostrarOrdemDeServico":
                         HttpSession session = request.getSession();
                         UsuarioDTO user = (UsuarioDTO) session.getAttribute("user");
                         
-                        System.out.println("estrou no mostrarOdemDeServico");
+                        System.out.println("estrou no mostrarOrdemDeServico");
                         //Carrega a lista de chamados para apresentar
                         List<OrdemServicoDTO> ordensServico = OrdemServicoFacade.buscarOrdensDeServico();
                         System.out.println(ordensServico);
@@ -80,6 +80,9 @@ public class OrdemDeServicoServlet extends HttpServlet {
                         }
                         if (user.getTipoUsuarioId().getId().equals(5)) {
                             rd = getServletContext().getRequestDispatcher("/gerente/ordensDeServico.jsp");
+                        }
+                        if (user.getTipoUsuarioId().getId().equals(4)) {
+                            rd = getServletContext().getRequestDispatcher("/almoxarife/home.jsp");
                         }
                         rd.forward(request, response);
 
