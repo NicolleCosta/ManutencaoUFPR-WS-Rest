@@ -44,8 +44,11 @@ import jakarta.persistence.TemporalType;
     @NamedQuery(name = "OrdemServico.contaAndamento", query = "SELECT COUNT(o) FROM OrdemServico o WHERE o.dataFinalizacao = null AND o.usuarioOperarioId.id != null"),
     @NamedQuery(name = "OrdemServico.contaEncerradoUltimos30Dias", query = "SELECT COUNT(o) FROM OrdemServico o WHERE o.dataFinalizacao >= :dia"),
 
-    @NamedQuery(name = "OrdemServico.contaEncerradoAno", query = "SELECT COUNT(o) FROM OrdemServico o WHERE o.dataFinalizacao >= :data")
-
+    @NamedQuery(name = "OrdemServico.contaEncerradoAno", query = "SELECT COUNT(o) FROM OrdemServico o WHERE o.dataFinalizacao >= :data"),
+    
+     @NamedQuery(name = "OrdemServico.top3PrediosOS", query = "SELECT p, COUNT(o) as total FROM OrdemServico o JOIN o.predioId p GROUP BY p ORDER BY total DESC"),
+     @NamedQuery(name = "OrdemServico.top3Especialidades", query = "SELECT e, COUNT(o) as total FROM OrdemServico o JOIN o.especialidadeId e GROUP BY e ORDER BY total DESC")
+        
 })
 public class OrdemServico implements Serializable {
 
