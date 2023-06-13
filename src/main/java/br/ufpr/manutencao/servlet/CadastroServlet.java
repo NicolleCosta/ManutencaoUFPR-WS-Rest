@@ -66,6 +66,9 @@ public class CadastroServlet extends HttpServlet {
                         if (user.getTipoUsuarioId().getId().equals(5)) {
                             rd = getServletContext().getRequestDispatcher("/gerente/meuCadastro.jsp");
                         }
+                        if (user.getTipoUsuarioId().getId().equals(4)) {
+                            rd = getServletContext().getRequestDispatcher("/almoxarife/meuCadastro.jsp");
+                        }
   
                         rd.forward(request, response);
                         break;
