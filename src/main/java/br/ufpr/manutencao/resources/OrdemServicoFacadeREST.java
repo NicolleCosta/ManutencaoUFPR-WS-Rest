@@ -4,7 +4,9 @@
  */
 package br.ufpr.manutencao.resources;
 
+import br.ufpr.manutencao.beans.Especialidade;
 import br.ufpr.manutencao.beans.OrdemServico;
+import br.ufpr.manutencao.beans.Predio;
 import br.ufpr.manutencao.dto.OrdemServicoDTO;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import java.util.List;
@@ -105,6 +107,7 @@ public class OrdemServicoFacadeREST extends AbstractFacade<OrdemServico> {
     public String countREST() {
         return String.valueOf(super.count());
     }
+
     // ------------------------- Dados da Home Gerente ------------------------------------------------
     @GET
     @Path("contaMais30DiasAbertos")
@@ -118,7 +121,7 @@ public class OrdemServicoFacadeREST extends AbstractFacade<OrdemServico> {
 
         return String.valueOf(count);
     }
-    
+
     @GET
     @Path("contaMais10DiasSemOP")
     @Produces(MediaType.TEXT_PLAIN)
@@ -131,8 +134,7 @@ public class OrdemServicoFacadeREST extends AbstractFacade<OrdemServico> {
 
         return String.valueOf(count);
     }
-    
-    
+
     @GET
     @Path("contaAbertos")
     @Produces(MediaType.TEXT_PLAIN)
@@ -142,8 +144,7 @@ public class OrdemServicoFacadeREST extends AbstractFacade<OrdemServico> {
 
         return String.valueOf(count);
     }
-    
-    
+
     @GET
     @Path("contaAndamento")
     @Produces(MediaType.TEXT_PLAIN)
@@ -153,7 +154,7 @@ public class OrdemServicoFacadeREST extends AbstractFacade<OrdemServico> {
 
         return String.valueOf(count);
     }
-    
+
     @GET
     @Path("contaEncerradoUltimos30Dias")
     @Produces(MediaType.TEXT_PLAIN)
@@ -166,7 +167,7 @@ public class OrdemServicoFacadeREST extends AbstractFacade<OrdemServico> {
 
         return String.valueOf(count);
     }
-    
+
     @GET
     @Path("contaEncerradoAno")
     @Produces(MediaType.TEXT_PLAIN)
@@ -179,10 +180,44 @@ public class OrdemServicoFacadeREST extends AbstractFacade<OrdemServico> {
 
         return String.valueOf(count);
     }
-    
-//----------------------------------------------------------------------------------------------------------
- 
 
+    @GET
+    @Path("top3PrediosOS")
+    @Produces(MediaType.TEXT_PLAIN)
+    public String top3PrediosOS() {
+        TypedQuery<Object[]> query = em.createNamedQuery("OrdemServico.top3PrediosOS", Object[].class);
+        query.setMaxResults(3);
+        List<Object[]> results = query.getResultList();
+
+        StringBuilder response = new StringBuilder();
+        for (Object[] result : results) {
+            Predio predio = (Predio) result[0];
+            Long count = (Long) result[1];
+            response.append("Predio: ").append(predio.getCampusId().getNome() + "/" + predio.getNome()).append(", Count: ").append(count).append("\n");
+        }
+
+        return response.toString();
+    }
+    
+    @GET
+    @Path("top3Especialidades")
+    @Produces(MediaType.TEXT_PLAIN)
+    public String top3Especialidades() {
+        TypedQuery<Object[]> query = em.createNamedQuery("OrdemServico.top3Especialidades", Object[].class);
+        query.setMaxResults(3);
+        List<Object[]> results = query.getResultList();
+
+        StringBuilder response = new StringBuilder();
+        for (Object[] result : results) {
+            Especialidade especialidade = (Especialidade) result[0];
+            Long count = (Long) result[1];
+            response.append("Especialidade: ").append( especialidade.getNome()).append(", Count: ").append(count).append("\n");
+        }
+
+        return response.toString();
+    }
+
+//----------------------------------------------------------------------------------------------------------
     @Override
     protected EntityManager getEntityManager() {
         return em;

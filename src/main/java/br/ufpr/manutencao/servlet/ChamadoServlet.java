@@ -28,6 +28,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
+import java.util.Map;
 
 /**
  *
@@ -131,13 +132,22 @@ public class ChamadoServlet extends HttpServlet {
                         String qtddOSAndamento = OrdemServicoFacade.contaAndamento();
                         String qtddOSEncerradoUltimos30Dias = OrdemServicoFacade.contaEncerradoUltimos30Dias();
                         String qtddOSEncerradoAno = OrdemServicoFacade.contaEncerradoAno();
+                        List<Map<String, Object>> top3PrediosOSResponse = OrdemServicoFacade.top3PrediosOS();
                         
+                         List<Map<String, Object>> top3EspecialidadesResponse = OrdemServicoFacade.top3Especialidades();
+                        
+                        
+                        
+                    
                         // Busca o ano atual
                         LocalDate dataAtual = LocalDate.now();
                         int anoAtual = dataAtual.getYear();
 
                         //ADD NA REQUISIÇÃO
                         request.setAttribute("anoAtual", anoAtual);
+                        request.setAttribute("top3PrediosOS", top3PrediosOSResponse);
+                        request.setAttribute("top3Especialidades", top3EspecialidadesResponse);
+                        
                         request.setAttribute("qtddChamadosMais30DiasAbertos", qtddChamadosMais30DiasAbertos);
                         request.setAttribute("qtddChamadoMais10DiasSemOS", qtddChamadoMais10DiasSemOS);
                         request.setAttribute("qtddChamadoAbertos", qtddChamadoAbertos);
@@ -155,6 +165,7 @@ public class ChamadoServlet extends HttpServlet {
                         rd = getServletContext().getRequestDispatcher("/gerente/home.jsp");
                         rd.forward(request, response);
                         break;
+
 
                     default:
                         //redireciona

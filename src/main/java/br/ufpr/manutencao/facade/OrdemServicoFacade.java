@@ -17,7 +17,10 @@ import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 import java.nio.charset.StandardCharsets;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  *
@@ -153,13 +156,13 @@ public class OrdemServicoFacade {
 
         HttpClient httpClient = HttpClient.newHttpClient();
         ObjectMapper mapper = new ObjectMapper();
-        
+
         // Corpo da requisição
         String requestBody = mapper.writeValueAsString(ordem);
         //URL do endpoint do backend
         String backendURL = "http://localhost:8080/manutencaoufpr/webresources/ordemservico";
-        
-    // Requisição POST com o corpo da requisição
+
+        // Requisição POST com o corpo da requisição
         HttpRequest request = HttpRequest.newBuilder()
                 .uri(URI.create(backendURL))
                 .header("Content-Type", "application/json; charset=UTF-8") // Adicione o charset ao cabeçalho Content-Type
@@ -182,8 +185,8 @@ public class OrdemServicoFacade {
             throw new FacadeException("Erro na requisição: " + e.getMessage());
         }
     }
-    
- // Funções mostrar Home Gerente ---------------------------------------
+
+    // Funções mostrar Home Gerente ---------------------------------------
     public static String contaMais30DiasAbertos() throws FacadeException {
         try {
             // URL do endpoint do backend
@@ -216,12 +219,12 @@ public class OrdemServicoFacade {
             }
         } catch (IOException | InterruptedException e) {
             System.out.println("entrou no erro" + e);
- // Exceção que ocorre durante a chamada ao backend
+            // Exceção que ocorre durante a chamada ao backend
             throw new FacadeException("Erro na chamada ao backend: " + e.getMessage(), e);
         }
     }
 
-    public static String contaMais10DiasSemOP()throws FacadeException {
+    public static String contaMais10DiasSemOP() throws FacadeException {
         try {
             // URL do endpoint do backend
             String backendURL = "http://localhost:8080/manutencaoufpr/webresources/ordemservico/contaMais10DiasSemOP";
@@ -253,12 +256,12 @@ public class OrdemServicoFacade {
             }
         } catch (IOException | InterruptedException e) {
             System.out.println("entrou no erro" + e);
- // Exceção que ocorre durante a chamada ao backend
+            // Exceção que ocorre durante a chamada ao backend
             throw new FacadeException("Erro na chamada ao backend: " + e.getMessage(), e);
         }
     }
 
-    public static String contaAbertos()throws FacadeException {
+    public static String contaAbertos() throws FacadeException {
         try {
             // URL do endpoint do backend
             String backendURL = "http://localhost:8080/manutencaoufpr/webresources/ordemservico/contaAbertos";
@@ -290,12 +293,12 @@ public class OrdemServicoFacade {
             }
         } catch (IOException | InterruptedException e) {
             System.out.println("entrou no erro" + e);
- // Exceção que ocorre durante a chamada ao backend
+            // Exceção que ocorre durante a chamada ao backend
             throw new FacadeException("Erro na chamada ao backend: " + e.getMessage(), e);
         }
     }
 
-    public static String contaAndamento()throws FacadeException {
+    public static String contaAndamento() throws FacadeException {
         try {
             // URL do endpoint do backend
             String backendURL = "http://localhost:8080/manutencaoufpr/webresources/ordemservico/contaAndamento";
@@ -327,12 +330,12 @@ public class OrdemServicoFacade {
             }
         } catch (IOException | InterruptedException e) {
             System.out.println("entrou no erro" + e);
- // Exceção que ocorre durante a chamada ao backend
+            // Exceção que ocorre durante a chamada ao backend
             throw new FacadeException("Erro na chamada ao backend: " + e.getMessage(), e);
         }
     }
 
-    public static String contaEncerradoUltimos30Dias()throws FacadeException {
+    public static String contaEncerradoUltimos30Dias() throws FacadeException {
         try {
             // URL do endpoint do backend
             String backendURL = "http://localhost:8080/manutencaoufpr/webresources/ordemservico/contaEncerradoUltimos30Dias";
@@ -364,7 +367,7 @@ public class OrdemServicoFacade {
             }
         } catch (IOException | InterruptedException e) {
             System.out.println("entrou no erro" + e);
- // Exceção que ocorre durante a chamada ao backend
+            // Exceção que ocorre durante a chamada ao backend
             throw new FacadeException("Erro na chamada ao backend: " + e.getMessage(), e);
         }
     }
@@ -401,8 +404,90 @@ public class OrdemServicoFacade {
             }
         } catch (IOException | InterruptedException e) {
             System.out.println("entrou no erro" + e);
- // Exceção que ocorre durante a chamada ao backend
+            // Exceção que ocorre durante a chamada ao backend
             throw new FacadeException("Erro na chamada ao backend: " + e.getMessage(), e);
         }
     }
+
+    public static List<Map<String, Object>> top3PrediosOS() throws FacadeException {
+        try {
+            String backendURL = "http://localhost:8080/manutencaoufpr/webresources/ordemservico/top3PrediosOS";
+
+            HttpClient httpClient = HttpClient.newHttpClient();
+            HttpRequest request = HttpRequest.newBuilder()
+                    .uri(URI.create(backendURL))
+                    .header("Content-Type", "application/json")
+                    .build();
+
+            HttpResponse<String> response = httpClient.send(request, HttpResponse.BodyHandlers.ofString());
+
+            if (response.statusCode() == 200) {
+                String[] lines = response.body().split("\n");
+                List<Map<String, Object>> top3Predios = new ArrayList<>();
+
+                for (String line : lines) {
+                    String[] parts = line.split(", Count: ");
+                    String predio = parts[0].substring(parts[0].indexOf(":") + 2);
+                    Long count = Long.parseLong(parts[1]);
+
+                    Map<String, Object> predioData = new HashMap<>();
+                    predioData.put("predio", predio);
+                    predioData.put("count", count);
+
+                    top3Predios.add(predioData);
+                }
+
+                return top3Predios;
+            } else {
+                System.out.println("entrou no else");
+                // Se o código de status for diferente de 200
+                throw new FacadeException("Erro ao mostrar resultado: " + response.body());
+            }
+        } catch (IOException | InterruptedException e) {
+            System.out.println("entrou no erro" + e);
+            // Exceção que ocorre durante a chamada ao backend
+            throw new FacadeException("Erro na chamada ao backend: " + e.getMessage(), e);
+        }
+    }
+
+    public static List<Map<String, Object>> top3Especialidades() throws FacadeException {
+        try {
+            String backendURL = "http://localhost:8080/manutencaoufpr/webresources/ordemservico/top3Especialidades";
+
+            HttpClient httpClient = HttpClient.newHttpClient();
+            HttpRequest request = HttpRequest.newBuilder()
+                    .uri(URI.create(backendURL))
+                    .header("Content-Type", "application/json")
+                    .build();
+
+            HttpResponse<String> response = httpClient.send(request, HttpResponse.BodyHandlers.ofString());
+
+            if (response.statusCode() == 200) {
+                String[] lines = response.body().split("\n");
+                List<Map<String, Object>> top3Especialidades = new ArrayList<>();
+
+                for (String line : lines) {
+                    String[] parts = line.split(", Count: ");
+                    String especialidade = parts[0].substring(parts[0].indexOf(":") + 2);
+                    Long count = Long.parseLong(parts[1]);
+
+                    Map<String, Object> especialidadeData = new HashMap<>();
+                    especialidadeData.put("especialidade", especialidade);
+                    especialidadeData.put("count", count);
+
+                    top3Especialidades.add(especialidadeData);
+                }
+
+                return top3Especialidades;
+            }
+            System.out.println("entrou no else");
+            // Se o código de status for diferente de 200
+            throw new FacadeException("Erro ao mostrar resultado: " + response.body());
+        } catch (IOException | InterruptedException e) {
+            System.out.println("entrou no erro" + e);
+            // Exceção que ocorre durante a chamada ao backend
+            throw new FacadeException("Erro na chamada ao backend: " + e.getMessage(), e);
+        }
+    }
+
 }

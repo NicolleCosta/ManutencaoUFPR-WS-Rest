@@ -178,86 +178,52 @@
             <div class="col-md-6  py-2">
                 <div class="list-group">
                     <div class="list-group-item">
-                        <h4>Campus</h4>
+                        <h4>Especialidadedes</h4>
                         <h6>Maiores Ofensores</h6>
-                        <table class="table-primary">
-                            <table class="table table-striped table-success table-hover text-center">
-                                <thead>
-                                    <tr class="table-primary">
-                                        <th scope="col">#</th>
-                                        <th scope="col">Campus</th>
-                                        <th scope="col">Chamados</th>
-                                        <th scope="col">Ordens De Serviço</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
+                        <table class="table table-striped table-success table-hover text-center">
+                            <thead>
+                                <tr class="table-primary">
+                                    <th scope="col">#</th>
+                                    <th scope="col">Especialidade</th>
+                                    <th scope="col">nº de Ordens De Serviço</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <c:forEach var="row" items="${requestScope.top3Especialidades}" varStatus="loop">
                                     <tr>
-                                        <th scope="row">1</th>
-                                        <td>Politécnico</td>
-                                        <td>100</td>
-                                        <td>65</td>
+                                        <th scope="row">${loop.index + 1}</th>
+                                        <td><c:out value="${row.especialidade}" /></td>
+                                        <td><c:out value="${row.count}" /></td>
                                     </tr>
-                                    <tr>
-                                        <th scope="row">2</th>
-                                        <td>Histórico</td>
-                                        <td>95</td>
-                                        <td>63</td>
-                                    </tr>
-                                    <tr>
-                                        <th scope="row">3</th>
-                                        <td>Biológicas</td>
-                                        <td>72</td>
-                                        <td>49</td>
-                                    </tr>
-                                </tbody>
-                            </table>
+                                </c:forEach>
+                            </tbody>
                         </table>
-
                     </div>
                 </div>
             </div>
-
 
             <div class="col-md-6  py-2">
                 <div class="list-group">
                     <div class="list-group-item">
                         <h4>Prédios</h4>
                         <h6>Maiores Ofensores</h6>
-                        <table class="table-primary">
-                            <table class="table table-striped table-success table-hover text-center">
-                                <thead>
-                                    <tr class="table-primary">
-                                        <th scope="col">#</th>
-                                        <th scope="col">Campus</th>
-                                        <th scope="col">Prédio</th>
-                                        <th scope="col">Chamados</th>
-                                        <th scope="col">Ordens De Serviço</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
+                        <table class="table table-striped table-success table-hover text-center">
+                            <thead>
+                                <tr class="table-primary">
+                                    <th scope="col">#</th>
+                                    <th scope="col">Campus/Predio</th>
+                                    <th scope="col">nº de Ordens De Serviço</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <c:forEach var="row" items="${requestScope.top3PrediosOS}" varStatus="loop">
                                     <tr>
-                                        <th scope="row">1</th>
-                                        <td> Politécnico</td>
-                                        <td>Restaurante Universitário</td>
-                                        <td>23</td>
-                                        <td>15</td>
+                                        <th scope="row">${loop.index + 1}</th>
+                                        <td><c:out value="${row.predio}" /></td>
+                                        <td><c:out value="${row.count}" /></td>
                                     </tr>
-                                    <tr>
-                                        <th scope="row">2</th>
-                                        <td>Fazenda Canguiri</td>
-                                        <td>Administração</td>
-                                        <td>20</td>
-                                        <td>13</td>
-                                    </tr>
-                                    <tr>
-                                        <th scope="row">3</th>
-                                        <td>Biológicas</td>
-                                        <td>Ala B</td>
-                                        <td>18</td>
-                                        <td>11</td>
-                                    </tr>
-                                </tbody>
-                            </table>
+                                </c:forEach>
+                            </tbody>
                         </table>
                     </div>
                 </div>
