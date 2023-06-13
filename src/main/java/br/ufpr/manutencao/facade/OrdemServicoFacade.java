@@ -182,5 +182,227 @@ public class OrdemServicoFacade {
             throw new FacadeException("Erro na requisição: " + e.getMessage());
         }
     }
+    
+ // Funções mostrar Home Gerente ---------------------------------------
+    public static String contaMais30DiasAbertos() throws FacadeException {
+        try {
+            // URL do endpoint do backend
+            String backendURL = "http://localhost:8080/manutencaoufpr/webresources/ordemservico/contaMais30DiasAbertos";
 
+            HttpClient httpClient = HttpClient.newHttpClient();
+
+            // Requisição GET 
+            HttpRequest request = HttpRequest.newBuilder()
+                    .uri(URI.create(backendURL))
+                    .header("Content-Type", "application/json")
+                    .build();
+
+            // Chamada ao backend
+            HttpResponse<String> response = httpClient.send(request, HttpResponse.BodyHandlers.ofString());
+
+            // Verificação do código de status da resposta
+            int statusCode = response.statusCode();
+
+            //  Se o código de status for 200 (OK), processa a resposta do backend
+            if (statusCode == 200) {
+                String resultado = response.body();
+
+                System.out.println("entrou na facade aberto " + resultado);
+                return resultado;
+            } else {
+                System.out.println("entrou no else");
+                // Se o código de status for diferente de 200
+                throw new FacadeException("Erro ao mostrar resultado: " + response.body());
+            }
+        } catch (IOException | InterruptedException e) {
+            System.out.println("entrou no erro" + e);
+ // Exceção que ocorre durante a chamada ao backend
+            throw new FacadeException("Erro na chamada ao backend: " + e.getMessage(), e);
+        }
+    }
+
+    public static String contaMais10DiasSemOP()throws FacadeException {
+        try {
+            // URL do endpoint do backend
+            String backendURL = "http://localhost:8080/manutencaoufpr/webresources/ordemservico/contaMais10DiasSemOP";
+
+            HttpClient httpClient = HttpClient.newHttpClient();
+
+            // Requisição GET 
+            HttpRequest request = HttpRequest.newBuilder()
+                    .uri(URI.create(backendURL))
+                    .header("Content-Type", "application/json")
+                    .build();
+
+            // Chamada ao backend
+            HttpResponse<String> response = httpClient.send(request, HttpResponse.BodyHandlers.ofString());
+
+            // Verificação do código de status da resposta
+            int statusCode = response.statusCode();
+
+            //  Se o código de status for 200 (OK), processa a resposta do backend
+            if (statusCode == 200) {
+                String resultado = response.body();
+
+                System.out.println("entrou na facade aberto " + resultado);
+                return resultado;
+            } else {
+                System.out.println("entrou no else");
+                // Se o código de status for diferente de 200
+                throw new FacadeException("Erro ao mostrar resultado: " + response.body());
+            }
+        } catch (IOException | InterruptedException e) {
+            System.out.println("entrou no erro" + e);
+ // Exceção que ocorre durante a chamada ao backend
+            throw new FacadeException("Erro na chamada ao backend: " + e.getMessage(), e);
+        }
+    }
+
+    public static String contaAbertos()throws FacadeException {
+        try {
+            // URL do endpoint do backend
+            String backendURL = "http://localhost:8080/manutencaoufpr/webresources/ordemservico/contaAbertos";
+
+            HttpClient httpClient = HttpClient.newHttpClient();
+
+            // Requisição GET 
+            HttpRequest request = HttpRequest.newBuilder()
+                    .uri(URI.create(backendURL))
+                    .header("Content-Type", "application/json")
+                    .build();
+
+            // Chamada ao backend
+            HttpResponse<String> response = httpClient.send(request, HttpResponse.BodyHandlers.ofString());
+
+            // Verificação do código de status da resposta
+            int statusCode = response.statusCode();
+
+            //  Se o código de status for 200 (OK), processa a resposta do backend
+            if (statusCode == 200) {
+                String resultado = response.body();
+
+                System.out.println("entrou na facade aberto " + resultado);
+                return resultado;
+            } else {
+                System.out.println("entrou no else");
+                // Se o código de status for diferente de 200
+                throw new FacadeException("Erro ao mostrar resultado: " + response.body());
+            }
+        } catch (IOException | InterruptedException e) {
+            System.out.println("entrou no erro" + e);
+ // Exceção que ocorre durante a chamada ao backend
+            throw new FacadeException("Erro na chamada ao backend: " + e.getMessage(), e);
+        }
+    }
+
+    public static String contaAndamento()throws FacadeException {
+        try {
+            // URL do endpoint do backend
+            String backendURL = "http://localhost:8080/manutencaoufpr/webresources/ordemservico/contaAndamento";
+
+            HttpClient httpClient = HttpClient.newHttpClient();
+
+            // Requisição GET 
+            HttpRequest request = HttpRequest.newBuilder()
+                    .uri(URI.create(backendURL))
+                    .header("Content-Type", "application/json")
+                    .build();
+
+            // Chamada ao backend
+            HttpResponse<String> response = httpClient.send(request, HttpResponse.BodyHandlers.ofString());
+
+            // Verificação do código de status da resposta
+            int statusCode = response.statusCode();
+
+            //  Se o código de status for 200 (OK), processa a resposta do backend
+            if (statusCode == 200) {
+                String resultado = response.body();
+
+                System.out.println("entrou na facade aberto " + resultado);
+                return resultado;
+            } else {
+                System.out.println("entrou no else");
+                // Se o código de status for diferente de 200
+                throw new FacadeException("Erro ao mostrar resultado: " + response.body());
+            }
+        } catch (IOException | InterruptedException e) {
+            System.out.println("entrou no erro" + e);
+ // Exceção que ocorre durante a chamada ao backend
+            throw new FacadeException("Erro na chamada ao backend: " + e.getMessage(), e);
+        }
+    }
+
+    public static String contaEncerradoUltimos30Dias()throws FacadeException {
+        try {
+            // URL do endpoint do backend
+            String backendURL = "http://localhost:8080/manutencaoufpr/webresources/ordemservico/contaEncerradoUltimos30Dias";
+
+            HttpClient httpClient = HttpClient.newHttpClient();
+
+            // Requisição GET 
+            HttpRequest request = HttpRequest.newBuilder()
+                    .uri(URI.create(backendURL))
+                    .header("Content-Type", "application/json")
+                    .build();
+
+            // Chamada ao backend
+            HttpResponse<String> response = httpClient.send(request, HttpResponse.BodyHandlers.ofString());
+
+            // Verificação do código de status da resposta
+            int statusCode = response.statusCode();
+
+            //  Se o código de status for 200 (OK), processa a resposta do backend
+            if (statusCode == 200) {
+                String resultado = response.body();
+
+                System.out.println("entrou na facade aberto " + resultado);
+                return resultado;
+            } else {
+                System.out.println("entrou no else");
+                // Se o código de status for diferente de 200
+                throw new FacadeException("Erro ao mostrar resultado: " + response.body());
+            }
+        } catch (IOException | InterruptedException e) {
+            System.out.println("entrou no erro" + e);
+ // Exceção que ocorre durante a chamada ao backend
+            throw new FacadeException("Erro na chamada ao backend: " + e.getMessage(), e);
+        }
+    }
+
+    public static String contaEncerradoAno() throws FacadeException {
+        try {
+            // URL do endpoint do backend
+            String backendURL = "http://localhost:8080/manutencaoufpr/webresources/ordemservico/contaEncerradoAno";
+
+            HttpClient httpClient = HttpClient.newHttpClient();
+
+            // Requisição GET 
+            HttpRequest request = HttpRequest.newBuilder()
+                    .uri(URI.create(backendURL))
+                    .header("Content-Type", "application/json")
+                    .build();
+
+            // Chamada ao backend
+            HttpResponse<String> response = httpClient.send(request, HttpResponse.BodyHandlers.ofString());
+
+            // Verificação do código de status da resposta
+            int statusCode = response.statusCode();
+
+            //  Se o código de status for 200 (OK), processa a resposta do backend
+            if (statusCode == 200) {
+                String resultado = response.body();
+
+                System.out.println("entrou na facade aberto " + resultado);
+                return resultado;
+            } else {
+                System.out.println("entrou no else");
+                // Se o código de status for diferente de 200
+                throw new FacadeException("Erro ao mostrar resultado: " + response.body());
+            }
+        } catch (IOException | InterruptedException e) {
+            System.out.println("entrou no erro" + e);
+ // Exceção que ocorre durante a chamada ao backend
+            throw new FacadeException("Erro na chamada ao backend: " + e.getMessage(), e);
+        }
+    }
 }

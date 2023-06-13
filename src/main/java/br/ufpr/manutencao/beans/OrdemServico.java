@@ -36,7 +36,17 @@ import jakarta.persistence.TemporalType;
     @NamedQuery(name = "OrdemServico.findByNumeroOS", query = "SELECT o FROM OrdemServico o WHERE o.numeroOS = :numeroOS"),
     @NamedQuery(name = "OrdemServico.findByDescricao", query = "SELECT o FROM OrdemServico o WHERE o.descricaoProblema = :descricao"),
     @NamedQuery(name = "OrdemServico.findByDataAbertura", query = "SELECT o FROM OrdemServico o WHERE o.dataAbertura = :dataAbertura"),
-    @NamedQuery(name = "OrdemServico.findByDataFinalizacao", query = "SELECT o FROM OrdemServico o WHERE o.dataFinalizacao = :dataFinalizacao")})
+    @NamedQuery(name = "OrdemServico.findByDataFinalizacao", query = "SELECT o FROM OrdemServico o WHERE o.dataFinalizacao = :dataFinalizacao"),
+// ------------------------- Dados da Home Gerente ------------------------------------------------
+    @NamedQuery(name = "OrdemServico.contaMais30DiasAbertos", query = "SELECT COUNT(o) FROM OrdemServico o WHERE o.dataAbertura < :dia AND o.dataFinalizacao = null"),  
+    @NamedQuery(name = "OrdemServico.contaMais10DiasSemOP", query = "SELECT COUNT(o) FROM OrdemServico o WHERE o.dataAbertura < :dia AND o.dataFinalizacao = null AND o.usuarioOperarioId.id = null"),
+    @NamedQuery(name = "OrdemServico.contaAbertos", query = "SELECT COUNT(o) FROM OrdemServico o WHERE o.dataFinalizacao = null AND o.usuarioOperarioId.id = null"),
+    @NamedQuery(name = "OrdemServico.contaAndamento", query = "SELECT COUNT(o) FROM OrdemServico o WHERE o.dataFinalizacao = null AND o.usuarioOperarioId.id != null"),
+    @NamedQuery(name = "OrdemServico.contaEncerradoUltimos30Dias", query = "SELECT COUNT(o) FROM OrdemServico o WHERE o.dataFinalizacao >= :dia"),
+
+    @NamedQuery(name = "OrdemServico.contaEncerradoAno", query = "SELECT COUNT(o) FROM OrdemServico o WHERE o.dataFinalizacao >= :data")
+
+})
 public class OrdemServico implements Serializable {
 
     private static final long serialVersionUID = 1L;

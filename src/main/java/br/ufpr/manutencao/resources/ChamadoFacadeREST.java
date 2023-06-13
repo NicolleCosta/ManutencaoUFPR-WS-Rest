@@ -235,6 +235,7 @@ public class ChamadoFacadeREST extends AbstractFacade<Chamado> {
         return String.valueOf(super.count());
     }
 // ------------------------- Dados da Home Gerente ------------------------------------------------
+
     @GET
     @Path("contaMais30DiasAbertos")
     @Produces(MediaType.TEXT_PLAIN)
@@ -247,21 +248,20 @@ public class ChamadoFacadeREST extends AbstractFacade<Chamado> {
 
         return String.valueOf(count);
     }
-    
+
     @GET
-    @Path("contaMais30DiasSemOS")
+    @Path("contaMais10DiasSemOS")
     @Produces(MediaType.TEXT_PLAIN)
-    public String contaMais30DiasSemOS() {
-        LocalDate diasAtras = LocalDate.now().minusDays(30);
+    public String contaMais10DiasSemOS() {
+        LocalDate diasAtras = LocalDate.now().minusDays(10);
         Date dia = Date.from(diasAtras.atStartOfDay(ZoneId.systemDefault()).toInstant());
-        TypedQuery<Long> query = em.createNamedQuery("Chamado.contaMais30DiasSemOS", Long.class);
+        TypedQuery<Long> query = em.createNamedQuery("Chamado.contaMais10DiasSemOS", Long.class);
         query.setParameter("dia", dia);
         Long count = query.getSingleResult();
 
         return String.valueOf(count);
     }
-    
-    
+
     @GET
     @Path("contaAbertos")
     @Produces(MediaType.TEXT_PLAIN)
@@ -271,8 +271,7 @@ public class ChamadoFacadeREST extends AbstractFacade<Chamado> {
 
         return String.valueOf(count);
     }
-    
-    
+
     @GET
     @Path("contaAbertosSemOS")
     @Produces(MediaType.TEXT_PLAIN)
@@ -282,33 +281,33 @@ public class ChamadoFacadeREST extends AbstractFacade<Chamado> {
 
         return String.valueOf(count);
     }
-    
+
     @GET
     @Path("contaAno")
     @Produces(MediaType.TEXT_PLAIN)
     public String contaAno() {
-        LocalDate dataAtual = LocalDate.now();
-        Date data = Date.from(dataAtual.atStartOfDay(ZoneId.systemDefault()).toInstant());
+        LocalDate inicioAno = LocalDate.now().withMonth(1).withDayOfMonth(1);
+        Date data = Date.from(inicioAno.atStartOfDay(ZoneId.systemDefault()).toInstant());
         TypedQuery<Long> query = em.createNamedQuery("Chamado.contaAno", Long.class);
         query.setParameter("data", data);
         Long count = query.getSingleResult();
 
         return String.valueOf(count);
     }
-    
+
     @GET
     @Path("contaEncerradoAno")
     @Produces(MediaType.TEXT_PLAIN)
     public String contaEncerradoAno() {
-        LocalDate dataAtual = LocalDate.now();
-        Date data = Date.from(dataAtual.atStartOfDay(ZoneId.systemDefault()).toInstant());
+        LocalDate inicioAno = LocalDate.now().withMonth(1).withDayOfMonth(1);
+        Date data = Date.from(inicioAno.atStartOfDay(ZoneId.systemDefault()).toInstant());
         TypedQuery<Long> query = em.createNamedQuery("Chamado.contaEncerradoAno", Long.class);
         query.setParameter("data", data);
         Long count = query.getSingleResult();
 
         return String.valueOf(count);
     }
-    
+
 //----------------------------------------------------------------------------------------------------------
     @Override
     protected EntityManager getEntityManager() {

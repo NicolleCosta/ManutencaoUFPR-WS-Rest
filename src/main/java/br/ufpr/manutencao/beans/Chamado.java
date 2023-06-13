@@ -44,12 +44,12 @@ import jakarta.persistence.TemporalType;
     @NamedQuery(name = "Chamado.atualizarIdOSChamado", query = "UPDATE Chamado c SET c.ordemServicoId = :novoIdOS WHERE c.id = :chamadoId"),
 // ------------------------- Dados da Home Gerente ------------------------------------------------
     @NamedQuery(name = "Chamado.contaMais30DiasAbertos", query = "SELECT COUNT(c) FROM Chamado c WHERE c.dataHora < :dia AND c.statusId.id = 1"),  
-    @NamedQuery(name = "Chamado.contaMais30DiasSemOS", query = "SELECT COUNT(c) FROM Chamado c WHERE c.dataHora < :dia AND c.statusId.id = 1 AND c.ordemServicoId.id = null"),
+    @NamedQuery(name = "Chamado.contaMais10DiasSemOS", query = "SELECT COUNT(c) FROM Chamado c WHERE c.dataHora < :dia AND c.statusId.id = 1 AND c.ordemServicoId.id = null"),
     @NamedQuery(name = "Chamado.contaAbertos", query = "SELECT COUNT(c) FROM Chamado c WHERE c.statusId.id = 1"),
     @NamedQuery(name = "Chamado.contaAbertosSemOS", query = "SELECT COUNT(c) FROM Chamado c WHERE c.statusId.id = 1 AND c.ordemServicoId.id = null"),
-    @NamedQuery(name = "Chamado.contaAno", query = "SELECT COUNT(c) FROM Chamado c WHERE EXTRACT(YEAR FROM c.dataHora) = EXTRACT(YEAR FROM :data)"),
+    @NamedQuery(name = "Chamado.contaAno", query = "SELECT COUNT(c) FROM Chamado c WHERE c.dataHora >= :data"),
 
-    @NamedQuery(name = "Chamado.contaEncerradoAno", query = "SELECT COUNT(c) FROM Chamado c WHERE c.statusId.id = 2 AND EXTRACT(YEAR FROM c.dataHora) = EXTRACT(YEAR FROM :data) AND c.statusId.id = 2")
+    @NamedQuery(name = "Chamado.contaEncerradoAno", query = "SELECT COUNT(c) FROM Chamado c WHERE c.statusId.id = 2 AND  c.dataHora >= :data")
 
 })
 public class Chamado implements Serializable {
