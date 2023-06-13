@@ -40,6 +40,100 @@
 
             <!-- quadros com quantidades -->
 
+            <div class="col-md-3 p-2">
+                <div class="list-group border border-danger">
+                    <div class="list-group-item">
+                        <p class="list-group-item-text">
+                            Chamados abertos com mais de 10 dias sem Ordem de Serviço associada</p>
+                        <h4 class="list-group-item-heading count">
+                            ${requestScope.qtddChamadoMais10DiasSemOS}</h4>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-3 p-2">
+                <div class="list-group">
+                    <div class="list-group-item border border-danger">
+                        <p class="list-group-item-text">
+                            Total de chamados abertos com mais de 30 dias</p>
+                        <h4 class="list-group-item-heading count">
+                            ${requestScope.qtddChamadosMais30DiasAbertos}</h4>
+                    </div>
+                </div>
+            </div>    
+
+
+            <div class="col-md-3 p-2">
+                <div class="list-group border border-danger">
+                    <div class="list-group-item">
+                        <p class="list-group-item-text">
+                            Ordens de Serviço abertas com mais de 10 dias sem especialista associado</p>
+                        <h4 class="list-group-item-heading count">
+                            ${requestScope.qtddOSMais10DiasSemOP} </h4>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-3 p-2">
+                <div class="list-group">
+                    <div class="list-group-item border border-danger">
+                        <p class="list-group-item-text">
+                            Total de Ordens de Serviço abertas com mais de 30 dias</p>
+                        <h4 class="list-group-item-heading count">
+                            ${requestScope.qtddOSMais30DiasAbertos}</h4>
+                    </div>
+                </div>
+            </div>   
+
+
+            <div class="col-md-3 p-2">
+                <div class="list-group">
+                    <div class="list-group-item">
+                        <p class="list-group-item-text">
+                            Total de chamados abertos sem Ordem de Serviço associada</p>
+                        <h4 class="list-group-item-heading count">
+                            ${requestScope.qtddChamadoAbertosSemOS}</h4>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-3 p-2">
+                <div class="list-group">
+                    <div class="list-group-item">
+                        <p class="list-group-item-text">
+                            Total de chamados abertos</p>
+                        <h4 class="list-group-item-heading count">
+                            ${requestScope.qtddChamadoAbertos}</h4>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-3 p-2">
+                <div class="list-group">
+                    <div class="list-group-item">
+                        <p class="list-group-item-text">
+                            Total de Ordens de Serviço abertas</p>
+                        <h4 class="list-group-item-heading count">
+                            ${requestScope.qtddOSAbertos} </h4>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="col-md-3 p-2">
+                <div class="list-group">
+                    <div class="list-group-item">
+                        <p class="list-group-item-text">
+                            Total de Ordens de Serviço em Andamento (Com especialista associado)</p>
+                        <h4 class="list-group-item-heading count">
+                            ${requestScope.qtddOSAndamento}
+                        </h4>
+                    </div>
+                </div>
+            </div>
+
+
+
 
             <div class="col-md-6 py-2">
                 <div class="list-group">
@@ -47,106 +141,37 @@
                         <h3 class="pull-right">
                             <i class="fa fa-bar-chart" aria-hidden="true"></i>
                         </h3>
+                        <p class="list-group-item-text"> Dados referentes aos chamados abertos no ano (${requestScope.anoAtual}) </p>
                         <h4 class="list-group-item-heading count">
-                            45/62<!--  ${requestScope.todosAtendimentosEmAberto} | ${requestScope.percentual} % --></h4>
-                        <p class="list-group-item-text">
-                            Chamados Encerrados [30 dias] </p>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-md-6  py-2">
-                <div class="list-group">
-                    <div class="list-group-item">
-                        <h3 class="pull-right">
-                            <i class="fa fa-bar-chart" aria-hidden="true"></i>
-                        </h3>
-                        <h4 class="list-group-item-heading count">
-                            30/41 <!--  ${requestScope.todosAtendimentos} --></h4>
-                        <p class="list-group-item-text">
-                            Ordem de Serviço Encerrradas [30 dias]</p>
-                    </div>
-                </div>
-
-            </div>
-
-            <div class="col-md-3 p-2">
-                <div class="list-group">
-                    <div class="list-group-item">
-                        <p class="list-group-item-text">
-                            Chamados Em Aberto</p>
-                        <h4 class="list-group-item-heading count">
-                            5 <!-- ${requestScope.todasSugestoesEmAberto}/${requestScope.todasSugestoes} --></h4>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-md-3 p-2">
-                <div class="list-group">
-                    <div class="list-group-item">
-                        <p class="list-group-item-text">
-                            Chamados em Andamento</p>
-                        <h4 class="list-group-item-heading count">
-                            18 <!--  ${requestScope.todasElogioEmAberto}/${requestScope.todosElogio} --></h4>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-md-3 p-2">
-                <div class="list-group">
-                    <div class="list-group-item">
-                        <p class="list-group-item-text">
-                            Ordens de Serviço em Aberto</p>
-                        <h4 class="list-group-item-heading count">
-                            4<!--  ${requestScope.todasReclamacoesEmAberto}/${requestScope.todasReclamacoes} --></h4>
-                    </div>
-                </div>
-
-            </div>
-
-            <div class="col-md-3 p-2">
-                <div class="list-group">
-                    <div class="list-group-item">
-                        <p class="list-group-item-text">
-                            Ordens de Serviço em Andamento</p>
-                        <h4 class="list-group-item-heading count">
-                            11
-                            <!--  ${requestScope.todasInformacoesEmAberto}/${requestScope.todasInformacoes} -->
-                        </h4>
-                    </div>
-                </div>
-            </div>
-
-
-            <div class="col-md-6 py-2">
-                <div class="list-group">
-                    <div class="list-group-item">
-                        <h3 class="pull-right">
-                            <i class="fa fa-bar-chart" aria-hidden="true"></i>
-                        </h3>
-                        <h4 class="list-group-item-heading count">
-                            398/421<!--  ${requestScope.todosAtendimentosEmAberto} | ${requestScope.percentual} % -->
+                            ${requestScope.qtddChamadoEncerradoAno} /  ${qtddChamadoAno} 
                         </h4>
                         <p class="list-group-item-text">
-                            Chamados Encerrados [Ano] </p>
+                            Quantidade de chamados encerrados / Quantidade de chamados </p>
                     </div>
                 </div>
             </div>
 
-            <div class="col-md-6  py-2">
-                <div class="list-group">
+            <div class="col-md-3 p-2">
+                <div class="list-group border border-success">
                     <div class="list-group-item">
-                        <h3 class="pull-right">
-                            <i class="fa fa-bar-chart" aria-hidden="true"></i>
-                        </h3>
-                        <h4 class="list-group-item-heading count">
-                            281/325 <!--  ${requestScope.todosAtendimentos} --></h4>
                         <p class="list-group-item-text">
-                            Ordem de Serviço Encerrradas [30 dias]</p>
+                            Quantidade de Ordens de Serviço encerradas nos ultimos 30 dias</p>
+                        <h4 class="list-group-item-heading count">
+                            ${requestScope.qtddOSEncerradoUltimos30Dias}</h4>
                     </div>
                 </div>
-
             </div>
+
+            <div class="col-md-3 p-2">
+                <div class="list-group">
+                    <div class="list-group-item border border-success">
+                        <p class="list-group-item-text">
+                            Quantidade de Ordens de Serviço encerradas no Ano (${requestScope.anoAtual})</p>
+                        <h4 class="list-group-item-heading count">
+                            ${requestScope.qtddOSEncerradoAno} </h4>
+                    </div>
+                </div>
+            </div>  
 
 
 
@@ -187,6 +212,7 @@
                                 </tbody>
                             </table>
                         </table>
+
                     </div>
                 </div>
             </div>
@@ -236,492 +262,7 @@
                     </div>
                 </div>
             </div>
-
         </div>
     </div>
-    <!--********** MODAL CHAMADO EM ABERTO **************-->
-
-    <div class="modal fade" id="chamadoModal" data-bs-keyboard="false" tabindex="-1"
-         aria-labelledby="chamadoModalLabel" aria-hidden="true">
-
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <div class="row">
-                        <div class="col-sm-8">
-                            <div class="w-50">
-                                <p class="text-body-secondary" id="chamadoModal">Chamado</p>
-
-                            </div>
-                        </div>
-                        <div class="col-sm-2">
-                            <p>Id Chamado</p>
-                        </div>
-                        <div class="col-sm-2">
-                            <p class="text-center">#20203659</p>
-                        </div>
-                    </div>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-
-                <div class="modal-body">
-
-
-                    <div class="container">
-
-                        <div class="row">
-                            <div class="col-sm-12">
-                                <label for="recipient-name" class="col-form-label">Usuario</label>
-                                <input type="text" class="form-control text-bg-light" id="recipient-name"
-                                       readonly>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-sm-6">
-                                <label for="recipient-name" class="col-form-label">Campus:</label>
-                                <input type="text" class="form-control text-bg-light" id="campus-name" readonly>
-                            </div>
-
-                            <div class="col-sm-6">
-                                <label for="recipient-name" class="col-form-label">Predio</label>
-                                <input type="text" class="form-control text-bg-light" id="predio-name" readonly>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-sm-12">
-                                <label for="message-text" class="col-form-label">Descrição do Local</label>
-                                <textarea class="form-control text-bg-light" id="local-text"
-                                          readonly></textarea>
-                            </div>
-                        </div>
-
-                        <div class="row">
-                            <div class="col-sm-12">
-                                <label for="message-text" class="col-form-label">Descrição do Problema</label>
-                                <textarea class="form-control text-bg-light" id="problema-text"
-                                          readonly></textarea>
-                            </div>
-
-                        </div>
-
-                        <div class="row">
-                            <div class="col-sm-4">
-                                <label for="recipient-name" class="col-form-label">Status</label>
-                                <input type="text" class="form-control text-bg-light" id="status" readonly>
-                            </div>
-
-                            <div class="col-sm-4">
-                                <label for="recipient-name" class="col-form-label">Ordem de Serviço</label>
-                                <input type="text" class="form-control text-bg-light" id="ordem-de-servico"
-                                       readonly>
-                            </div>
-
-                            <div class="col-sm-4">
-                                <label for="recipient-name" class="col-form-label">Data e Hora</label>
-                                <input type="text" class="form-control text-bg-light" id="Data" readonly>
-                            </div>
-                        </div>
-
-                    </div>
-
-                </div>
-
-                <div class="modal-footer">
-                    <div class="row text-left">
-                        <div class="col-sm-8">
-                            <button type="button" class="btn btn-secondary" data-bs-toggle="modal"
-                                    data-bs-target="#associarModal">Associar</button>
-                        </div>
-                        <div class="col-sm-4">
-                            <button type="button" class="btn btn-warning" data-bs-toggle="modal"
-                                    data-bs-target="#novaOrdemDeServicoModal">Nova Ordem De Serviço</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-
-
-    <!--********** MODAL CHAMADO EM ANDAMENTO **************-->
-
-    <div class="modal fade" id="chamadoEmAndamentoModal" data-bs-keyboard="false" tabindex="-1"
-         aria-labelledby="chamadoEmAndamentoModalLabel" aria-hidden="true">
-
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <div class="row">
-                        <div class="col-sm-8">
-                            <div class="w-50">
-                                <p class="text-body-secondary" id="chamadoEmAndamentoModal">Chamado</p>
-
-                            </div>
-                        </div>
-                        <div class="col-sm-2">
-                            <p>Id Chamado</p>
-                        </div>
-                        <div class="col-sm-2">
-                            <p class="text-center">#20203659</p>
-                        </div>
-                    </div>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-
-                <div class="modal-body">
-                    <div class="container">
-                        <div class="row">
-                            <div class="col-sm-12">
-                                <label for="recipient-name" class="col-form-label">Usuario</label>
-                                <input type="text" class="form-control text-bg-light" id="recipient-name"
-                                       readonly>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-sm-6">
-                                <label for="recipient-name" class="col-form-label">Campus:</label>
-                                <input type="text" class="form-control text-bg-light" id="campus-name" readonly>
-                            </div>
-
-                            <div class="col-sm-6">
-                                <label for="recipient-name" class="col-form-label">Predio</label>
-                                <input type="text" class="form-control text-bg-light" id="predio-name" readonly>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-sm-12">
-                                <label for="message-text" class="col-form-label">Descrição do Local</label>
-                                <textarea class="form-control text-bg-light" id="local-text"
-                                          readonly></textarea>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-sm-12">
-                                <label for="message-text" class="col-form-label">Descrição do Problema</label>
-                                <textarea class="form-control text-bg-light" id="problema-text"
-                                          readonly></textarea>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-sm-4">
-                                <label for="recipient-name" class="col-form-label">Status</label>
-                                <input type="text" class="form-control text-bg-light" id="status" readonly>
-                            </div>
-
-                            <div class="col-sm-4">
-                                <label for="recipient-name" class="col-form-label">Ordem de Serviço</label>
-                                <input type="text" class="form-control text-bg-light" id="ordem-de-servico"
-                                       readonly>
-                            </div>
-
-                            <div class="col-sm-4">
-                                <label for="recipient-name" class="col-form-label">Data e Hora</label>
-                                <input type="text" class="form-control text-bg-light" id="Data" readonly>
-                            </div>
-                        </div>
-
-                        <!-- *********************** FOR EACH ********************** -->
-                        <div class="row">
-                            <div class="col-sm-12">
-                                <label for="message-text" class="col-form-label">Comentário Operário</label>
-                                <textarea class="form-control text-bg-light" id="problema-text"
-                                          readonly></textarea>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="modal-footer">
-                    <div class="row text-left">
-                        <div class="col">
-                            <button type="button" class="btn btn-warning" data-bs-dismiss="modal"
-                                    aria-label="Close">Fechar</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!--********** MODAL NOVA ORDEM DE SERVIÇO **************-->
-    <div class="modal fade" id="novaOrdemDeServicoModal" data-bs-backdrop="static" data-bs-keyboard="false"
-         tabindex="-1" aria-labelledby="novaOrdemDeServicoModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <div class="row">
-                        <div class="col-sm-8">
-                            <div class="w-50">
-                                <p class="text-body-secondary" id="novaOrdemDeServicoModal">Nova Ordem de
-                                    Serviço</p>
-                            </div>
-                        </div>
-                        <div class="col-sm-2">
-                            <p>Id Chamado</p>
-                        </div>
-                        <div class="col-sm-2">
-                            <p class="text-center">#20203659</p>
-                        </div>
-                    </div>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-
-                <div class="modal-body">
-                    <div class="container">
-                        <div class="row">
-                            <div class="col-sm-6">
-                                <label for="recipient-name" class="col-form-label">Campus:</label>
-                                <input type="text" class="form-control text-bg-light" id="campus-name" readonly>
-                            </div>
-
-                            <div class="col-sm-6">
-                                <label for="recipient-name" class="col-form-label">Predio</label>
-                                <input type="text" class="form-control text-bg-light" id="predio-name" readonly>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-sm-12">
-                                <label for="message-text" class="col-form-label">Descrição do Local</label>
-                                <textarea class="form-control text-bg-light" id="local-text"
-                                          readonly></textarea>
-                            </div>
-                        </div>
-
-                        <div class="row">
-                            <div class="col-sm-12">
-                                <label for="message-text" class="col-form-label">Descrição do Problema</label>
-                                <textarea class="form-control text-bg-light" id="problema-text"
-                                          readonly></textarea>
-                            </div>
-
-                        </div>
-
-                        <div class="row">
-                            <div class="col">
-                                <label for="recipient-name" class="col-form-label">Digite aqui o número da Ordem
-                                    de Serviço</label>
-                                <input type="text" class="form-control text-bg-light" id="ordem-de-servico">
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="modal-footer">
-                    <div class="row text-left">
-                        <div class="col-sm-4">
-                            <button type="button" class="btn btn-warning" data-bs-toggle="modal"
-                                    data-bs-target="#novaOrdemDeServicoModal">Cadastrar</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-
-
-
-    <!--********** MODAL ASSOCIAR **************-->
-    <div class="modal fade" id="associarModal" data-bs-keyboard="false" tabindex="-1"
-         aria-labelledby="associarModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <div class="row">
-                        <div class="col-sm-8">
-                            <div class="w-50">
-                                <p class="text-body-secondary">Associar à Ordem de Serviço Existente</p>
-                            </div>
-                        </div>
-                        <div class="col-sm-2">
-                            <p>Id Chamado</p>
-                        </div>
-                        <div class="col-sm-2">
-                            <p class="text-center">#20203659</p>
-                        </div>
-                    </div>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-
-                <div class="modal-body">
-                    <form>
-                        <div class="container">
-                            <div class="row">
-                                <div class="col-sm-6">
-                                    <label for="recipient-name" class="col-form-label">Campus:</label>
-                                    <input type="text" class="form-control text-bg-light" id="campus-name"
-                                           readonly>
-                                </div>
-
-                                <div class="col-sm-6">
-                                    <label for="recipient-name" class="col-form-label">Predio</label>
-                                    <input type="text" class="form-control text-bg-light" id="predio-name"
-                                           readonly>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-sm-12">
-                                    <label for="message-text" class="col-form-label">Descrição do Local</label>
-                                    <textarea class="form-control text-bg-light" id="local-text"
-                                              readonly></textarea>
-                                </div>
-                            </div>
-
-                            <div class="row">
-                                <div class="col-sm-12">
-                                    <label for="message-text" class="col-form-label">Descrição do
-                                        Problema</label>
-                                    <textarea class="form-control text-bg-light" id="problema-text"
-                                              readonly></textarea>
-                                </div>
-
-                            </div>
-
-                            <div class="row">
-                                <div class="col-sm-6">
-                                    <label for="recipient-name" class="col-form-label">Ordens de Serviço para o
-                                        mesmo
-                                        local</label>
-                                </div>
-                                <div class="list-group">
-                                    <!--  ********************for each**************************** -->
-                                    <span data-bs-placement="right"
-                                          data-bs-title="Descrição do problema  Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged."
-                                          data-bs-toggle="tooltip">
-                                        <button data-bs-target="#ordemDeServico2Modal" data-bs-toggle="modal"
-                                                type="button"
-                                                class="list-group-item list-group-item-action">#20203669</button>
-                                    </span>
-                                    <span data-bs-placement="right"
-                                          data-bs-title="Descrição do problema  Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged."
-                                          data-bs-toggle="tooltip">
-                                        <button data-bs-target="#ordemDeServico2Modal" data-bs-toggle="modal"
-                                                type="button"
-                                                class="list-group-item list-group-item-action">#20203669</button>
-                                    </span>
-                                    <span data-bs-placement="right"
-                                          data-bs-title="Descrição do problema  Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged."
-                                          data-bs-toggle="tooltip">
-                                        <button data-bs-target="#ordemDeServico2Modal" data-bs-toggle="modal"
-                                                type="button"
-                                                class="list-group-item list-group-item-action">#20203669</button>
-                                    </span>
-
-                                </div>
-                            </div>
-                        </div>
-                    </form>
-                </div>
-
-                <div class="modal-footer">
-                    <div class="row text-left">
-
-                        <div>
-                            <button type="button" class="btn btn-warning" data-bs-toggle="modal"
-                                    data-bs-target="#novaOrdemDeServicoModal">Nova Ordem De Serviço</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-
-
-
-    <!--********** MODAL ORDEM DE SERVIÇO **************-->
-    <div class="modal fade" id="ordemDeServico2Modal" data-bs-backdrop="static" tabindex="-1"
-         aria-labelledby="ordemDeServico2ModalLabel" aria-hidden="true">
-
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <div class="row">
-                        <div class="col-sm-8">
-                            <div class="w-50">
-                                <p class="text-body-secondary">Ordem De Serviço</p>
-
-                            </div>
-                        </div>
-                        <div class="col-sm-2">
-                            <p>Id Ordem De Serviço</p>
-                        </div>
-                        <div class="col-sm-2">
-                            <p class="text-center">#20203659</p>
-                        </div>
-                    </div>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-
-                <div class="modal-body">
-
-
-                    <div class="container">
-
-
-                        <div class="row">
-                            <div class="col-sm-6">
-                                <label for="recipient-name" class="col-form-label">Campus:</label>
-                                <input type="text" class="form-control text-bg-light" id="campus-name" readonly>
-                            </div>
-
-                            <div class="col-sm-6">
-                                <label for="recipient-name" class="col-form-label">Predio</label>
-                                <input type="text" class="form-control text-bg-light" id="predio-name" readonly>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-sm-12">
-                                <label for="message-text" class="col-form-label">Descrição do Local</label>
-                                <textarea class="form-control text-bg-light" id="local-text"
-                                          readonly></textarea>
-                            </div>
-                        </div>
-
-                        <div class="row">
-                            <div class="col-sm-12">
-                                <label for="message-text" class="col-form-label">Descrição do Problema</label>
-                                <textarea class="form-control text-bg-light" id="problema-text"
-                                          readonly></textarea>
-                            </div>
-
-                        </div>
-
-                        <div class="row">
-                            <div class="col-sm-6">
-                                <label for="recipient-name" class="col-form-label">Status</label>
-                                <input type="text" class="form-control text-bg-light" id="status" readonly>
-                            </div>
-                        </div>
-
-                    </div>
-
-                </div>
-
-                <div class="modal-footer">
-                    <div class="row text-left">
-                        <div class="col">
-                            <button type="button" class="btn btn-secondary" data-bs-toggle="modal"
-                                    data-bs-target="#associarModal">Associar</button>
-                        </div>
-                        <div class="col">
-                            <button type="button" class="btn btn-warning" data-bs-toggle="modal"
-                                    data-bs-target="#novaOrdemDeServicoModal">Nova Ordem De Serviço</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-
-    <!-- **************** triggers ******************* -->
-
-    <script>
-        const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]')
-        const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl))
-    </script>
 </body>
-
 </html>

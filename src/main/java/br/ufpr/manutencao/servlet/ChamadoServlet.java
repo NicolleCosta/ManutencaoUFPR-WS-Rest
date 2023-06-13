@@ -23,6 +23,7 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -58,7 +59,7 @@ public class ChamadoServlet extends HttpServlet {
                     case "mostrarChamados":
                         HttpSession session = request.getSession();
                         UsuarioDTO user = (UsuarioDTO) session.getAttribute("user");
-                        
+
                         System.out.println("entrou na Servlet mostrar Chamados");
                         //Carrega a lista de chamados para apresentar
 //                        List<ChamadoDTO> chamadosSemOS = ChamadoFacade.buscarChamadosSemOS();
@@ -77,7 +78,7 @@ public class ChamadoServlet extends HttpServlet {
                         List<ChamadoDTO> chamadosAsc = new ArrayList<>(chamados);
                         List<ChamadoDTO> chamadosDesc = new ArrayList<>(chamados);
                         List<ComentarioOperarioDTO> comentarios = ComentarioOperarioFacade.buscarComentarios();
-                         
+
                         // Ordenar os comentarios em ordem crescente de dataHora
                         Collections.sort(comentarios, Comparator.comparing(ComentarioOperarioDTO::getDataHora));
 
@@ -93,18 +94,17 @@ public class ChamadoServlet extends HttpServlet {
                         //request.setAttribute("chamadosEmAndamento", chamadosEmAndamento);
 //                        request.setAttribute("chamadosSemOS", chamadosSemOS);
 //                        request.setAttribute("chamadosComOS", chamadosComOS);
-                        
                         request.setAttribute("ordens", ordens);
                         request.setAttribute("especialidades", especialidades);
                         request.setAttribute("comentarios", comentarios);
                         request.setAttribute("listaChamadosAsc", chamadosAsc);
                         request.setAttribute("listaChamadosDesc", chamadosDesc);
                         System.out.println("passando os chamados" + chamados);
-                        
+
                         RequestDispatcher rd = null;
                         //redireciona
                         if (user.getTipoUsuarioId().getId().equals(3)) {
-                             System.out.println("entrou no direcionamento administrador");
+                            System.out.println("entrou no direcionamento administrador");
                             rd = getServletContext().getRequestDispatcher("/administrador/home.jsp");
                         }
                         if (user.getTipoUsuarioId().getId().equals(5)) {
@@ -112,12 +112,45 @@ public class ChamadoServlet extends HttpServlet {
                             rd = getServletContext().getRequestDispatcher("/gerente/chamados.jsp");
                         }
                         rd.forward(request, response);
-  
+
                         break;
-                        
-                        case "mostrarHomeGer":
+
+                    case "mostrarHomeGer":
                         System.out.println("entrou no mostrarHomeGer");
+                        //Resultados sobre Chamados
+                        String qtddChamadosMais30DiasAbertos = ChamadoFacade.contaMais30DiasAbertos();
+                        String qtddChamadoMais10DiasSemOS = ChamadoFacade.contaMais10DiasSemOS();
+                        String qtddChamadoAbertos = ChamadoFacade.contaAbertos();
+                        String qtddChamadoAbertosSemOS = ChamadoFacade.contaAbertosSemOS();
+                        String qtddChamadoAno = ChamadoFacade.contaAno();
+                        String qtddChamadoEncerradoAno = ChamadoFacade.contaEncerradoAno();
+                        //Resultados sobre Ordens
+                        String qtddOSMais30DiasAbertos = OrdemServicoFacade.contaMais30DiasAbertos();
+                        String qtddOSMais10DiasSemOP = OrdemServicoFacade.contaMais10DiasSemOP();
+                        String qtddOSAbertos = OrdemServicoFacade.contaAbertos();
+                        String qtddOSAndamento = OrdemServicoFacade.contaAndamento();
+                        String qtddOSEncerradoUltimos30Dias = OrdemServicoFacade.contaEncerradoUltimos30Dias();
+                        String qtddOSEncerradoAno = OrdemServicoFacade.contaEncerradoAno();
                         
+                        // Busca o ano atual
+                        LocalDate dataAtual = LocalDate.now();
+                        int anoAtual = dataAtual.getYear();
+
+                        //ADD NA REQUISIÇÃO
+                        request.setAttribute("anoAtual", anoAtual);
+                        request.setAttribute("qtddChamadosMais30DiasAbertos", qtddChamadosMais30DiasAbertos);
+                        request.setAttribute("qtddChamadoMais10DiasSemOS", qtddChamadoMais10DiasSemOS);
+                        request.setAttribute("qtddChamadoAbertos", qtddChamadoAbertos);
+                        request.setAttribute("qtddChamadoAbertosSemOS", qtddChamadoAbertosSemOS);
+                        request.setAttribute("qtddChamadoAno", qtddChamadoAno);
+                        request.setAttribute("qtddChamadoEncerradoAno", qtddChamadoEncerradoAno);
+                        request.setAttribute("qtddOSMais30DiasAbertos", qtddOSMais30DiasAbertos);
+                        request.setAttribute("qtddOSMais10DiasSemOP", qtddOSMais10DiasSemOP);
+                        request.setAttribute("qtddOSAbertos", qtddOSAbertos);
+                        request.setAttribute("qtddOSAndamento", qtddOSAndamento);
+                        request.setAttribute("qtddOSEncerradoUltimos30Dias", qtddOSEncerradoUltimos30Dias);
+                        request.setAttribute("qtddOSEncerradoAno", qtddOSEncerradoAno);
+
                         //redireciona
                         rd = getServletContext().getRequestDispatcher("/gerente/home.jsp");
                         rd.forward(request, response);

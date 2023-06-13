@@ -22,6 +22,9 @@ import jakarta.ws.rs.Produces;
 import jakarta.ws.rs.QueryParam;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
+import java.time.LocalDate;
+import java.time.ZoneId;
+import java.util.Date;
 
 /**
  *
@@ -102,6 +105,83 @@ public class OrdemServicoFacadeREST extends AbstractFacade<OrdemServico> {
     public String countREST() {
         return String.valueOf(super.count());
     }
+    // ------------------------- Dados da Home Gerente ------------------------------------------------
+    @GET
+    @Path("contaMais30DiasAbertos")
+    @Produces(MediaType.TEXT_PLAIN)
+    public String contaMais30DiasAbertos() {
+        LocalDate diasAtras = LocalDate.now().minusDays(30);
+        Date dia = Date.from(diasAtras.atStartOfDay(ZoneId.systemDefault()).toInstant());
+        TypedQuery<Long> query = em.createNamedQuery("OrdemServico.contaMais30DiasAbertos", Long.class);
+        query.setParameter("dia", dia);
+        Long count = query.getSingleResult();
+
+        return String.valueOf(count);
+    }
+    
+    @GET
+    @Path("contaMais10DiasSemOP")
+    @Produces(MediaType.TEXT_PLAIN)
+    public String contaMais10DiasSemOP() {
+        LocalDate diasAtras = LocalDate.now().minusDays(10);
+        Date dia = Date.from(diasAtras.atStartOfDay(ZoneId.systemDefault()).toInstant());
+        TypedQuery<Long> query = em.createNamedQuery("OrdemServico.contaMais10DiasSemOP", Long.class);
+        query.setParameter("dia", dia);
+        Long count = query.getSingleResult();
+
+        return String.valueOf(count);
+    }
+    
+    
+    @GET
+    @Path("contaAbertos")
+    @Produces(MediaType.TEXT_PLAIN)
+    public String contaAbertos() {
+        TypedQuery<Long> query = em.createNamedQuery("OrdemServico.contaAbertos", Long.class);
+        Long count = query.getSingleResult();
+
+        return String.valueOf(count);
+    }
+    
+    
+    @GET
+    @Path("contaAndamento")
+    @Produces(MediaType.TEXT_PLAIN)
+    public String contaAndamento() {
+        TypedQuery<Long> query = em.createNamedQuery("OrdemServico.contaAndamento", Long.class);
+        Long count = query.getSingleResult();
+
+        return String.valueOf(count);
+    }
+    
+    @GET
+    @Path("contaEncerradoUltimos30Dias")
+    @Produces(MediaType.TEXT_PLAIN)
+    public String contaEncerradoUltimos30Dias() {
+        LocalDate diasAtras = LocalDate.now().minusDays(30);
+        Date dia = Date.from(diasAtras.atStartOfDay(ZoneId.systemDefault()).toInstant());
+        TypedQuery<Long> query = em.createNamedQuery("OrdemServico.contaEncerradoUltimos30Dias", Long.class);
+        query.setParameter("dia", dia);
+        Long count = query.getSingleResult();
+
+        return String.valueOf(count);
+    }
+    
+    @GET
+    @Path("contaEncerradoAno")
+    @Produces(MediaType.TEXT_PLAIN)
+    public String contaEncerradoAno() {
+        LocalDate inicioAno = LocalDate.now().withMonth(1).withDayOfMonth(1);
+        Date data = Date.from(inicioAno.atStartOfDay(ZoneId.systemDefault()).toInstant());
+        TypedQuery<Long> query = em.createNamedQuery("OrdemServico.contaEncerradoAno", Long.class);
+        query.setParameter("data", data);
+        Long count = query.getSingleResult();
+
+        return String.valueOf(count);
+    }
+    
+//----------------------------------------------------------------------------------------------------------
+ 
 
     @Override
     protected EntityManager getEntityManager() {
