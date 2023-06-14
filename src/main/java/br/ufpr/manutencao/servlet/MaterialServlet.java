@@ -4,8 +4,10 @@
  */
 package br.ufpr.manutencao.servlet;
 
+import br.ufpr.manutencao.dto.MaterialDTO;
 import br.ufpr.manutencao.dto.OrdemServicoDTO;
 import br.ufpr.manutencao.facade.FacadeException;
+import br.ufpr.manutencao.facade.MaterialFacade;
 import br.ufpr.manutencao.facade.OrdemServicoFacade;
 import jakarta.servlet.RequestDispatcher;
 import java.io.IOException;
@@ -35,7 +37,7 @@ public class MaterialServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-         String action = request.getParameter("action");
+        String action = request.getParameter("action");
         try {
             if (action == null) {
                 //redireciona
@@ -43,33 +45,40 @@ public class MaterialServlet extends HttpServlet {
             } else {
                 switch (action) {
                     case "mostrarCadastrarMateriais":
-                        
+
                         System.out.println("estrou no mostrarCadastrarMateriais");
                         //PEGA O PARAMETRO PASSADO PELA PAGINA
-                    String id = request.getParameter("id");
+                        String numeroOS = request.getParameter("numero");
                         //buscar Ordem Servico
-                        OrdemServicoDTO ordemServico = OrdemServicoFacade.buscarOS(id);
-                        
+                        OrdemServicoDTO ordemServico = OrdemServicoFacade.buscarOS(numeroOS);
+
+                        //buscar Ordem Servico
                         request.setAttribute("ordem", ordemServico);
                         RequestDispatcher rd = getServletContext().getRequestDispatcher("/almoxarife/retiradaMaterial.jsp");
                         rd.forward(request, response);
-
                         break;
-
 
                     case "novoMaterial":
-                         System.out.println("estrou no mostrarCadastroMaterial");
-                                            
-                        rd = getServletContext().getRequestDispatcher("/almoxarife/home.jsp");
+                        System.out.println("entrou no mostrarCadastroMaterial");
                         
+                        String nome = request.getParameter("nome");
+                        
+                        MaterialDTO material= new MaterialDTO();
+                        material.setNome(nome);                        
+                        MaterialFacade.adicionarMaterial(material);
+                        
+                        //redireciona
+                        request.setAttribute("info", " Material Adicionado");
+                        request.setAttribute("page", "/almoxarife/home.jsp");
+                        rd = getServletContext().getRequestDispatcher("/OrdemDeServicoServlet?action=mostrarOrdemDeServico");
                         rd.forward(request, response);
                         break;
-                        
+
                     case "registraRetiradaMaterial":
-                         System.out.println("estrou no mostrarCadastroMaterial");
-                                            
+                        System.out.println("entrou no registraRetiradaMaterial");
+
                         rd = getServletContext().getRequestDispatcher("/almoxarife/registraRetiradaMaterial.jsp");
-                        
+
                         rd.forward(request, response);
                         break;
 
@@ -85,7 +94,6 @@ public class MaterialServlet extends HttpServlet {
             rd.forward(request, response);
         }
     }
-
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**

@@ -158,7 +158,7 @@
                                     <p class="fw-bold">Nº Ordem de Serviço</p>
                                 </div>
                                 <div class="col-sm-4">
-                                    <input type="text"id="numero-os" class="form-control text-bg-light" value="${o.numeroOS}" readonly>
+                                    <input type="text" id="numero-os" class="form-control text-bg-light" value="${o.numeroOS}" readonly>
                                 </div>
                             </div>
                             <div class="row py-2">
@@ -222,25 +222,14 @@
                         <div class="row text-left">
                             <div class="col">
                                 <button type="button" class="btn btn-secondary fw-bold" data-bs-dismiss="modal" aria-label="Close">Fechar</button>
-                                <button type="button" class="btn btn-warning fw-bold" onclick="location.href = 'MaterialServlet?action=mostrarCadastrarMateriais&id=<c:out value='${o.id}'/>'" <c:if test="${o.dataFinalizacao != null}">disabled</c:if>>Cadastrar Materiais</button>
+                                <button type="button" class="btn btn-warning fw-bold" onclick="location.href = 'MaterialServlet?action=mostrarCadastrarMateriais&numero=<c:out value='${o.numeroOS}'/>'"<c:if test="${o.dataFinalizacao != null || o.usuarioOperarioId == null}">disabled</c:if>>Cadastrar Materiais</button>
                                 </div>
-
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
     </c:forEach>
-
-
-
-
-
-
-
-
-
-
 
 
     <!--********** MODAL NOVO MATERIAL**************-->
@@ -258,24 +247,17 @@
                 </div>
 
                 <div class="modal-body">
-                    <form>
-
+                    <form action="MaterialServlet?action=novoMaterial" method="POST">
                         <div class="container">
-
                             <p>Digite abaixo o nome do novo material.</p>
-
-
                             <div class="row py-3">
                                 <div class="col-12">
                                     <label for="recipient-name" class="col-form-label fw-bold">Nome do Material</label>
-                                    <input type="text" class="form-control text-bg-light" name="material-name" id="material-name">
+                                    <input type="text" class="form-control text-bg-light"  id="material-name" name="nome">
                                 </div>
                             </div>
 
                             <!-- ***************** for each lista de materiais ************************** -->
-
-
-
                             <div class=" p-3" >
                                 <div class="row">
                                     <p class="text-danger">Verifique na lista abaixo se o material já está cadastrado</p>
@@ -290,34 +272,22 @@
                                     <li class="list-group-item">A fourth item</li>
                                     <li class="list-group-item">And a fifth one</li>
                                 </ul>
-
                             </div>
+                        </div>
 
-
-
-
-
+                        <div class="modal-footer">
+                            <div class="row text-left">
+                                <div class="col">
+                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"
+                                            aria-label="Close">Cancelar</button>
+                                    <button type="submit" class="btn btn-warning fw-bold">Salvar Material</button>
+                                </div>
+                            </div>
+                        </div>
                     </form>
                 </div>
             </div>
-            <div class="modal-footer">
-                <div class="row text-left">
-                    <div class="col">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"
-                                aria-label="Close">Cancelar</button>
-                        <button type="button" class="btn btn-warning fw-bold">Salvar Material</button>
-                    </div>
-
-                </div>
-
-            </div>
         </div>
     </div>
-
-
-
-
-
 </body>
-
 </html>

@@ -27,7 +27,7 @@ import jakarta.ws.rs.core.MediaType;
 @Path("/material")
 public class MaterialFacadeREST extends AbstractFacade<Material> {
 
-   // @PersistenceContext(unitName = "my_persistence_unit")
+    @PersistenceContext(unitName = "my_persistence_unit")
     private EntityManager em;
 
     public MaterialFacadeREST() {
