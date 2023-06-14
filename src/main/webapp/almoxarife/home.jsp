@@ -253,41 +253,35 @@
                             <div class="row py-3">
                                 <div class="col-12">
                                     <label for="recipient-name" class="col-form-label fw-bold">Nome do Material</label>
-                                    <input type="text" class="form-control text-bg-light"  id="material-name" name="nome">
+                                    <input type="text" class="form-control text-bg-light"  id="material-name" name="nome" required>
                                 </div>
                             </div>
-
-                            <!-- ***************** for each lista de materiais ************************** -->
                             <div class=" p-3" >
                                 <div class="row">
                                     <p class="text-danger">Verifique na lista abaixo se o material já está cadastrado</p>
                                 </div>  
                                 <label for="message-text" class="col-form-label">Materiais Cadastrados</label>
-                                <ul class="list-group">
-                                    <li class="list-group-item">Tijolo Tipo A</li>
-                                    <li class="list-group-item">Tijolo Tipo B</li>
-                                    <li class="list-group-item">Tijolo Tipo C</li>
-                                    <li class="list-group-item">Tijolo Tipo D</li>
-                                    <li class="list-group-item">A third item</li>
-                                    <li class="list-group-item">A fourth item</li>
-                                    <li class="list-group-item">And a fifth one</li>
-                                </ul>
-                            </div>
-                        </div>
-
-                        <div class="modal-footer">
-                            <div class="row text-left">
-                                <div class="col">
-                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"
-                                            aria-label="Close">Cancelar</button>
-                                    <button type="submit" class="btn btn-warning fw-bold">Salvar Material</button>
+                                <c:forEach var="material" items="${requestScope.materiais}">
+                                    <ul class="list-group">
+                                        <li class="list-group-item">${material.nome}</li>
+                                    </ul>
+                                </c:forEach>
                                 </div>
                             </div>
-                        </div>
-                    </form>
+
+                            <div class="modal-footer">
+                                <div class="row text-left">
+                                    <div class="col">
+                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"
+                                                aria-label="Close">Cancelar</button>
+                                        <button type="submit" class="btn btn-warning fw-bold">Salvar Material</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
-</body>
+    </body>
 </html>

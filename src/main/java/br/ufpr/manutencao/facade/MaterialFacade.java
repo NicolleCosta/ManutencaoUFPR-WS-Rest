@@ -6,12 +6,15 @@ package br.ufpr.manutencao.facade;
 
 import br.ufpr.manutencao.dto.MaterialDTO;
 import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import java.io.IOException;
 import java.net.URI;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 import java.nio.charset.StandardCharsets;
+import java.util.List;
 
 /**
  *
@@ -52,5 +55,47 @@ public class MaterialFacade {
             throw new FacadeException("Erro na requisição: " + e.getMessage());
         }
     }
-    
+
+    public static List<MaterialDTO> buscarMateriais() throws FacadeException{
+        try {
+            // URL do endpoint do backend
+            String backendURL = "http://localhost:8080/manutencaoufpr/webresources/material";
+
+            HttpClient httpClient = HttpClient.newHttpClient();
+
+            // Requisição GET 
+            HttpRequest request = HttpRequest.newBuilder()
+                    .uri(URI.create(backendURL))
+                    .header("Content-Type", "application/json")
+                    .build();
+
+            // Chamada ao backend
+            HttpResponse<String> response = httpClient.send(request, HttpResponse.BodyHandlers.ofString());
+
+            // Verificação do código de status da resposta
+            int statusCode = response.statusCode();
+
+            //  Se o código de status for 200 (OK), processa a resposta do backend
+            if (statusCode == 200) {
+                String responseBody = response.body();
+
+                // Converte o JSON de resposta para um objeto
+                ObjectMapper mapper = new ObjectMapper();
+                List<MaterialDTO> materiais = mapper.readValue(responseBody, new TypeReference<List<MaterialDTO>>() {
+                });
+
+                System.out.println("entrou na facade aberto " + materiais);
+                return materiais;
+            } else {
+                System.out.println("entrou no else");
+                // Se o código de status for diferente de 200
+                throw new FacadeException("Erro ao listar materiais: " + response.body());
+            }
+        } catch (IOException | InterruptedException e) {
+            System.out.println("entrou no erro" + e);
+
+            // Exceção que ocorre durante a chamada ao backend
+            throw new FacadeException("Erro na chamada ao backend: " + e.getMessage(), e);
+        }
+    }
 }

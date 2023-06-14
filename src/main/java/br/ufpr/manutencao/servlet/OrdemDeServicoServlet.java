@@ -7,12 +7,14 @@ package br.ufpr.manutencao.servlet;
 import br.ufpr.manutencao.dto.ChamadoDTO;
 import br.ufpr.manutencao.dto.ComentarioOperarioDTO;
 import br.ufpr.manutencao.dto.EspecialidadeDTO;
+import br.ufpr.manutencao.dto.MaterialDTO;
 import br.ufpr.manutencao.dto.OrdemServicoDTO;
 import br.ufpr.manutencao.dto.PredioDTO;
 import br.ufpr.manutencao.dto.UsuarioDTO;
 import br.ufpr.manutencao.facade.ChamadoFacade;
 import br.ufpr.manutencao.facade.ComentarioOperarioFacade;
 import br.ufpr.manutencao.facade.FacadeException;
+import br.ufpr.manutencao.facade.MaterialFacade;
 import br.ufpr.manutencao.facade.OrdemServicoFacade;
 import jakarta.servlet.RequestDispatcher;
 import java.io.IOException;
@@ -60,7 +62,7 @@ public class OrdemDeServicoServlet extends HttpServlet {
                         UsuarioDTO user = (UsuarioDTO) session.getAttribute("user");
                         
                         System.out.println("estrou no mostrarOrdemDeServico");
-                        //Carrega a lista de chamados para apresentar
+                        //Carrega a lista de ordens para apresentar
                         List<OrdemServicoDTO> ordensServico = OrdemServicoFacade.buscarOrdensDeServico();
                         System.out.println(ordensServico);
                          List<ComentarioOperarioDTO> comentarios = ComentarioOperarioFacade.buscarComentarios();
@@ -82,6 +84,11 @@ public class OrdemDeServicoServlet extends HttpServlet {
                             rd = getServletContext().getRequestDispatcher("/gerente/ordensDeServico.jsp");
                         }
                         if (user.getTipoUsuarioId().getId().equals(4)) {
+                            //Carrega a lista de materiais para apresentar
+                        List<MaterialDTO> materiais = MaterialFacade.buscarMateriais();
+                        Collections.sort(materiais, Comparator.comparing(MaterialDTO::getNome));
+                        request.setAttribute("materiais", materiais);
+                        System.out.println("materiais: "+ materiais);
                             rd = getServletContext().getRequestDispatcher("/almoxarife/home.jsp");
                         }
                         rd.forward(request, response);
