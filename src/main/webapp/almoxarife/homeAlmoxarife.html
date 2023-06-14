@@ -40,7 +40,7 @@
 
 
 
-</head>
+
 
 
  <!-- EXCLUIR DAQUI ---- ESTÁ NO HEADER -->
@@ -69,10 +69,10 @@
                         </div>
                     </nav>
 
-                    <li class="nav-link">
+                    <!--<li class="nav-link">-->
                         <a href="LogoutServlet" class="alert-link text-white my-2 my-sm-0"><i
                                 class="fas fa-power-off"></i>Sair</a>
-                    </li>
+           
                 </form>
             </div>
 
@@ -161,25 +161,7 @@
                         </p>
                     </td>
                     <td>
-                        <span class="badge badge-sm c-status"
-                            style="background-color:
-                            <c:choose>
-                                <c:when test="${o.dataFinalizacao eq null}">
-                                    orange
-                                </c:when>
-                                <c:otherwise>
-                                    green
-                                </c:otherwise>
-                            </c:choose>;">
-                            <c:choose>
-                                <c:when test="${o.dataFinalizacao eq null}">
-                                    Aberta
-                                </c:when>
-                                <c:otherwise>
-                                    Finalizada
-                                </c:otherwise>
-                            </c:choose>
-                        </span>
+                       
                     </td>
                     <td>
                         <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalOrdemDeServico${o.id}">
@@ -285,7 +267,6 @@
                                     <button type="button" class="btn btn-secondary fw-bold" data-bs-dismiss="modal" aria-label="Close">Fechar</button>
                                     <button type="button" class="btn btn-warning fw-bold" onclick="window.location.href='./cadastrarMaterial.html'">Cadastrar Materiais</button>
                                 </div>
-        
                             </div>
                         </div>
                     </div>
