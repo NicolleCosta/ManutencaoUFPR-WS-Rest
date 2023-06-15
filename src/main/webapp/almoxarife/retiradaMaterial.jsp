@@ -208,33 +208,38 @@
                         <thead class="bg-light">
                             <tr>
                                 <th>Data e Hora</th>
-                                <th>Operário</th>
+                                <th>Quantidade</th>
+                                <th>Unidade</th>
                                 <th>Material</th>
+                                <th>Almoxarife</th> 
                             </tr>
                         </thead>
                         <tbody data-bs-toggle="modal" data-bs-target="#modalOdermDeServico">
-                            <c:forEach var="chamados" items="${requestScope.ordemdeservico}">
+                            <c:forEach var="retirada" items="${requestScope.retiradas}">
                                 <tr>
                                     <td>
                                         <p class="fw-normal mb-1">
-                                            12/08/2022
-                                            10?45
-                                            <!--  <c:out value="" /> -->
+                                            <fmt:formatDate value="${retirada.dataHora}" pattern="dd/MM/yyyy - HH:mm" var="formattedDate" />
+                                            <c:out value="${formattedDate}" />
                                         </p>
                                     </td>
                                     <td>
                                         <p class="fw-normal mb-1">
-                                            João da Silva
-                                            <!-- <c:out value="${ordemdeservico.operario.nome}" /> -->
+                                            <c:out value="${retirada.quantidade}" />
                                         </p>
                                     </td>
                                     <td>
                                         <p class="fw-normal mb-1">
-                                            Tijolo,
-                                            Pincel,
-                                            Martelo,
-                                            Tinta.
-                                            <!-- <c:out value="${ordemdeservico.operario.especialidade}" /> -->
+                                            <c:out value="${retirada.unidade}" />
+                                        </p>
+                                    </td>
+                                    <td>
+                                        <p class="fw-normal mb-1">
+                                            <c:out value="${retirada.materialId.nome}" />
+                                        </p>
+                                    </td>
+                                    <td>
+                                        <p class="fw-normal mb-1">                    <c:out value="${retirada.usuarioId.nome}" />
                                         </p>
                                     </td>
                                 </tr>
