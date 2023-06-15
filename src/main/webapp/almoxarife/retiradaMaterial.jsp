@@ -38,153 +38,169 @@
         </c:if>
     </div>
 
-    <div class="container text-center">
-        <div class="row">
-            <div class="col">
-                <form class="d-flex" role="search">
-                    <input class="form-control me-2" type="search" placeholder="Buscar Ordem De Serviço"
-                           aria-label="Search">
-                    <button class="btn btn-warning" type="submit">Buscar</button>
-                </form>
-            </div>
-            <div class="col">
-
-                <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#novoMaterialModal">Novo Material</button>
-            </div>
-        </div>
-    </div>
-
 
     <!-- Nesta tabela só teremos uma linha, com as informações do chamado que vamos cadastrar os materiais, as informações disponíveis já estão listadas abaixo -->
     <div class="table-secondary">
-        <table class="table align-middle mb-0 bg-white table-hover">
+        <table class="table align-middle mb-1 bg-light table-hover">
             <thead class="bg-light">
             </thead>
             <tbody data-bs-toggle="modal" data-bs-target="#modalOdermDeServico">
                 <tr>
                     <td>
                         <p class="fw-normal mb-1">
-                            #2020365
-                            <!--  <c:out value="${ordemdeservico.id}" /> -->
+                            # <c:out value="${ordem.numeroOS}" />
                         </p>
                     </td>
                     <td>
                         <p class="fw-normal mb-1">
-                            Politécnico
-                            <!-- <c:out value="${ordemdeservico.campus.nome}" /> -->
+                            <c:out value="${ordem.predioId.campusId.nome}" />
                         </p>
                     </td>
                     <td>
                         <p class="fw-normal mb-1">
-                            João da Silva
-                            <!-- <c:out value="${ordemdeservico.operario.nome}" /> -->
+                            <c:out value="${ordem.predioId.nome}" />
                         </p>
                     </td>
                     <td>
                         <p class="fw-normal mb-1">
-                            Elétrica, Pintura, Civil, Hidráulica
-                            <!--  <c:out value="${ordemdeservico.operario.especialidade}" /> -->
+                            <c:out value="${ordem.usuarioOperarioId.nome}" /> 
                         </p>
                     </td>
                     <td>
                         <p class="fw-normal mb-1">
-                            Em andamento
-                            <!-- <c:out value="${ordemdeservico.status}" /> -->
+                            <c:out value="${ordem.especialidadeId.nome}" />
+                        </p>
+                    </td>
+                    <td>
+                        <p class="fw-normal mb-1">
+                            <span class="badge badge-sm c-status"
+                                  style="background-color:
+                                  <c:choose>
+                                      <c:when test="${ordem.dataFinalizacao eq null}">
+                                          orange
+                                      </c:when>
+                                      <c:otherwise>
+                                          green
+                                      </c:otherwise>
+                                  </c:choose>;">
+                                <c:choose>
+                                    <c:when test="${ordem.dataFinalizacao eq null}">
+                                        Aberta
+                                    </c:when>
+                                    <c:otherwise>
+                                        Finalizada
+                                    </c:otherwise>
+                                </c:choose>
+                            </span>
                         </p>
                     </td>
                 </tr>
             </tbody>
         </table>
     </div>
-
-    <!-- Tabela de materiais retirados ******Historico********** para aquela ordem de serviço -->
+    <br>
+    <div class="container text-left">
+        <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#novoMaterialModal">Novo Material</button>
+    </div>
     <div class="container text-center">
         <div class="row">
+            <!-- Retirada -->
             <div class="col">
                 <h5>Retirada</h5>
                 <div class="container">
-                    <div class="row">
-                        <div class="col-sm-2">
-                            <label for="recipient-name" class="col-form-label">Quantidade</label>                  
-                        </div>
-                        <div class="col-sm-2">
-                            <label for="recipient-name" class="col-form-label">Unidade</label>
-                        </div>
-                        <div class="col-sm-6">
-                            <label for="recipient-name" class="col-form-label">Material</label>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-sm-2">
-                            <input type="number" class="form-control text-bg-light" id="quantidade">
-                        </div>
-                        <div class="col-sm-2">
-                            <input type="text" class="form-control text-bg-light" id="unidade">
-                        </div>
-                        <div class="col-sm-6">
-                            <input type="text" class="form-control text-bg-light" id="Material" >
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-sm-2">
-                            <input type="number" class="form-control text-bg-light" id="quantidade">
-                        </div>
-                        <div class="col-sm-2">
-                            <input type="text" class="form-control text-bg-light" id="unidade">
-                        </div>
-                        <div class="col-sm-6">
-                            <input type="text" class="form-control text-bg-light" id="Material" >
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-sm-2">
-                            <input type="number" class="form-control text-bg-light" id="quantidade">
-                        </div>
-                        <div class="col-sm-2">
-                            <input type="text" class="form-control text-bg-light" id="unidade">
-                        </div>
-                        <div class="col-sm-6">
-                            <input type="text" class="form-control text-bg-light" id="Material" >
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-sm-2">
-                            <input type="number" class="form-control text-bg-light" id="quantidade">
-                        </div>
-                        <div class="col-sm-2">
-                            <input type="text" class="form-control text-bg-light" id="unidade">
-                        </div>
-                        <div class="col-sm-6">
-                            <input type="text" class="form-control text-bg-light" id="Material" >
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-sm-2">
-                            <input type="number" class="form-control text-bg-light" id="quantidade">
-                        </div>
-                        <div class="col-sm-2">
-                            <input type="text" class="form-control text-bg-light" id="unidade">
-                        </div>
-                        <div class="col-sm-6">
+                    <form action="MaterialServlet?action=registraRetiradaMaterial" method="POST"
+                          class="mt-5 submit-jsp">
+                        <div id="table-container">
+                            <div class="row">
+                                <div class="col-sm-2">
+                                    <label for="quantidade" class="col-form-label">Quantidade</label>
+                                </div>
+                                <div class="col-sm-2">
+                                    <label for="unidade" class="col-form-label">Unidade</label>
+                                </div>
+                                <div class="col-sm-6">
+                                    <label for="material" class="col-form-label">Material</label>
+                                </div>
+                                <div class="col-sm-2">
+                                </div>
+                            </div>
+                            <div id="rows-container">
+                                <!-- Existing rows can be added dynamically using JSTL -->
 
-                            <input type="text" class="form-control text-bg-light" id="Material" >
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-sm-2">
-                            <input type="number" class="form-control text-bg-light" id="quantidade">
-                        </div>
-                        <div class="col-sm-2">
-                            <input type="text" class="form-control text-bg-light" id="unidade">
-                        </div>
-                        <div class="col-sm-6">
-                            <input type="text" class="form-control text-bg-light" id="Material" >
-                        </div>
-                    </div>
+                                <div class="row">
+                                    <div class="col-sm-2">
+                                        <input type="number" class="form-control text-bg-light" name="quantidade[]" required>
+                                    </div>
+                                    <div class="col-sm-2">
+                                        <input type="text" class="form-control text-bg-light" name="unidade[]" required>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <select name="material[]" required>
+                                            <option value="">Selecione o Material</option>
+                                            <c:forEach var="material" items="${requestScope.materiais}">
+                                                <option class="list-group-item" value="${material.id}">${material.nome}</option>
+                                            </c:forEach>
+                                        </select>
+                                    </div>
+                                    <div class="col-sm-2">
+                                        <button type="button" class="btn btn-close btn-sm" onclick="deleteRow(this)"></button>
+                                    </div>
+                                </div>
+                                <input type="text" class="form-control text-bg-light" name="ordem" value="${ordem.id}" hidden>
+                                <input type="text" class="form-control text-bg-light" name="nrOS" value="${ordem.numeroOS}" hidden>
+                            </div>
 
-                    <!-- ***************** FOR EACH COMENTÁRIO ************************** -->
-                </div>          
+                            <div class="row">
+                                <div class="col-sm-12 text-start">
+                                    <a href="#" class="btn btn-link" onclick="addRow()">Adicionar Linha</a>
+                                </div>
+                            </div>
+
+                            <!-- Row for buttons -->
+                            <div class="row">
+                                <div class="col-sm-12 text-end">
+                                    <button class="btn btn-secondary">Cancelar</button>
+                                    <button class="btn btn-warning" type="submit">Salvar</button>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+
+                    <script>
+                        function addRow() {
+                            var row = document.createElement("div");
+                            row.className = "row";
+                            row.innerHTML = `
+                          <div class="col-sm-2">
+                            <input type="number" class="form-control text-bg-light" name="quantidade[]" required>
+                          </div>
+                          <div class="col-sm-2">
+                            <input type="text" class="form-control text-bg-light" name="unidade[]" required>
+                          </div>
+                          <div class="col-sm-6">
+                            <select name="material[]" required>
+                              <option value="">Selecione o Material</option>
+                        <c:forEach var="material" items="${requestScope.materiais}">
+                                <option class="list-group-item" value="${material.id}">${material.nome}</option>
+                        </c:forEach>
+                            </select>
+                          </div>
+                          <div class="col-sm-2">
+                            <button type="button" class="btn btn-close btn-sm" onclick="deleteRow(this)"></button>
+                          </div>
+                        `;
+                            document.getElementById("rows-container").appendChild(row);
+                        }
+
+                        function deleteRow(button) {
+                            var row = button.parentNode.parentNode;
+                            row.parentNode.removeChild(row);
+                        }
+                    </script>
+                </div>
             </div>
+
+            <!-- Histórico -->
             <div class="col">
                 <h5>Histórico</h5>
                 <div class="table-secondary">
@@ -193,12 +209,12 @@
                             <tr>
                                 <th>Data e Hora</th>
                                 <th>Operário</th>
-                                <th>Material</th>        
+                                <th>Material</th>
                             </tr>
                         </thead>
                         <tbody data-bs-toggle="modal" data-bs-target="#modalOdermDeServico">
-                            <c:forEach var="chamados" items="${requestScope.ordemdeservico}">                         
-                                <tr>                               
+                            <c:forEach var="chamados" items="${requestScope.ordemdeservico}">
+                                <tr>
                                     <td>
                                         <p class="fw-normal mb-1">
                                             12/08/2022
@@ -220,109 +236,110 @@
                                             Tinta.
                                             <!-- <c:out value="${ordemdeservico.operario.especialidade}" /> -->
                                         </p>
-                                    </td>      
-                                </tr>                    
+                                    </td>
+                                </tr>
                             </c:forEach>
                         </tbody>
                     </table>
                 </div>
             </div>
         </div>
-        <div class="text-left">
-            <button class="btn btn-secondary">Cancelar</button>
-            <button class="btn btn-warning">Salvar</button>
-        </div>
     </div>
-    <div>
-        <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#novoMaterialModal">Novo
-            Material</button>
-    </div>
+
 
 
     <!--********** MODAL Ordem de Serviço**************-->
 
     <div class="modal fade" id="modalOdermDeServico" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
          aria-labelledby="chamadoModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
+        <div class="modal-dialog modal-lg">
             <div class="modal-content">
                 <div class="modal-header">
                     <div class="row">
-                        <div class="col-sm-6">
-                            <div class="w-50">
-                                <p class="text-body-secondary">Ordem de Serviço</p>
-                            </div>
-                        </div>
-                        <div class="col-sm-4">
-                            <p>Id Ordem de Serviço</p>
-                        </div>
-                        <div class="col-sm-2">
-                            <p class="text-center">#20203659</p>
-                        </div>
+                        <h3 class="modal-title text-primary">Ordem de Serviço</h3>
                     </div>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
+
                 <div class="modal-body">
-                    <form>
-                        <div class="container">
-                            <div class="row">
-                                <div class="col-sm-6">
-                                    <label for="recipient-name" class="col-form-label">Campus:</label>
-                                    <input type="text" class="form-control text-bg-light" id="campus-name" readonly>
-                                </div>
-                                <div class="col-sm-6">
-                                    <label for="recipient-name" class="col-form-label">Predio</label>
-                                    <input type="text" class="form-control text-bg-light" id="predio-name" readonly>
-                                </div>
+                    <div class="container">
+                        <div class="row justify-content-end">
+                            <div class="col-sm-4 text-sm-end">
+                                <p class="fw-bold">Nº Ordem de Serviço</p>
                             </div>
-                            <div class="row">
-                                <div class="col-sm-12">
-                                    <label for="message-text" class="col-form-label">Descrição do Local</label>
-                                    <textarea class="form-control text-bg-light" id="local-text" readonly></textarea>
-                                </div>
-                            </div>
-
-                            <div class="row">
-                                <div class="col-sm-12">
-                                    <label for="message-text" class="col-form-label">Descrição do Problema</label>
-                                    <textarea class="form-control text-bg-light" id="problema-text" readonly></textarea>
-                                </div>
-
-                            </div>
-
-                            <div class="row">
-                                <div class="col-sm-4">
-                                    <label for="recipient-name" class="col-form-label">Status</label>
-                                    <input type="text" class="form-control text-bg-light" id="status" readonly>
-                                </div>
-
-
-                                <div class="col-sm-4">
-                                    <label for="recipient-name" class="col-form-label">Data e Hora</label>
-                                    <input type="text" class="form-control text-bg-light" id="Data" readonly>
-                                </div>
-                            </div>
-                            <!-- ***************** FOR EACH COMENTÁRIO ************************** -->
-                            <div class="row">
-                                <div class="col-sm-12">
-                                    <label for="message-text" class="col-form-label">Comentário Operário</label>
-                                    <textarea class="form-control text-bg-light" id="problema-text" readonly></textarea>
-                                </div>
-
+                            <div class="col-sm-4">
+                                <p class="text-center"># <c:out value="${ordem.numeroOS}" /> </p>
                             </div>
                         </div>
-                    </form>
-                </div>
-
-                <div class="modal-footer">
-                    <div class="row text-left">
-                        <div class="col">
-                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"
-                                    aria-label="Close">Fechar</button>
-                            <button type="button" class="btn btn-warning">Cadastrar Material</button>
-                        </div>
-
                     </div>
 
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <label for="recipient-name" class="col-form-label">Campus:</label>
+                                <input type="text" class="form-control text-bg-light" id="campus-name" value ="${ordem.predioId.campusId.nome}" readonly>
+                            </div>
+                            <div class="col-sm-6">
+                                <label for="recipient-name" class="col-form-label">Predio</label>
+                                <input type="text" class="form-control text-bg-light" id="predio-name" value ="${ordem.predioId.nome}" readonly>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <label for="message-text" class="col-form-label">Descrição do Local</label>
+                                <textarea class="form-control text-bg-light" id="local-text" readonly>${ordem.descricaoLocal}</textarea>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <label for="message-text" class="col-form-label">Descrição do Problema</label>
+                                <textarea class="form-control text-bg-light" id="problema-text" readonly>${ordem.descricaoProblema}</textarea>
+                            </div>
+
+                        </div>
+
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <label  class="col-form-label fw-bold ">Data Abertura</label>
+                                <fmt:formatDate value="${ordem.dataAbertura}" pattern="dd/MM/yyyy" var="formattedDate"/>
+                                <input type="text" class="form-control text-bg-light" id="Data" value="${formattedDate}" readonly>
+                            </div>
+                            <div class="col-sm-6">
+                                <label  class="col-form-label fw-bold ">Data Finalização</label>
+                                <fmt:formatDate value="${ordem.dataFinalizacao}" pattern="dd/MM/yyyy" var="formattedDate"/>
+                                <input type="text" class="form-control text-bg-light" id="Data" value="${formattedDate}" readonly>
+                            </div>
+                        </div>
+                        <div class="row py-2">
+                            <div class="col-sm-6">
+                                <label class="col-form-label fw-bold ">Especialidade:</label>
+                                <input type="text" class="form-control text-bg-light" id="campus-name" value ="${ordem.especialidadeId.nome}" readonly>
+                            </div>
+                            <div class="col-sm-6">
+                                <label class="col-form-label fw-bold ">Operário</label>
+                                <input type="text" class="form-control text-bg-light" id="predio-name" value ="${ordem.usuarioOperarioId.nome}" readonly>
+                            </div>
+                        </div>
+
+                        <div class="row py-2">
+                            <div class="col-sm-12">
+                                <label class="col-form-label fw-bold ">Comentário Operário</label>
+                                <c:forEach var="comentario" items="${requestScope.comentarios}">
+                                    <c:if test="${comentario.ordemServicoId.id == ordem.id }">
+                                        <textarea class="form-control text-bg-light" id="problema-text" readonly><fmt:formatDate value="${comentario.dataHora}" pattern="dd/MM/yyyy HH:mm:ss" var="formattedDateTime"/><c:out value="${formattedDateTime} : ${comentario.descricao} " /></textarea>
+                                    </c:if>
+                                </c:forEach>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <div class="row text-left py-2">
+                        <div class="col-sm-4">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" aria-label="Close">Fechar</button>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -332,58 +349,49 @@
 
     <div class="modal fade" id="novoMaterialModal" data-bs-keyboard="false" tabindex="-1"
          aria-labelledby="novoMaterialModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
+        <div class="modal-dialog modal-lg modal-dialog-scrollable">
             <div class="modal-content">
                 <div class="modal-header">
                     <div class="row">
-                        <div class="col">
-                            <div class="w-50">
-                                <p class="text-body-secondary">Novo Material</p>
-                            </div>
-                        </div>
-                    </div>
-
+                        <h3 class="modal-title text-primary">CADASTRO DE MATERIAL</h3>
+                    </div>                    
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 
                 </div>
 
                 <div class="modal-body">
-                    <form>
-
+                    <form action="MaterialServlet?action=novoMaterial" method="POST">
                         <div class="container">
-
-                            <div class="row">
+                            <p>Digite abaixo o nome do novo material.</p>
+                            <div class="row py-3">
                                 <div class="col-12">
-                                    <label for="recipient-name" class="col-form-label">Nome do Material</label>
-                                    <input type="text" class="form-control text-bg-light" id="material-name">
+                                    <label for="recipient-name" class="col-form-label fw-bold">Nome do Material</label>
+                                    <input type="text" class="form-control text-bg-light"  id="material-name" name="nome" required>
                                 </div>
                             </div>
-
-                            <!-- ***************** for each lista de materiais ************************** -->
-                            <div >
-
+                            <div class=" p-3" >
+                                <div class="row">
+                                    <p class="text-danger">Verifique na lista abaixo se o material já está cadastrado</p>
+                                </div>  
                                 <label for="message-text" class="col-form-label">Materiais Cadastrados</label>
-                                <ul class="list-group">
-                                    <li class="list-group-item">Tijolo Tipo A</li>
-                                    <li class="list-group-item">Tijolo Tipo B</li>
-                                    <li class="list-group-item">Tijolo Tipo C</li>
-                                    <li class="list-group-item">Tijolo Tipo D</li>
-                                    <li class="list-group-item">A third item</li>
-                                    <li class="list-group-item">A fourth item</li>
-                                    <li class="list-group-item">And a fifth one</li>
-                                </ul>
-
+                                <c:forEach var="material" items="${requestScope.materiais}">
+                                    <ul class="list-group">
+                                        <li class="list-group-item">${material.nome}</li>
+                                    </ul>
+                                </c:forEach>
                             </div>
+                        </div>
+
+                        <div class="modal-footer">
+                            <div class="row text-left">
+                                <div class="col">
+                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"
+                                            aria-label="Close">Cancelar</button>
+                                    <button type="submit" class="btn btn-warning fw-bold">Salvar Material</button>
+                                </div>
+                            </div>
+                        </div>
                     </form>
-                </div>
-            </div>
-            <div class="modal-footer">
-                <div class="row text-left">
-                    <div class="col">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"
-                                aria-label="Close">Cancelar</button>
-                        <button type="button" class="btn btn-warning">Salvar Material</button>
-                    </div>
                 </div>
             </div>
         </div>

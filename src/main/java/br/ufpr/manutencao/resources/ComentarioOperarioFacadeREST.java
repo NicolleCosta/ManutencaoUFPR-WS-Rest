@@ -4,7 +4,6 @@
  */
 package br.ufpr.manutencao.resources;
 
-
 import br.ufpr.manutencao.beans.ComentarioOperario;
 import br.ufpr.manutencao.beans.OrdemServico;
 import br.ufpr.manutencao.dto.ComentarioOperarioDTO;
@@ -91,11 +90,12 @@ public class ComentarioOperarioFacadeREST extends AbstractFacade<ComentarioOpera
     protected EntityManager getEntityManager() {
         return em;
     }
-    
+
+    // em uso tbm no web -> funcionando caso precise ver a facade
     @GET
     @Path("/listarComentarioPorIdOS/{id}")
-     @Consumes({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
-    public List<ComentarioOperarioDTO> listarComentariosPorId(@PathParam("id") Integer id){
+    @Consumes({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
+    public List<ComentarioOperarioDTO> listarComentariosPorId(@PathParam("id") Integer id) {
         //OrdemServico ordemServico = new OrdemServico();
         //ordemServico.setId(ordemservicoId);
         //ComentarioOperario comentarioOperario = new ComentarioOperario();
@@ -105,13 +105,13 @@ public class ComentarioOperarioFacadeREST extends AbstractFacade<ComentarioOpera
         List<ComentarioOperario> comentarioOperario = new ArrayList<>();
         comentarioOperario = query.getResultList();
         List<ComentarioOperarioDTO> comentarioOperarioDTO = new ArrayList<>();
-        
-        for (ComentarioOperario c: comentarioOperario) {
+
+        for (ComentarioOperario c : comentarioOperario) {
             ComentarioOperarioDTO dto = new ComentarioOperarioDTO();
             ObjectMapper mapper = new ObjectMapper();
             dto = mapper.convertValue(c, ComentarioOperarioDTO.class);
             comentarioOperarioDTO.add(dto);
-            }
+        }
         return comentarioOperarioDTO;
     }
 

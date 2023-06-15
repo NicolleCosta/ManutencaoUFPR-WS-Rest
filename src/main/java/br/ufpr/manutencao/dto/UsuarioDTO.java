@@ -28,6 +28,10 @@ public class UsuarioDTO{
     public UsuarioDTO() {
     }
 
+    public UsuarioDTO(Integer id) {
+        this.id = id;
+    }
+
     public UsuarioDTO(Integer id, String nome, String cpf, String telefone, String email, String senha, Boolean bloqueio, EspecialidadeDTO especialidadeId, TipoUsuarioDTO tipoUsuarioId) {
         this.id = id;
         this.nome = nome;
