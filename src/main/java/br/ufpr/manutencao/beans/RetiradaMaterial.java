@@ -32,7 +32,9 @@ import jakarta.persistence.TemporalType;
     @NamedQuery(name = "RetiradaMaterial.findById", query = "SELECT r FROM RetiradaMaterial r WHERE r.id = :id"),
     @NamedQuery(name = "RetiradaMaterial.findByQuantidade", query = "SELECT r FROM RetiradaMaterial r WHERE r.quantidade = :quantidade"),
     @NamedQuery(name = "RetiradaMaterial.findByUnidade", query = "SELECT r FROM RetiradaMaterial r WHERE r.unidade = :unidade"),
-    @NamedQuery(name = "RetiradaMaterial.findByDataHora", query = "SELECT r FROM RetiradaMaterial r WHERE r.dataHora = :dataHora")})
+    @NamedQuery(name = "RetiradaMaterial.findByDataHora", query = "SELECT r FROM RetiradaMaterial r WHERE r.dataHora = :dataHora"),
+    @NamedQuery(name = "RetiradaMaterial.listaRetiradaPorIdOS", query = "SELECT r FROM RetiradaMaterial r WHERE r.ordemServicoId = :idOS ORDER BY r.dataHora ASC ")
+})
 public class RetiradaMaterial implements Serializable {
 
     private static final long serialVersionUID = 1L;

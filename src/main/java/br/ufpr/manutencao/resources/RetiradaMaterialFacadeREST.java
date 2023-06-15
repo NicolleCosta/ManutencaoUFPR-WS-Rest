@@ -9,9 +9,11 @@ import br.ufpr.manutencao.beans.OrdemServico;
 import br.ufpr.manutencao.beans.RetiradaMaterial;
 import br.ufpr.manutencao.beans.Usuario;
 import br.ufpr.manutencao.dto.RetiradaMaterialDTO;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import java.util.List;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
+import jakarta.persistence.TypedQuery;
 import jakarta.ws.rs.Consumes;
 import jakarta.ws.rs.DELETE;
 import jakarta.ws.rs.GET;
@@ -21,6 +23,7 @@ import jakarta.ws.rs.Path;
 import jakarta.ws.rs.PathParam;
 import jakarta.ws.rs.Produces;
 import jakarta.ws.rs.core.MediaType;
+import java.util.ArrayList;
 
 /**
  *
@@ -81,6 +84,28 @@ public class RetiradaMaterialFacadeREST extends AbstractFacade<RetiradaMaterial>
     public void remove(@PathParam("id") Integer id) {
         super.remove(super.find(id));
     }
+    
+    @GET
+    @Path("/listaRetiradaPorIdOS/{id}")
+    @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
+    public List<RetiradaMaterialDTO> findAll(@PathParam("id") Integer id) {
+        System.out.println("entrou aqui");
+        OrdemServico ordem = new OrdemServico();
+        ordem.setId(id);
+        TypedQuery<RetiradaMaterial> query = em.createNamedQuery("RetiradaMaterial.listaRetiradaPorIdOS", RetiradaMaterial.class);
+        query.setParameter("idOS", ordem);
+        List<RetiradaMaterial> retiradas = query.getResultList();
+        List<RetiradaMaterialDTO> retiradaDTO = new ArrayList<>();
+        System.out.println(retiradas);
+        for (RetiradaMaterial r : retiradas) {
+            RetiradaMaterialDTO dto = new RetiradaMaterialDTO();
+            ObjectMapper mapper = new ObjectMapper();
+            dto = mapper.convertValue(r, RetiradaMaterialDTO.class);
+            retiradaDTO.add(dto);
+        }
+        return retiradaDTO;
+    }
+    
 
     @GET
     @Path("{id}")
