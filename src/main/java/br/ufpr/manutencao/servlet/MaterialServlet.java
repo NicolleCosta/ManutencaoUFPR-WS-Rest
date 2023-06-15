@@ -64,7 +64,7 @@ public class MaterialServlet extends HttpServlet {
                         List<ComentarioOperarioDTO> comentarios = ComentarioOperarioFacade.buscarComentarioPorId(ordemServico.getId());
                         List<MaterialDTO> materiais = MaterialFacade.buscarMateriais();
                         Collections.sort(materiais, Comparator.comparing(MaterialDTO::getNome));
-                        List<RetiradaMaterialDTO> retiradas = RetiradaMaterialFacade.buscarRetiradas();
+                        List<RetiradaMaterialDTO> retiradas = RetiradaMaterialFacade.buscarRetiradasIdOS(ordemServico.getId());
 
                         //add objetos/listas
                         request.setAttribute("retiradas", retiradas);
