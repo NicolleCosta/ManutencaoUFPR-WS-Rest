@@ -17,6 +17,11 @@ public class MaterialDTO {
     public MaterialDTO() {
     }
 
+    public MaterialDTO(Integer id) {
+        this.id = id;
+    }
+    
+
     public MaterialDTO(Integer id, String nome) {
         this.id = id;
         this.nome = nome;

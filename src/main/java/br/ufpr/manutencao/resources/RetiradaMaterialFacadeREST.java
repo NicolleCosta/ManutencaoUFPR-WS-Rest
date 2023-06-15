@@ -4,8 +4,11 @@
  */
 package br.ufpr.manutencao.resources;
 
-
+import br.ufpr.manutencao.beans.Material;
+import br.ufpr.manutencao.beans.OrdemServico;
 import br.ufpr.manutencao.beans.RetiradaMaterial;
+import br.ufpr.manutencao.beans.Usuario;
+import br.ufpr.manutencao.dto.RetiradaMaterialDTO;
 import java.util.List;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
@@ -39,6 +42,31 @@ public class RetiradaMaterialFacadeREST extends AbstractFacade<RetiradaMaterial>
     @Consumes({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
     public void create(RetiradaMaterial entity) {
         super.create(entity);
+    }
+
+    @POST
+    @Path("/create")
+    @Consumes(MediaType.APPLICATION_JSON)
+    public void createBatch(List<RetiradaMaterialDTO> entities) {
+        for (RetiradaMaterialDTO dto : entities) {
+            RetiradaMaterial entity = new RetiradaMaterial();
+            entity.setQuantidade(dto.getQuantidade());
+            entity.setUnidade(dto.getUnidade());
+
+            Material material = new Material();
+            material.setId(dto.getMaterialId().getId());
+            entity.setMaterialId(material);
+
+            OrdemServico ordemServico = new OrdemServico();
+            ordemServico.setId(dto.getOrdemServicoId().getId());
+            entity.setOrdemServicoId(ordemServico);
+
+            Usuario usuario = new Usuario();
+            usuario.setId(dto.getUsuarioId().getId());
+            entity.setUsuarioId(usuario);
+
+            super.create(entity);
+        }
     }
 
     @PUT
@@ -86,5 +114,5 @@ public class RetiradaMaterialFacadeREST extends AbstractFacade<RetiradaMaterial>
     protected EntityManager getEntityManager() {
         return em;
     }
-    
+
 }
