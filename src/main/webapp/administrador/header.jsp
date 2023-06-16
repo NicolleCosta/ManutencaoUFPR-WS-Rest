@@ -55,7 +55,7 @@
                 <a class="nav-link" href="ChamadoServlet?action=mostrarChamados"><button type="button" class="btn btn-warning fw-bold btn-lg">Chamados</button></a>
             </div>
             <div class="col-md-auto">
-                <a class="nav-link" href="OrdemDeServicoServlet?action=mostrarOrdemDeServico"><button type="button" class="btn btn-warning fw-bold btn-lg ">Ordem de Serviço</button></a>
+                <a class="nav-link" href="OrdemDeServicoServlet?action=mostrarOrdemDeServico"><button type="button" class="btn btn-warning fw-bold btn-lg">Ordem de Serviço</button></a>
             </div>
 
             <div class="col-md-auto">

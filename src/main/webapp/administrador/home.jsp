@@ -153,10 +153,10 @@
                             <th></th>
                         </tr>
                     </thead>
-                    <tbody data-bs-toggle="modal" data-bs-target="#chamadoEmAndamentoModal">
+                    <tbody>
                         <c:forEach var="chamados" items="${requestScope.listaChamadosDesc}">
                             <c:if test="${not empty chamados.ordemServicoId}">
-                                <tr>
+                                <tr data-bs-toggle="modal" data-bs-target="#chamadoEmAndamentoModal${chamados.id}">
                                     <td>
                                         <p class="fw-normal mb-1">
                                             <c:out value="${chamados.id}"/>
@@ -199,7 +199,7 @@
                                         </span>
                                     </td>
                                     <td>
-                                        <button  type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#chamadoEmAndamentoModal<c:out value="${chamados.id}"/>">
+                                        <button  type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#chamadoEmAndamentoModal${chamados.id}">
                                             Detalhes
                                         </button>
                                     </td>
@@ -310,7 +310,7 @@
 
     <!--********** MODAL CHAMADO EM ANDAMENTO / COM ORDEM DE SERVIÇO ASSOCIADA **************-->
     <c:forEach var="chamados" items="${requestScope.listaChamadosDesc}">
-        <div class="modal fade" id="chamadoEmAndamentoModal<c:out value="${chamados.id}"/>" data-bs-keyboard="false" tabindex="-1" aria-labelledby="chamadoEmAndamentoModalLabel"
+        <div class="modal fade" id="chamadoEmAndamentoModal${chamados.id}" data-bs-keyboard="false" tabindex="-1" aria-labelledby="chamadoEmAndamentoModalLabel"
              aria-hidden="true">
 
             <div class="modal-dialog modal-lg">
