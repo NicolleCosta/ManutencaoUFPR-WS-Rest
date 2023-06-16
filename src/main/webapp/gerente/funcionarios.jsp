@@ -70,9 +70,10 @@
                         <th></th>
                     </tr>
                 </thead>
-                <tbody data-bs-toggle="modal" data-bs-target="#modalFuncionario">
+                <tbody>
                     <c:forEach var="funcionario" items="${requestScope.funcionarios}">
-                        <tr>
+                        <tr data-bs-toggle="modal"
+                        data-bs-target="#modalFuncionario<c:out value="${funcionario.id}"/>">
                             <td>
                                 <p class="fw-normal mb-1">
                                     <c:out value="${funcionario.nome}" />
