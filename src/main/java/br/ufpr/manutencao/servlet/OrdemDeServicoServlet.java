@@ -99,8 +99,9 @@ public class OrdemDeServicoServlet extends HttpServlet {
                         System.out.println("entrou na novaOrdemServico");
 
                         int idChamado = Integer.parseInt(request.getParameter("idChamado"));
+                        System.out.println("idChamado:"+idChamado);
 
-                        String descricaoLocal = request.getParameter("descricaoLocal");
+                          String descricaoLocal = request.getParameter("descricaoLocal");
                         String descricaoProblema = request.getParameter("descricaoProblema");
                         String numeroOS = request.getParameter("numeroOS");
                         int especialidade = Integer.parseInt(request.getParameter("especialidade"));
@@ -115,7 +116,6 @@ public class OrdemDeServicoServlet extends HttpServlet {
                         ordem.setPredioId(new PredioDTO(predio));
 
                         System.out.println(ordem);
-
                         
                         // Adicionar a ordem de serviço
                         OrdemServicoFacade.adicionarOS(ordem);
@@ -124,13 +124,11 @@ public class OrdemDeServicoServlet extends HttpServlet {
                         //buscar Ordem Servico
                         OrdemServicoDTO ordemServico = OrdemServicoFacade.buscarOS(numeroOS);
                     
-                        
 
                         // Verificar se a ordem de serviço foi adicionada com sucesso
                         if (ordemServico != null) {
 
                             // Associar a ordem de serviço ao chamado
-                            
                             ChamadoFacade.associarChamado(idChamado, ordemServico);
 
                             //redireciona
