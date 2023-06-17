@@ -46,8 +46,8 @@
         <div class="row p-3">
             <div class="col-6">
                 <form class="d-flex" role="search">
-                    <input class="form-control me-2" type="search" placeholder="Buscar Funcionário" aria-label="Search">
-                    <button class="btn btn-warning" type="submit" >Buscar</button>
+                    <input id="searchInput" class="form-control me-2" type="search" placeholder="Buscar Funcionário" aria-label="Search">
+                    <button class="btn btn-primary fw-bold search-button" type="submit" >Buscar</button>
                 </form>
             </div>
             <div class="col-6">
@@ -60,7 +60,7 @@
             </div>
         </div>
 
-        <div class="table-secondary">
+        <div class="table-secondary table-sm p-3 text-center">
             <table class="table align-middle mb-0 bg-white table-hover">
                 <thead class="bg-light">
                     <tr>
@@ -73,7 +73,7 @@
                 <tbody>
                     <c:forEach var="funcionario" items="${requestScope.funcionarios}">
                         <tr data-bs-toggle="modal"
-                        data-bs-target="#modalFuncionario<c:out value="${funcionario.id}"/>">
+                            data-bs-target="#modalFuncionario<c:out value="${funcionario.id}"/>">
                             <td>
                                 <p class="fw-normal mb-1">
                                     <c:out value="${funcionario.nome}" />
@@ -407,6 +407,7 @@
             </div>
         </div>
     </form>
-
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="js/main.js"></script>
 </body>
 </html>
