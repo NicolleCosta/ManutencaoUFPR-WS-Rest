@@ -48,8 +48,8 @@
                     <div class="row justify-content-center p-3">
                         <div class="col-md-8">
                             <form class="d-flex" role="search">
-                                <input class="form-control me-2" type="search" placeholder="Buscar Ordem de Serviço" aria-label="Search">
-                                <button class="btn btn-warning fw-bold" type="submit">Buscar</button>
+                                <input id="searchInput" class="form-control me-2" type="search" placeholder="Buscar Ordem de Serviço" aria-label="Search">
+                                <button class="btn btn-primary fw-bold search-button" type="submit">Buscar</button>
                             </form>
                         </div>
                         <div class="col d-grid gap-2 d-md-flex justify-content-md-end">               
@@ -266,22 +266,24 @@
                                         <li class="list-group-item">${material.nome}</li>
                                     </ul>
                                 </c:forEach>
-                                </div>
                             </div>
+                        </div>
 
-                            <div class="modal-footer">
-                                <div class="row text-left">
-                                    <div class="col">
-                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"
-                                                aria-label="Close">Cancelar</button>
-                                        <button type="submit" class="btn btn-warning fw-bold">Salvar Material</button>
-                                    </div>
+                        <div class="modal-footer">
+                            <div class="row text-left">
+                                <div class="col">
+                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"
+                                            aria-label="Close">Cancelar</button>
+                                    <button type="submit" class="btn btn-warning fw-bold">Salvar Material</button>
                                 </div>
                             </div>
-                        </form>
-                    </div>
+                        </div>
+                    </form>
                 </div>
             </div>
         </div>
-    </body>
+    </div>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="js/main.js"></script>
+</body>
 </html>

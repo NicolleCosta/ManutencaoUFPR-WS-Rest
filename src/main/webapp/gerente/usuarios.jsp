@@ -46,14 +46,14 @@
         <div class="row">
             <div class="col-sm-8">
                 <form class="d-flex" role="search">
-                    <input class="form-control me-2" type="search" placeholder="Buscar Usuario" aria-label="Search">
-                    <button class="btn btn-warning" type="submit">Buscar</button>
+                    <input  id="searchInput" class="form-control me-2" type="search" placeholder="Buscar Usuário" aria-label="Search">
+                    <button class="btn btn-primary fw-bold search-button" type="submit">Buscar</button>
                 </form>
             </div>
         </div>
     </div>
 
-    <div class="table-secondary">
+    <div class="table-secondary table-sm p-3 text-center">
         <table class="table align-middle mb-0 bg-white table-hover">
             <thead class="bg-light">
                 <tr>
@@ -162,8 +162,8 @@
                     <div class="modal-footer">
                         <button type="button" class="btn btn-warning" data-bs-toggle="modal"
                                 data-bs-target="#modalDesbloqueio<c:out value="${usuario.id}"/>" <c:if test="${usuario.bloqueio==false}"> disabled </c:if>>Desbloquear</button>
-                        <button type="button" class="btn btn-danger" data-bs-toggle="modal"
-                                data-bs-target="#modalBloqueio${usuario.id}" <c:if test="${usuario.bloqueio == true}">disabled </c:if>>Bloquear</button>
+                                <button type="button" class="btn btn-danger" data-bs-toggle="modal"
+                                        data-bs-target="#modalBloqueio${usuario.id}" <c:if test="${usuario.bloqueio == true}">disabled </c:if>>Bloquear</button>
                                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
                         </div>
                     </div>
@@ -197,5 +197,7 @@
         </div>
     </c:forEach>
 
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="js/main.js"></script>
 </body>
 </html>
