@@ -136,7 +136,7 @@
                                         </div>
 
                                         <div class="col-6">
-                                            <div class="card p-3 text-bg-secondary">
+                                            <div class="card p-3 text-bg-primary">
                                                 <h5 class="card-title">Ordens de Serviço</h5>
                                                 <div class="row">
                                                     <div class="col-6 p-2">

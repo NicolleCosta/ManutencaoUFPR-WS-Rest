@@ -32,7 +32,11 @@
 
         <!-- Configurações da pagina (fim do head) e Cabeçalho da página -->
         <%@include file="header.jsp" %>
+
+
         <!-- Corpo da página -->
+<div class="container text-center">
+    
     <div class="w-100 p-3">
         <c:if test="${requestScope.info != null || param.info != null}">
             <div class="alert alert-success alert-dismissible fade show">
@@ -40,14 +44,14 @@
                 <span>${requestScope.info == null ? param.info : requestScope.info}</span>
             </div>
         </c:if>
-        <h1 class="text-center">Usuários</h1>
+        <h1 class="text-primary text-center fw-bold">Usuários</h1>
     </div>
     <div class="container text-center">
-        <div class="row">
-            <div class="col-sm-8">
+        <div class="row p-3">
+            <div class="col-6">
                 <form class="d-flex" role="search">
                     <input class="form-control me-2" type="search" placeholder="Buscar Usuario" aria-label="Search">
-                    <button class="btn btn-warning" type="submit">Buscar</button>
+                    <button class="btn btn-warning fw-bold" type="submit">Buscar</button>
                 </form>
             </div>
         </div>
@@ -96,7 +100,7 @@
             </tbody>
         </table>
     </div>
-
+</div>
     <!--********** MODAL USUARIO**************-->
     <c:forEach var="usuario" items="${requestScope.usuarios}">
         <div class="modal fade" id="modalUsuario${usuario.id}" data-bs-backdrop="static" data-bs-keyboard="false"
@@ -104,23 +108,22 @@
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="modalUsuarioLabel">Usuário</h5>
+                        <h3 class="modal-title text-primary">Usuário</h3>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
-                        <div class="container text-right">
-                            <div class="row row-cols-2">
-                                <div class="col">
-                                    <p>id Usuário</p>
-                                </div>
-                                <div class="col">
-                                    <p># ${usuario.id}</p>
-                                </div>
+                        <div class="row justify-content-end">
+                            <div class="col-sm-4 text-sm-end">
+                                <p class="fw-bold">ID Usuário</p>
+                            </div>
+                            <div class="col-sm-4">
+                                <input type="text"id="operarioID" class="form-control text-bg-light" value="${usuario.id}" readonly>
                             </div>
                         </div>
+                        
                         <div class="container">
                             <div class="row">
-                                <div>Nome</div>
+                                <label class="fw-bold col-form-label">Nome</label>
                                 <div>
                                     <input type="text" class="form-control text-bg-light" id="nome" readonly
                                            value="${usuario.nome}">
@@ -128,17 +131,17 @@
                             </div>
                             <div class="row row-cols-3">
                                 <div class="col">
-                                    <p>CPF</p>
+                                    <label class="fw-bold col-form-label">CPF</label>
                                     <input type="text" class="form-control text-bg-light" id="cpf" readonly
                                            value="${usuario.cpf}">
                                 </div>
                                 <div class="col">
-                                    <p>Telefone</p>
+                                    <label class="fw-bold col-form-label">Telefone</label>
                                     <input type="text" class="form-control text-bg-light" id="telefone" readonly
                                            value="${usuario.telefone}">
                                 </div>
                                 <div class="col">
-                                    <label>Situação</label>
+                                    <label class="fw-bold col-form-label">Situação</label>
                                     <c:choose>
                                         <c:when test="${usuario.bloqueio eq 'false'}">
                                             <c:set var="status" value="Ativo" />
@@ -151,7 +154,7 @@
                                 </div>
                             </div>
                             <div class="row">
-                                <div>Email</div>
+                                <label class="fw-bold col-form-label">E-mail</label>
                                 <div>
                                     <input type="text" class="form-control text-bg-light" id="email" readonly
                                            value="${usuario.email}">

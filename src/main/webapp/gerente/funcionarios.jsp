@@ -47,7 +47,7 @@
             <div class="col-6">
                 <form class="d-flex" role="search">
                     <input class="form-control me-2" type="search" placeholder="Buscar Funcionário" aria-label="Search">
-                    <button class="btn btn-warning" type="submit" >Buscar</button>
+                    <button class="btn btn-warning fw-bold" type="submit" >Buscar</button>
                 </form>
             </div>
             <div class="col-6">
@@ -119,7 +119,7 @@
     <c:forEach var="funcionario" items="${requestScope.funcionarios}">
         <div class="modal fade" id="modalFuncionario<c:out value="${funcionario.id}"/>" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
              aria-labelledby="modalFuncionarioLabel" aria-hidden="true">
-            <div class="modal-dialog modal-lg modal-dialog-centered modal-dialog-scrollable">
+            <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
                 <div class="modal-content">
                     <div class="modal-header">
                         <h3 class="modal-title text-primary">Funcionário</h3>
@@ -262,18 +262,21 @@
                                         <input type="text" class="form-control text-bg-light" id="email" name="email" value="${funcionario.email}" required>
                                     </div>
                                 
-                                    <div class="py-3">
-                                        <label class="fw-bold">Cargo</label>
-                                        <div class="row">
-                                        <c:forEach var="tipoUsuario" items="${requestScope.tiposUsuario}">
-                                            <c:if test="${tipoUsuario.nome != 'usuario' &&  tipoUsuario.nome != 'operario'}">
-                                                <div class="col">
-                                                <br><input type="radio" name="tipoUsuario" value="${tipoUsuario.id}"  <c:if test="${funcionario.tipoUsuarioId.id == tipoUsuario.id}"> checked="checked"</c:if> required>
-                                                ${tipoUsuario.nome} <br>
-                                            </div>
-                                            </c:if>
-                                        </c:forEach>
-                                    </div>
+                                    <label class="fw-bold col-form-label">Cargo</label>
+                                    <div class="row">
+                                        <div class="col-6">
+                                            <ul class="list-group">
+        
+                                                <c:forEach var="tipoUsuario" items="${requestScope.tiposUsuario}">
+                                                    <c:if test="${tipoUsuario.nome != 'usuario' &&  tipoUsuario.nome != 'operario'}">
+                                                        <li class="list-group-item">
+                                                            <input class="form-check-input me-1" type="radio" name="tipoUsuario" value="${tipoUsuario.id}"  <c:if test="${funcionario.tipoUsuarioId.id == tipoUsuario.id}"> checked="checked"</c:if> required>
+                                                            ${tipoUsuario.nome} 
+                                                        </li>
+                                                    </c:if>
+                                                </c:forEach>
+                                            </ul>
+                                        </div>
                                     </div>
                             </div>
                             </div>
@@ -361,50 +364,57 @@
             <div class="modal-dialog modal-lg modal-dialog-centered modal-dialog-scrollable">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h1 class="modal-title fs-5" id="modalOperario">Novo Funcionário</h1>
+                        <h3 class="modal-title text-primary">Novo Funcionário</h3>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
                         <div class="container">
                             <div class="row">
-                                <div>Nome</div>
+                                <label class="fw-bold col-form-label">Nome</label>
                                 <div>
                                     <input type="text" class="form-control text-bg-light" id="nome" name="nome" required>
                                 </div>
 
                                 <div class="container text-right">
-                                    <div class="row row-cols-3">
+                                    <div class="row row-cols-2">
                                         <div class="col">
-                                            <label>CPF</label>
+                                            <label class="fw-bold col-form-label">CPF</label>
                                             <input type="text" class="form-control text-bg-light" id="cpf" name="cpf" required>
                                         </div>
                                         <div class="col">
-                                            <label>Telefone</label>
+                                            <label class="fw-bold col-form-label">Telefone</label>
                                             <input type="text" class="form-control text-bg-light" id="telefone" name="telefone" required>
                                         </div>
                                     </div>
                                 </div>
                                 <div>
-                                    <label>Email</label>
+                                    <label class="fw-bold col-form-label">E-mail</label>
                                     <input type="text" class="form-control text-bg-light" id="email" name="email" required>
                                 </div>
                             </div>
-                        </div>
-                        <h5 class="p-3"> Cargo </h5>
-                        <div class="d-grid gap-2 d-md-flex justify-content-md-start">
+                        
+                            <label class="fw-bold col-form-label">Cargo</label>
+                            <div class="row">
+                                <div class="col-6">
+                                    <ul class="list-group">
 
-                            <c:forEach var="tipoUsuario" items="${requestScope.tiposUsuario}">
-                                <c:if test="${tipoUsuario.nome != 'usuario' &&  tipoUsuario.nome != 'operario'}">
-                                    <input type="radio" name="tipoUsuario" value="${tipoUsuario.id}"  <c:if test="${funcionario.tipoUsuarioId.id == tipoUsuario.id}"> checked="checked"</c:if> required>
-                                    ${tipoUsuario.nome} 
-                                </c:if>
-                            </c:forEach>
-                        </div>  
+                                        <c:forEach var="tipoUsuario" items="${requestScope.tiposUsuario}">
+                                            <c:if test="${tipoUsuario.nome != 'usuario' &&  tipoUsuario.nome != 'operario'}">
+                                                <li class="list-group-item">
+                                                    <input class="form-check-input me-1" type="radio" name="tipoUsuario" value="${tipoUsuario.id}"  <c:if test="${funcionario.tipoUsuarioId.id == tipoUsuario.id}"> checked="checked"</c:if> required>
+                                                    ${tipoUsuario.nome} 
+                                                </li>
+                                            </c:if>
+                                        </c:forEach>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                     <div class="modal-footer">
 
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-                        <button type="submit" class="btn btn-warning">Salvar</button>
+                        <button type="submit" class="btn btn-warning fw-bold">Salvar</button>
 
                     </div>
                 </div>

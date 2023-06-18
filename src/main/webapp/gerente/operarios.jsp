@@ -34,6 +34,8 @@
         <%@include file="header.jsp" %>
         
                 <!-- Corpo da página -->
+
+<div class="container text-center">
     <div class="w-100 p-3">
         <c:if test="${requestScope.info != null || param.info != null}">
             <div class="alert alert-success alert-dismissible fade show">
@@ -45,9 +47,9 @@
     </div>
     <div class="container text-center">
         <div class="row p-3">
-            <div class="col-4 justify-content-md-end">
+            <div class="col-6 justify-content-md-end">
                 <form class="d-flex" role="search">
-                    <input class="form-control me-2" type="search" placeholder="Buscar Chamado"
+                    <input class="form-control me-2" type="search" placeholder="Buscar Operário"
                         aria-label="Search">
                     <button class="btn btn-warning fw-bold" type="submit">Buscar</button>
                 </form>
@@ -105,7 +107,7 @@
             </tbody>
         </table>
     </div>
-
+</div>
     <!--********** MODAL OPERARIO **************-->
     <c:forEach var="operario" items="${requestScope.operarios}">
         <div class="modal fade" id="modalOperario<c:out value="${operario.id}"/>" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
@@ -113,38 +115,37 @@
             <div class="modal-dialog modal-lg modal-dialog-centered modal-dialog-scrollable">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h1 class="modal-title fs-5" id="modalOperario">Operário</h1>
+                        <h3 class="modal-title text-primary">Operário</h3>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
-                        <div class="container text-right">
-                            <div class="row row-cols-6">
-                                <div class="col">
-                                    <p>id Operário</p>
-                                </div>
-                                <div class="col">
-                                    <p># <c:out value="${operario.id}"/></p>
-                                </div>
+                        <div class="row justify-content-end">
+                            <div class="col-sm-4 text-sm-end">
+                                <p class="fw-bold">ID Operário</p>
+                            </div>
+                            <div class="col-sm-4">
+                                <input type="text"id="operarioID" class="form-control text-bg-light" value="${operario.id}" readonly>
                             </div>
                         </div>
+                        
                         <div class="container">
                             <div class="row">
-                                <div>Nome</div>
+                                <label class="fw-bold col-form-label">Nome</label>
                                 <div>
                                     <input type="text" class="form-control text-bg-light" id="nome" value="${operario.nome}" readonly>
                                 </div>
                                 <div class="container text-right">
                                     <div class="row row-cols-3">
                                         <div class="col">
-                                            <label>CPF</label>
+                                            <label class="fw-bold col-form-label">CPF</label>
                                             <input type="text" class="form-control text-bg-light" id="cpf" value="${operario.cpf}" readonly>
                                         </div>
                                         <div class="col">
-                                            <label>Telefone</label>
+                                            <label class="fw-bold col-form-label">Telefone</label>
                                             <input type="text" class="form-control text-bg-light" id="telefone" value="${operario.telefone}" readonly>
                                         </div>
                                         <div class="col">
-                                            <label>Situação</label>
+                                            <label class="fw-bold col-form-label">Situação</label>
                                             <c:choose>
                                                 <c:when test="${operario.bloqueio eq 'false'}">
                                                     <c:set var="status" value="Ativo" />
@@ -159,16 +160,16 @@
                                     </div>
                                 </div>
                                 <div>
-                                    <label>Email</label>
+                                    <label class="fw-bold col-form-label">E-mail</label>
                                     <input type="text" class="form-control text-bg-light" id="email"  value="${operario.email}" readonly>
                                 </div>
-                                <div class="row row-cols-6">
-                                    <div>
-                                        <label>Especialidade:</label>
-                                    </div>
-                                    <div>
-                                        <p> <c:out value="${operario.especialidadeId.nome}"/></p>
-                                    </div>
+                                <div>
+                                    
+                                    
+                                        <label class="fw-bold col-form-label">Especialidade</label>
+                                        <input type="text" class="form-control text-bg-light" value="${operario.especialidadeId.nome}" readonly>
+                                   
+                                   
                                 </div>
                             </div>
                         </div>
@@ -196,40 +197,38 @@
                     <div class="modal-content">
 
                         <div class="modal-header">
-                            <h1 class="modal-title fs-5" id="modalOperario">Operário</h1>
+                            <h3 class="modal-title text-primary">Operário</h3>
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
 
                         <div class="modal-body">
-                            <div class="container text-right">
-                                <div class="row row-cols-2">
-                                    <div class="col">
-                                        <p>id Operário</p>
-                                    </div>
-                                    <div class="col">
-                                        <p># <c:out value="${operario.id}"/></p>
-                                    </div>
-                                    <input type="text" class="form-control text-bg-light" id="id" name="id" value="${operario.id}" hidden>
+                            <div class="row justify-content-end">
+                                <div class="col-sm-4 text-sm-end">
+                                    <p class="fw-bold">ID Operário</p>
+                                </div>
+                                <div class="col-sm-4">
+                                    <input type="text"id="operarioID" class="form-control text-bg-light" value="${operario.id}" readonly>
                                 </div>
                             </div>
                             <div class="container">
                                 <div class="row">
-                                    <div>Nome</div>
+                                    <label class="fw-bold col-form-label">Nome</label>
                                     <div>
                                         <input type="text" class="form-control text-bg-light" id="nome" name="nome" value="${operario.nome}" required>
                                     </div>
                                     <div class="container text-right">
                                         <div class="row row-cols-3">
                                             <div class="col">
-                                                <label>CPF</label>
+                                                <label class="fw-bold col-form-label">CPF</label>
                                                 <input type="text" class="form-control text-bg-light" id="cpf" name="cpf" value="${operario.cpf}" readonly>
                                             </div>
                                             <div class="col">
-                                                <label>Telefone</label>
+                                                <label class="fw-bold col-form-label">Telefone</label>
                                                 <input type="text" class="form-control text-bg-light" id="telefone" name="telefone" value="${operario.telefone}" required>
                                             </div>
                                             <div class="col">
-                                                <label>Situação</label><c:choose>
+                                                <label class="fw-bold col-form-label">Situação</label>
+                                                <c:choose>
                                                     <c:when test="${operario.bloqueio eq 'false'}">
                                                         <c:set var="status" value="Ativo" />
                                                     </c:when>
@@ -242,19 +241,25 @@
                                         </div>
                                     </div>
                                     <div>
-                                        <label>Email</label>
+                                        <label class="fw-bold col-form-label">E-mail</label>
                                         <input type="text" class="form-control text-bg-light" id="email" name="email" value="${operario.email}" required>
                                     </div>
                                     <div>
-                                        <label>Especialidades</label>
-                                        <br>
-
-                                        <c:forEach var="especialidade" items="${requestScope.especialidades}">
-                                            <c:if test="${especialidade.nome != 'N/A'}">
-                                                <input type="radio" name="especialidade" value="${especialidade.id}"  <c:if test="${operario.especialidadeId != null && operario.especialidadeId.id == especialidade.id}"> checked="checked"</c:if> required>
-                                                ${especialidade.nome} <br>
-                                            </c:if>
-                                        </c:forEach>
+                                        <label class="fw-bold col-form-label py-2">Especialidade</label>
+                                        <div class="row">
+                                            
+                                                <c:forEach var="especialidade" items="${requestScope.especialidades}">
+                                                    <c:if test="${especialidade.nome != 'N/A'}">
+                                                        <div class="col-4">
+                                                            
+                                                                <input  class="form-check-input me-1"  type="radio" name="especialidade" value="${especialidade.id}"  <c:if test="${operario.especialidadeId != null && operario.especialidadeId.id == especialidade.id}"> checked="checked"</c:if> required>
+                                                                ${especialidade.nome} 
+                                                            
+                                                        </div>
+                                                    </c:if>
+                                                </c:forEach>
+                                            
+                                        </div>
 
                                     </div>
                                 </div>
@@ -263,7 +268,7 @@
                         <div class="modal-footer">
 
                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-                            <button type="submit" class="btn btn-warning">Salvar</button>
+                            <button type="submit" class="btn btn-warning fw-bold">Salvar</button>
                         </div>
 
                     </div>
@@ -344,13 +349,13 @@
             <div class="modal-dialog modal-lg modal-dialog-centered modal-dialog-scrollable">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h1 class="modal-title fs-5" id="modalOperario">Novo Operário</h1>
+                        <h3 class="modal-title text-primary">Novo Operário</h3>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
                         <div class="container">
                             <div class="row">
-                                <div>Nome</div>
+                                <label class="fw-bold col-form-label">Nome</label>
                                 <div>
                                     <input type="text" class="form-control text-bg-light" id="nome" name="nome" required>
                                 </div>
@@ -358,27 +363,30 @@
                                 <div class="container text-right">
                                     <div class="row row-cols-2">
                                         <div class="col">
-                                            <label>CPF</label>
+                                            <label class="fw-bold col-form-label">CPF</label>
                                             <input type="text" class="form-control text-bg-light" id="cpf" name="cpf" required>
                                         </div>
                                         <div class="col">
-                                            <label>Telefone</label>
+                                            <label class="fw-bold col-form-label">Telefone</label>
                                             <input type="text" class="form-control text-bg-light" id="telefone" name="telefone" required>
                                         </div>
                                     </div>
                                 </div>
                                 <div>
-                                    <label>Email</label>
+                                    <label class="fw-bold col-form-label">E-mail</label>
                                     <input type="text" class="form-control text-bg-light" id="email" name="email" required>
                                 </div>
                                 <div>
-                                    <label>Especialidades</label>
-                                    <br>
-                                    <c:forEach var="especialidade" items="${requestScope.especialidades}">
-                                        <c:if test="${especialidade.nome != 'N/A'}">
-                                            <input type="radio" name="especialidade" value="${especialidade.id}"> ${especialidade.nome} <br>
-                                        </c:if>
-                                    </c:forEach>
+                                    <label class="fw-bold col-form-label py-2">Especialidade</label>
+                                    <div class="row">
+                                        <c:forEach var="especialidade" items="${requestScope.especialidades}">
+                                            <c:if test="${especialidade.nome != 'N/A'}">
+                                                <div class="col-4">
+                                                    <input class="form-check-input me-1" type="radio" name="especialidade" value="${especialidade.id}"> ${especialidade.nome}
+                                                </div>
+                                            </c:if>
+                                        </c:forEach>
+                                    </div>
 
                                 </div>
                             </div>
@@ -386,7 +394,7 @@
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-                        <button type="submit" class="btn btn-warning">Salvar</button>
+                        <button type="submit" class="btn btn-warning fw-bold">Salvar</button>
                     </div>
                 </div>
             </div>
