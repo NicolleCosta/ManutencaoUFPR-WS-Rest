@@ -40,9 +40,18 @@
 
 
     <!-- Nesta tabela só teremos uma linha, com as informações do chamado que vamos cadastrar os materiais, as informações disponíveis já estão listadas abaixo -->
-    <div class="table-secondary">
-        <table class="table align-middle mb-1 bg-light table-hover">
+    <div class="table-secondary table-sm p-3 text-center">      
+        <table class="table align-middle mb-0 bg-white table-hover p-3">
             <thead class="bg-light">
+                <tr>
+                    <th>N# Ordem</th>
+                    <th>Campus</th>
+                    <th>Prédio</th>
+                    <th>Operário</th>
+                    <th>Especialidade</th>
+                    <th>Status</th>
+                </tr>
+                
             </thead>
             <tbody data-bs-toggle="modal" data-bs-target="#modalOdermDeServico">
                 <tr>
@@ -99,157 +108,161 @@
         </table>
     </div>
     <br>
-    <div class="container text-left">
-        <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#novoMaterialModal">Novo Material</button>
-    </div>
-    <div class="container text-center">
-        <div class="row">
+   
+    
+        <div class="row p-3">
+            
             <!-- Retirada -->
             <div class="col">
-                <h5>Retirada</h5>
-                <div class="container">
-                    <form action="MaterialServlet?action=registraRetiradaMaterial" method="POST"
-                          class="mt-5 submit-jsp">
-                        <div id="table-container">
-                            <div class="row">
-                                <div class="col-sm-2">
-                                    <label for="quantidade" class="col-form-label">Quantidade</label>
-                                </div>
-                                <div class="col-sm-2">
-                                    <label for="unidade" class="col-form-label">Unidade</label>
-                                </div>
-                                <div class="col-sm-6">
-                                    <label for="material" class="col-form-label">Material</label>
-                                </div>
-                                <div class="col-sm-2">
-                                </div>
-                            </div>
-                            <div id="rows-container">
-                                <!-- Existing rows can be added dynamically using JSTL -->
+              
+                <div class="card border-primary mb-3">
+                        <div class="card-header">RETIRADA</div>                 
+                            <form action="MaterialServlet?action=registraRetiradaMaterial" method="POST">
+                                <div id="table-container">
+                                    <div class="row px-3">
+                                        <div class="col-sm-2">
+                                            <label for="quantidade" class="col-form-label">Quantidade</label>
+                                        </div>
+                                        <div class="col-sm-2">
+                                            <label for="unidade" class="col-form-label">Unidade</label>
+                                        </div>
+                                        <div class="col-sm-6">
+                                            <label for="material" class="col-form-label">Material</label>
+                                        </div>
+                                        <div class="col-sm-2">
+                                        </div>
+                                    </div>
+                                    <div id="rows-container">
+                                        <!-- Existing rows can be added dynamically using JSTL -->
 
-                                <div class="row">
+                                        <div class="row px-3 py-2">
+                                            <div class="col-sm-2">
+                                                <input type="number" class="form-control text-bg-light" name="quantidade[]" required>
+                                            </div>
+                                            <div class="col-sm-2">
+                                                <input type="text" class="form-control text-bg-light" name="unidade[]" required>
+                                            </div>
+                                            <div class="col-sm-6">
+                                                <select class="form-select" name="material[]" required>
+                                                  <option value="">Selecione o Material</option>
+                                                  <c:forEach var="material" items="${requestScope.materiais}">
+                                                    <option class="list-group-item" value="${material.id}">${material.nome}</option>
+                                                  </c:forEach>
+                                                </select>
+                                              </div>
+                                            <div class="col-sm-2 text-center">
+                                                <button type="button" class="btn btn-close btn-sm" onclick="deleteRow(this)"></button>
+                                            </div>
+                                        </div>
+                                        <input type="text" class="form-control text-bg-light" name="ordem" value="${ordem.id}" hidden>
+                                        <input type="text" class="form-control text-bg-light" name="nrOS" value="${ordem.numeroOS}" hidden>
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="col-sm-12 text-start">
+                                            <a href="#" class="btn btn-link" onclick="addRow()">Adicionar Linha</a>
+                                        </div>
+                                    </div>
+
+                                    <!-- Row for buttons -->
+                                    <div class="row p-3">
+                                        <div class="col-sm-12 text-end">
+                                            <button class="btn btn-danger fw-bold" data-bs-toggle="modal" data-bs-target="#novoMaterialModal">Novo Material</button>
+                                            <button class="btn btn-dark">Cancelar</button>
+                                            <button class="btn btn-warning fw-bold" type="submit">Salvar</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+
+                            <script>
+                                function addRow() {
+                                    var row = document.createElement("div");
+                                    row.className = "row px-3 py-2";
+                                    row.innerHTML = `
                                     <div class="col-sm-2">
-                                        <input type="number" class="form-control text-bg-light" name="quantidade[]" required>
-                                    </div>
-                                    <div class="col-sm-2">
-                                        <input type="text" class="form-control text-bg-light" name="unidade[]" required>
-                                    </div>
-                                    <div class="col-sm-6">
-                                        <select name="material[]" required>
-                                            <option value="">Selecione o Material</option>
-                                            <c:forEach var="material" items="${requestScope.materiais}">
-                                                <option class="list-group-item" value="${material.id}">${material.nome}</option>
-                                            </c:forEach>
-                                        </select>
-                                    </div>
-                                    <div class="col-sm-2">
-                                        <button type="button" class="btn btn-close btn-sm" onclick="deleteRow(this)"></button>
-                                    </div>
-                                </div>
-                                <input type="text" class="form-control text-bg-light" name="ordem" value="${ordem.id}" hidden>
-                                <input type="text" class="form-control text-bg-light" name="nrOS" value="${ordem.numeroOS}" hidden>
-                            </div>
+                                                <input type="number" class="form-control text-bg-light" name="quantidade[]" required>
+                                            </div>
+                                            <div class="col-sm-2">
+                                                <input type="text" class="form-control text-bg-light" name="unidade[]" required>
+                                            </div>
+                                            <div class="col-sm-6">
+                                                <select class="form-select" name="material[]" required>
+                                                  <option value="">Selecione o Material</option>
+                                                  <c:forEach var="material" items="${requestScope.materiais}">
+                                                    <option class="list-group-item" value="${material.id}">${material.nome}</option>
+                                                  </c:forEach>
+                                                </select>
+                                              </div>
+                                            <div class="col-sm-2 text-center">
+                                                <button type="button" class="btn btn-close btn-sm" onclick="deleteRow(this)"></button>
+                                            </div>
+                                `;
+                                    document.getElementById("rows-container").appendChild(row);
+                                }
 
-                            <div class="row">
-                                <div class="col-sm-12 text-start">
-                                    <a href="#" class="btn btn-link" onclick="addRow()">Adicionar Linha</a>
-                                </div>
-                            </div>
-
-                            <!-- Row for buttons -->
-                            <div class="row">
-                                <div class="col-sm-12 text-end">
-                                    <button class="btn btn-secondary">Cancelar</button>
-                                    <button class="btn btn-warning" type="submit">Salvar</button>
-                                </div>
-                            </div>
-                        </div>
-                    </form>
-
-                    <script>
-                        function addRow() {
-                            var row = document.createElement("div");
-                            row.className = "row";
-                            row.innerHTML = `
-                          <div class="col-sm-2">
-                            <input type="number" class="form-control text-bg-light" name="quantidade[]" required>
-                          </div>
-                          <div class="col-sm-2">
-                            <input type="text" class="form-control text-bg-light" name="unidade[]" required>
-                          </div>
-                          <div class="col-sm-6">
-                            <select name="material[]" required>
-                              <option value="">Selecione o Material</option>
-                        <c:forEach var="material" items="${requestScope.materiais}">
-                                <option class="list-group-item" value="${material.id}">${material.nome}</option>
-                        </c:forEach>
-                            </select>
-                          </div>
-                          <div class="col-sm-2">
-                            <button type="button" class="btn btn-close btn-sm" onclick="deleteRow(this)"></button>
-                          </div>
-                        `;
-                            document.getElementById("rows-container").appendChild(row);
-                        }
-
-                        function deleteRow(button) {
-                            var row = button.parentNode.parentNode;
-                            row.parentNode.removeChild(row);
-                        }
-                    </script>
-                </div>
+                                function deleteRow(button) {
+                                    var row = button.parentNode.parentNode;
+                                    row.parentNode.removeChild(row);
+                                }
+                            </script>
+                        
+                    </div>
+                
             </div>
 
             <!-- Histórico -->
             <div class="col">
-                <h5>Histórico</h5>
-                <div class="table-secondary">
-                    <table class="table align-middle mb-0 bg-white table-hover">
-                        <thead class="bg-light">
-                            <tr>
-                                <th>Data e Hora</th>
-                                <th>Quantidade</th>
-                                <th>Unidade</th>
-                                <th>Material</th>
-                                <th>Almoxarife</th> 
-                            </tr>
-                        </thead>
-                        <tbody data-bs-toggle="modal" data-bs-target="#modalOdermDeServico">
-                            <c:forEach var="retirada" items="${requestScope.retiradas}">
+                <div class="card border-primary mb-3">
+                    <div class="card-header">Histórico</div> 
+                    <div class="table-secondary">
+                        <table class="table align-middle mb-0 bg-white table-hover text-center">
+                            <thead class="bg-light">
                                 <tr>
-                                    <td>
-                                        <p class="fw-normal mb-1">
-                                            <fmt:formatDate value="${retirada.dataHora}" pattern="dd/MM/yyyy - HH:mm" var="formattedDate" />
-                                            <c:out value="${formattedDate}" />
-                                        </p>
-                                    </td>
-                                    <td>
-                                        <p class="fw-normal mb-1">
-                                            <c:out value="${retirada.quantidade}" />
-                                        </p>
-                                    </td>
-                                    <td>
-                                        <p class="fw-normal mb-1">
-                                            <c:out value="${retirada.unidade}" />
-                                        </p>
-                                    </td>
-                                    <td>
-                                        <p class="fw-normal mb-1">
-                                            <c:out value="${retirada.materialId.nome}" />
-                                        </p>
-                                    </td>
-                                    <td>
-                                        <p class="fw-normal mb-1">                    <c:out value="${retirada.usuarioId.nome}" />
-                                        </p>
-                                    </td>
+                                    <th>Data e Hora</th>
+                                    <th>Quantidade</th>
+                                    <th>Unidade</th>
+                                    <th>Material</th>
+                                    <th>Almoxarife</th> 
                                 </tr>
-                            </c:forEach>
-                        </tbody>
-                    </table>
-                </div>
+                            </thead>
+                            <tbody data-bs-toggle="modal" data-bs-target="#modalOdermDeServico">
+                                <c:forEach var="retirada" items="${requestScope.retiradas}">
+                                    <tr>
+                                        <td>
+                                            <p class="fw-normal mb-1">
+                                                <fmt:formatDate value="${retirada.dataHora}" pattern="dd/MM/yyyy - HH:mm" var="formattedDate" />
+                                                <c:out value="${formattedDate}" />
+                                            </p>
+                                        </td>
+                                        <td>
+                                            <p class="fw-normal mb-1">
+                                                <c:out value="${retirada.quantidade}" />
+                                            </p>
+                                        </td>
+                                        <td>
+                                            <p class="fw-normal mb-1">
+                                                <c:out value="${retirada.unidade}" />
+                                            </p>
+                                        </td>
+                                        <td>
+                                            <p class="fw-normal mb-1">
+                                                <c:out value="${retirada.materialId.nome}" />
+                                            </p>
+                                        </td>
+                                        <td>
+                                            <p class="fw-normal mb-1">                    <c:out value="${retirada.usuarioId.nome}" />
+                                            </p>
+                                        </td>
+                                    </tr>
+                                </c:forEach>
+                            </tbody>
+                        </table>
+                    </div>
+                 </div>
             </div>
         </div>
-    </div>
+   
 
 
 
