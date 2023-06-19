@@ -72,7 +72,7 @@
                                 <!-- Login -->
 
 
-                                <div class="justify-content-center p-5">
+                                <div class="justify-content-center p-2">
                                     <!-- Formulário de login -->
                                     <form id="form-login" action="LoginServlet" method="POST"
                                         class=" card align-middle text-center bg-primary">

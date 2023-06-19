@@ -54,71 +54,73 @@
             <div class="row display-table-row">
 
                 <!-- tabela -->
-                <div class="table-secondary table-sm p-3 text-center">
-                    <table class="table align-middle mb-0 bg-white table-hover">
-                        <thead class="bg-light">
-                            <tr>
-                                <th>Ordem de Serviço</th>
-                                <th>Data abertura</th>
-                                <th>Especialidade</th>
-                                <th>Operário</th>
-                                <th>Status</th>
-                                <th>Detalhes</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <c:forEach var="o" items="${requestScope.ordensServico}">
-                                <tr data-bs-toggle="modal" data-bs-target="#modalOrdemDeServico${o.id}">
-                                    <td>
-                                        <p class="fw-normal mb-1">
-                                            <c:out value="${o.numeroOS}"/>
-                                        </p>
-                                    </td>
-                                    <td>
-                                        <p class="fw-normal mb-1">
-                                            <fmt:formatDate value="${o.dataAbertura}" pattern="dd/MM/yyyy"/>
-                                        </p>
-                                    </td>
-                                    <td>
-                                        <p class="fw-normal mb-1">
-                                            <c:out value="${o.especialidadeId.nome}" />
-                                        </p>
-                                    </td>
-                                    <td>
-                                        <p class="fw-normal mb-1">
-                                            <c:out value="${o.usuarioOperarioId.nome}" />
-                                        </p>
-                                    </td>
-                                    <td>
-                                        <span class="badge badge-sm c-status"
-                                              style="background-color:
-                                              <c:choose>
-                                                  <c:when test="${o.dataFinalizacao eq null}">
-                                                      orange
-                                                  </c:when>
-                                                  <c:otherwise>
-                                                      green
-                                                  </c:otherwise>
-                                              </c:choose>;">
-                                            <c:choose>
-                                                <c:when test="${o.dataFinalizacao eq null}">
-                                                    Aberta
-                                                </c:when>
-                                                <c:otherwise>
-                                                    Finalizada
-                                                </c:otherwise>
-                                            </c:choose>
-                                        </span>
-                                    </td>
-                                    <td>
-                                        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalOrdemDeServico${o.id}">
-                                            Detalhes
-                                        </button>
-                                    </td>
+                <div class="table-container" style="max-height: 300px; overflow-y: auto;"></div>
+                    <div class="table-secondary table-sm p-3 text-center">
+                        <table class="table align-middle mb-0 bg-white table-hover">
+                            <thead class="bg-light">
+                                <tr>
+                                    <th>Ordem de Serviço</th>
+                                    <th>Data abertura</th>
+                                    <th>Especialidade</th>
+                                    <th>Operário</th>
+                                    <th>Status</th>
+                                    <th>Detalhes</th>
                                 </tr>
-                            </c:forEach>
-                        </tbody>
-                    </table>
+                            </thead>
+                            <tbody>
+                                <c:forEach var="o" items="${requestScope.ordensServico}">
+                                    <tr data-bs-toggle="modal" data-bs-target="#modalOrdemDeServico${o.id}">
+                                        <td>
+                                            <p class="fw-normal mb-1">
+                                                <c:out value="${o.numeroOS}"/>
+                                            </p>
+                                        </td>
+                                        <td>
+                                            <p class="fw-normal mb-1">
+                                                <fmt:formatDate value="${o.dataAbertura}" pattern="dd/MM/yyyy"/>
+                                            </p>
+                                        </td>
+                                        <td>
+                                            <p class="fw-normal mb-1">
+                                                <c:out value="${o.especialidadeId.nome}" />
+                                            </p>
+                                        </td>
+                                        <td>
+                                            <p class="fw-normal mb-1">
+                                                <c:out value="${o.usuarioOperarioId.nome}" />
+                                            </p>
+                                        </td>
+                                        <td>
+                                            <span class="badge badge-sm c-status"
+                                                style="background-color:
+                                                <c:choose>
+                                                    <c:when test="${o.dataFinalizacao eq null}">
+                                                        orange
+                                                    </c:when>
+                                                    <c:otherwise>
+                                                        green
+                                                    </c:otherwise>
+                                                </c:choose>;">
+                                                <c:choose>
+                                                    <c:when test="${o.dataFinalizacao eq null}">
+                                                        Aberta
+                                                    </c:when>
+                                                    <c:otherwise>
+                                                        Finalizada
+                                                    </c:otherwise>
+                                                </c:choose>
+                                            </span>
+                                        </td>
+                                        <td>
+                                            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalOrdemDeServico${o.id}">
+                                                Detalhes
+                                            </button>
+                                        </td>
+                                    </tr>
+                                </c:forEach>
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
             </div>
         </div>
@@ -184,7 +186,7 @@
                             </div>
                             <div class="row py-2">
                                 <div class="col-sm-6">
-                                    <label class="col-form-label fw-bold ">Especialidade:</label>
+                                    <label class="col-form-label fw-bold ">Especialidade</label>
                                     <input type="text" class="form-control text-bg-light" id="campus-name" value ="${o.especialidadeId.nome}" readonly>
                                 </div>
                                 <div class="col-sm-6">

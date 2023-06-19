@@ -28,18 +28,19 @@
         <meta charset="UTF-8" />
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>Home - Administrador</title>
+        <title>Chamados - Gerente</title>
 
         <!-- Configurações da pagina (fim do head) e Cabeçalho da página -->
 
         <%@include file="header.jsp" %>
         <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-
+        <link rel="stylesheet" href="/src/main/webapp/css/style.css" /> 
+    </head>
         <!-- Corpo da página -->
-    <div class="w-100 p-3">
-        <h1 class="text-primary text-center fw-bold ">Chamados</h1>
+    <div class="w-100">
+        <h1 class="text-primary text-center fw-bold p-2">Chamados</h1>
     </div>
-    <div class="row p-3">
+    <div class="row">
         <div class="col-4 justify-content-md-end">
             <form class="d-flex" role="search">
                 <input id="searchInput" class="form-control me-2" type="search" placeholder="Buscar Chamado"
@@ -53,7 +54,7 @@
 
     <!--**************** Chamados Sem Ordem De Serviço Associada************* -->
 
-    <div class="container-fluid display-table p-3">
+    <div class="container-fluid display-table p-2">
         <div class="row display-table-row">
             <!-- INICIO DE CONTEÚDO  -->
 
@@ -64,71 +65,71 @@
             </div>
 
             <!-- tabela -->
-            <div class="table-secondary table-sm p-3 text-center">
-                <!-- tabela -->
-                <div class="table-secondary">
-                    <table class="table align-middle mb-0 bg-white table-hover">
-                        <thead class="bg-light">
-                            <tr>
-                                <th>ID</th>
-                                <th>Campus</th>
-                                <th>Prédio</th>
-                                <th>Usuário</th>
-                                <th>Data e Hora</th>
-                                <th>Status</th>
-                                <th></th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <c:forEach var="chamado" items="${requestScope.listaChamadosAsc}">
-                                <c:if test="${empty chamado.ordemServicoId}">
-                                    <tr data-bs-toggle="modal" data-bs-target="#chamadoModal<c:out value="${chamado.id}"/>">
-                                        <td>
-                                            <p class="fw-normal mb-1">
-                                                <c:out value="${chamado.id}" />
-                                            </p>
-                                        </td>
-                                        <td>
-                                            <p class="fw-normal mb-1">
-                                                <c:out value="${chamado.predioId.campusId.nome}" />
-                                            </p>
-                                        </td>
-                                        <td>
-                                            <p class="fw-normal mb-1">
-                                                <c:out value="${chamado.predioId.nome}" />
-                                            </p>
-                                        </td>
-                                        <td>
-                                            <p class="fw-normal mb-1">
-                                                <c:out value="${chamado.usuarioId.nome}" />
-                                            </p>
-                                        </td>
-                                        <td>
-                                            <p class="fw-normal mb-1">
-                                                <fmt:formatDate value="${chamado.dataHora}" pattern="dd/MM/yyyy - HH:mm:ss" />
-                                            </p>
-                                        </td>
-                                        <td>
-                                            <span class="badge badge-sm c-status" style="background-color:
-                                                  <c:choose>
-                                                      <c:when test="${chamado.statusId.nome eq 'Aberto'}">orange
-                                                      </c:when>
-                                                      <c:otherwise>green
-                                                      </c:otherwise>
-                                                  </c:choose>;">
-                                                <c:out value="${chamado.statusId.nome}"/>
-                                            </span>
-                                        </td>
-                                        <td>
-                                            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#chamadoModal<c:out value="${chamado.id}"/>">
-                                                Detalhes
-                                            </button>
-                                        </td>
-                                    </tr>
-                                </c:if>
-                            </c:forEach>
-                        </tbody>
-                    </table>
+            <div class="table-container" style="max-height: 300px; overflow-y: auto;">
+                <div class="table-secondary table-sm p-2 text-center">      
+                        <table class="table align-middle mb-0 bg-white table-hover">
+                            <thead class="bg-light">
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Campus</th>
+                                    <th>Prédio</th>
+                                    <th>Usuário</th>
+                                    <th>Data e Hora</th>
+                                    <th>Status</th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <c:forEach var="chamado" items="${requestScope.listaChamadosAsc}">
+                                    <c:if test="${empty chamado.ordemServicoId}">
+                                        <tr data-bs-toggle="modal" data-bs-target="#chamadoModal<c:out value="${chamado.id}"/>">
+                                            <td>
+                                                <p class="fw-normal mb-1">
+                                                    <c:out value="${chamado.id}" />
+                                                </p>
+                                            </td>
+                                            <td>
+                                                <p class="fw-normal mb-1">
+                                                    <c:out value="${chamado.predioId.campusId.nome}" />
+                                                </p>
+                                            </td>
+                                            <td>
+                                                <p class="fw-normal mb-1">
+                                                    <c:out value="${chamado.predioId.nome}" />
+                                                </p>
+                                            </td>
+                                            <td>
+                                                <p class="fw-normal mb-1">
+                                                    <c:out value="${chamado.usuarioId.nome}" />
+                                                </p>
+                                            </td>
+                                            <td>
+                                                <p class="fw-normal mb-1">
+                                                    <fmt:formatDate value="${chamado.dataHora}" pattern="dd/MM/yyyy - HH:mm:ss" />
+                                                </p>
+                                            </td>
+                                            <td>
+                                                <span class="badge badge-sm c-status" style="background-color:
+                                                    <c:choose>
+                                                        <c:when test="${chamado.statusId.nome eq 'Aberto'}">orange
+                                                        </c:when>
+                                                        <c:otherwise>green
+                                                        </c:otherwise>
+                                                    </c:choose>;">
+                                                    <c:out value="${chamado.statusId.nome}"/>
+                                                </span>
+                                            </td>
+                                            <td>
+                                                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#chamadoModal<c:out value="${chamado.id}"/>">
+                                                    Detalhes
+                                                </button>
+                                            </td>
+                                        </tr>
+                                    </c:if>
+                                </c:forEach>
+                            </tbody>
+                        </table>
+                    
                 </div>
             </div>
         </div>
@@ -145,75 +146,77 @@
             </div>
 
             <!-- tabela -->
-            <div class="table-secondary table-sm p-3 text-center">
-                <table class="table align-middle mb-0 bg-white table-hover">
-                    <thead class="bg-light">
-                        <tr>
-                            <th>ID</th>
-                            <th>Campus</th>
-                            <th>Prédio</th>
-                            <th>Usuário</th>
-                            <th>Data e Hora</th>
-                            <th>Ordem de Serviço Associada</th>
-                            <th>Status</th>
-                            <th></th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <c:forEach var="chamados" items="${requestScope.listaChamadosDesc}">
-                            <c:if test="${not empty chamados.ordemServicoId}">
-                                <tr data-bs-toggle="modal" data-bs-target="#chamadoEmAndamentoModal${chamados.id}">
-                                    <td>
-                                        <p class="fw-normal mb-1">
-                                            <c:out value="${chamados.id}"/>
-                                        </p>
-                                    </td>
-                                    <td>
-                                        <p class="fw-normal mb-1">
-                                            <c:out value="${chamados.predioId.campusId.nome}" />
-                                        </p>
-                                    </td>
-                                    <td>
-                                        <p class="fw-normal mb-1">
-                                            <c:out value="${chamados.predioId.nome}" />
-                                        </p>
-                                    </td>
-                                    <td>
-                                        <p class="fw-normal mb-1">
-                                            <c:out value="${chamados.usuarioId.nome}" />
-                                        </p>
-                                    </td>
-                                    <td>
-                                        <p class="fw-normal mb-1">
-                                            <fmt:formatDate value="${chamados.dataHora}" pattern="dd/MM/yyyy - HH:mm:ss" />
-                                        </p>
-                                    </td>
-                                    <td>
-                                        <p class="fw-normal mb-1">
-                                            <c:out value="${chamados.ordemServicoId.numeroOS}" />
-                                        </p>
-                                    </td>
-                                    <td>
-                                        <span class="badge badge-sm c-status" style="background-color:
-                                              <c:choose>
-                                                  <c:when test="${chamados.statusId.nome eq 'Aberto'}">orange
-                                                  </c:when>
-                                                  <c:otherwise>green
-                                                  </c:otherwise>
-                                              </c:choose>;">
-                                            <c:out value="${chamados.statusId.nome}"/>
-                                        </span>
-                                    </td>
-                                    <td>
-                                        <button  type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#chamadoEmAndamentoModal${chamados.id}">
-                                            Detalhes
-                                        </button>
-                                    </td>
-                                </tr>
-                            </c:if>
-                        </c:forEach>
-                    </tbody>
-                </table>
+            <div class="table-container" style="max-height: 300px; overflow-y: auto;"></div>
+                <div class="table-secondary table-sm p-3 text-center">
+                    <table class="table align-middle mb-0 bg-white table-hover">
+                        <thead class="bg-light">
+                            <tr>
+                                <th>ID</th>
+                                <th>Campus</th>
+                                <th>Prédio</th>
+                                <th>Usuário</th>
+                                <th>Data e Hora</th>
+                                <th>Ordem de Serviço Associada</th>
+                                <th>Status</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <c:forEach var="chamados" items="${requestScope.listaChamadosDesc}">
+                                <c:if test="${not empty chamados.ordemServicoId}">
+                                    <tr data-bs-toggle="modal" data-bs-target="#chamadoEmAndamentoModal${chamados.id}">
+                                        <td>
+                                            <p class="fw-normal mb-1">
+                                                <c:out value="${chamados.id}"/>
+                                            </p>
+                                        </td>
+                                        <td>
+                                            <p class="fw-normal mb-1">
+                                                <c:out value="${chamados.predioId.campusId.nome}" />
+                                            </p>
+                                        </td>
+                                        <td>
+                                            <p class="fw-normal mb-1">
+                                                <c:out value="${chamados.predioId.nome}" />
+                                            </p>
+                                        </td>
+                                        <td>
+                                            <p class="fw-normal mb-1">
+                                                <c:out value="${chamados.usuarioId.nome}" />
+                                            </p>
+                                        </td>
+                                        <td>
+                                            <p class="fw-normal mb-1">
+                                                <fmt:formatDate value="${chamados.dataHora}" pattern="dd/MM/yyyy - HH:mm:ss" />
+                                            </p>
+                                        </td>
+                                        <td>
+                                            <p class="fw-normal mb-1">
+                                                <c:out value="${chamados.ordemServicoId.numeroOS}" />
+                                            </p>
+                                        </td>
+                                        <td>
+                                            <span class="badge badge-sm c-status" style="background-color:
+                                                <c:choose>
+                                                    <c:when test="${chamados.statusId.nome eq 'Aberto'}">orange
+                                                    </c:when>
+                                                    <c:otherwise>green
+                                                    </c:otherwise>
+                                                </c:choose>;">
+                                                <c:out value="${chamados.statusId.nome}"/>
+                                            </span>
+                                        </td>
+                                        <td>
+                                            <button  type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#chamadoEmAndamentoModal${chamados.id}">
+                                                Detalhes
+                                            </button>
+                                        </td>
+                                    </tr>
+                                </c:if>
+                            </c:forEach>
+                        </tbody>
+                    </table>
+                </div>
             </div>
         </div>
     </div>
