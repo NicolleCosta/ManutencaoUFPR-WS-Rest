@@ -60,52 +60,54 @@
         </div>
     </div>
 
-    <div class="table-secondary">
-        <table class="table align-middle mb-0 bg-white table-hover">
-            <thead class="bg-light">
-                <tr>
-                    <th>Nome</th>
-                    <th>Disciplina</th>
-                    <th>Situação</th>
-                    <th></th>
-                </tr>
-            </thead>
-            <tbody data-bs-toggle="modal" data-bs-target="#modalOperario">
-                <c:forEach var="operario" items="${requestScope.operarios}">
+    <div class="table-container" style="max-height: 300px; overflow-y: auto;">
+        <div class="table-secondary">
+            <table class="table align-middle mb-0 bg-white table-hover">
+                <thead class="bg-light">
                     <tr>
-                        <td>
-                            <p class="fw-normal mb-1">
-                                <c:out value="${operario.nome}" />
-                            </p>
-                        </td>
-                        <td>
-                            <p class="fw-normal mb-1">
-                                <c:out value="${operario.especialidadeId.nome}" />
-                            </p>
-                        </td>
-                        <td>
-                            <span class="badge badge-sm c-status" style="background-color:
-                                  <c:choose>
-                                      <c:when test="${operario.bloqueio eq 'false'}">green
-                                          <c:set var="status" value="Ativo" />
-                                      </c:when>
-                                      <c:otherwise>red
-                                          <c:set var="status" value="Bloqueado" />
-                                      </c:otherwise>
-                                  </c:choose>;">
-                                <c:out value="${status}"/>
-                            </span>
-                        </td>
-                        <td>
-                            <button type="button" class="btn btn-primary" data-bs-toggle="modal"
-                                    data-bs-target="#modalOperario<c:out value="${operario.id}"/>">
-                                Detalhes
-                            </button>
-                        </td>
+                        <th>Nome</th>
+                        <th>Disciplina</th>
+                        <th>Situação</th>
+                        <th></th>
                     </tr>
-                </c:forEach>
-            </tbody>
-        </table>
+                </thead>
+                <tbody data-bs-toggle="modal" data-bs-target="#modalOperario">
+                    <c:forEach var="operario" items="${requestScope.operarios}">
+                        <tr>
+                            <td>
+                                <p class="fw-normal mb-1">
+                                    <c:out value="${operario.nome}" />
+                                </p>
+                            </td>
+                            <td>
+                                <p class="fw-normal mb-1">
+                                    <c:out value="${operario.especialidadeId.nome}" />
+                                </p>
+                            </td>
+                            <td>
+                                <span class="badge badge-sm c-status" style="background-color:
+                                    <c:choose>
+                                        <c:when test="${operario.bloqueio eq 'false'}">green
+                                            <c:set var="status" value="Ativo" />
+                                        </c:when>
+                                        <c:otherwise>red
+                                            <c:set var="status" value="Bloqueado" />
+                                        </c:otherwise>
+                                    </c:choose>;">
+                                    <c:out value="${status}"/>
+                                </span>
+                            </td>
+                            <td>
+                                <button type="button" class="btn btn-primary" data-bs-toggle="modal"
+                                        data-bs-target="#modalOperario<c:out value="${operario.id}"/>">
+                                    Detalhes
+                                </button>
+                            </td>
+                        </tr>
+                    </c:forEach>
+                </tbody>
+            </table>
+        </div>
     </div>
 </div>
     <!--********** MODAL OPERARIO **************-->
@@ -207,7 +209,8 @@
                                     <p class="fw-bold">ID Operário</p>
                                 </div>
                                 <div class="col-sm-4">
-                                    <input type="text"id="operarioID" class="form-control text-bg-light" value="${operario.id}" readonly>
+                                    <input type="text"id="id" name="id"class="form-control text-bg-light" value="${operario.id}" readonly>
+                                    
                                 </div>
                             </div>
                             <div class="container">

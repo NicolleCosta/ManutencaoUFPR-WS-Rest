@@ -20,6 +20,7 @@
 crossorigin="anonymous"></script>
 <script src="https://unpkg.com/@popperjs/core@2"></script>
 
+
     <!-- Menu do topo contendo nome do usuariorio e botão de logout  -->
     <header>
         <nav class="navbar bg-primary" data-bs-theme="dark">

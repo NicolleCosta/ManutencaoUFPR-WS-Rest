@@ -86,7 +86,7 @@
 
                                                     <div class="col-6 p-2">
                                                         <div class="list-group">
-                                                            <div class="list-group-item text-bg-warning">
+                                                            <div class="list-group-item">
                                                                 <p class="list-group-item-text">
                                                                     Sem Ordem de Serviço Associada <strong>10
                                                                         Dias</strong></p>
@@ -176,7 +176,7 @@
                                                     </div>
                                                     <div class="col-6 p-2">
                                                         <div class="list-group">
-                                                            <div class="list-group-item text-bg-warning">
+                                                            <div class="list-group-item">
                                                                 <p class="list-group-item-text">
                                                                     Abertas Sem Especialista Associado <strong>10 dias</strong></p>
                                                                 <h4 class="list-group-item-heading count fw-bold">

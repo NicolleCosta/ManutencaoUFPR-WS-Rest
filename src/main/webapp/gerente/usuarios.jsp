@@ -56,49 +56,50 @@
             </div>
         </div>
     </div>
-
-    <div class="table-secondary">
-        <table class="table align-middle mb-0 bg-white table-hover">
-            <thead class="bg-light">
-                <tr>
-                    <th>Nome</th>
-                    <th>Situação</th>
-                    <th></th>
-                </tr>
-            </thead>
-            <tbody>
-                <c:forEach var="usuario" items="${requestScope.usuarios}">
+    <div class="table-container" style="max-height: 400px; overflow-y: auto;">
+        <div class="table-secondary">
+            <table class="table align-middle mb-0 bg-white table-hover">
+                <thead class="bg-light">
                     <tr>
-                        <td>
-                            <p class="fw-normal mb-1">
-                                <c:out value="${usuario.nome}" />
-                            </p>
-                        </td>
-                        <td>
-                            <span class="badge badge-sm c-status" style="background-color:
-                                  <c:choose>
-                                      <c:when test="${usuario.bloqueio eq 'false'}">
-                                          green
-                                          <c:set var="status" value="Ativo" />
-                                      </c:when>
-                                      <c:otherwise>
-                                          red
-                                          <c:set var="status" value="Bloqueado" />
-                                      </c:otherwise>
-                                  </c:choose>;">
-                                <c:out value="${status}" />
-                            </span>
-                        </td>
-                        <td>
-                            <button type="button" class="btn btn-primary" data-bs-toggle="modal"
-                                    data-bs-target="#modalUsuario${usuario.id}">
-                                Detalhes
-                            </button>
-                        </td>
+                        <th>Nome</th>
+                        <th>Situação</th>
+                        <th></th>
                     </tr>
-                </c:forEach>
-            </tbody>
-        </table>
+                </thead>
+                <tbody>
+                    <c:forEach var="usuario" items="${requestScope.usuarios}">
+                        <tr>
+                            <td>
+                                <p class="fw-normal mb-1">
+                                    <c:out value="${usuario.nome}" />
+                                </p>
+                            </td>
+                            <td>
+                                <span class="badge badge-sm c-status" style="background-color:
+                                    <c:choose>
+                                        <c:when test="${usuario.bloqueio eq 'false'}">
+                                            green
+                                            <c:set var="status" value="Ativo" />
+                                        </c:when>
+                                        <c:otherwise>
+                                            red
+                                            <c:set var="status" value="Bloqueado" />
+                                        </c:otherwise>
+                                    </c:choose>;">
+                                    <c:out value="${status}" />
+                                </span>
+                            </td>
+                            <td>
+                                <button type="button" class="btn btn-primary" data-bs-toggle="modal"
+                                        data-bs-target="#modalUsuario${usuario.id}">
+                                    Detalhes
+                                </button>
+                            </td>
+                        </tr>
+                    </c:forEach>
+                </tbody>
+            </table>
+        </div>
     </div>
 </div>
     <!--********** MODAL USUARIO**************-->

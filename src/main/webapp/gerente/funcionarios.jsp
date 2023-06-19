@@ -59,57 +59,58 @@
                 </div>
             </div>
         </div>
-
-        <div class="table-secondary">
-            <table class="table align-middle mb-0 bg-white table-hover">
-                <thead class="bg-light">
-                    <tr>
-                        <th>Nome</th>
-                        <th>Cargo</th>
-                        <th>Situação</th>
-                        <th></th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <c:forEach var="funcionario" items="${requestScope.funcionarios}">
-                        <tr data-bs-toggle="modal"
-                        data-bs-target="#modalFuncionario<c:out value="${funcionario.id}"/>">
-                            <td>
-                                <p class="fw-normal mb-1">
-                                    <c:out value="${funcionario.nome}" />
-                                </p>
-                            </td>
-                            <td>
-                                <p class="fw-normal mb-1">
-                                    <c:out value="${funcionario.tipoUsuarioId.nome}" />
-                                </p>
-                            </td>
-
-                            <td>
-                                <p class="fw-normal mb-1">
-                                    <span class="badge badge-sm c-status" style="background-color:
-                                          <c:choose>
-                                              <c:when test="${funcionario.bloqueio eq 'false'}">green
-                                                  <c:set var="status" value="Ativo" />
-                                              </c:when>
-                                              <c:otherwise>red
-                                                  <c:set var="status" value="Bloqueado" />
-                                              </c:otherwise>
-                                          </c:choose>;">
-                                        <c:out value="${status}"/>
-                                    </span>
-                                </p>
-                            </td>
-                            <td>
-                                <button type="button" class="btn btn-primary" data-bs-toggle="modal"
-                                        data-bs-target="#modalFuncionario<c:out value="${funcionario.id}"/>">
-                                    Detalhes
-                                </button>
-                            </td>
+        <div class="table-container" style="max-height: 400px; overflow-y: auto;">
+            <div class="table-secondary">
+                <table class="table align-middle mb-0 bg-white table-hover">
+                    <thead class="bg-light">
+                        <tr>
+                            <th>Nome</th>
+                            <th>Cargo</th>
+                            <th>Situação</th>
+                            <th></th>
                         </tr>
-                    </c:forEach>
-                </tbody>
-            </table>
+                    </thead>
+                    <tbody>
+                        <c:forEach var="funcionario" items="${requestScope.funcionarios}">
+                            <tr data-bs-toggle="modal"
+                            data-bs-target="#modalFuncionario<c:out value="${funcionario.id}"/>">
+                                <td>
+                                    <p class="fw-normal mb-1">
+                                        <c:out value="${funcionario.nome}" />
+                                    </p>
+                                </td>
+                                <td>
+                                    <p class="fw-normal mb-1">
+                                        <c:out value="${funcionario.tipoUsuarioId.nome}" />
+                                    </p>
+                                </td>
+
+                                <td>
+                                    <p class="fw-normal mb-1">
+                                        <span class="badge badge-sm c-status" style="background-color:
+                                            <c:choose>
+                                                <c:when test="${funcionario.bloqueio eq 'false'}">green
+                                                    <c:set var="status" value="Ativo" />
+                                                </c:when>
+                                                <c:otherwise>red
+                                                    <c:set var="status" value="Bloqueado" />
+                                                </c:otherwise>
+                                            </c:choose>;">
+                                            <c:out value="${status}"/>
+                                        </span>
+                                    </p>
+                                </td>
+                                <td>
+                                    <button type="button" class="btn btn-primary" data-bs-toggle="modal"
+                                            data-bs-target="#modalFuncionario<c:out value="${funcionario.id}"/>">
+                                        Detalhes
+                                    </button>
+                                </td>
+                            </tr>
+                        </c:forEach>
+                    </tbody>
+                </table>
+            </div>
         </div>
     </div>
 
@@ -223,7 +224,7 @@
                                         <p class="fw-bold">ID Funcionário</p>
                                     </div>
                                     <div class="col-sm-4">
-                                        <input type="text"id="operarioID" class="form-control text-bg-light" value="${funcionario.id}" readonly>
+                                        <input type="text"  id="id" name="id" class="form-control text-bg-light" value="${funcionario.id}" readonly>
                                     </div>
                                 </div>
                             

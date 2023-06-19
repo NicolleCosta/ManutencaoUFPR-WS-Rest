@@ -115,3 +115,9 @@ input[type="number"] {
   padding-left: 0rem;
   padding-right: 0rem;
 }
+
+
+.table-container {
+  max-height: 100px; /* Adjust the maximum height as needed */
+  overflow-y: auto;
+}
