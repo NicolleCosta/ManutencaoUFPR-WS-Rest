@@ -50,16 +50,31 @@
         <div class="row p-3">
             <div class="col-6">
                 <form class="d-flex" role="search">
-                    <input class="form-control me-2" type="search" placeholder="Buscar Usuario" aria-label="Search">
+
+                    <input  id="searchInput" class="form-control me-2" type="search" placeholder="Buscar Usuário" aria-label="Search">
                     <button class="btn btn-warning fw-bold" type="submit">Buscar</button>
+
+
                 </form>
             </div>
         </div>
     </div>
-    <div class="table-container" style="max-height: 400px; overflow-y: auto;">
-        <div class="table-secondary">
-            <table class="table align-middle mb-0 bg-white table-hover">
-                <thead class="bg-light">
+
+    
+
+<div class="table-container" style="max-height: 400px; overflow-y: auto;">
+    <div class="table-secondary table-sm p-3 text-center">
+        <table class="table align-middle mb-0 bg-white table-hover">
+            <thead class="bg-light">
+                <tr>
+                    <th>Nome</th>
+                    <th>Situação</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                <c:forEach var="usuario" items="${requestScope.usuarios}">
+
                     <tr>
                         <th>Nome</th>
                         <th>Situação</th>
@@ -101,6 +116,7 @@
             </table>
         </div>
     </div>
+  
 </div>
     <!--********** MODAL USUARIO**************-->
     <c:forEach var="usuario" items="${requestScope.usuarios}">
@@ -166,8 +182,8 @@
                     <div class="modal-footer">
                         <button type="button" class="btn btn-warning" data-bs-toggle="modal"
                                 data-bs-target="#modalDesbloqueio<c:out value="${usuario.id}"/>" <c:if test="${usuario.bloqueio==false}"> disabled </c:if>>Desbloquear</button>
-                        <button type="button" class="btn btn-danger" data-bs-toggle="modal"
-                                data-bs-target="#modalBloqueio${usuario.id}" <c:if test="${usuario.bloqueio == true}">disabled </c:if>>Bloquear</button>
+                                <button type="button" class="btn btn-danger" data-bs-toggle="modal"
+                                        data-bs-target="#modalBloqueio${usuario.id}" <c:if test="${usuario.bloqueio == true}">disabled </c:if>>Bloquear</button>
                                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
                         </div>
                     </div>
@@ -201,5 +217,7 @@
         </div>
     </c:forEach>
 
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="js/main.js"></script>
 </body>
 </html>

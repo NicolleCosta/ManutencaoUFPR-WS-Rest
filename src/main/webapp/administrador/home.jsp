@@ -36,9 +36,9 @@
     <div class="row p-3">
         <div class="col-4 justify-content-md-end">
             <form class="d-flex" role="search">
-                <input class="form-control me-2" type="search" placeholder="Buscar Chamado"
-                       aria-label="Search">
-                <button class="btn btn-warning fw-bold" type="submit">Buscar</button>
+                <input id="searchInput" class="form-control me-2" type="search" placeholder="Buscar Chamado"
+                        aria-label="Search">
+                <button class="btn btn-primary fw-bold search-button" type="submit">Buscar</button>
             </form>
         </div>
 
@@ -430,7 +430,7 @@
                                     <p class="fw-bold">Nº Chamado</p>
                                 </div>
                                 <div class="col-sm-4">
-                                    <input type="text"id="id-chamado" class="form-control text-bg-light" value="${chamado.id}" readonly>
+                                    <input type="text"id="id-chamado" class="form-control text-bg-light" value="${chamado.id}" name="idChamado" readonly>
                                 </div>
                             </div>
 
@@ -580,7 +580,7 @@
                                                                     </tr>
                                                                 </tbody>
                                                             </table>
-                                                             <input type="text" id="chamadoId" class="form-control text-bg-light" name="chamado" value="${chamado.id}" hidden>
+                                                            <input type="text" id="chamadoId" class="form-control text-bg-light" name="chamado" value="${chamado.id}" hidden>
                                                             <input type="text" id="numero-os" class="form-control text-bg-light" name="numero" value="${ordem.numeroOS}" hidden>
 
                                                             <div class="d-grid gap-2 d-md-flex justify-content-md-end">
@@ -625,8 +625,8 @@
 
 
 
-
-
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="js/main.js"></script>
 </body>
 
 </html>

@@ -40,9 +40,9 @@
     <div class="row p-3">
         <div class="col-4 justify-content-md-end">
             <form class="d-flex" role="search">
-                <input class="form-control me-2" type="search" placeholder="Buscar Ordem De Serviço"
-                       aria-label="Search">
-                <button class="btn btn-warning fw-bold" type="submit">Buscar</button>
+                <input  id="searchInput" class="form-control me-2" type="search" placeholder="Buscar Ordem De Serviço"
+                        aria-label="Search">
+                <button class="btn btn-warning fw-bold search-button" type="submit">Buscar</button>
             </form>
         </div>
 
@@ -218,5 +218,7 @@
             </div>
         </div>
     </c:forEach>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="js/main.js"></script>
 </body>
 </html>

@@ -49,15 +49,15 @@
                     <div class="row justify-content-center p-3">
                         <div class="col-md-8">
                             <form class="d-flex" role="search">
-                                <input class="form-control me-2" type="search" placeholder="Buscar Operário" aria-label="Search">
-                                <button class="btn btn-warning fw-bold" type="submit">Buscar</button>
+                                <input id="searchInput" class="form-control me-2" type="search" placeholder="Buscar Operário" aria-label="Search">
+                                <button class="btn btn-primary fw-bold search-button" type="submit">Buscar</button>
                             </form>
                         </div>
                         <div class="col d-grid gap-2 d-md-flex justify-content-md-end">               
                             <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#novoOperarioModal">Novo Operário</button>
                         </div>
                     </div>
-                    
+
                     <div class="table-secondary table-sm p-3 text-center">
                         <table class="table align-middle mb-0 bg-white table-hover">
                             <thead>
@@ -83,14 +83,14 @@
                                         </td>
                                         <td>
                                             <span class="badge badge-sm c-status" style="background-color:
-                                                <c:choose>
-                                                    <c:when test="${operario.bloqueio eq 'false'}">green
-                                                        <c:set var="status" value="Ativo" />
-                                                    </c:when>
-                                                    <c:otherwise>red
-                                                        <c:set var="status" value="Bloqueado" />
-                                                    </c:otherwise>
-                                                </c:choose>;">
+                                                  <c:choose>
+                                                      <c:when test="${operario.bloqueio eq 'false'}">green
+                                                          <c:set var="status" value="Ativo" />
+                                                      </c:when>
+                                                      <c:otherwise>red
+                                                          <c:set var="status" value="Bloqueado" />
+                                                      </c:otherwise>
+                                                  </c:choose>;">
                                                 <c:out value="${status}"/>
                                             </span>
                                         </td>
@@ -247,17 +247,17 @@
                                     <div class="p-3">
                                         <label class="fw-bold">Especialidades</label>
                                         <br>
-                                            <div class="row row-cols-3 py-2">
-                                                <c:forEach var="especialidade" items="${requestScope.especialidades}">
-                                                    <c:if test="${especialidade.nome != 'N/A'}">
-                                                        <div class="col">
-                                                            <input type="radio" name="especialidade" value="${especialidade.id}"  <c:if test="${operario.especialidadeId != null && operario.especialidadeId.id == especialidade.id}"> checked="checked"</c:if> required>
-                                                            ${especialidade.nome}
-                                                        </div>
-                                                    </c:if>
-                                                </c:forEach>
-                                            
-                                            </div>
+                                        <div class="row row-cols-3 py-2">
+                                            <c:forEach var="especialidade" items="${requestScope.especialidades}">
+                                                <c:if test="${especialidade.nome != 'N/A'}">
+                                                    <div class="col">
+                                                        <input type="radio" name="especialidade" value="${especialidade.id}"  <c:if test="${operario.especialidadeId != null && operario.especialidadeId.id == especialidade.id}"> checked="checked"</c:if> required>
+                                                        ${especialidade.nome}
+                                                    </div>
+                                                </c:if>
+                                            </c:forEach>
+
+                                        </div>
                                         </br>
                                     </div>
                                 </div>
@@ -357,7 +357,7 @@
                                     <label class="fw-bold col-form-label">Nome</label>
                                     <input type="text" class="form-control text-bg-light" id="nome" name="nome" required>
                                 </div>
-                            
+
 
                                 <div class="container text-right">
                                     <div class="row row-cols-2">
@@ -378,15 +378,15 @@
                                 <div class="p-3">
                                     <label class="fw-bold">Especialidades</label>
                                     <br>
-                                        <div class="row row-cols-3 py-2">
-                                            <c:forEach var="especialidade" items="${requestScope.especialidades}">
-                                                <c:if test="${especialidade.nome != 'N/A'}">
-                                                    <div class="col">
+                                    <div class="row row-cols-3 py-2">
+                                        <c:forEach var="especialidade" items="${requestScope.especialidades}">
+                                            <c:if test="${especialidade.nome != 'N/A'}">
+                                                <div class="col">
                                                     <input type="radio" name="especialidade" value="${especialidade.id}"> ${especialidade.nome} 
-                                                    </div>
-                                                </c:if>
-                                            </c:forEach>
-                                        </div>
+                                                </div>
+                                            </c:if>
+                                        </c:forEach>
+                                    </div>
                                     </br>
                                 </div>
                             </div>
@@ -400,5 +400,9 @@
             </div>
         </div>
     </form>
+
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="js/main.js"></script>
 </body>
 </html>
