@@ -47,8 +47,10 @@
             <div class="col-6">
                 <form class="d-flex" role="search">
 
-                    <input id="searchInput" class="form-control me-2" type="search" placeholder="Buscar Funcionário" aria-label="Search">
-                    <button class="btn btn-primary fw-bold search-button" type="submit" >Buscar</button>
+                    <input  id="searchInput" class="form-control me-2" type="search" placeholder="Buscar Funcionário" aria-label="Search">
+                    <button class="btn btn-primary fw-bold search-button" type="submit">Buscar</button>
+                   
+
 
                 </form>
             </div>
@@ -74,45 +76,6 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <c:forEach var="funcionario" items="${requestScope.funcionarios}">
-                        <tr data-bs-toggle="modal"
-                            data-bs-target="#modalFuncionario<c:out value="${funcionario.id}"/>">
-                            <td>
-                                <p class="fw-normal mb-1">
-                                    <c:out value="${funcionario.nome}" />
-                                </p>
-                            </td>
-                            <td>
-                                <p class="fw-normal mb-1">
-                                    <c:out value="${funcionario.tipoUsuarioId.nome}" />
-                                </p>
-                            </td>
-
-                            <td>
-                                <p class="fw-normal mb-1">
-                                    <span class="badge badge-sm c-status" style="background-color:
-                                          <c:choose>
-                                              <c:when test="${funcionario.bloqueio eq 'false'}">green
-                                                  <c:set var="status" value="Ativo" />
-                                              </c:when>
-                                              <c:otherwise>red
-                                                  <c:set var="status" value="Bloqueado" />
-                                              </c:otherwise>
-                                          </c:choose>;">
-                                        <c:out value="${status}"/>
-                                    </span>
-                                </p>
-                            </td>
-                            <td>
-                                <button type="button" class="btn btn-primary" data-bs-toggle="modal"
-                                        data-bs-target="#modalFuncionario<c:out value="${funcionario.id}"/>">
-                                    Detalhes
-                                </button>
-                            </td>
-
-                        </tr>
-                    </thead>
-                    <tbody>
                         <c:forEach var="funcionario" items="${requestScope.funcionarios}">
                             <tr data-bs-toggle="modal"
                             data-bs-target="#modalFuncionario<c:out value="${funcionario.id}"/>">
