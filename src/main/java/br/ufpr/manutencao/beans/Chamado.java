@@ -8,6 +8,7 @@ import jakarta.json.bind.annotation.JsonbDateFormat;
 import java.io.Serializable;
 import java.util.Date;
 import jakarta.persistence.Basic;
+import jakarta.persistence.Cacheable;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -17,6 +18,7 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.NamedQueries;
 import jakarta.persistence.NamedQuery;
+import jakarta.persistence.QueryHint;
 import jakarta.persistence.Table;
 import jakarta.persistence.Temporal;
 import jakarta.persistence.TemporalType;
@@ -26,9 +28,10 @@ import jakarta.persistence.TemporalType;
  * @author nicol
  */
 @Entity
+@Cacheable(false)
 @Table(name = "tb_chamado")
 @NamedQueries({
-    @NamedQuery(name = "Chamado.findAll", query = "SELECT c FROM Chamado c"),
+    @NamedQuery(name = "Chamado.findAll", query = "SELECT c FROM Chamado c" , hints = {@QueryHint(name = "javax.persistence.cache.retrieveMode", value = "CacheRetrieveMode.BYPASS") }),
     @NamedQuery(name = "Chamado.listaChamadoAberto", query = "SELECT c FROM Chamado c WHERE c.statusId = :id ORDER BY c.dataHora ASC"),
     @NamedQuery(name = "Chamado.listaChamadoEmAndamento", query = "SELECT c FROM Chamado c WHERE c.statusId = :id ORDER BY c.dataHora DESC"),
     @NamedQuery(name = "Chamado.findById", query = "SELECT c FROM Chamado c WHERE c.id = :id"),
