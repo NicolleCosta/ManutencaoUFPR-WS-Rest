@@ -8,6 +8,7 @@ import jakarta.json.bind.annotation.JsonbDateFormat;
 import java.io.Serializable;
 import java.util.Date;
 import jakarta.persistence.Basic;
+import jakarta.persistence.Cacheable;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -26,6 +27,7 @@ import jakarta.persistence.TemporalType;
  * @author nicol
  */
 @Entity
+@Cacheable(false)
 @Table(name = "tb_retirada_material")
 @NamedQueries({
     @NamedQuery(name = "RetiradaMaterial.findAll", query = "SELECT r FROM RetiradaMaterial r"),
