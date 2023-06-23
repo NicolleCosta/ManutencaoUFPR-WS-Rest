@@ -44,50 +44,58 @@ public class LoginServlet extends HttpServlet {
             //Valores pegos do formulario
             String cpf = request.getParameter("cpf");
             String senha = request.getParameter("senha");
-            
+
             System.out.println(cpf);
-            if(cpf ==  null || senha == null){
+            if (cpf == null || senha == null) {
                 request.setAttribute("msg", "Favor preencher todos os campos!");
                 request.setAttribute("page", "/geral/index.jsp");
                 RequestDispatcher rd = getServletContext().getRequestDispatcher("/geral/index.jsp");
                 rd.forward(request, response);
             }
-            UsuarioDTO user = LoginFacade.login(cpf,senha);
+            UsuarioDTO user = LoginFacade.login(cpf, senha);
             System.out.println("nome " + user.getNome());
-            
-            boolean isValid = user.getId() > 0 ? true : false;
-            if (isValid) {
-                //Armazena o nome do usuário na sessão (indicando que o usuário está logado)
-                HttpSession session = request.getSession();
-                UsuarioDTO usu = new UsuarioDTO();
-                usu.setId(user.getId());
-                usu.setNome(user.getNome());
-                usu.setTipoUsuarioId(user.getTipoUsuarioId());
-                session.setAttribute("user", usu);
-                
-                switch (user.getTipoUsuarioId().getNome()) {
-                    case "administrador":
-                        //response.sendRedirect("/manutencaoufpr/administrador/home.jsp");
-                        response.sendRedirect("ChamadoServlet?action=mostrarChamados");
-                        break;
-                        
-                    case "almoxarife":
-                        response.sendRedirect("OrdemDeServicoServlet?action=mostrarOrdemDeServico");
-                        break;
-                        
-                    case "gerente":
-                        response.sendRedirect("ChamadoServlet?action=mostrarHomeGer");
-                        break;
-                        
-                    default:
-                        response.sendRedirect("Vai para erro");
-                        break;
-                }
-            } else {
-                request.setAttribute("msg", " Usuário/Senha inválidos.");
+            boolean isBlock = user.getBloqueio();
+            if (isBlock) {
+                request.setAttribute("msg", "Usuário bloqueado. Entre em contato: manutençãoufpr@gmail.com");
                 request.setAttribute("page", "/geral/index.jsp");
                 RequestDispatcher rd = getServletContext().getRequestDispatcher("/geral/index.jsp");
                 rd.forward(request, response);
+            } else {
+
+                boolean isValid = user.getId() > 0 ? true : false;
+                if (isValid) {
+                    //Armazena o nome do usuário na sessão (indicando que o usuário está logado)
+                    HttpSession session = request.getSession();
+                    UsuarioDTO usu = new UsuarioDTO();
+                    usu.setId(user.getId());
+                    usu.setNome(user.getNome());
+                    usu.setTipoUsuarioId(user.getTipoUsuarioId());
+                    session.setAttribute("user", usu);
+
+                    switch (user.getTipoUsuarioId().getNome()) {
+                        case "administrador":
+                            //response.sendRedirect("/manutencaoufpr/administrador/home.jsp");
+                            response.sendRedirect("ChamadoServlet?action=mostrarChamados");
+                            break;
+
+                        case "almoxarife":
+                            response.sendRedirect("OrdemDeServicoServlet?action=mostrarOrdemDeServico");
+                            break;
+
+                        case "gerente":
+                            response.sendRedirect("ChamadoServlet?action=mostrarHomeGer");
+                            break;
+
+                        default:
+                            response.sendRedirect("Vai para erro");
+                            break;
+                    }
+                } else {
+                    request.setAttribute("msg", " Usuário/Senha inválidos.");
+                    request.setAttribute("page", "/geral/index.jsp");
+                    RequestDispatcher rd = getServletContext().getRequestDispatcher("/geral/index.jsp");
+                    rd.forward(request, response);
+                }
             }
         } catch (FacadeException ex) {
             request.setAttribute("msg", " Usuário/Senha inválidos.");
@@ -95,8 +103,7 @@ public class LoginServlet extends HttpServlet {
             RequestDispatcher rd = getServletContext().getRequestDispatcher("/geral/index.jsp");
             rd.forward(request, response);
         }
-                  
-       
+
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
