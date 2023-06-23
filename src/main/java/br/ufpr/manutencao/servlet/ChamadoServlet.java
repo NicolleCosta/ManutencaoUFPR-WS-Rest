@@ -51,16 +51,17 @@ public class ChamadoServlet extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         request.setCharacterEncoding("UTF-8");
         String action = request.getParameter("action");
+        HttpSession session = request.getSession();
+        UsuarioDTO user = (UsuarioDTO) session.getAttribute("user");
+
         try {
-            if (action == null) {
+            if (action == null ||user == null) {
                 //redireciona
                 response.sendRedirect("LogoutServlet");
             } else {
                 switch (action) {
                     case "mostrarChamados":
-                        HttpSession session = request.getSession();
-                        UsuarioDTO user = (UsuarioDTO) session.getAttribute("user");
-
+                    
                         System.out.println("entrou na Servlet mostrar Chamados");
                         //Carrega a lista de chamados para apresentar
 //                        List<ChamadoDTO> chamadosSemOS = ChamadoFacade.buscarChamadosSemOS();
@@ -133,12 +134,9 @@ public class ChamadoServlet extends HttpServlet {
                         String qtddOSEncerradoUltimos30Dias = OrdemServicoFacade.contaEncerradoUltimos30Dias();
                         String qtddOSEncerradoAno = OrdemServicoFacade.contaEncerradoAno();
                         List<Map<String, Object>> top3PrediosOSResponse = OrdemServicoFacade.top3PrediosOS();
-                        
-                         List<Map<String, Object>> top3EspecialidadesResponse = OrdemServicoFacade.top3Especialidades();
-                        
-                        
-                        
-                    
+
+                        List<Map<String, Object>> top3EspecialidadesResponse = OrdemServicoFacade.top3Especialidades();
+
                         // Busca o ano atual
                         LocalDate dataAtual = LocalDate.now();
                         int anoAtual = dataAtual.getYear();
@@ -147,7 +145,7 @@ public class ChamadoServlet extends HttpServlet {
                         request.setAttribute("anoAtual", anoAtual);
                         request.setAttribute("top3PrediosOS", top3PrediosOSResponse);
                         request.setAttribute("top3Especialidades", top3EspecialidadesResponse);
-                        
+
                         request.setAttribute("qtddChamadosMais30DiasAbertos", qtddChamadosMais30DiasAbertos);
                         request.setAttribute("qtddChamadoMais10DiasSemOS", qtddChamadoMais10DiasSemOS);
                         request.setAttribute("qtddChamadoAbertos", qtddChamadoAbertos);
@@ -166,17 +164,18 @@ public class ChamadoServlet extends HttpServlet {
                         rd.forward(request, response);
                         break;
 
-
                     default:
                         //redireciona
                         response.sendRedirect("LogoutServlet");
                 }
             }
         } catch (FacadeException ex) {
-            request.setAttribute("msg", ex);
-            request.setAttribute("page", "LogoutServlet");
-            RequestDispatcher rd = getServletContext().getRequestDispatcher("/erro.jsp");
-            rd.forward(request, response);
+            //redireciona
+            response.sendRedirect("LogoutServlet");
+//            request.setAttribute("msg", ex);
+//            request.setAttribute("page", "LogoutServlet");
+//            RequestDispatcher rd = getServletContext().getRequestDispatcher("/erro.jsp");
+//            rd.forward(request, response);
         }
     }
 
