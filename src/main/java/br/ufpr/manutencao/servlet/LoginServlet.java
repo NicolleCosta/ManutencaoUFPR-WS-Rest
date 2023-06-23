@@ -44,6 +44,7 @@ public class LoginServlet extends HttpServlet {
             //Valores pegos do formulario
             String cpf = request.getParameter("cpf");
             String senha = request.getParameter("senha");
+            
             System.out.println(cpf);
             if(cpf ==  null || senha == null){
                 request.setAttribute("msg", "Favor preencher todos os campos!");

@@ -73,26 +73,26 @@ public class UsuarioFacadeREST extends AbstractFacade<Usuario> {
     @Produces(MediaType.APPLICATION_JSON)
     public Response login(LoginDTO login) {
         try {
-            TypedQuery<Usuario> query = em.createNamedQuery("Usuario.findByCpfAndSenha", Usuario.class);
+            TypedQuery<Usuario> query = em.createNamedQuery("Usuario.findByCpf", Usuario.class);
             query.setParameter("cpf", login.getCpf());
+            Usuario usuario = query.getSingleResult();
+
+            String salt = usuario.getSalt();
+
             String senha = login.getSenha();
-            String salt = login.getSalt();
             String saltSenha = salt + senha;
             String senhaCriptografada = DigestUtils.sha256Hex(saltSenha);
-            query.setParameter("senha", senhaCriptografada);
-            System.out.println(saltSenha);
-            System.out.println(login.getCpf());
-            Usuario usuario = query.getSingleResult();
-            System.out.println("aqui em baixo o usuario");
-            System.out.println(usuario);
-            ObjectMapper mapper = new ObjectMapper();
-            UsuarioDTO usuarioDTO = mapper.convertValue(usuario, UsuarioDTO.class);
-            System.out.println("retornou o usuario: " + usuarioDTO);
 
-            // Cria um Response indicando sucesso
-            return Response.ok(usuarioDTO).build();
+            if (senhaCriptografada.equals(usuario.getSenha())) {
+                ObjectMapper mapper = new ObjectMapper();
+                UsuarioDTO usuarioDTO = mapper.convertValue(usuario, UsuarioDTO.class);
+                return Response.ok(usuarioDTO).build();
+            } else{
+            return Response.status(Response.Status.UNAUTHORIZED)
+                    .entity("Login inválido")
+                    .build();
+        }
         } catch (NoResultException e) {
-            // Cria um Response indicando falha
             return Response.status(Response.Status.UNAUTHORIZED)
                     .entity("Login inválido")
                     .build();

@@ -44,7 +44,7 @@ import jakarta.persistence.TypedQuery;
     @NamedQuery(name = "Usuario.findByEmail", query = "SELECT u FROM Usuario u WHERE u.email = :email"),
     @NamedQuery(name = "Usuario.findBySenha", query = "SELECT u FROM Usuario u WHERE u.senha = :senha"),
     @NamedQuery(name = "Usuario.findByBloqueio", query = "SELECT u FROM Usuario u WHERE u.bloqueio = :bloqueio"),
-    @NamedQuery(name = "Usuario.findByCpfAndSenha", query = "SELECT u FROM Usuario u WHERE u.cpf = :cpf AND u.senha = :senha")})
+    @NamedQuery(name = "Usuario.findByCpf", query = "SELECT u FROM Usuario u WHERE u.cpf = :cpf")})
 
 public class Usuario implements Serializable {
 

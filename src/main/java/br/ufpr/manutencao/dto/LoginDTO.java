@@ -10,16 +10,15 @@ public class LoginDTO {
 
     private String cpf;
     private String senha;
-    private String salt;
+
 
     public LoginDTO() {
         super();
     }
 
-    public LoginDTO(String cpf, String senha, String salt) {
+    public LoginDTO(String cpf, String senha) {
         this.cpf = cpf;
         this.senha = senha;
-        this.salt = salt;
     }
 
     public String getCpf() {
@@ -38,13 +37,5 @@ public class LoginDTO {
         this.senha = senha;
     }
 
-    public String getSalt() {
-        return salt;
-    }
-
-    public void setSalt(String salt) {
-        this.salt = salt;
-    }
-    
-
+   
 }
