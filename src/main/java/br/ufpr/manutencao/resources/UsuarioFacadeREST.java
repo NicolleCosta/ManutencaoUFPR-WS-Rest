@@ -60,13 +60,6 @@ public class UsuarioFacadeREST extends AbstractFacade<Usuario> {
         super.create(entity);
     }
 
-//    Post sem utilizar de criptografia
-//    @POST
-//    @Override
-//    @Consumes({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
-//    public void create(Usuario entity) {
-//        super.create(entity);
-//    }
     @POST
     @Path("/login")
     @Consumes(MediaType.APPLICATION_JSON)
@@ -87,11 +80,11 @@ public class UsuarioFacadeREST extends AbstractFacade<Usuario> {
                 ObjectMapper mapper = new ObjectMapper();
                 UsuarioDTO usuarioDTO = mapper.convertValue(usuario, UsuarioDTO.class);
                 return Response.ok(usuarioDTO).build();
-            } else{
-            return Response.status(Response.Status.UNAUTHORIZED)
-                    .entity("Login inválido")
-                    .build();
-        }
+            } else {
+                return Response.status(Response.Status.UNAUTHORIZED)
+                        .entity("Login inválido")
+                        .build();
+            }
         } catch (NoResultException e) {
             return Response.status(Response.Status.UNAUTHORIZED)
                     .entity("Login inválido")
@@ -108,6 +101,15 @@ public class UsuarioFacadeREST extends AbstractFacade<Usuario> {
         String saltSenha = salt + senha;
         String senhaCriptografada = DigestUtils.sha256Hex(saltSenha);
         entity.setSenha(senhaCriptografada);
+        System.out.println("entrou no alterar usuario com  senha");
+        super.edit(entity);
+    }
+
+    @PUT
+    @Path("/alterar/{id}")
+    @Consumes({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
+    public void editSemSenha(@PathParam("id") Integer id, Usuario entity) {
+        System.out.println("entrou no alterar usuario sem senha");
         super.edit(entity);
     }
 

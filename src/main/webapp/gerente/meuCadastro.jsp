@@ -88,15 +88,14 @@
                                 <div class="col-6 p-3">
                                     <input type="password"
                                            class="form-control text-bg-light" id="senha"
-                                           name="senha" maxlength="99" value="${usuario.senha}"
-                                           required>
+                                           name="senha" maxlength="99">
                                 </div>
                                 <div class="col-4 text-sm-end fw-bold p-3">Confirma Senha
                                 </div>
                                 <div class="col-6 p-3">
                                     <input type="password"
                                            class="form-control text-bg-light" id="senha2"
-                                           maxlength="99" value="${usuario.senha}" required>
+                                           maxlength="99">
                                 </div>
                                 <script>
                                     document.addEventListener('DOMContentLoaded', function () {

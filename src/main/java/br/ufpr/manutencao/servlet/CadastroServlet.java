@@ -86,15 +86,26 @@ public class CadastroServlet extends HttpServlet {
                         String telefone = request.getParameter("telefone");
                         String email = request.getParameter("email");
                         String senha = request.getParameter("senha");
-
+                        System.out.println("retornando a senhaa do formulario: " + senha);
                         //adiciona os valores a esse objeto
                         usuario.setNome(nome);
                         usuario.setEmail(email);
                         usuario.setTelefone(telefone);
-                        usuario.setSenha(senha);
 
-                        //função para atualizar no bd via Facade
-                        UsuarioFacade.aterarUsuario(usuario);
+                        if (!senha.isEmpty()) {
+                            //Gerar novo Salt
+                            SecureRandom secureRandom = new SecureRandom();
+                            byte[] salt = new byte[16];
+                            secureRandom.nextBytes(salt);
+                            String saltStr = Hex.encodeHexString(salt);
+
+                            usuario.setSalt(saltStr);
+                            usuario.setSenha(senha);
+                            //função para atualizar no bd via Facade
+                            UsuarioFacade.alterarUsuario(usuario);
+                        }else {
+                            UsuarioFacade.alterarUsuarioSemSenha(usuario);
+                        }
 
                         //redireciona
                         request.setAttribute("info", " Usuário atualizado");
@@ -163,7 +174,7 @@ public class CadastroServlet extends HttpServlet {
 
                         //Gerar o Salt
                         SecureRandom secureRandom = new SecureRandom();
-                        byte[] salt = new byte[16]; 
+                        byte[] salt = new byte[16];
                         secureRandom.nextBytes(salt);
                         String saltStr = Hex.encodeHexString(salt);
 
@@ -208,7 +219,7 @@ public class CadastroServlet extends HttpServlet {
                         usuario.setEspecialidadeId(new EspecialidadeDTO(especialidade));
 
                         //função para atualizar no bd via Facade
-                        UsuarioFacade.aterarUsuario(usuario);
+                        UsuarioFacade.alterarUsuarioSemSenha(usuario);
 
                         //redireciona
                         request.setAttribute("info", " Operário atualizado");
@@ -230,7 +241,7 @@ public class CadastroServlet extends HttpServlet {
                         }
 
                         //função para atualizar no bd via Facade
-                        UsuarioFacade.aterarUsuario(usuario);
+                        UsuarioFacade.alterarUsuarioSemSenha(usuario);
 
                         //redireciona
                         request.setAttribute("info", "Situação do funcionário atualizada");
@@ -252,7 +263,7 @@ public class CadastroServlet extends HttpServlet {
                         }
 
                         //função para atualizar no bd via Facade
-                        UsuarioFacade.aterarUsuario(usuario);
+                        UsuarioFacade.alterarUsuarioSemSenha(usuario);
 
                         //redireciona
                         request.setAttribute("info", "Situação do operário atualizada");
@@ -274,7 +285,7 @@ public class CadastroServlet extends HttpServlet {
                         }
 
                         //função para atualizar no bd via Facade
-                        UsuarioFacade.aterarUsuario(usuario);
+                        UsuarioFacade.alterarUsuarioSemSenha(usuario);
 
                         //redireciona
                         request.setAttribute("info", "Situação do usuário atualizada");
@@ -316,7 +327,7 @@ public class CadastroServlet extends HttpServlet {
                         usuario.setTipoUsuarioId(new TipoUsuarioDTO(tipoUsuario));
 
                         //função para atualizar no bd via Facade
-                        UsuarioFacade.aterarUsuario(usuario);
+                        UsuarioFacade.alterarUsuarioSemSenha(usuario);
 
                         //redireciona
                         request.setAttribute("info", " Funcionário atualizado!");
@@ -331,10 +342,10 @@ public class CadastroServlet extends HttpServlet {
                         telefone = request.getParameter("telefone");
                         email = request.getParameter("email");
                         tipoUsuario = Integer.parseInt(request.getParameter("tipoUsuario"));
-                        
+
                         //Gerar o Salt
                         secureRandom = new SecureRandom();
-                        salt = new byte[16]; 
+                        salt = new byte[16];
                         secureRandom.nextBytes(salt);
                         saltStr = Hex.encodeHexString(salt);
 
