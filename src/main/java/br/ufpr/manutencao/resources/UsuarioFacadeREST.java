@@ -31,6 +31,7 @@ import jakarta.ws.rs.core.Response;
 import java.io.IOException;
 import br.ufpr.manutencao.dto.UsuarioDTO;
 import java.util.ArrayList;
+import org.apache.commons.codec.digest.DigestUtils;
 
 /**
  *
@@ -51,6 +52,11 @@ public class UsuarioFacadeREST extends AbstractFacade<Usuario> {
     @Override
     @Consumes({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
     public void create(Usuario entity) {
+        String senha = entity.getSenha();
+        String salt = entity.getSalt();
+        String saltSenha = salt + senha;
+        String senhaCriptografada = DigestUtils.sha256Hex(saltSenha);
+        entity.setSenha(senhaCriptografada);
         super.create(entity);
     }
 
@@ -60,22 +66,26 @@ public class UsuarioFacadeREST extends AbstractFacade<Usuario> {
     @Produces(MediaType.APPLICATION_JSON)
     public Response login(LoginDTO login) {
         try {
-            TypedQuery<Usuario> query = em.createNamedQuery("Usuario.findByCpfAndSenha", Usuario.class);
+            TypedQuery<Usuario> query = em.createNamedQuery("Usuario.findByCpf", Usuario.class);
             query.setParameter("cpf", login.getCpf());
-            query.setParameter("senha", login.getSenha());
-            System.out.println(login.getSenha());
-            System.out.println(login.getCpf());
             Usuario usuario = query.getSingleResult();
-            System.out.println("aqui em baixo o usuario");
-            System.out.println(usuario);
-            ObjectMapper mapper = new ObjectMapper();
-            UsuarioDTO usuarioDTO = mapper.convertValue(usuario, UsuarioDTO.class);
-            System.out.println("retornou o usuario: " + usuarioDTO);
 
-            // Cria um Response indicando sucesso
-            return Response.ok(usuarioDTO).build();
+            String salt = usuario.getSalt();
+
+            String senha = login.getSenha();
+            String saltSenha = salt + senha;
+            String senhaCriptografada = DigestUtils.sha256Hex(saltSenha);
+
+            if (senhaCriptografada.equals(usuario.getSenha())) {
+                ObjectMapper mapper = new ObjectMapper();
+                UsuarioDTO usuarioDTO = mapper.convertValue(usuario, UsuarioDTO.class);
+                return Response.ok(usuarioDTO).build();
+            } else {
+                return Response.status(Response.Status.UNAUTHORIZED)
+                        .entity("Login inválido")
+                        .build();
+            }
         } catch (NoResultException e) {
-            // Cria um Response indicando falha
             return Response.status(Response.Status.UNAUTHORIZED)
                     .entity("Login inválido")
                     .build();
@@ -86,6 +96,20 @@ public class UsuarioFacadeREST extends AbstractFacade<Usuario> {
     @Path("{id}")
     @Consumes({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
     public void edit(@PathParam("id") Integer id, Usuario entity) {
+        String senha = entity.getSenha();
+        String salt = entity.getSalt();
+        String saltSenha = salt + senha;
+        String senhaCriptografada = DigestUtils.sha256Hex(saltSenha);
+        entity.setSenha(senhaCriptografada);
+        System.out.println("entrou no alterar usuario com  senha");
+        super.edit(entity);
+    }
+
+    @PUT
+    @Path("/alterar/{id}")
+    @Consumes({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
+    public void editSemSenha(@PathParam("id") Integer id, Usuario entity) {
+        System.out.println("entrou no alterar usuario sem senha");
         super.edit(entity);
     }
 

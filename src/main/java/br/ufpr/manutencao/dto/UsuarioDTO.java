@@ -24,6 +24,8 @@ public class UsuarioDTO{
     private Boolean bloqueio;
     private EspecialidadeDTO especialidadeId;
     private TipoUsuarioDTO tipoUsuarioId;
+    private String salt;
+    
 
     public UsuarioDTO() {
     }
@@ -32,7 +34,7 @@ public class UsuarioDTO{
         this.id = id;
     }
 
-    public UsuarioDTO(Integer id, String nome, String cpf, String telefone, String email, String senha, Boolean bloqueio, EspecialidadeDTO especialidadeId, TipoUsuarioDTO tipoUsuarioId) {
+    public UsuarioDTO(Integer id, String nome, String cpf, String telefone, String email, String senha, Boolean bloqueio, EspecialidadeDTO especialidadeId, TipoUsuarioDTO tipoUsuarioId, String salt) {
         this.id = id;
         this.nome = nome;
         this.cpf = cpf;
@@ -42,7 +44,10 @@ public class UsuarioDTO{
         this.bloqueio = bloqueio;
         this.especialidadeId = especialidadeId;
         this.tipoUsuarioId = tipoUsuarioId;
+        this.salt = salt;
     }
+
+
 
     public Integer getId() {
         return id;
@@ -115,19 +120,20 @@ public class UsuarioDTO{
     public void setTipoUsuarioId(TipoUsuarioDTO tipoUsuarioId) {
         this.tipoUsuarioId = tipoUsuarioId;
     }
+
+    public String getSalt() {
+        return salt;
+    }
+
+    public void setSalt(String salt) {
+        this.salt = salt;
+    }
     
+
     @Override
     public String toString() {
-        return "UsuarioDTO{" +
-                "id=" + id +
-                ", nome='" + nome + '\'' +
-                ", cpf='" + cpf + '\'' +
-                ", telefone='" + telefone + '\'' +
-                ", email='" + email + '\'' +
-                ", senha='" + senha + '\'' +
-                ", bloqueio=" + bloqueio +
-                ", especialidadeId=" + especialidadeId +
-                ", tipoUsuarioId=" + tipoUsuarioId +
-                '}';
+        return "UsuarioDTO{" + "id=" + id + ", nome=" + nome + ", cpf=" + cpf + ", telefone=" + telefone + ", email=" + email + ", senha=" + senha + ", bloqueio=" + bloqueio + ", especialidadeId=" + especialidadeId + ", tipoUsuarioId=" + tipoUsuarioId + ", salt=" + salt + '}';
     }
+    
+
 }

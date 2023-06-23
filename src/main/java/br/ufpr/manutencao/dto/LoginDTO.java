@@ -6,31 +6,36 @@ package br.ufpr.manutencao.dto;
 
 import java.io.Serializable;
 
-public class LoginDTO{
-	private String cpf;
-	private String senha;
-	
-	public LoginDTO() {
-		super();
-	}
-	
-	public LoginDTO(String cpf, String senha) {
-		super();
-		this.cpf = cpf;
-		this.senha = senha;
-	}
-		
-	public String getCpf() {
-		return cpf;
-	}
-	public void setCpf(String cpf) {
-		this.cpf = cpf;
-	}
-	public String getSenha() {
-		return senha;
-	}
-	public void setSenha(String senha) {
-		this.senha = senha;
-	}
+public class LoginDTO {
 
+    private String cpf;
+    private String senha;
+
+
+    public LoginDTO() {
+        super();
+    }
+
+    public LoginDTO(String cpf, String senha) {
+        this.cpf = cpf;
+        this.senha = senha;
+    }
+
+    public String getCpf() {
+        return cpf;
+    }
+
+    public void setCpf(String cpf) {
+        this.cpf = cpf;
+    }
+
+    public String getSenha() {
+        return senha;
+    }
+
+    public void setSenha(String senha) {
+        this.senha = senha;
+    }
+
+   
 }

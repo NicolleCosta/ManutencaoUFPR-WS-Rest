@@ -68,11 +68,51 @@ public class UsuarioFacade {
 
     }
 
-    public static void aterarUsuario(UsuarioDTO usuario) throws FacadeException {
+    public static void alterarUsuario(UsuarioDTO usuario) throws FacadeException {
         HttpClient httpClient = HttpClient.newHttpClient();
 
         // URL do endpoint do backend
         String backendURL = "http://localhost:8080/manutencaoufpr/webresources/usuario/" + usuario.getId();
+
+        // Converte o objeto para JSON
+        ObjectMapper mapper = new ObjectMapper();
+        String requestBody;
+        try {
+            requestBody = mapper.writeValueAsString(usuario);
+        } catch (IOException e) {
+            throw new FacadeException("Erro ao converter o objeto para JSON: " + e.getMessage(), e);
+        }
+
+        // Requisição PUT com o corpo da requisição
+        HttpRequest request = HttpRequest.newBuilder()
+                .uri(URI.create(backendURL))
+                .header("Content-Type", "application/json")
+                .PUT(HttpRequest.BodyPublishers.ofString(requestBody))
+                .build();
+
+        try {
+            // Chamada ao backend
+            HttpResponse<Void> response = httpClient.send(request, HttpResponse.BodyHandlers.discarding());
+
+            // Verificação do código de status
+            int statusCode = response.statusCode();
+            if (statusCode == 200 || statusCode == 204) {
+                System.out.println("Usuário alterado com sucesso.");
+            } else {
+                System.out.println("Erro na alteração: " + response.body());
+                throw new FacadeException("Erro na alteração do usuário: " + response.body());
+            }
+        } catch (IOException | InterruptedException e) {
+            // Exceção que ocorre durante a chamada ao backend
+            throw new FacadeException("Erro na chamada ao backend: " + e.getMessage(), e);
+        }
+    }
+    
+        public static void alterarUsuarioSemSenha(UsuarioDTO usuario) throws FacadeException {
+        HttpClient httpClient = HttpClient.newHttpClient();
+
+        // URL do endpoint do backend
+        String backendURL = "http://localhost:8080/manutencaoufpr/webresources/usuario/alterar/" + usuario.getId();
 
         // Converte o objeto para JSON
         ObjectMapper mapper = new ObjectMapper();
@@ -268,5 +308,6 @@ public class UsuarioFacade {
             throw new FacadeException("Erro na chamada ao backend: " + e.getMessage(), e);
         }
     }
+
 
 }

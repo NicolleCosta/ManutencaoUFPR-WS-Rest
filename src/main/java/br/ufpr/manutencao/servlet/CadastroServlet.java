@@ -21,7 +21,9 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
+import java.security.SecureRandom;
 import java.util.List;
+import org.apache.commons.codec.binary.Hex;
 
 /**
  *
@@ -69,7 +71,7 @@ public class CadastroServlet extends HttpServlet {
                         if (user.getTipoUsuarioId().getId().equals(4)) {
                             rd = getServletContext().getRequestDispatcher("/almoxarife/meuCadastro.jsp");
                         }
-  
+
                         rd.forward(request, response);
                         break;
 
@@ -84,15 +86,26 @@ public class CadastroServlet extends HttpServlet {
                         String telefone = request.getParameter("telefone");
                         String email = request.getParameter("email");
                         String senha = request.getParameter("senha");
-
+                        System.out.println("retornando a senhaa do formulario: " + senha);
                         //adiciona os valores a esse objeto
                         usuario.setNome(nome);
                         usuario.setEmail(email);
                         usuario.setTelefone(telefone);
-                        usuario.setSenha(senha);
 
-                        //função para atualizar no bd via Facade
-                        UsuarioFacade.aterarUsuario(usuario);
+                        if (!senha.isEmpty()) {
+                            //Gerar novo Salt
+                            SecureRandom secureRandom = new SecureRandom();
+                            byte[] salt = new byte[16];
+                            secureRandom.nextBytes(salt);
+                            String saltStr = Hex.encodeHexString(salt);
+
+                            usuario.setSalt(saltStr);
+                            usuario.setSenha(senha);
+                            //função para atualizar no bd via Facade
+                            UsuarioFacade.alterarUsuario(usuario);
+                        }else {
+                            UsuarioFacade.alterarUsuarioSemSenha(usuario);
+                        }
 
                         //redireciona
                         request.setAttribute("info", " Usuário atualizado");
@@ -159,6 +172,12 @@ public class CadastroServlet extends HttpServlet {
                         email = request.getParameter("email");
                         int especialidade = Integer.parseInt(request.getParameter("especialidade"));
 
+                        //Gerar o Salt
+                        SecureRandom secureRandom = new SecureRandom();
+                        byte[] salt = new byte[16];
+                        secureRandom.nextBytes(salt);
+                        String saltStr = Hex.encodeHexString(salt);
+
                         usuario = new UsuarioDTO();
                         //adiciona os valores a esse objeto
                         usuario.setNome(nome);
@@ -169,6 +188,7 @@ public class CadastroServlet extends HttpServlet {
                         usuario.setBloqueio(false);
                         usuario.setEspecialidadeId(new EspecialidadeDTO(especialidade));
                         usuario.setTipoUsuarioId(new TipoUsuarioDTO(2));
+                        usuario.setSalt(saltStr);
 
                         System.out.println("Usuario : " + usuario);
                         //função para atualizar no bd via Facade
@@ -199,7 +219,7 @@ public class CadastroServlet extends HttpServlet {
                         usuario.setEspecialidadeId(new EspecialidadeDTO(especialidade));
 
                         //função para atualizar no bd via Facade
-                        UsuarioFacade.aterarUsuario(usuario);
+                        UsuarioFacade.alterarUsuarioSemSenha(usuario);
 
                         //redireciona
                         request.setAttribute("info", " Operário atualizado");
@@ -221,15 +241,15 @@ public class CadastroServlet extends HttpServlet {
                         }
 
                         //função para atualizar no bd via Facade
-                        UsuarioFacade.aterarUsuario(usuario);
+                        UsuarioFacade.alterarUsuarioSemSenha(usuario);
 
                         //redireciona
                         request.setAttribute("info", "Situação do funcionário atualizada");
                         rd = getServletContext().getRequestDispatcher("/CadastroServlet?action=mostrarFuncionariosGer");
                         rd.forward(request, response);
                         break;
-                        
-                        case "alterarModoBloqueioOperario":
+
+                    case "alterarModoBloqueioOperario":
                         id = Integer.parseInt(request.getParameter("id"));
 
                         //BUSCA OBJETO NO BD via Facade
@@ -243,7 +263,7 @@ public class CadastroServlet extends HttpServlet {
                         }
 
                         //função para atualizar no bd via Facade
-                        UsuarioFacade.aterarUsuario(usuario);
+                        UsuarioFacade.alterarUsuarioSemSenha(usuario);
 
                         //redireciona
                         request.setAttribute("info", "Situação do operário atualizada");
@@ -265,16 +285,15 @@ public class CadastroServlet extends HttpServlet {
                         }
 
                         //função para atualizar no bd via Facade
-                        UsuarioFacade.aterarUsuario(usuario);
+                        UsuarioFacade.alterarUsuarioSemSenha(usuario);
 
                         //redireciona
                         request.setAttribute("info", "Situação do usuário atualizada");
                         rd = getServletContext().getRequestDispatcher("/CadastroServlet?action=mostrarUsuariosAdmin");
                         rd.forward(request, response);
                         break;
-                        
-                        
-                        case "mostrarFuncionariosGer":
+
+                    case "mostrarFuncionariosGer":
                         System.out.println("entrou no mostrarFuncionariosGer");
                         //Carrega a lista de chamados para apresentar
                         List<UsuarioDTO> funcionarios = UsuarioFacade.buscarfuncionarios();
@@ -289,9 +308,8 @@ public class CadastroServlet extends HttpServlet {
                         rd = getServletContext().getRequestDispatcher("/gerente/funcionarios.jsp");
                         rd.forward(request, response);
                         break;
-                        
-                        
-                        case "alterarCadastroFuncionario":
+
+                    case "alterarCadastroFuncionario":
                         id = Integer.parseInt(request.getParameter("id"));
 
                         //BUSCA OBJETO NO BD via Facade
@@ -309,21 +327,27 @@ public class CadastroServlet extends HttpServlet {
                         usuario.setTipoUsuarioId(new TipoUsuarioDTO(tipoUsuario));
 
                         //função para atualizar no bd via Facade
-                        UsuarioFacade.aterarUsuario(usuario);
+                        UsuarioFacade.alterarUsuarioSemSenha(usuario);
 
                         //redireciona
                         request.setAttribute("info", " Funcionário atualizado!");
                         rd = getServletContext().getRequestDispatcher("/CadastroServlet?action=mostrarFuncionariosGer");
                         rd.forward(request, response);
                         break;
-                        
-                        case "novoFuncionario":
+
+                    case "novoFuncionario":
                         System.out.println("entrou serveletnovo usuario");
                         nome = request.getParameter("nome");
                         cpf = request.getParameter("cpf");
                         telefone = request.getParameter("telefone");
                         email = request.getParameter("email");
                         tipoUsuario = Integer.parseInt(request.getParameter("tipoUsuario"));
+
+                        //Gerar o Salt
+                        secureRandom = new SecureRandom();
+                        salt = new byte[16];
+                        secureRandom.nextBytes(salt);
+                        saltStr = Hex.encodeHexString(salt);
 
                         usuario = new UsuarioDTO();
                         //adiciona os valores a esse objeto
@@ -335,6 +359,7 @@ public class CadastroServlet extends HttpServlet {
                         usuario.setBloqueio(false);
                         usuario.setEspecialidadeId(new EspecialidadeDTO(1));
                         usuario.setTipoUsuarioId(new TipoUsuarioDTO(tipoUsuario));
+                        usuario.setSalt(saltStr);
 
                         System.out.println("Usuario : " + usuario);
                         //função para atualizar no bd via Facade
