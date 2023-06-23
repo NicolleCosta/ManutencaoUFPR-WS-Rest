@@ -31,6 +31,7 @@ import jakarta.ws.rs.core.Response;
 import java.io.IOException;
 import br.ufpr.manutencao.dto.UsuarioDTO;
 import java.util.ArrayList;
+import org.apache.commons.codec.digest.DigestUtils;
 
 /**
  *
@@ -51,9 +52,21 @@ public class UsuarioFacadeREST extends AbstractFacade<Usuario> {
     @Override
     @Consumes({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
     public void create(Usuario entity) {
+        String senha = entity.getSenha();
+        String salt = entity.getSalt();
+        String saltSenha = salt + senha;
+        String senhaCriptografada = DigestUtils.sha256Hex(saltSenha);
+        entity.setSenha(senhaCriptografada);
         super.create(entity);
     }
 
+//    Post sem utilizar de criptografia
+//    @POST
+//    @Override
+//    @Consumes({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
+//    public void create(Usuario entity) {
+//        super.create(entity);
+//    }
     @POST
     @Path("/login")
     @Consumes(MediaType.APPLICATION_JSON)
@@ -62,8 +75,12 @@ public class UsuarioFacadeREST extends AbstractFacade<Usuario> {
         try {
             TypedQuery<Usuario> query = em.createNamedQuery("Usuario.findByCpfAndSenha", Usuario.class);
             query.setParameter("cpf", login.getCpf());
-            query.setParameter("senha", login.getSenha());
-            System.out.println(login.getSenha());
+            String senha = login.getSenha();
+            String salt = login.getSalt();
+            String saltSenha = salt + senha;
+            String senhaCriptografada = DigestUtils.sha256Hex(saltSenha);
+            query.setParameter("senha", senhaCriptografada);
+            System.out.println(saltSenha);
             System.out.println(login.getCpf());
             Usuario usuario = query.getSingleResult();
             System.out.println("aqui em baixo o usuario");
@@ -86,6 +103,11 @@ public class UsuarioFacadeREST extends AbstractFacade<Usuario> {
     @Path("{id}")
     @Consumes({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
     public void edit(@PathParam("id") Integer id, Usuario entity) {
+        String senha = entity.getSenha();
+        String salt = entity.getSalt();
+        String saltSenha = salt + senha;
+        String senhaCriptografada = DigestUtils.sha256Hex(saltSenha);
+        entity.setSenha(senhaCriptografada);
         super.edit(entity);
     }
 

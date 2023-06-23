@@ -36,7 +36,6 @@ import jakarta.persistence.TypedQuery;
 @NamedQueries({
     @NamedQuery(name = "Usuario.findAll", query = "SELECT u FROM Usuario u"),
     @NamedQuery(name = "Usuario.listaUsuarios", query = "SELECT u FROM Usuario u WHERE u.tipoUsuarioId = :id"),
-
     @NamedQuery(name = "Usuario.listaFuncionarios", query = "SELECT u FROM Usuario u WHERE u.tipoUsuarioId <> :idUsu AND u.tipoUsuarioId <> :idOpe"),
     @NamedQuery(name = "Usuario.findById", query = "SELECT u FROM Usuario u WHERE u.id = :id"),
     @NamedQuery(name = "Usuario.findByNome", query = "SELECT u FROM Usuario u WHERE u.nome = :nome"),
@@ -67,8 +66,7 @@ public class Usuario implements Serializable {
     private String senha;
     @Column(name = "bloqueio")
     private Boolean bloqueio;
-
-// Retirado para nao gerar problema de looping já que está em outra classe       
+//Retirado para nao gerar problema de looping já que está em outra classe       
 //    @OneToMany(mappedBy = "usuarioId")
 //    private Collection<RetiradaMaterial> retiradaMaterialCollection;
     @JoinColumn(name = "especialidade_id", referencedColumnName = "id")
@@ -80,6 +78,9 @@ public class Usuario implements Serializable {
     @ManyToOne
     // @JsonBackReference
     private TipoUsuario tipoUsuarioId;
+
+    @Column(name = "salt")
+    private String salt;
 
 // Retirado para nao gerar problema de looping já que está em outra classe   
 //    @OneToMany(mappedBy = "usuarioId")
@@ -171,6 +172,15 @@ public class Usuario implements Serializable {
     public void setTipoUsuarioId(TipoUsuario tipoUsuarioId) {
         this.tipoUsuarioId = tipoUsuarioId;
     }
+
+    public String getSalt() {
+        return salt;
+    }
+
+    public void setSalt(String salt) {
+        this.salt = salt;
+    }
+    
 
 //    public Collection<ComentarioOperario> getComentarioOperarioCollection() {
 //        return comentarioOperarioCollection;
