@@ -92,6 +92,7 @@ public class LoginServlet extends HttpServlet {
             request.setAttribute("msg", " Usuário/Senha inválidos.");
             request.setAttribute("page", "/geral/index.jsp");
             RequestDispatcher rd = getServletContext().getRequestDispatcher("/geral/index.jsp");
+            rd.forward(request, response);
         }
                   
        
