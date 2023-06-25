@@ -363,7 +363,8 @@
                                     <div class="row row-cols-2">
                                         <div class="col">
                                             <label class="fw-bold col-form-label">CPF</label>
-                                            <input type="text" class="form-control text-bg-light" id="cpf" name="cpf" required>
+                                            <input type="text" class="form-control text-bg-light" id="cpf" name="cpf" onBlur="validaCPF(this)" maxlength="14" required>
+                                            <span class="validacao-span" id="span-cpf" style="display: none">CPF Inválido!</span>
                                         </div>
                                         <div class="col">
                                             <label class="fw-bold col-form-label">Telefone</label>
@@ -394,7 +395,7 @@
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-                        <button type="submit" class="btn btn-warning">Salvar</button>
+                        <button id="salva-cadastro" type="submit" class="btn btn-warning">Salvar</button>
                     </div>
                 </div>
             </div>
@@ -403,6 +404,9 @@
 
 
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.16/jquery.mask.min.js"></script>
     <script src="js/main.js"></script>
+    <script src="${pageContext.servletContext.contextPath}/js/cpf.js"></script>
+    <script src="${pageContext.servletContext.contextPath}/js/mask.js"></script>
 </body>
 </html>
