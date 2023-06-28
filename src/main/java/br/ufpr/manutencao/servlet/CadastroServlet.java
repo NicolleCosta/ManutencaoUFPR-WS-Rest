@@ -210,6 +210,8 @@ public class CadastroServlet extends HttpServlet {
 
                         nome = request.getParameter("nome");
                         telefone = request.getParameter("telefone");
+                        telefone = telefone.replaceAll("\\D+", "");
+                        System.out.println("telefone : "+ telefone);
                         email = request.getParameter("email");
                         especialidade = Integer.parseInt(request.getParameter("especialidade"));
 
