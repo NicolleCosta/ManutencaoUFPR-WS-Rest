@@ -103,7 +103,7 @@
                                         const senha1 = document.getElementById('senha');
                                         const senha2 = document.getElementById('senha2');
                                         const erroSenhaIncorreta = document.getElementById('erroSenhaIncorreta');
-                                        const submitButton = document.getElementById('submitButton');
+                                        const submitButton = document.getElementById('salva-cadastro');
 
                                         function validaSenhas() {
                                             const senhasIguais = senha1.value === senha2.value;

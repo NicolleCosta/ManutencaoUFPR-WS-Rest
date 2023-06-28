@@ -129,7 +129,7 @@
                                 <p class="fw-bold">ID Operário</p>
                             </div>
                             <div class="col-sm-4">
-                                <input type="text"id="operarioID" class="form-control text-bg-light" value="${operario.id}" readonly>
+                                <input type="text" id="operarioID" class="form-control text-bg-light" value="${operario.id}" readonly>
                             </div>
                         </div>
                         <div class="container">
@@ -142,11 +142,11 @@
                                     <div class="row row-cols-3 py-2">
                                         <div class="col">
                                             <label class="fw-bold col-form-label">CPF</label>
-                                            <input type="text" class="form-control text-bg-light" id="cpf" value="${operario.cpf}" readonly>
+                                            <input type="text" class="form-control text-bg-light" id="cpf" name="cpf" value="${operario.cpf}" readonly>
                                         </div>
                                         <div class="col">
                                             <label class="fw-bold col-form-label">Telefone</label>
-                                            <input type="text" class="form-control text-bg-light" id="telefone" value="${operario.telefone}" readonly>
+                                            <input type="text" class="form-control text-bg-light" id="telefone" name= "telefone" value="${operario.telefone}" readonly>
                                         </div>
                                         <div class="col">
                                             <label class="fw-bold col-form-label">Situação</label>
@@ -199,42 +199,41 @@
                             <h3 class="modal-title text-primary">Operário</h3>
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
-
                         <div class="modal-body">
                             <div class="row justify-content-end">
                                 <div class="col-sm-4 text-sm-end">
                                     <p class="fw-bold">ID Operário</p>
                                 </div>
                                 <div class="col-sm-4">
-                                    <input type="text"id="id" name="id" class="form-control text-bg-light" value="${operario.id}" readonly>
+                                    <input type="text" id="id" name="id" class="form-control text-bg-light" value="${operario.id}" readonly>
                                 </div>
                             </div>
                             <div class="container">
                                 <div class="row">
                                     <div class="col-sm-12">
                                         <label class="fw-bold col-form-label">Nome</label>
-                                        <input type="text" class="form-control text-bg-light" id="nome" name="nome" value="${operario.nome}" required>
+                                        <input type="text" class="form-control text-bg-light" id="nomeedit" name="nome" value="${operario.nome}" required>
                                     </div>
                                     <div class="container text-right">
                                         <div class="row row-cols-3 py-2">
                                             <div class="col">
                                                 <label class="fw-bold col-form-label">CPF</label>
-                                                <input type="text" class="form-control text-bg-secondary" id="cpf" name="cpf" value="${operario.cpf}" disabled>
+                                                <input type="text" class="form-control text-bg-secondary" id="cpfedit" name="cpf" value="${operario.cpf}" disabled>
                                             </div>
                                             <div class="col">
                                                 <label class="fw-bold col-form-label">Telefone</label>
-                                                <input type="text" class="form-control text-bg-light" id="telefone" name="telefone" value="${operario.telefone}" required>
+                                                <input type="text" class="form-control text-bg-light" id="telefoneedit" name="telefone"  value="${operario.telefone}" required>
                                             </div>
                                             <div class="col">
                                                 <label class="fw-bold col-form-label">Situação</label>
                                                 <c:choose>
                                                     <c:when test="${operario.bloqueio eq 'false'}">
                                                         <c:set var="status" value="Ativo" />
-                                                        <input type="text" class="form-control text-bg-success" id="situacao" value="${status}" readonly />
+                                                        <input type="text" class="form-control text-bg-success" id="situacaoedit" value="${status}" readonly />
                                                     </c:when>
                                                     <c:otherwise>
                                                         <c:set var="status" value="Bloqueado" />
-                                                        <input type="text" class="form-control text-bg-danger" id="situacao" value="${status}" readonly />
+                                                        <input type="text" class="form-control text-bg-danger" id="situacaoedit2" value="${status}" readonly />
                                                     </c:otherwise>
                                                 </c:choose>
                                             </div>
@@ -242,7 +241,7 @@
                                     </div>
                                     <div class="col-sm-12">
                                         <label class="fw-bold col-form-label">Email</label>
-                                        <input type="text" class="form-control text-bg-light" id="email" name="email"  value="${operario.email}">
+                                        <input type="text" class="form-control text-bg-light" id="emailedit" name="email"  value="${operario.email}">
                                     </div>
                                     <div class="p-3">
                                         <label class="fw-bold">Especialidades</label>
@@ -266,7 +265,7 @@
                         <div class="modal-footer">
 
                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-                            <button type="submit" class="btn btn-warning">Salvar</button>
+                            <button id="edit-salva-cadastro" type="submit"  class="btn btn-warning" >Salvar</button>
                         </div>
 
                     </div>
@@ -332,7 +331,7 @@
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-                            <button type="sumit" class="btn btn-primary">Desbloqueio</button>
+                            <button type="submit" class="btn btn-primary">Desbloqueio</button>
                         </div>
                     </div>
                 </form>
@@ -395,7 +394,7 @@
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-                        <button id="salva-cadastro" type="submit" class="btn btn-warning">Salvar</button>
+                        <button type="submit" class="btn btn-warning">Salvar</button>
                     </div>
                 </div>
             </div>

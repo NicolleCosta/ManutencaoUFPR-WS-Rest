@@ -166,9 +166,12 @@ public class CadastroServlet extends HttpServlet {
 
                     case "novoOperario":
                         System.out.println("entrou serveletnovo usuario");
+                        
                         nome = request.getParameter("nome");
                         String cpf = request.getParameter("cpf");
+                        cpf = cpf.replaceAll("\\D+", "");
                         telefone = request.getParameter("telefone");
+                        telefone = telefone.replaceAll("\\D+", "");
                         email = request.getParameter("email");
                         int especialidade = Integer.parseInt(request.getParameter("especialidade"));
 
@@ -209,6 +212,8 @@ public class CadastroServlet extends HttpServlet {
 
                         nome = request.getParameter("nome");
                         telefone = request.getParameter("telefone");
+                        telefone = telefone.replaceAll("\\D+", "");
+                        System.out.println("telefone : "+ telefone);
                         email = request.getParameter("email");
                         especialidade = Integer.parseInt(request.getParameter("especialidade"));
 
@@ -317,6 +322,7 @@ public class CadastroServlet extends HttpServlet {
 
                         nome = request.getParameter("nome");
                         telefone = request.getParameter("telefone");
+                        telefone = telefone.replaceAll("\\D+", "");
                         email = request.getParameter("email");
                         int tipoUsuario = Integer.parseInt(request.getParameter("tipoUsuario"));
 
@@ -339,7 +345,9 @@ public class CadastroServlet extends HttpServlet {
                         System.out.println("entrou serveletnovo usuario");
                         nome = request.getParameter("nome");
                         cpf = request.getParameter("cpf");
+                        cpf = cpf.replaceAll("\\D+", "");
                         telefone = request.getParameter("telefone");
+                        telefone = telefone.replaceAll("\\D+", "");
                         email = request.getParameter("email");
                         tipoUsuario = Integer.parseInt(request.getParameter("tipoUsuario"));
 

@@ -9,11 +9,19 @@ $(document).ready(function ($) {
     $("input[name=cpf]").mask('000.000.000-00');
 
     $("#salva-cadastro").click(function () {
-        $("input[name=telefone]").val($("input[name=telefone]").cleanVal()); 
-        $("input[name=cpf]").val($("input[name=cpf]").cleanVal()); 
+        $("input[name=telefone]").val($("input[name=telefone]").cleanVal());
+        $("input[name=cpf]").val($("input[name=cpf]").cleanVal());
     });
-    
+
+
+    $("#edit-salva-cadastro").click(function () {
+        $("input[name=telefone]").val($("input[name=telefone]").cleanVal());
+        $("input[name=cpf]").val($("input[name=cpf]").cleanVal());
+    });
+
+
+
     $("#logar").click(function () {
-        $("input[name=cpf]").val($("input[name=cpf]").cleanVal()); 
+        $("input[name=cpf]").val($("input[name=cpf]").cleanVal());
     });
 });
