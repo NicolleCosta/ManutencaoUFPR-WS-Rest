@@ -129,7 +129,7 @@
                                 <p class="fw-bold">ID Operário</p>
                             </div>
                             <div class="col-sm-4">
-                                <input type="text"id="operarioID" class="form-control text-bg-light" value="${operario.id}" readonly>
+                                <input type="text" id="operarioID" class="form-control text-bg-light" value="${operario.id}" readonly>
                             </div>
                         </div>
                         <div class="container">
@@ -199,7 +199,6 @@
                             <h3 class="modal-title text-primary">Operário</h3>
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
-
                         <div class="modal-body">
                             <div class="row justify-content-end">
                                 <div class="col-sm-4 text-sm-end">
@@ -395,7 +394,7 @@
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-                        <button id="salva-cadastro" type="submit" class="btn btn-warning">Salvar</button>
+                        <button type="submit" class="btn btn-warning">Salvar</button>
                     </div>
                 </div>
             </div>

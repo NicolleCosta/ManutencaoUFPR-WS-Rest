@@ -88,21 +88,21 @@
                                 <div class="col-6 p-3">
                                     <input type="password"
                                            class="form-control text-bg-light" id="senha"
-                                           name="senha" maxlength="99">
+                                           name="senha" maxlength="99" >
                                 </div>
                                 <div class="col-4 text-sm-end fw-bold p-3">Confirma Senha
                                 </div>
                                 <div class="col-6 p-3">
                                     <input type="password"
                                            class="form-control text-bg-light" id="senha2"
-                                           maxlength="99">
+                                           maxlength="99" >
                                 </div>
                                 <script>
                                     document.addEventListener('DOMContentLoaded', function () {
                                         const senha1 = document.getElementById('senha');
                                         const senha2 = document.getElementById('senha2');
                                         const erroSenhaIncorreta = document.getElementById('erroSenhaIncorreta');
-                                        const submitButton = document.getElementById('submitButton');
+                                        const submitButton = document.getElementById('salva-cadastro');
 
                                         function validaSenhas() {
                                             const senhasIguais = senha1.value === senha2.value;
@@ -119,7 +119,6 @@
                                     });
                                 </script>
                             </div>
-
 
                             <div class="d-grid gap-2 justify-content-md-end">
                                 <button type="submit" class="btn btn-warning fw-bold btn-lg"
