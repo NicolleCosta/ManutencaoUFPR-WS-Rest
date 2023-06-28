@@ -166,6 +166,7 @@ public class CadastroServlet extends HttpServlet {
 
                     case "novoOperario":
                         System.out.println("entrou serveletnovo usuario");
+                        
                         nome = request.getParameter("nome");
                         String cpf = request.getParameter("cpf");
                         telefone = request.getParameter("telefone");

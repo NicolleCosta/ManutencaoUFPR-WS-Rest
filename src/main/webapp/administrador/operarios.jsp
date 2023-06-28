@@ -223,7 +223,7 @@
                                             </div>
                                             <div class="col">
                                                 <label class="fw-bold col-form-label">Telefone</label>
-                                                <input type="text" class="form-control text-bg-light" id="telefone" name="telefone" value="${operario.telefone}" required>
+                                                <input type="text" class="form-control text-bg-light" id="telefone" name="telefone"  value="${operario.telefone}" required>
                                             </div>
                                             <div class="col">
                                                 <label class="fw-bold col-form-label">Situação</label>
@@ -266,7 +266,7 @@
                         <div class="modal-footer">
 
                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-                            <button type="submit" class="btn btn-warning">Salvar</button>
+                            <button type="submit" id="salva-cadastro-2" class="btn btn-warning" >Salvar</button>
                         </div>
 
                     </div>

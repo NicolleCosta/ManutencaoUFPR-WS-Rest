@@ -13,6 +13,12 @@ $(document).ready(function ($) {
         $("input[name=cpf]").val($("input[name=cpf]").cleanVal()); 
     });
     
+    $("#salva-cadastro-2").click(function () {
+        $("input[name=telefone]").val($("input[name=telefone]").cleanVal()); 
+        $("input[name=cpf]").val($("input[name=cpf]").cleanVal()); 
+    });
+    
+    
     $("#logar").click(function () {
         $("input[name=cpf]").val($("input[name=cpf]").cleanVal()); 
     });
