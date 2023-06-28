@@ -33,14 +33,14 @@
         <!-- Configurações da pagina (fim do head) e Cabeçalho da página -->
 
         <%@include file="header.jsp" %>
-    <div class="w-100 p-3">
+    <div class="w-100">
         <c:if test="${requestScope.info != null || param.info != null}">
             <div class="alert alert-success alert-dismissible fade show">
                 <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
                 <span>${requestScope.info == null ? param.info : requestScope.info}</span>
             </div>
         </c:if>
-        <h1 class="text-primary text-center fw-bold">Funcionários</h1>
+        <h1 class="text-center">Funcionários</h1>
     </div>
     <div class="container text-center">
         <div class="row p-3">
@@ -48,11 +48,9 @@
                 <form class="d-flex" role="search">
 
 
+
                     <input  id="searchInput" class="form-control me-2" type="search" placeholder="Buscar Funcionário" aria-label="Search">
                     <button class="btn btn-primary fw-bold search-button" type="submit">Buscar</button>
-
-
-
 
                 </form>
             </div>
@@ -65,7 +63,6 @@
                 </div>
             </div>
         </div>
-
 
         <div class="table-secondary table-sm p-3 text-center">
             <table class="table align-middle mb-0 bg-white table-hover">
@@ -221,10 +218,11 @@
             <div class="modal-dialog modal-lg modal-dialog-centered modal-dialog-scrollable">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h3 class="modal-title text-primary">Funcionário</h3>
+                        <h1 class="modal-title fs-5" id="modalOperario">Funcionário</h1>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
+
 
                         <div class="row justify-content-end">
                             <div class="col-sm-4 text-sm-end">
@@ -237,6 +235,7 @@
 
                         <div class="container">
                             <div class="row">
+
                                 <div>
                                     <label class="fw-bold col-form-label">Nome</label>
                                     <input type="text" class="form-control text-bg-light" id="nome" name="nome" value="${funcionario.nome}" required >
@@ -244,15 +243,17 @@
                                 <div class="container text-right">
                                     <div class="row row-cols-3">
                                         <div class="col">
+
                                             <label class="fw-bold col-form-label">CPF</label>
                                             <input type="text" class="form-control text-bg-light" id="cpf" name="cpf" value="${funcionario.cpf}" readonly>
                                         </div>
                                         <div class="col">
                                             <label class="fw-bold col-form-label">Telefone</label>
                                             <input type="text" class="form-control text-bg-light" id="telefone" name="telefone" value="${funcionario.telefone}" required>
+
                                         </div>
                                         <div class="col">
-                                            <label class="fw-bold col-form-label">Situação</label>
+                                            <label>Situação</label>
                                             <c:choose>
                                                 <c:when test="${funcionario.bloqueio eq 'false'}">
                                                     <c:set var="status" value="Ativo" />
@@ -266,6 +267,7 @@
                                     </div>
                                 </div>
                                 <div>
+
                                     <label class="fw-bold col-form-label">E-mail</label>
                                     <input type="text" class="form-control text-bg-light" id="email" name="email" value="${funcionario.email}" required>
                                 </div>
@@ -288,11 +290,23 @@
                                 </div>
                             </div>
                         </div>
+                        <h5 class="p-3"> Cargo </h5>
+                        <div class="d-grid gap-2 d-md-flex justify-content-md-start">
+
+                            <c:forEach var="tipoUsuario" items="${requestScope.tiposUsuario}">
+                                <c:if test="${tipoUsuario.nome != 'usuario' &&  tipoUsuario.nome != 'operario'}">
+                                    <input type="radio" name="tipoUsuario" value="${tipoUsuario.id}"  <c:if test="${funcionario.tipoUsuarioId.id == tipoUsuario.id}"> checked="checked"</c:if> required>
+                                    ${tipoUsuario.nome} 
+                                </c:if>
+                            </c:forEach>
+                        </div>  
                     </div>
                     <div class="modal-footer">
 
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+
                         <button type="submit" class="btn btn-warning fw-bold">Salvar</button>
+
                     </div>
                 </div>
 
