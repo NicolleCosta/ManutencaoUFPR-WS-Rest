@@ -52,8 +52,7 @@
                 <form class="d-flex" role="search">
 
                     <input  id="searchInput" class="form-control me-2" type="search" placeholder="Buscar Usuário" aria-label="Search">
-                    <button class="btn btn-primary fw-bold search-button" type="submit">Buscar</button>
-                   
+                    <button class="btn btn-warning fw-bold" type="submit">Buscar</button>
 
 
                 </form>
@@ -73,6 +72,15 @@
                     <th></th>
                 </tr>
             </thead>
+            <tbody>
+                <c:forEach var="usuario" items="${requestScope.usuarios}">
+
+                    <tr>
+                        <th>Nome</th>
+                        <th>Situação</th>
+                        <th></th>
+                    </tr>
+                </thead>
                 <tbody>
                     <c:forEach var="usuario" items="${requestScope.usuarios}">
                         <tr>

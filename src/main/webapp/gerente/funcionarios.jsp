@@ -47,8 +47,10 @@
             <div class="col-6">
                 <form class="d-flex" role="search">
 
+
                     <input  id="searchInput" class="form-control me-2" type="search" placeholder="Buscar Funcionário" aria-label="Search">
                     <button class="btn btn-primary fw-bold search-button" type="submit">Buscar</button>
+
 
 
 
