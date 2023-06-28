@@ -124,7 +124,7 @@
 
                             <div class="d-grid gap-2 justify-content-md-end">
                                 <button type="submit" class="btn btn-warning fw-bold btn-lg"
-                                        id="submitButton">Salvar</button>
+                                        id="salva-cadastro">Salvar</button>
                                 <div id="erroSenhaIncorreta"
                                      style="display: none; color: red;">Senhas diferentes!
                                     Para dar continuidade é necessário que as senhas sejam
@@ -137,6 +137,11 @@
                 </div>
             </div>
         </div>
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.16/jquery.mask.min.js"></script>
+        <script src="js/main.js"></script>
+        <script src="${pageContext.servletContext.contextPath}/js/cpf.js"></script>
+        <script src="${pageContext.servletContext.contextPath}/js/mask.js"></script>
     </body>
 
 </html>

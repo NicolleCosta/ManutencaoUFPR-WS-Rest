@@ -56,7 +56,7 @@ public class LoginServlet extends HttpServlet {
             System.out.println("nome " + user.getNome());
             boolean isBlock = user.getBloqueio();
             if (isBlock) {
-                request.setAttribute("msg", "Usuário bloqueado. Entre em contato: manutençãoufpr@gmail.com");
+                request.setAttribute("msg", "Usuário bloqueado. Favor, entrar em contato com o seu gestor.");
                 request.setAttribute("page", "/geral/index.jsp");
                 RequestDispatcher rd = getServletContext().getRequestDispatcher("/geral/index.jsp");
                 rd.forward(request, response);
