@@ -131,25 +131,26 @@
                             <div class="row row-cols-3">
                                 <div class="col">
                                     <p>CPF</p>
-                                    <input type="text" class="form-control text-bg-light" id="cpf" readonly
+                                    <input type="text" class="form-control text-bg-light" id="cpf" name="cpf" readonly
                                            value="${usuario.cpf}">
                                 </div>
                                 <div class="col">
                                     <p>Telefone</p>
-                                    <input type="text" class="form-control text-bg-light" id="telefone" readonly
+                                    <input type="text" class="form-control text-bg-light" id="telefone" name="telefone" readonly
                                            value="${usuario.telefone}">
                                 </div>
                                 <div class="col">
-                                    <label>Situação</label>
-                                    <c:choose>
-                                        <c:when test="${usuario.bloqueio eq 'false'}">
-                                            <c:set var="status" value="Ativo" />
-                                        </c:when>
-                                        <c:otherwise>
-                                            <c:set var="status" value="Bloqueado" />
-                                        </c:otherwise>
-                                    </c:choose>
-                                    <input type="text" class="form-control text-bg-light" id="situação" value="${status}" readonly>
+                                    <label class="fw-bold col-form-label">Situação</label>
+                                            <c:choose>
+                                                <c:when test="${operario.bloqueio eq 'false'}">
+                                                    <c:set var="status" value="Ativo" />
+                                                    <input type="text" class="form-control text-bg-success" id="situacao" value="${status}" readonly />
+                                                </c:when>
+                                                <c:otherwise>
+                                                    <c:set var="status" value="Bloqueado" />
+                                                    <input type="text" class="form-control text-bg-danger" id="situacao" value="${status}" readonly />
+                                                </c:otherwise>
+                                            </c:choose>
                                 </div>
                             </div>
                             <div class="row">

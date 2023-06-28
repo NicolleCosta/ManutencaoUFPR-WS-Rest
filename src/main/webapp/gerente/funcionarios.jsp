@@ -140,11 +140,11 @@
                                     <div class="row row-cols-3">
                                         <div class="col">
                                             <label class="fw-bold col-form-label">CPF</label>
-                                            <input type="text" class="form-control text-bg-light" id="cpf" value="${funcionario.cpf}" readonly>
+                                            <input type="text" class="form-control text-bg-light" id="cpf" name="cpf" value="${funcionario.cpf}" readonly>
                                         </div>
                                         <div class="col">
                                             <label class="fw-bold col-form-label">Telefone</label>
-                                            <input type="text" class="form-control text-bg-light" id="telefone" value="${funcionario.telefone}" readonly>
+                                            <input type="text" class="form-control text-bg-light" id="telefone" name="telefone" value="${funcionario.telefone}" readonly>
                                         </div>
                                         <div class="col">
                                             <label class="fw-bold col-form-label">Situação</label>

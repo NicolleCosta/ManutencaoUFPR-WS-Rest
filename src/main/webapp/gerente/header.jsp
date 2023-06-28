@@ -64,9 +64,6 @@ crossorigin="anonymous"></script>
                     <a href="CadastroServlet?action=mostrarUsuariosAdmin"><button type="button" class="btn btn-warning fw-bold">Usuários</button></a>
                 </div>
                 <div class="col-md-auto">
-                    <a class="nav-link" href="relatorios.jsp"><button type="button" class="btn btn-warning fw-bold">Relatórios</button></a>
-                </div>
-                <div class="col-md-auto">
                     <a href="OrdemDeServicoServlet?action=mostrarOrdemDeServico"><button type="button" class="btn btn-warning fw-bold">Ordens de Serviço</button></a>
                 </div>
                 <div class="col-md-auto">

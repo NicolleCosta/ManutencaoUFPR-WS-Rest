@@ -142,11 +142,11 @@
                                     <div class="row row-cols-3 py-2">
                                         <div class="col">
                                             <label class="fw-bold col-form-label">CPF</label>
-                                            <input type="text" class="form-control text-bg-light" id="cpf" value="${operario.cpf}" readonly>
+                                            <input type="text" class="form-control text-bg-light" id="cpf" name="cpf" value="${operario.cpf}" readonly>
                                         </div>
                                         <div class="col">
                                             <label class="fw-bold col-form-label">Telefone</label>
-                                            <input type="text" class="form-control text-bg-light" id="telefone" value="${operario.telefone}" readonly>
+                                            <input type="text" class="form-control text-bg-light" id="telefone" name="telefone" value="${operario.telefone}" readonly>
                                         </div>
                                         <div class="col">
                                             <label class="fw-bold col-form-label">Situação</label>

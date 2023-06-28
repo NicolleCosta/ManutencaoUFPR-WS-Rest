@@ -237,7 +237,7 @@
                                     <p class="fw-bold">Nº Chamado</p>
                                 </div>
                                 <div class="col-sm-4">
-                                    <input type="text"id="numero-os" class="form-control text-bg-light" value="${chamado.id}" readonly>
+                                    <input type="text" id="numero-os" class="form-control text-bg-light" value="${chamado.id}" readonly>
                                 </div>
                             </div>
 

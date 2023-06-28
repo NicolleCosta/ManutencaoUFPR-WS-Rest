@@ -114,7 +114,7 @@
                                 <p class="fw-bold">ID Usuário</p>
                             </div>
                             <div class="col-sm-4">
-                                <input type="text"id="usuarioID" class="form-control text-bg-light" value="${usuario.id}" readonly>
+                                <input type="text" id="usuarioID" class="form-control text-bg-light" value="${usuario.id}" readonly>
                             </div>
                         </div>
                         <div class="container">
@@ -127,12 +127,12 @@
                             <div class="row row-cols-3 py-2">
                                 <div class="col">
                                     <label class="fw-bold col-form-label">CPF</label>
-                                    <input type="text" class="form-control text-bg-light" id="cpf" readonly
+                                    <input type="text" class="form-control text-bg-light" id="cpf" name="cpf" readonly
                                            value="${usuario.cpf}">
                                 </div>
                                 <div class="col">
                                     <label class="fw-bold col-form-label">Telefone</label>
-                                    <input type="text" class="form-control text-bg-light" id="telefone" readonly
+                                    <input type="text" class="form-control text-bg-light" id="telefone" name="telefone" readonly
                                            value="${usuario.telefone}">
                                 </div>
                                 <div class="col">
@@ -196,6 +196,9 @@
     </c:forEach>
 
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.16/jquery.mask.min.js"></script>
     <script src="js/main.js"></script>
+    <script src="${pageContext.servletContext.contextPath}/js/cpf.js"></script>
+    <script src="${pageContext.servletContext.contextPath}/js/mask.js"></script>
 </body>
 </html>
