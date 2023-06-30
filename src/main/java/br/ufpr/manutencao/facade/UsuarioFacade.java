@@ -313,7 +313,7 @@ public class UsuarioFacade {
         HttpClient httpClient = HttpClient.newHttpClient();
 
         // URL do endpoint do backend
-        String backendURL = "http://localhost:8080/manutencaoufpr/webresources/recuperarSenha/" + cpf;
+        String backendURL = "http://localhost:8080/manutencaoufpr/webresources/usuario/recuperarSenha/" + cpf;
 
         // Requisição POST com o corpo da requisição
         HttpRequest request = HttpRequest.newBuilder()

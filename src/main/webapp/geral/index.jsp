@@ -96,7 +96,7 @@
                                         Esqueceu a senha? </p>
                                     <div class="text-center px-3">
                                         <a class="link-info link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover"
-                                           href="mailto:example@email.com">Recuperar senha</a>
+                                           href="geral/senha.jsp">Recuperar senha</a>
 
                                     </div>
                                     <div class="py-3">

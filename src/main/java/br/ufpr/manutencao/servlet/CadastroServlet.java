@@ -393,9 +393,13 @@ public class CadastroServlet extends HttpServlet {
                         break;
 
                     case "esqueciSenha":
+
                         cpf = request.getParameter("cpf");
 
+                        System.out.println("esqueci senha" + cpf);
+
                         usuario = UsuarioFacade.usuarioCPF(cpf);
+                        System.out.println("usuario" + usuario);
 
                         if (usuario == null) {
                             request.setAttribute("msg", "Não foi encontrado nenhum usuário com esse CPF ");
@@ -406,31 +410,29 @@ public class CadastroServlet extends HttpServlet {
 
                         //Gerar nova senha
                         String novaSenha = RandomStringUtils.randomAlphanumeric(5);
+                        System.out.println("novaSenha" + novaSenha);
 
                         // Configurações do servidor de e-mail
-                        String host = "smtp.gmail.com";
+                        String host = "smtp.office365.com";
                         int porta = 587;
-                        String usuarioEmail = "ufprmanutencao@gmail.com";
-                        String senhaEmail = "#manutencaoUFPR2023";
-                        String remetente = "ufprmanutencao@gmail.com";
-                        String menssagem = ("Sua nova senha de acesso a ManutençãoUFPR é: " + novaSenha);
-                        String assunto = ("ManutençãoUFPR - Recuperação de Senha");
+                        String usuarioEmail = " @outlook.com";
+                        String senhaEmail = " ";
+                        String remetente = " @outlook.com";
+                        String menssagem = ("Sua nova senha de acesso é: " + novaSenha);
+                        String assunto = ("Recuperação de Senha");
                         String destinatario = usuario.getEmail();
 
-                        // Configurações adicionais
+// Configurações adicionais
                         Properties props = new Properties();
                         props.put("mail.smtp.auth", "true");
                         props.put("mail.smtp.starttls.enable", "true");
                         props.put("mail.smtp.host", host);
                         props.put("mail.smtp.port", porta);
-
+                        props.put("mail.smtp.ssl.trust", host);
                         try {
                             // Sessão
-                            Session sessao = Session.getInstance(props, new Authenticator() {
-                                protected PasswordAuthentication getPasswordAuthentication() {
-                                    return new PasswordAuthentication(usuarioEmail, senhaEmail);
-                                }
-                            });
+                            Session sessao = Session.getDefaultInstance(props);
+                            System.out.println("passou pela sessão");
 
                             Message msg = new MimeMessage(sessao);
 
@@ -439,20 +441,23 @@ public class CadastroServlet extends HttpServlet {
                             msg.setFrom(new InternetAddress(remetente));
                             msg.addRecipient(Message.RecipientType.TO, new InternetAddress(destinatario));
 
-                            Transport transport = sessao.getTransport("smtps");
+                            Transport transport = sessao.getTransport("smtp");
                             transport.connect(host, porta, usuarioEmail, senhaEmail);
+                            System.out.println("passou pelo envio");
+                            usuario.setSenha(novaSenha);
+                            UsuarioFacade.alterarUsuario(usuario);
+                            System.out.println("alterou a senha");
 
-                            request.setAttribute("info", " E-mail de recuperação de senha enviado!");
+                            request.setAttribute("info", "E-mail de recuperação de senha enviado!");
                             rd = getServletContext().getRequestDispatcher("/geral/index.jsp");
                             rd.forward(request, response);
-
                         } catch (MessagingException ex) {
-                            request.setAttribute("ErrorMessage", "Não foi possível conectar ao host!!");
+                            request.setAttribute("msg", "Não foi possível conectar ao host!!");
+                            ex.printStackTrace();
                             rd = getServletContext().getRequestDispatcher("/geral/index.jsp");
                             rd.forward(request, response);
                         }
 
-                        
                         break;
 
                     default:
@@ -469,7 +474,7 @@ public class CadastroServlet extends HttpServlet {
         }
     }
 
-    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
+// <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
      * Handles the HTTP <code>GET</code> method.
      *
