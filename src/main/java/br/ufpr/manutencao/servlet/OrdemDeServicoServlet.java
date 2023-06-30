@@ -101,7 +101,7 @@ public class OrdemDeServicoServlet extends HttpServlet {
                         int idChamado = Integer.parseInt(request.getParameter("idChamado"));
                         System.out.println("idChamado:"+idChamado);
 
-                          String descricaoLocal = request.getParameter("descricaoLocal");
+                        String descricaoLocal = request.getParameter("descricaoLocal");
                         String descricaoProblema = request.getParameter("descricaoProblema");
                         String numeroOS = request.getParameter("numeroOS");
                         int especialidade = Integer.parseInt(request.getParameter("especialidade"));
