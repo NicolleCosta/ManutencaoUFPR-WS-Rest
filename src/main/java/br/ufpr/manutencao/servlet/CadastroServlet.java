@@ -12,6 +12,14 @@ import br.ufpr.manutencao.facade.TipoUsuarioFacade;
 import br.ufpr.manutencao.facade.EspecialidadeFacade;
 import br.ufpr.manutencao.facade.FacadeException;
 import br.ufpr.manutencao.facade.UsuarioFacade;
+import jakarta.mail.Authenticator;
+import jakarta.mail.Message;
+import jakarta.mail.MessagingException;
+import jakarta.mail.PasswordAuthentication;
+import jakarta.mail.Session;
+import jakarta.mail.Transport;
+import jakarta.mail.internet.InternetAddress;
+import jakarta.mail.internet.MimeMessage;
 import jakarta.servlet.RequestDispatcher;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -23,7 +31,11 @@ import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import java.security.SecureRandom;
 import java.util.List;
+import java.util.Properties;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import org.apache.commons.codec.binary.Hex;
+import org.apache.commons.lang3.RandomStringUtils;
 
 /**
  *
@@ -103,7 +115,7 @@ public class CadastroServlet extends HttpServlet {
                             usuario.setSenha(senha);
                             //função para atualizar no bd via Facade
                             UsuarioFacade.alterarUsuario(usuario);
-                        }else {
+                        } else {
                             UsuarioFacade.alterarUsuarioSemSenha(usuario);
                         }
 
@@ -166,7 +178,7 @@ public class CadastroServlet extends HttpServlet {
 
                     case "novoOperario":
                         System.out.println("entrou serveletnovo usuario");
-                        
+
                         nome = request.getParameter("nome");
                         String cpf = request.getParameter("cpf");
                         cpf = cpf.replaceAll("\\D+", "");
@@ -213,7 +225,7 @@ public class CadastroServlet extends HttpServlet {
                         nome = request.getParameter("nome");
                         telefone = request.getParameter("telefone");
                         telefone = telefone.replaceAll("\\D+", "");
-                        System.out.println("telefone : "+ telefone);
+                        System.out.println("telefone : " + telefone);
                         email = request.getParameter("email");
                         especialidade = Integer.parseInt(request.getParameter("especialidade"));
 
@@ -380,12 +392,74 @@ public class CadastroServlet extends HttpServlet {
                         rd.forward(request, response);
                         break;
 
+                    case "esqueciSenha":
+                        cpf = request.getParameter("cpf");
+
+                        usuario = UsuarioFacade.usuarioCPF(cpf);
+
+                        if (usuario == null) {
+                            request.setAttribute("msg", "Não foi encontrado nenhum usuário com esse CPF ");
+                            rd = getServletContext().getRequestDispatcher("/geral/index.jsp");
+                            rd.forward(request, response);
+                            break;
+                        }
+
+                        //Gerar nova senha
+                        String novaSenha = RandomStringUtils.randomAlphanumeric(5);
+
+                        // Configurações do servidor de e-mail
+                        String host = "smtp.gmail.com";
+                        int porta = 587;
+                        String usuarioEmail = "ufprmanutencao@gmail.com";
+                        String senhaEmail = "#manutencaoUFPR2023";
+                        String remetente = "ufprmanutencao@gmail.com";
+                        String menssagem = ("Sua nova senha de acesso a ManutençãoUFPR é: " + novaSenha);
+                        String assunto = ("ManutençãoUFPR - Recuperação de Senha");
+                        String destinatario = usuario.getEmail();
+
+                        // Configurações adicionais
+                        Properties props = new Properties();
+                        props.put("mail.smtp.auth", "true");
+                        props.put("mail.smtp.starttls.enable", "true");
+                        props.put("mail.smtp.host", host);
+                        props.put("mail.smtp.port", porta);
+
+                        try {
+                            // Sessão
+                            Session sessao = Session.getInstance(props, new Authenticator() {
+                                protected PasswordAuthentication getPasswordAuthentication() {
+                                    return new PasswordAuthentication(usuarioEmail, senhaEmail);
+                                }
+                            });
+
+                            Message msg = new MimeMessage(sessao);
+
+                            msg.setContent(menssagem, "text/html");
+                            msg.setSubject(assunto);
+                            msg.setFrom(new InternetAddress(remetente));
+                            msg.addRecipient(Message.RecipientType.TO, new InternetAddress(destinatario));
+
+                            Transport transport = sessao.getTransport("smtps");
+                            transport.connect(host, porta, usuarioEmail, senhaEmail);
+
+                            request.setAttribute("info", " E-mail de recuperação de senha enviado!");
+                            rd = getServletContext().getRequestDispatcher("/geral/index.jsp");
+                            rd.forward(request, response);
+
+                        } catch (MessagingException ex) {
+                            request.setAttribute("ErrorMessage", "Não foi possível conectar ao host!!");
+                            rd = getServletContext().getRequestDispatcher("/geral/index.jsp");
+                            rd.forward(request, response);
+                        }
+
+                        
+                        break;
+
                     default:
                         //redireciona
                         response.sendRedirect("LogoutServlet");
                         break;
                 }
-
             }
         } catch (FacadeException ex) {
             request.setAttribute("msg", ex);

@@ -188,6 +188,18 @@ public class UsuarioFacadeREST extends AbstractFacade<Usuario> {
         }
         return usuariosDTO;
     }
+    
+    @GET
+    @Path("/recuperarSenha/{cpf}")
+    @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
+    public UsuarioDTO recuperarSenha (@PathParam("cpf") String cpf){
+        TypedQuery<Usuario> query = em.createNamedQuery("Usuario.findByCpf", Usuario.class);
+        query.setParameter("cpf", cpf);
+        Usuario usuario = query.getSingleResult();   
+        ObjectMapper mapper = new ObjectMapper();
+        UsuarioDTO dto = mapper.convertValue(usuario, UsuarioDTO.class);
+        return dto;
+    }
 
     @GET
     @Path("{from}/{to}")
