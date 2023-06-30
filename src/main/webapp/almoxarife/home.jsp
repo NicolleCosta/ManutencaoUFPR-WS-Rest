@@ -253,7 +253,7 @@
                             <div class="row py-3">
                                 <div class="col-12">
                                     <label for="recipient-name" class="col-form-label fw-bold">Nome do Material</label>
-                                    <input type="text" class="form-control text-bg-light"  id="material-name" name="nome" required>
+                                    <input type="text" class="form-control text-bg-light"  id="material-name" name="nome" maxlength="40" required>
                                 </div>
                             </div>
                             <div class=" p-3" >

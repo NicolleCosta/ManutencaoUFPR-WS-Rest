@@ -235,7 +235,7 @@
                                         <div class="col-md-6  py-2">
                                             <div class="list-group text-bg-warning p-2">
                                                 <div class="list-group-item">
-                                                    <h4>Especialidadedes</h4>
+                                                    <h4>Especialidades</h4>
                                                     <h6 class="text-danger">Maiores Ofensores</h6>
                                                     <table
                                                         class="table table-striped table-success table-hover text-center">

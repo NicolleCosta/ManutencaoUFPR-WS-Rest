@@ -73,12 +73,12 @@
                     <c:forEach var="funcionario" items="${requestScope.funcionarios}">
                         <tr data-bs-toggle="modal" data-bs-target="#modalFuncionario<c:out value='${funcionario.id}'/>">
                             <td>
-                                <p class="fw-normal mb-1">
+                                <p class="fw-normal mb-1 ">
                                     <c:out value="${funcionario.nome}" />
                                 </p>
                             </td>
                             <td>
-                                <p class="fw-normal mb-1">
+                                <p class="fw-normal mb-1 text-uppercase">
                                     <c:out value="${funcionario.tipoUsuarioId.nome}" />
                                 </p>
                             </td>
@@ -115,7 +115,7 @@
     <!--********** MODAL Funcionario **************-->
     <c:forEach var="funcionario" items="${requestScope.funcionarios}">
         <div class="modal fade" id="modalFuncionario<c:out value='${funcionario.id}'/>" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="modalFuncionarioLabel" aria-hidden="true">
-            <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+            <div class="modal-dialog modal-lg  modal-dialog-centered modal-dialog-scrollable">
                 <div class="modal-content">
                     <div class="modal-header">
                         <h3 class="modal-title text-primary">Funcionário</h3>
@@ -168,7 +168,7 @@
                                 <div class="d-grid gap-2 d-md-flex justify-content-md-start">
                                     <div>
                                         <label class="fw-bold col-form-label ">Cargo</label>
-                                        <input type="text" class="form-control text-bg-light" id="tipoUsuario" value="${funcionario.tipoUsuarioId.nome}" readonly>
+                                        <input type="text" class="form-control text-bg-light text-uppercase" id="tipoUsuario" value="${funcionario.tipoUsuarioId.nome}" readonly>
                                     </div>
                                 </div>
                             </div>
