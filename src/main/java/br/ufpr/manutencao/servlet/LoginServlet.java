@@ -45,7 +45,7 @@ public class LoginServlet extends HttpServlet {
             String cpf = request.getParameter("cpf");
             String senha = request.getParameter("senha");
 
-            System.out.println(cpf);
+
             if (cpf == null || senha == null) {
                 request.setAttribute("msg", "Favor preencher todos os campos!");
                 request.setAttribute("page", "/geral/index.jsp");
@@ -53,7 +53,7 @@ public class LoginServlet extends HttpServlet {
                 rd.forward(request, response);
             }
             UsuarioDTO user = LoginFacade.login(cpf, senha);
-            System.out.println("nome " + user.getNome());
+
             boolean isBlock = user.getBloqueio();
             if (isBlock) {
                 request.setAttribute("msg", "Usuário bloqueado. Favor, entrar em contato com o seu gestor.");
@@ -98,9 +98,8 @@ public class LoginServlet extends HttpServlet {
                 }
             }
         } catch (FacadeException ex) {
-            request.setAttribute("msg", " Usuário/Senha inválidos.");
-            request.setAttribute("page", "/geral/index.jsp");
-            RequestDispatcher rd = getServletContext().getRequestDispatcher("/geral/index.jsp");
+            request.setAttribute("msg", ex);
+            RequestDispatcher rd = getServletContext().getRequestDispatcher("/geral/erro.jsp");
             rd.forward(request, response);
         }
 

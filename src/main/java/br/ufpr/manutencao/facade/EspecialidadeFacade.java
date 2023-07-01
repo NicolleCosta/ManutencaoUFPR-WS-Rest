@@ -39,7 +39,6 @@ public class EspecialidadeFacade {
             // Verificação do código de status da resposta
             int statusCode = response.statusCode();
 
-            //  Se o código de status for 200 (OK), processa a resposta do backend
             if (statusCode == 200) {
                 String responseBody = response.body();
 
@@ -47,17 +46,13 @@ public class EspecialidadeFacade {
                 ObjectMapper mapper = new ObjectMapper();
                 List<EspecialidadeDTO> especialidades = mapper.readValue(responseBody, new TypeReference<List<EspecialidadeDTO>>() {
                 });
-
-                System.out.println("entrou na facade aberto " + especialidades);
                 return especialidades;
             } else {
-                System.out.println("entrou no else");
-                // Se o código de status for diferente de 200
+
                 throw new FacadeException("Erro ao listar especialidade: " + response.body());
             }
         } catch (IOException | InterruptedException e) {
-            System.out.println("entrou no erro" + e);
-            // Exceção que ocorre durante a chamada ao backend
+
             throw new FacadeException("Erro na chamada ao backend: " + e.getMessage(), e);
         }
     }

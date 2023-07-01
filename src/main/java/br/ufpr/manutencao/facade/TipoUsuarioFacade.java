@@ -39,7 +39,6 @@ public class TipoUsuarioFacade {
             // Verificação do código de status da resposta
             int statusCode = response.statusCode();
 
-            //  Se o código de status for 200 (OK), processa a resposta do backend
             if (statusCode == 200) {
                 String responseBody = response.body();
 
@@ -47,17 +46,11 @@ public class TipoUsuarioFacade {
                 ObjectMapper mapper = new ObjectMapper();
                 List<TipoUsuarioDTO> tipoUsuarios = mapper.readValue(responseBody, new TypeReference<List<TipoUsuarioDTO>>() {
                 });
-
-                System.out.println("entrou na facade aberto " + tipoUsuarios);
                 return tipoUsuarios;
             } else {
-                System.out.println("entrou no else");
-                // Se o código de status for diferente de 200
-                throw new FacadeException("Erro ao listar tipoUsuario: " + response.body());
+                throw new FacadeException("Erro ao listar tipos de usuários: " + response.body());
             }
         } catch (IOException | InterruptedException e) {
-            System.out.println("entrou no erro" + e);
-            // Exceção que ocorre durante a chamada ao backend
             throw new FacadeException("Erro na chamada ao backend: " + e.getMessage(), e);
         }
     }

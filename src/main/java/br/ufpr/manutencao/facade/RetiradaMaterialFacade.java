@@ -46,11 +46,9 @@ HttpClient httpClient = HttpClient.newHttpClient();
             if (statusCode == 200 || statusCode == 204) {
                 System.out.println("Retiradas adicionadas com sucesso!");
             } else {
-                System.out.println("Falha ao adicionar. Código de status: " + statusCode);
-                System.out.println("Corpo da resposta: " + response.body());
+               throw new FacadeException("Erro ao adicionar retiradas de materiais: " + response.body());
             }
-        } catch (Exception e) {
-            e.printStackTrace();
+        } catch (IOException | InterruptedException e) {
             throw new FacadeException("Erro na requisição: " + e.getMessage());
         }
     }
@@ -74,7 +72,6 @@ HttpClient httpClient = HttpClient.newHttpClient();
             // Verificação do código de status da resposta
             int statusCode = response.statusCode();
 
-            //  Se o código de status for 200 (OK), processa a resposta do backend
             if (statusCode == 200) {
                 String responseBody = response.body();
 
@@ -86,14 +83,9 @@ HttpClient httpClient = HttpClient.newHttpClient();
                 System.out.println("entrou na facade aberto " + materiais);
                 return materiais;
             } else {
-                System.out.println("entrou no else");
-                // Se o código de status for diferente de 200
-                throw new FacadeException("Erro ao listar materiais: " + response.body());
+                throw new FacadeException("Erro ao listar retiradas de materiais: " + response.body());
             }
         } catch (IOException | InterruptedException e) {
-            System.out.println("entrou no erro" + e);
-
-            // Exceção que ocorre durante a chamada ao backend
             throw new FacadeException("Erro na chamada ao backend: " + e.getMessage(), e);
         }
     }
@@ -117,7 +109,6 @@ HttpClient httpClient = HttpClient.newHttpClient();
             // Verificação do código de status da resposta
             int statusCode = response.statusCode();
 
-            //  Se o código de status for 200 (OK), processa a resposta do backend
             if (statusCode == 200) {
                 String responseBody = response.body();
 
@@ -129,14 +120,9 @@ HttpClient httpClient = HttpClient.newHttpClient();
                 System.out.println("entrou na facade aberto " + materiais);
                 return materiais;
             } else {
-                System.out.println("entrou no else");
-                // Se o código de status for diferente de 200
-                throw new FacadeException("Erro ao listar materiais: " + response.body());
+                throw new FacadeException("Erro ao buscar retiradas de materiais: " + response.body());
             }
         } catch (IOException | InterruptedException e) {
-            System.out.println("entrou no erro" + e);
-
-            // Exceção que ocorre durante a chamada ao backend
             throw new FacadeException("Erro na chamada ao backend: " + e.getMessage(), e);
         }
     }

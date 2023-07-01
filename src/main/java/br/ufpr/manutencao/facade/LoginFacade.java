@@ -47,7 +47,6 @@ public class LoginFacade {
             // Verificação do código de status da resposta
             int statusCode = response.statusCode();
             
-            // Se o código de status for 200 (OK), processa a resposta do backend
             if (statusCode == 200) {
                 String responseBody = response.body();
                 
@@ -57,13 +56,9 @@ public class LoginFacade {
                 System.out.println(usuarioDTO.getNome());
                 return usuarioDTO;
             } else {
-                System.out.println("entrou no else de falha");
-                System.out.println("Erro no login: " + response.body());
-                // Se o código de status for diferente de 200
                 throw new FacadeException("Erro no login: " + response.body());
             }
         } catch (IOException | InterruptedException e) {
-            // Exceção que ocorre durante a chamada ao backend
             throw new FacadeException("Erro na chamada ao backend: " + e.getMessage(), e);
         }
         

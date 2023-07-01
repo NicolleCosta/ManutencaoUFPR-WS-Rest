@@ -1,4 +1,4 @@
- /*
+/*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
@@ -45,7 +45,6 @@ public class LocalizacaoFacade {
             // Verificação do código de status da resposta
             int statusCode = response.statusCode();
 
-            //  Se o código de status for 200 (OK), processa a resposta do backend
             if (statusCode == 200) {
                 String responseBody = response.body();
 
@@ -54,17 +53,12 @@ public class LocalizacaoFacade {
                 List<CampusDTO> campus = mapper.readValue(responseBody, new TypeReference<List<CampusDTO>>() {
                 });
 
-                System.out.println("entrou na facade aberto " + campus);
                 return campus;
             } else {
-                System.out.println("entrou no else");
-                // Se o código de status for diferente de 200
                 throw new FacadeException("Erro ao listar campus: " + response.body());
             }
         } catch (IOException | InterruptedException e) {
-            System.out.println("entrou no erro" + e);
 
-            // Exceção que ocorre durante a chamada ao backend
             throw new FacadeException("Erro na chamada ao backend: " + e.getMessage(), e);
         }
     }
@@ -96,18 +90,13 @@ public class LocalizacaoFacade {
                 ObjectMapper mapper = new ObjectMapper();
                 List<PredioDTO> predios = mapper.readValue(responseBody, new TypeReference<List<PredioDTO>>() {
                 });
-
-                System.out.println("entrou na facade aberto " + predios);
                 return predios;
             } else {
-                System.out.println("entrou no else");
-                // Se o código de status for diferente de 200
-                throw new FacadeException("Erro ao listar chamados: " + response.body());
+
+                throw new FacadeException("Erro ao listar prédios: " + response.body());
             }
         } catch (IOException | InterruptedException e) {
-            System.out.println("entrou no erro" + e);
 
-            // Exceção que ocorre durante a chamada ao backend
             throw new FacadeException("Erro na chamada ao backend: " + e.getMessage(), e);
         }
     }
@@ -131,7 +120,6 @@ public class LocalizacaoFacade {
             // Verificação do código de status da resposta
             int statusCode = response.statusCode();
 
-            // Se o código de status for 200 (OK), processa a resposta do backend
             if (statusCode == 200) {
                 String responseBody = response.body();
 
@@ -140,17 +128,12 @@ public class LocalizacaoFacade {
                 List<PredioDTO> predios = mapper.readValue(responseBody, new TypeReference<List<PredioDTO>>() {
                 });
 
-                System.out.println("entrou na facade aberto " + predios);
                 return predios;
             } else {
-                System.out.println("entrou no else");
-                // Se o código de status for diferente de 200
-                throw new FacadeException("Erro ao listar chamados: " + response.body());
+                throw new FacadeException("Erro ao listar prédios: " + response.body());
             }
         } catch (IOException | InterruptedException e) {
-            System.out.println("entrou no erro" + e);
 
-            // Exceção que ocorre durante a chamada ao backend
             throw new FacadeException("Erro na chamada ao backend: " + e.getMessage(), e);
         }
     }
@@ -181,11 +164,9 @@ public class LocalizacaoFacade {
             if (statusCode == 200 || statusCode == 204) {
                 System.out.println("Campus adicionado com sucesso!");
             } else {
-                System.out.println("Falha ao adicionar o campus. Código de status: " + statusCode);
-                System.out.println("Corpo da resposta: " + response.body());
+                throw new FacadeException("Erro ao adicionar campus: " + response.body());
             }
-        } catch (Exception e) {
-            e.printStackTrace();
+        } catch (IOException | InterruptedException e) {
             throw new FacadeException("Erro na requisição: " + e.getMessage());
         }
     }
@@ -216,11 +197,9 @@ public class LocalizacaoFacade {
             if (statusCode == 200 || statusCode == 204) {
                 System.out.println("Prédio adicionado com sucesso!");
             } else {
-                System.out.println("Falha ao adicionar o campus. Código de status: " + statusCode);
-                System.out.println("Corpo da resposta: " + response.body());
+                throw new FacadeException("Erro ao adicionar prédio: " + response.body());
             }
-        } catch (Exception e) {
-            e.printStackTrace();
+        } catch (IOException | InterruptedException e) {
             throw new FacadeException("Erro na requisição: " + e.getMessage());
         }
     }
@@ -247,21 +226,18 @@ public class LocalizacaoFacade {
             if (statusCode == 200 || statusCode == 204) {
                 System.out.println("Campus bloqueado com sucesso!");
             } else {
-                System.out.println("Falha ao bloquear o campus. Código de status: " + statusCode);
-                System.out.println("Corpo da resposta: " + response.body());
+                throw new FacadeException("Erro ao bloquear campus: " + response.body());
             }
-        } catch (Exception e) {
-            e.printStackTrace();
+        } catch (IOException | InterruptedException e) {
             throw new FacadeException("Erro na requisição: " + e.getMessage());
         }
     }
 
     public static void bloquearPredio(int predioId) throws FacadeException, JsonProcessingException {
         HttpClient httpClient = HttpClient.newHttpClient();
- 
 
         // URL do endpoint do backend
-        String backendURL = "http://localhost:8080/manutencaoufpr/webresources/predio/bloquear/"+ predioId;
+        String backendURL = "http://localhost:8080/manutencaoufpr/webresources/predio/bloquear/" + predioId;
 
         // Requisição PUT com o corpo da requisição
         HttpRequest request = HttpRequest.newBuilder()
@@ -277,13 +253,11 @@ public class LocalizacaoFacade {
             // Verificação do código de status
             int statusCode = response.statusCode();
             if (statusCode == 200 || statusCode == 204) {
-                System.out.println("Prédio bloqueado com sucesso!");
+                System.out.println("Prédio bloqueado!");
             } else {
-                System.out.println("Falha ao bloquear o prédio. Código de status: " + statusCode);
-                System.out.println("Corpo da resposta: " + response.body());
+                throw new FacadeException("Erro ao bloquear prédio: " + response.body());
             }
-        } catch (Exception e) {
-            e.printStackTrace();
+        } catch (IOException | InterruptedException e) {
             throw new FacadeException("Erro na requisição: " + e.getMessage());
         }
     }

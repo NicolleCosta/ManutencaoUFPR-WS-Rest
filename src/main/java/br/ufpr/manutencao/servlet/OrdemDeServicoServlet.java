@@ -60,20 +60,18 @@ public class OrdemDeServicoServlet extends HttpServlet {
                     case "mostrarOrdemDeServico":
                         HttpSession session = request.getSession();
                         UsuarioDTO user = (UsuarioDTO) session.getAttribute("user");
-                        
-                        System.out.println("estrou no mostrarOrdemDeServico");
+
                         //Carrega a lista de ordens para apresentar
                         List<OrdemServicoDTO> ordensServico = OrdemServicoFacade.buscarOrdensDeServico();
-                        System.out.println(ordensServico);
-                         List<ComentarioOperarioDTO> comentarios = ComentarioOperarioFacade.buscarComentarios();
-                         
+                        List<ComentarioOperarioDTO> comentarios = ComentarioOperarioFacade.buscarComentarios();
+
                         // Ordenar os comentarios em ordem crescente de dataHora
                         Collections.sort(comentarios, Comparator.comparing(ComentarioOperarioDTO::getDataHora));
 
                         //ADD OBJ NA REQUISIÇÃO
                         request.setAttribute("ordensServico", ordensServico);
                         request.setAttribute("comentarios", comentarios);
-                        
+
                         RequestDispatcher rd = null;
 
                         //redireciona
@@ -85,10 +83,9 @@ public class OrdemDeServicoServlet extends HttpServlet {
                         }
                         if (user.getTipoUsuarioId().getId().equals(4)) {
                             //Carrega a lista de materiais para apresentar
-                        List<MaterialDTO> materiais = MaterialFacade.buscarMateriais();
-                        Collections.sort(materiais, Comparator.comparing(MaterialDTO::getNome));
-                        request.setAttribute("materiais", materiais);
-                        System.out.println("materiais: "+ materiais);
+                            List<MaterialDTO> materiais = MaterialFacade.buscarMateriais();
+                            Collections.sort(materiais, Comparator.comparing(MaterialDTO::getNome));
+                            request.setAttribute("materiais", materiais);
                             rd = getServletContext().getRequestDispatcher("/almoxarife/home.jsp");
                         }
                         rd.forward(request, response);
@@ -96,10 +93,8 @@ public class OrdemDeServicoServlet extends HttpServlet {
                         break;
 
                     case "novaOrdemServico":
-                        System.out.println("entrou na novaOrdemServico");
-                        
+
                         int idChamado = Integer.parseInt(request.getParameter("idChamado"));
-                        System.out.println("idChamado:"+idChamado);
 
                         String descricaoLocal = request.getParameter("descricaoLocal");
                         String descricaoProblema = request.getParameter("descricaoProblema");
@@ -115,15 +110,12 @@ public class OrdemDeServicoServlet extends HttpServlet {
                         ordem.setNumeroOS(numeroOS);
                         ordem.setPredioId(new PredioDTO(predio));
 
-                        System.out.println(ordem);
-                        
+
                         // Adicionar a ordem de serviço
                         OrdemServicoFacade.adicionarOS(ordem);
-                        
-                    
+
                         //buscar Ordem Servico
                         OrdemServicoDTO ordemServico = OrdemServicoFacade.buscarOS(numeroOS);
-                    
 
                         // Verificar se a ordem de serviço foi adicionada com sucesso
                         if (ordemServico != null) {
@@ -145,18 +137,15 @@ public class OrdemDeServicoServlet extends HttpServlet {
                             rd.forward(request, response);
                         }
                         break;
-                        
-                        case "associarOrdemServico":
-                        System.out.println("entrou na associarOrdemServico");
 
+                    case "associarOrdemServico":
                         idChamado = Integer.parseInt(request.getParameter("chamado"));
-                        
+
                         numeroOS = request.getParameter("numero");
-                        System.out.println("numeroOS"+ numeroOS);
-                   
+
                         //buscar Ordem Servico
                         ordemServico = OrdemServicoFacade.buscarOS(numeroOS);
-   
+
                         // Verificar se a ordem de serviço foi adicionada com sucesso
                         if (ordemServico != null) {
                             // Associar a ordem de serviço ao chamado                  
@@ -184,8 +173,7 @@ public class OrdemDeServicoServlet extends HttpServlet {
             }
         } catch (FacadeException ex) {
             request.setAttribute("msg", ex);
-            request.setAttribute("page", "LogoutServlet");
-            RequestDispatcher rd = getServletContext().getRequestDispatcher("/erro.jsp");
+            RequestDispatcher rd = getServletContext().getRequestDispatcher("/geral/erro.jsp");
             rd.forward(request, response);
         }
     }

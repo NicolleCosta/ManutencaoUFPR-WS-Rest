@@ -57,7 +57,6 @@ public class MaterialServlet extends HttpServlet {
                 switch (action) {
                     case "mostrarCadastrarMateriais":
 
-                        System.out.println("eNtrou no mostrarCadastrarMateriais");
                         //PEGA O PARAMETRO PASSADO PELA PAGINA
                         String numeroOS = request.getParameter("numero");
                         //buscar Ordem Servico , comentaros, materiais
@@ -77,7 +76,6 @@ public class MaterialServlet extends HttpServlet {
                         break;
 
                     case "novoMaterial":
-                        System.out.println("entrou no novoMaterial");
 
                         String nome = request.getParameter("nome");
 
@@ -93,8 +91,7 @@ public class MaterialServlet extends HttpServlet {
                         break;
 
                     case "registraRetiradaMaterial":
-                        System.out.println("entrou no registraRetiradaMaterial");
-                        
+
                         numeroOS = request.getParameter("nrOS");
 
                         HttpSession session = request.getSession();
@@ -105,10 +102,7 @@ public class MaterialServlet extends HttpServlet {
                         String[] materiaisStr = request.getParameterValues("material[]");
                         int ordem = Integer.parseInt(request.getParameter("ordem"));
 
-                        System.out.println("qtdd: "+quantidades);
-                        System.out.println("und: "+unidades);
-                        System.out.println("mat: "+materiaisStr);
-                        
+
                         List<RetiradaMaterialDTO> listaRetiradaMaterial = new ArrayList<>();
 
                         for (int i = 0; i < quantidades.length; i++) {
@@ -121,10 +115,9 @@ public class MaterialServlet extends HttpServlet {
                             retiradaMaterialDTO.setUsuarioId(new UsuarioDTO(usuario));
                             listaRetiradaMaterial.add(retiradaMaterialDTO);
                         }
-                        System.out.println(listaRetiradaMaterial);
                         RetiradaMaterialFacade.adicionaListaRetirada(listaRetiradaMaterial);
 
-                        rd = getServletContext().getRequestDispatcher("/MaterialServlet?action=mostrarCadastrarMateriais&numero="+numeroOS);
+                        rd = getServletContext().getRequestDispatcher("/MaterialServlet?action=mostrarCadastrarMateriais&numero=" + numeroOS);
 
                         rd.forward(request, response);
                         break;
@@ -136,8 +129,7 @@ public class MaterialServlet extends HttpServlet {
             }
         } catch (FacadeException ex) {
             request.setAttribute("msg", ex);
-            request.setAttribute("page", "LogoutServlet");
-            RequestDispatcher rd = getServletContext().getRequestDispatcher("/erro.jsp");
+            RequestDispatcher rd = getServletContext().getRequestDispatcher("/geral/erro.jsp");
             rd.forward(request, response);
         }
     }
