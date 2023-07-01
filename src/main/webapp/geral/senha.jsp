@@ -28,37 +28,22 @@
              style="background-image: url('https://ufprvirtual.ufpr.br/theme/image.php/ufprvirtual/theme/1678709585/headerimg');  height: 100vh;  ">
 
 
-
-            <!-- Página de login -->
-
-
-            <!--Conteúdo de login e cadastro -->
-
             <div class="d-flex justify-content-md-end">
                 <div class="tab-content">
-
-
-
-
 
                     <div class="container rounded" id="color-overlay">
 
                         <h1 class="text-center text-primary p-3">Manutenção UFPR</h1>
 
-                        <!-- ************Alertas login************* -->
-
-
-                      
-
                         <div class="justify-content-center p-2">
                             <!-- Formulário -->
-                            <form id="form-senha" action="LoginServlet" method="POST"
+                            <form id="form-senha" action="${pageContext.servletContext.contextPath}/LoginServlet?action=esqueciSenha" method="POST"
                                   class=" card align-middle text-center bg-primary">
                                 <h2 class="card-header text-light font-weight-bolder">Recuperar Senha</h2>
                                 <div class="p-3">
                                     <p class="fw-semibold text-light">Para redefinir sua senha, preencha seu CPF abaixo.</p>
                                     <p class="fw-light text-light">Se sua conta for encontrada, um e-mail será enviado para o seu email de cadastro com as instruções para reestabelecer seu acesso.</p>
-                                 </div>
+                                </div>
 
                                 <div class="form-group text-light text-sm-start p-3">
                                     <label for="cpf" class="text-left">CPF</label>
@@ -67,20 +52,18 @@
 
                                     </div>
                                 </div>
-                                    <div class="py-3">
-                                        <button id="logar" type="submit" class="btn btn-lg fw-bold btn-warning w-75">
-                                            Enviar
-                                        </button>
-                                    </div>
+                                <div class="py-3">
+                                    <button id="logar" type="submit" class="btn btn-lg fw-bold btn-warning w-75">
+                                        Enviar
+                                    </button>
                                 </div>
                             </form>
-
                         </div>
 
                     </div>
                 </div>
-
             </div>
+
         </div>
 
         <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>

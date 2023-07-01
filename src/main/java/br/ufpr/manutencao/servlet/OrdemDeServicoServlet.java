@@ -50,16 +50,18 @@ public class OrdemDeServicoServlet extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         request.setCharacterEncoding("UTF-8");
 
-        String action = request.getParameter("action");
+        String action = request.getParameter("action"); HttpSession session = request.getSession();
+        UsuarioDTO user = (UsuarioDTO) session.getAttribute("user");
+
         try {
-            if (action == null) {
+            if (action == null || user == null) {
                 //redireciona
                 response.sendRedirect("LogoutServlet");
             } else {
                 switch (action) {
                     case "mostrarOrdemDeServico":
-                        HttpSession session = request.getSession();
-                        UsuarioDTO user = (UsuarioDTO) session.getAttribute("user");
+                        session = request.getSession();
+                        user = (UsuarioDTO) session.getAttribute("user");
 
                         //Carrega a lista de ordens para apresentar
                         List<OrdemServicoDTO> ordensServico = OrdemServicoFacade.buscarOrdensDeServico();

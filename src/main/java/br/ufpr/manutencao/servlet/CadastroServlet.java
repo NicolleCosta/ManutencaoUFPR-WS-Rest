@@ -58,15 +58,18 @@ public class CadastroServlet extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         request.setCharacterEncoding("UTF-8");
         String action = request.getParameter("action");
+        HttpSession session = request.getSession();
+        UsuarioDTO user = (UsuarioDTO) session.getAttribute("user");
+
         try {
-            if (action == null) {
+            if (action == null || user == null) {
                 //redireciona
                 response.sendRedirect("LogoutServlet");
             } else {
                 switch (action) {
                     case "mostrarMeuCadastro":
-                        HttpSession session = request.getSession();
-                        UsuarioDTO user = (UsuarioDTO) session.getAttribute("user");
+                        session = request.getSession();
+                        user = (UsuarioDTO) session.getAttribute("user");
                         int id = user.getId();
                         //BUSCA OBJETO NO BD via Facade
                         UsuarioDTO dados = UsuarioFacade.buscaPorID(id);
@@ -382,71 +385,6 @@ public class CadastroServlet extends HttpServlet {
                         request.setAttribute("page", "/funcionarios.jsp");
                         rd = getServletContext().getRequestDispatcher("/CadastroServlet?action=mostrarFuncionariosGer");
                         rd.forward(request, response);
-                        break;
-
-                    case "esqueciSenha":
-
-                        cpf = request.getParameter("cpf");
-
-                        usuario = UsuarioFacade.usuarioCPF(cpf);
-
-                        if (usuario == null) {
-                            request.setAttribute("msg", "Não foi encontrado nenhum usuário com esse CPF ");
-                            rd = getServletContext().getRequestDispatcher("/geral/index.jsp");
-                            rd.forward(request, response);
-                            break;
-                        }
-
-                        //Gerar nova senha
-                        String novaSenha = RandomStringUtils.randomAlphanumeric(5);
-                        System.out.println("novaSenha" + novaSenha);
-
-                        // Configurações do servidor de e-mail
-                        String host = "smtp.office365.com";
-                        int porta = 587;
-                        String usuarioEmail = " @outlook.com";
-                        String senhaEmail = " ";
-                        String remetente = " @outlook.com";
-                        String menssagem = ("Sua nova senha de acesso é: " + novaSenha);
-                        String assunto = ("Recuperação de Senha");
-                        String destinatario = usuario.getEmail();
-
-// Configurações adicionais
-                        Properties props = new Properties();
-                        props.put("mail.smtp.auth", "true");
-                        props.put("mail.smtp.starttls.enable", "true");
-                        props.put("mail.smtp.host", host);
-                        props.put("mail.smtp.port", porta);
-                        props.put("mail.smtp.ssl.trust", host);
-                        try {
-                            // Sessão
-                            Session sessao = Session.getDefaultInstance(props);
-                            System.out.println("passou pela sessão");
-
-                            Message msg = new MimeMessage(sessao);
-
-                            msg.setContent(menssagem, "text/html");
-                            msg.setSubject(assunto);
-                            msg.setFrom(new InternetAddress(remetente));
-                            msg.addRecipient(Message.RecipientType.TO, new InternetAddress(destinatario));
-
-                            Transport transport = sessao.getTransport("smtp");
-                            transport.connect(host, porta, usuarioEmail, senhaEmail);
-                            System.out.println("passou pelo envio");
-                            usuario.setSenha(novaSenha);
-                            UsuarioFacade.alterarUsuario(usuario);
-                            System.out.println("alterou a senha");
-
-                            request.setAttribute("info", "E-mail de recuperação de senha enviado!");
-                            rd = getServletContext().getRequestDispatcher("/geral/index.jsp");
-                            rd.forward(request, response);
-                        } catch (MessagingException ex) {
-                            request.setAttribute("msg", "Não foi possível conectar ao host!!");
-                            ex.printStackTrace();
-                            rd = getServletContext().getRequestDispatcher("/geral/index.jsp");
-                            rd.forward(request, response);
-                        }
-
                         break;
 
                     default:
