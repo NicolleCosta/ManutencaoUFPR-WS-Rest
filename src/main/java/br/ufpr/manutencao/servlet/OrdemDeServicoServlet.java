@@ -97,7 +97,7 @@ public class OrdemDeServicoServlet extends HttpServlet {
 
                     case "novaOrdemServico":
                         System.out.println("entrou na novaOrdemServico");
-
+                        
                         int idChamado = Integer.parseInt(request.getParameter("idChamado"));
                         System.out.println("idChamado:"+idChamado);
 
