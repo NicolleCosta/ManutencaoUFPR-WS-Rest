@@ -74,7 +74,7 @@
 
                         <div class="justify-content-center p-2">
                             <!-- Formulário de login -->
-                            <form id="form-login" action="LoginServlet" method="POST"
+                            <form id="form-login" action="LoginServlet?action=login" method="POST"
                                   class=" card align-middle text-center bg-primary">
                                 <h2 class="card-header text-light font-weight-bolder">Login</h2>
                                 <div class="form-group text-light text-sm-start p-3">
