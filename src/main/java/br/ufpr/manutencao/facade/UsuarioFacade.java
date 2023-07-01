@@ -45,7 +45,6 @@ public class UsuarioFacade {
             // Verificação do código de status da resposta
             int statusCode = response.statusCode();
 
-            // Se o código de status for 200 (OK), processa a resposta do backend
             if (statusCode == 200) {
                 String responseBody = response.body();
 
@@ -56,13 +55,9 @@ public class UsuarioFacade {
                 System.out.println(usuarioDTO.getNome());
                 return usuarioDTO;
             } else {
-                System.out.println("entrou no else de falha");
-                System.out.println("Erro na busca: " + response.body());
-                // Se o código de status for diferente de 200
                 throw new FacadeException("Erro na busca do usuario: " + response.body());
             }
         } catch (IOException | InterruptedException e) {
-            // Exceção que ocorre durante a chamada ao backend
             throw new FacadeException("Erro na chamada ao backend: " + e.getMessage(), e);
         }
 
@@ -99,16 +94,14 @@ public class UsuarioFacade {
             if (statusCode == 200 || statusCode == 204) {
                 System.out.println("Usuário alterado com sucesso.");
             } else {
-                System.out.println("Erro na alteração: " + response.body());
                 throw new FacadeException("Erro na alteração do usuário: " + response.body());
             }
         } catch (IOException | InterruptedException e) {
-            // Exceção que ocorre durante a chamada ao backend
             throw new FacadeException("Erro na chamada ao backend: " + e.getMessage(), e);
         }
     }
-    
-        public static void alterarUsuarioSemSenha(UsuarioDTO usuario) throws FacadeException {
+
+    public static void alterarUsuarioSemSenha(UsuarioDTO usuario) throws FacadeException {
         HttpClient httpClient = HttpClient.newHttpClient();
 
         // URL do endpoint do backend
@@ -117,6 +110,7 @@ public class UsuarioFacade {
         // Converte o objeto para JSON
         ObjectMapper mapper = new ObjectMapper();
         String requestBody;
+
         try {
             requestBody = mapper.writeValueAsString(usuario);
         } catch (IOException e) {
@@ -139,18 +133,16 @@ public class UsuarioFacade {
             if (statusCode == 200 || statusCode == 204) {
                 System.out.println("Usuário alterado com sucesso.");
             } else {
-                System.out.println("Erro na alteração: " + response.body());
                 throw new FacadeException("Erro na alteração do usuário: " + response.body());
             }
         } catch (IOException | InterruptedException e) {
-            // Exceção que ocorre durante a chamada ao backend
             throw new FacadeException("Erro na chamada ao backend: " + e.getMessage(), e);
         }
     }
 
     public static List<UsuarioDTO> buscarUsuarios() throws FacadeException {
         try {
-             // URL do endpoint do backend
+            // URL do endpoint do backend
             String backendURL = "http://localhost:8080/manutencaoufpr/webresources/usuario/listaUsuarios";
 
             HttpClient httpClient = HttpClient.newHttpClient();
@@ -173,26 +165,21 @@ public class UsuarioFacade {
 
                 // Converte o JSON de resposta para um objeto
                 ObjectMapper mapper = new ObjectMapper();
-                List<UsuarioDTO> usuarios = mapper.readValue(responseBody, new TypeReference<List<UsuarioDTO>>() {});
-                
-                System.out.println("entrou na facade aberto "+ usuarios);
+                List<UsuarioDTO> usuarios = mapper.readValue(responseBody, new TypeReference<List<UsuarioDTO>>() {
+                });
+
                 return usuarios;
             } else {
-                System.out.println("entrou no else");
-                // Se o código de status for diferente de 200
-                throw new FacadeException("Erro ao listar chamados: " + response.body());
+                throw new FacadeException("Erro ao listar usuarios: " + response.body());
             }
         } catch (IOException | InterruptedException e) {
-            System.out.println("entrou no erro" + e);
-            
-           // Exceção que ocorre durante a chamada ao backend
             throw new FacadeException("Erro na chamada ao backend: " + e.getMessage(), e);
         }
     }
 
     public static List<UsuarioDTO> buscarOperarios() throws FacadeException {
         try {
-             // URL do endpoint do backend
+            // URL do endpoint do backend
             String backendURL = "http://localhost:8080/manutencaoufpr/webresources/usuario/listaOperarios";
 
             HttpClient httpClient = HttpClient.newHttpClient();
@@ -215,24 +202,19 @@ public class UsuarioFacade {
 
                 // Converte o JSON de resposta para um objeto
                 ObjectMapper mapper = new ObjectMapper();
-                List<UsuarioDTO> operarios = mapper.readValue(responseBody, new TypeReference<List<UsuarioDTO>>() {});
-                
-                System.out.println("entrou na facade aberto "+ operarios);
+                List<UsuarioDTO> operarios = mapper.readValue(responseBody, new TypeReference<List<UsuarioDTO>>() {
+                });
+
                 return operarios;
             } else {
-                System.out.println("entrou no else");
-                // Se o código de status for diferente de 200
-                throw new FacadeException("Erro ao listar chamados: " + response.body());
+                throw new FacadeException("Erro ao listar operários: " + response.body());
             }
         } catch (IOException | InterruptedException e) {
-            System.out.println("entrou no erro" + e);
-            
-           // Exceção que ocorre durante a chamada ao backend
             throw new FacadeException("Erro na chamada ao backend: " + e.getMessage(), e);
         }
     }
 
-    public static void adicionarUsuario(UsuarioDTO usuario) throws FacadeException, JsonProcessingException{
+    public static void adicionarUsuario(UsuarioDTO usuario) throws FacadeException, JsonProcessingException {
 
         HttpClient httpClient = HttpClient.newHttpClient();
         ObjectMapper mapper = new ObjectMapper();
@@ -258,18 +240,16 @@ public class UsuarioFacade {
             if (statusCode == 200 || statusCode == 204) {
                 System.out.println("Usuario adicionado com sucesso!");
             } else {
-                System.out.println("Falha ao adicionar o usuario. Código de status: " + statusCode);
-                System.out.println("Corpo da resposta: " + response.body());
+                throw new FacadeException("Erro ao adicionar usuário: " + response.body());
             }
-        } catch (Exception e) {
-            e.printStackTrace();
+        } catch (IOException | InterruptedException e) {
             throw new FacadeException("Erro na requisição: " + e.getMessage());
         }
     }
 
     public static List<UsuarioDTO> buscarfuncionarios() throws FacadeException {
         try {
-             // URL do endpoint do backend
+            // URL do endpoint do backend
             String backendURL = "http://localhost:8080/manutencaoufpr/webresources/usuario/listaFuncionarios";
 
             HttpClient httpClient = HttpClient.newHttpClient();
@@ -286,25 +266,19 @@ public class UsuarioFacade {
             // Verificação do código de status da resposta
             int statusCode = response.statusCode();
 
-            //  Se o código de status for 200 (OK), processa a resposta do backend
             if (statusCode == 200) {
                 String responseBody = response.body();
 
                 // Converte o JSON de resposta para um objeto
                 ObjectMapper mapper = new ObjectMapper();
-                List<UsuarioDTO> funcionarios = mapper.readValue(responseBody, new TypeReference<List<UsuarioDTO>>() {});
-                
-                System.out.println("entrou na facade aberto "+ funcionarios);
+                List<UsuarioDTO> funcionarios = mapper.readValue(responseBody, new TypeReference<List<UsuarioDTO>>() {
+                });
                 return funcionarios;
             } else {
-                System.out.println("entrou no else");
-                // Se o código de status for diferente de 200
-                throw new FacadeException("Erro ao listar chamados: " + response.body());
+                throw new FacadeException("Erro ao listar funcionários: " + response.body());
             }
         } catch (IOException | InterruptedException e) {
-            System.out.println("entrou no erro" + e);
-            
-           // Exceção que ocorre durante a chamada ao backend
+ 
             throw new FacadeException("Erro na chamada ao backend: " + e.getMessage(), e);
         }
     }
@@ -328,24 +302,17 @@ public class UsuarioFacade {
             // Verificação do código de status da resposta
             int statusCode = response.statusCode();
 
-            // Se o código de status for 200 (OK), processa a resposta do backend
             if (statusCode == 200) {
                 String responseBody = response.body();
-
                 /// Converte o JSON de resposta para um objeto
                 ObjectMapper mapper = new ObjectMapper();
                 UsuarioDTO usuarioDTO = mapper.readValue(responseBody, UsuarioDTO.class);
-                System.out.println("entrou no if de sucesso");
-                System.out.println(usuarioDTO.getNome());
                 return usuarioDTO;
             } else {
-                System.out.println("entrou no else de falha");
-                System.out.println("Erro na busca: " + response.body());
-                // Se o código de status for diferente de 200
-                throw new FacadeException("Erro na busca do usuario: " + response.body());
+
+                throw new FacadeException("Erro na busca do usuário: " + response.body());
             }
         } catch (IOException | InterruptedException e) {
-            // Exceção que ocorre durante a chamada ao backend
             throw new FacadeException("Erro na chamada ao backend: " + e.getMessage(), e);
         }
     }

@@ -39,10 +39,8 @@ public class ChamadoFacade {
             // Chamada ao backend
             HttpResponse<String> response = httpClient.send(request, HttpResponse.BodyHandlers.ofString());
 
-            // Verificação do código de status da resposta
             int statusCode = response.statusCode();
 
-            //  Se o código de status for 200 (OK), processa a resposta do backend
             if (statusCode == 200) {
                 String responseBody = response.body();
 
@@ -54,14 +52,10 @@ public class ChamadoFacade {
                 System.out.println("entrou na facade aberto " + chamados);
                 return chamados;
             } else {
-                System.out.println("entrou no else");
-                // Se o código de status for diferente de 200
+
                 throw new FacadeException("Erro ao listar chamados: " + response.body());
             }
         } catch (IOException | InterruptedException e) {
-            System.out.println("entrou no erro" + e);
-
-            // Exceção que ocorre durante a chamada ao backend
             throw new FacadeException("Erro na chamada ao backend: " + e.getMessage(), e);
         }
     }
@@ -85,7 +79,6 @@ public class ChamadoFacade {
             // Verificação do código de status da resposta
             int statusCode = response.statusCode();
 
-            //  Se o código de status for 200 (OK), processa a resposta do backend
             if (statusCode == 200) {
                 String responseBody = response.body();
 
@@ -96,11 +89,9 @@ public class ChamadoFacade {
 
                 return chamados;
             } else {
-                // Se o código de status for diferente de 200
                 throw new FacadeException("Erro ao listar chamados: " + response.body());
             }
         } catch (IOException | InterruptedException e) {
-            // Exceção que ocorre durante a chamada ao backend
             throw new FacadeException("Erro na chamada ao backend: " + e.getMessage(), e);
         }
     }
@@ -127,16 +118,14 @@ public class ChamadoFacade {
             if (statusCode == 200 || statusCode == 204) {
                 System.out.println("Chamado associado à ordem de serviço.");
             } else {
-                System.out.println("Erro na associação do chamado à ordem de serviço: " + response.body());
                 throw new FacadeException("Erro na associação do chamado à ordem de serviço: " + response.body());
             }
         } catch (IOException | InterruptedException e) {
-            // Exceção que ocorre durante a chamada ao backend
             throw new FacadeException("Erro na chamada ao backend: " + e.getMessage(), e);
         }
     }
 
-    public static List<ChamadoDTO> buscarChamadosSemOS()throws FacadeException {
+    public static List<ChamadoDTO> buscarChamadosSemOS() throws FacadeException {
         try {
             // URL do endpoint do backend
             String backendURL = "http://localhost:8080/manutencaoufpr/webresources/chamado/listaChamadosSemOS";
@@ -155,7 +144,6 @@ public class ChamadoFacade {
             // Verificação do código de status da resposta
             int statusCode = response.statusCode();
 
-            //  Se o código de status for 200 (OK), processa a resposta do backend
             if (statusCode == 200) {
                 String responseBody = response.body();
 
@@ -167,19 +155,16 @@ public class ChamadoFacade {
                 System.out.println("entrou na facade aberto " + chamados);
                 return chamados;
             } else {
-                System.out.println("entrou no else");
-                // Se o código de status for diferente de 200
+
                 throw new FacadeException("Erro ao listar chamados: " + response.body());
             }
         } catch (IOException | InterruptedException e) {
-            System.out.println("entrou no erro" + e);
 
-            // Exceção que ocorre durante a chamada ao backend
             throw new FacadeException("Erro na chamada ao backend: " + e.getMessage(), e);
         }
     }
 
-    public static List<ChamadoDTO> buscarChamadosComOS()throws FacadeException {
+    public static List<ChamadoDTO> buscarChamadosComOS() throws FacadeException {
         try {
             // URL do endpoint do backend
             String backendURL = "http://localhost:8080/manutencaoufpr/webresources/chamado/listaChamadosComOS";
@@ -198,7 +183,6 @@ public class ChamadoFacade {
             // Verificação do código de status da resposta
             int statusCode = response.statusCode();
 
-            //  Se o código de status for 200 (OK), processa a resposta do backend
             if (statusCode == 200) {
                 String responseBody = response.body();
 
@@ -206,18 +190,11 @@ public class ChamadoFacade {
                 ObjectMapper mapper = new ObjectMapper();
                 List<ChamadoDTO> chamados = mapper.readValue(responseBody, new TypeReference<List<ChamadoDTO>>() {
                 });
-
-                System.out.println("entrou na facade aberto " + chamados);
                 return chamados;
             } else {
-                System.out.println("entrou no else");
-                // Se o código de status for diferente de 200
                 throw new FacadeException("Erro ao listar chamados: " + response.body());
             }
         } catch (IOException | InterruptedException e) {
-            System.out.println("entrou no erro" + e);
-
-            // Exceção que ocorre durante a chamada ao backend
             throw new FacadeException("Erro na chamada ao backend: " + e.getMessage(), e);
         }
     }
@@ -241,7 +218,6 @@ public class ChamadoFacade {
             // Verificação do código de status da resposta
             int statusCode = response.statusCode();
 
-            //  Se o código de status for 200 (OK), processa a resposta do backend
             if (statusCode == 200) {
                 String responseBody = response.body();
 
@@ -249,22 +225,16 @@ public class ChamadoFacade {
                 ObjectMapper mapper = new ObjectMapper();
                 List<ChamadoDTO> chamados = mapper.readValue(responseBody, new TypeReference<List<ChamadoDTO>>() {
                 });
-
-                System.out.println("entrou na facade aberto " + chamados);
                 return chamados;
             } else {
-                System.out.println("entrou no else");
-                // Se o código de status for diferente de 200
                 throw new FacadeException("Erro ao listar chamados: " + response.body());
             }
         } catch (IOException | InterruptedException e) {
-            System.out.println("entrou no erro" + e);
-
-            // Exceção que ocorre durante a chamada ao backend
             throw new FacadeException("Erro na chamada ao backend: " + e.getMessage(), e);
         }
     }
 // Funções mostrar Home Gerente ---------------------------------------
+
     public static String contaMais30DiasAbertos() throws FacadeException {
         try {
             // URL do endpoint do backend
@@ -284,20 +254,15 @@ public class ChamadoFacade {
             // Verificação do código de status da resposta
             int statusCode = response.statusCode();
 
-            //  Se o código de status for 200 (OK), processa a resposta do backend
             if (statusCode == 200) {
                 String resultado = response.body();
-
-                System.out.println("entrou na facade aberto " + resultado);
                 return resultado;
             } else {
-                System.out.println("entrou no else");
-                // Se o código de status for diferente de 200
+
                 throw new FacadeException("Erro ao mostrar resultado: " + response.body());
             }
         } catch (IOException | InterruptedException e) {
-            System.out.println("entrou no erro" + e);
- // Exceção que ocorre durante a chamada ao backend
+
             throw new FacadeException("Erro na chamada ao backend: " + e.getMessage(), e);
         }
     }
@@ -321,20 +286,14 @@ public class ChamadoFacade {
             // Verificação do código de status da resposta
             int statusCode = response.statusCode();
 
-            //  Se o código de status for 200 (OK), processa a resposta do backend
             if (statusCode == 200) {
                 String resultado = response.body();
-
-                System.out.println("entrou na facade aberto " + resultado);
                 return resultado;
             } else {
-                System.out.println("entrou no else");
-                // Se o código de status for diferente de 200
+
                 throw new FacadeException("Erro ao mostrar resultado: " + response.body());
             }
         } catch (IOException | InterruptedException e) {
-            System.out.println("entrou no erro" + e);
- // Exceção que ocorre durante a chamada ao backend
             throw new FacadeException("Erro na chamada ao backend: " + e.getMessage(), e);
         }
     }
@@ -358,20 +317,15 @@ public class ChamadoFacade {
             // Verificação do código de status da resposta
             int statusCode = response.statusCode();
 
-            //  Se o código de status for 200 (OK), processa a resposta do backend
             if (statusCode == 200) {
                 String resultado = response.body();
-
-                System.out.println("entrou na facade aberto " + resultado);
                 return resultado;
             } else {
-                System.out.println("entrou no else");
-                // Se o código de status for diferente de 200
+
                 throw new FacadeException("Erro ao mostrar resultado: " + response.body());
             }
         } catch (IOException | InterruptedException e) {
-            System.out.println("entrou no erro" + e);
- // Exceção que ocorre durante a chamada ao backend
+
             throw new FacadeException("Erro na chamada ao backend: " + e.getMessage(), e);
         }
     }
@@ -395,20 +349,16 @@ public class ChamadoFacade {
             // Verificação do código de status da resposta
             int statusCode = response.statusCode();
 
-            //  Se o código de status for 200 (OK), processa a resposta do backend
             if (statusCode == 200) {
                 String resultado = response.body();
 
                 System.out.println("entrou na facade aberto " + resultado);
                 return resultado;
             } else {
-                System.out.println("entrou no else");
-                // Se o código de status for diferente de 200
+
                 throw new FacadeException("Erro ao mostrar resultado: " + response.body());
             }
         } catch (IOException | InterruptedException e) {
-            System.out.println("entrou no erro" + e);
- // Exceção que ocorre durante a chamada ao backend
             throw new FacadeException("Erro na chamada ao backend: " + e.getMessage(), e);
         }
     }
@@ -429,23 +379,19 @@ public class ChamadoFacade {
             // Chamada ao backend
             HttpResponse<String> response = httpClient.send(request, HttpResponse.BodyHandlers.ofString());
 
-            // Verificação do código de status da resposta
+
             int statusCode = response.statusCode();
 
-            //  Se o código de status for 200 (OK), processa a resposta do backend
             if (statusCode == 200) {
                 String resultado = response.body();
 
                 System.out.println("entrou na facade aberto " + resultado);
                 return resultado;
             } else {
-                System.out.println("entrou no else");
-                // Se o código de status for diferente de 200
+
                 throw new FacadeException("Erro ao mostrar resultado: " + response.body());
             }
         } catch (IOException | InterruptedException e) {
-            System.out.println("entrou no erro" + e);
- // Exceção que ocorre durante a chamada ao backend
             throw new FacadeException("Erro na chamada ao backend: " + e.getMessage(), e);
         }
     }
@@ -469,24 +415,15 @@ public class ChamadoFacade {
             // Verificação do código de status da resposta
             int statusCode = response.statusCode();
 
-            //  Se o código de status for 200 (OK), processa a resposta do backend
             if (statusCode == 200) {
                 String resultado = response.body();
-
-                System.out.println("entrou na facade aberto " + resultado);
                 return resultado;
             } else {
-                System.out.println("entrou no else");
-                // Se o código de status for diferente de 200
                 throw new FacadeException("Erro ao mostrar resultado: " + response.body());
             }
         } catch (IOException | InterruptedException e) {
-            System.out.println("entrou no erro" + e);
- // Exceção que ocorre durante a chamada ao backend
             throw new FacadeException("Erro na chamada ao backend: " + e.getMessage(), e);
         }
     }
-    
-    
 
 }

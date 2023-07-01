@@ -22,7 +22,7 @@ import java.util.List;
  */
 public class MaterialFacade {
 
-    public static void adicionarMaterial(MaterialDTO material)throws FacadeException, JsonProcessingException {
+    public static void adicionarMaterial(MaterialDTO material) throws FacadeException, JsonProcessingException {
 
         HttpClient httpClient = HttpClient.newHttpClient();
         ObjectMapper mapper = new ObjectMapper();
@@ -35,7 +35,7 @@ public class MaterialFacade {
         // Requisição POST com o corpo da requisição
         HttpRequest request = HttpRequest.newBuilder()
                 .uri(URI.create(backendURL))
-                .header("Content-Type", "application/json; charset=UTF-8") // Adicione o charset ao cabeçalho Content-Type
+                .header("Content-Type", "application/json; charset=UTF-8") 
                 .POST(HttpRequest.BodyPublishers.ofString(requestBody, StandardCharsets.UTF_8))
                 .build();
         try {
@@ -47,16 +47,14 @@ public class MaterialFacade {
             if (statusCode == 200 || statusCode == 204) {
                 System.out.println("Material adicionado com sucesso!");
             } else {
-                System.out.println("Falha ao adicionar material. Código de status: " + statusCode);
-                System.out.println("Corpo da resposta: " + response.body());
+                throw new FacadeException("Erro ao listar materiais: " + response.body());
             }
-        } catch (Exception e) {
-            e.printStackTrace();
-            throw new FacadeException("Erro na requisição: " + e.getMessage());
+        } catch (IOException | InterruptedException e) {
+            throw new FacadeException("Erro na chamada ao backend: " + e.getMessage(), e);
         }
     }
 
-    public static List<MaterialDTO> buscarMateriais() throws FacadeException{
+    public static List<MaterialDTO> buscarMateriais() throws FacadeException {
         try {
             // URL do endpoint do backend
             String backendURL = "http://localhost:8080/manutencaoufpr/webresources/material";
@@ -75,7 +73,6 @@ public class MaterialFacade {
             // Verificação do código de status da resposta
             int statusCode = response.statusCode();
 
-            //  Se o código de status for 200 (OK), processa a resposta do backend
             if (statusCode == 200) {
                 String responseBody = response.body();
 
@@ -83,18 +80,12 @@ public class MaterialFacade {
                 ObjectMapper mapper = new ObjectMapper();
                 List<MaterialDTO> materiais = mapper.readValue(responseBody, new TypeReference<List<MaterialDTO>>() {
                 });
-
-                System.out.println("entrou na facade aberto " + materiais);
                 return materiais;
             } else {
-                System.out.println("entrou no else");
-                // Se o código de status for diferente de 200
                 throw new FacadeException("Erro ao listar materiais: " + response.body());
             }
         } catch (IOException | InterruptedException e) {
-            System.out.println("entrou no erro" + e);
 
-            // Exceção que ocorre durante a chamada ao backend
             throw new FacadeException("Erro na chamada ao backend: " + e.getMessage(), e);
         }
     }

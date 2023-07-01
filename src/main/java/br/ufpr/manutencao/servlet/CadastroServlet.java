@@ -98,7 +98,7 @@ public class CadastroServlet extends HttpServlet {
                         String telefone = request.getParameter("telefone");
                         String email = request.getParameter("email");
                         String senha = request.getParameter("senha");
-                        System.out.println("retornando a senhaa do formulario: " + senha);
+
                         //adiciona os valores a esse objeto
                         usuario.setNome(nome);
                         usuario.setEmail(email);
@@ -130,10 +130,8 @@ public class CadastroServlet extends HttpServlet {
                         session = request.getSession();
                         user = (UsuarioDTO) session.getAttribute("user");
 
-                        System.out.println("estrou no mostrarUsuariosAdmin");
                         //Carrega a lista de chamados para apresentar
                         List<UsuarioDTO> usuarios = UsuarioFacade.buscarUsuarios();
-                        System.out.println(usuarios);
 
                         //ADD OBJ NA REQUISIÇÃO
                         request.setAttribute("usuarios", usuarios);
@@ -154,12 +152,10 @@ public class CadastroServlet extends HttpServlet {
                         session = request.getSession();
                         user = (UsuarioDTO) session.getAttribute("user");
 
-                        System.out.println("estrou no mostrarOperariosAdmin");
                         //Carrega a lista de chamados para apresentar
                         List<UsuarioDTO> operarios = UsuarioFacade.buscarOperarios();
-                        System.out.println(operarios);
                         List<EspecialidadeDTO> especialidades = EspecialidadeFacade.buscarEspecialidades();
-                        System.out.println(especialidades);
+
                         //ADD OBJ NA REQUISIÇÃO
                         request.setAttribute("operarios", operarios);
                         request.setAttribute("especialidades", especialidades);
@@ -177,7 +173,6 @@ public class CadastroServlet extends HttpServlet {
                         break;
 
                     case "novoOperario":
-                        System.out.println("entrou serveletnovo usuario");
 
                         nome = request.getParameter("nome");
                         String cpf = request.getParameter("cpf");
@@ -205,7 +200,6 @@ public class CadastroServlet extends HttpServlet {
                         usuario.setTipoUsuarioId(new TipoUsuarioDTO(2));
                         usuario.setSalt(saltStr);
 
-                        System.out.println("Usuario : " + usuario);
                         //função para atualizar no bd via Facade
                         UsuarioFacade.adicionarUsuario(usuario);
 
@@ -225,7 +219,6 @@ public class CadastroServlet extends HttpServlet {
                         nome = request.getParameter("nome");
                         telefone = request.getParameter("telefone");
                         telefone = telefone.replaceAll("\\D+", "");
-                        System.out.println("telefone : " + telefone);
                         email = request.getParameter("email");
                         especialidade = Integer.parseInt(request.getParameter("especialidade"));
 
@@ -311,12 +304,12 @@ public class CadastroServlet extends HttpServlet {
                         break;
 
                     case "mostrarFuncionariosGer":
-                        System.out.println("entrou no mostrarFuncionariosGer");
+
                         //Carrega a lista de chamados para apresentar
                         List<UsuarioDTO> funcionarios = UsuarioFacade.buscarfuncionarios();
-                        System.out.println(funcionarios);
+
                         List<TipoUsuarioDTO> tiposUsuario = TipoUsuarioFacade.buscarTiposUsuarios();
-                        System.out.println(tiposUsuario);
+
                         //ADD OBJ NA REQUISIÇÃO
                         request.setAttribute("funcionarios", funcionarios);
                         request.setAttribute("tiposUsuario", tiposUsuario);
@@ -354,7 +347,7 @@ public class CadastroServlet extends HttpServlet {
                         break;
 
                     case "novoFuncionario":
-                        System.out.println("entrou serveletnovo usuario");
+
                         nome = request.getParameter("nome");
                         cpf = request.getParameter("cpf");
                         cpf = cpf.replaceAll("\\D+", "");
@@ -381,7 +374,6 @@ public class CadastroServlet extends HttpServlet {
                         usuario.setTipoUsuarioId(new TipoUsuarioDTO(tipoUsuario));
                         usuario.setSalt(saltStr);
 
-                        System.out.println("Usuario : " + usuario);
                         //função para atualizar no bd via Facade
                         UsuarioFacade.adicionarUsuario(usuario);
 
@@ -396,10 +388,7 @@ public class CadastroServlet extends HttpServlet {
 
                         cpf = request.getParameter("cpf");
 
-                        System.out.println("esqueci senha" + cpf);
-
                         usuario = UsuarioFacade.usuarioCPF(cpf);
-                        System.out.println("usuario" + usuario);
 
                         if (usuario == null) {
                             request.setAttribute("msg", "Não foi encontrado nenhum usuário com esse CPF ");
@@ -468,8 +457,7 @@ public class CadastroServlet extends HttpServlet {
             }
         } catch (FacadeException ex) {
             request.setAttribute("msg", ex);
-            request.setAttribute("page", "LogoutServlet");
-            RequestDispatcher rd = getServletContext().getRequestDispatcher("/erro.jsp");
+            RequestDispatcher rd = getServletContext().getRequestDispatcher("/geral/erro.jsp");
             rd.forward(request, response);
         }
     }

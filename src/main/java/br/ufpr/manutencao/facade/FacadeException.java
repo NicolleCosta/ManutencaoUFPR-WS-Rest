@@ -10,21 +10,19 @@ package br.ufpr.manutencao.facade;
  */
 public class FacadeException extends Exception {
 
-    public FacadeException(){
+    public FacadeException() {
         super("Causa do Erro Desconhecida");
     }
-    
+
     public FacadeException(String msg, Exception e) {
-        super(msg+" / "+e.getMessage());
+        super(msg, e);
     }
 
     public FacadeException(String msg, ClassNotFoundException e) {
-        super(msg+" / "+e.getMessage());
+        super(msg, e);
     }
 
     public FacadeException(String msg) {
         super(msg);
     }
-    
-}   
-
+}

@@ -55,25 +55,13 @@ public class ChamadoServlet extends HttpServlet {
         UsuarioDTO user = (UsuarioDTO) session.getAttribute("user");
 
         try {
-            if (action == null ||user == null) {
+            if (action == null || user == null) {
                 //redireciona
                 response.sendRedirect("LogoutServlet");
             } else {
                 switch (action) {
                     case "mostrarChamados":
-                    
-                        System.out.println("entrou na Servlet mostrar Chamados");
-                        //Carrega a lista de chamados para apresentar
-//                        List<ChamadoDTO> chamadosSemOS = ChamadoFacade.buscarChamadosSemOS();
-//                        
-//                        
-//                        List<ChamadoDTO> chamadosComOS = ChamadoFacade.buscarChamadosComOS();
-//                        
-//                        List<ChamadoDTO> chamadosAbertos = ChamadoFacade.buscarChamadosAbertos();
-//                        System.out.println(chamadosAbertos);
-//
-//                        List<ChamadoDTO> chamadosEmAndamento = ChamadoFacade.buscarChamadosEmAndamento();
-//                        System.out.println(chamadosEmAndamento);
+
                         List<OrdemServicoDTO> ordens = OrdemServicoFacade.buscarOrdensDeServico();
                         List<EspecialidadeDTO> especialidades = EspecialidadeFacade.buscarEspecialidades();
                         List<ChamadoDTO> chamados = ChamadoFacade.buscarChamados();
@@ -91,26 +79,20 @@ public class ChamadoServlet extends HttpServlet {
                         Collections.sort(chamadosDesc, Comparator.comparing(ChamadoDTO::getDataHora));
                         Collections.reverse(chamadosDesc);
 
-                        //ADD OBJ NA REQUISIÇÃO
-                        //request.setAttribute("chamadosAbertos", chamadosAbertos);
-                        //request.setAttribute("chamadosEmAndamento", chamadosEmAndamento);
-//                        request.setAttribute("chamadosSemOS", chamadosSemOS);
-//                        request.setAttribute("chamadosComOS", chamadosComOS);
+
                         request.setAttribute("ordens", ordens);
                         request.setAttribute("especialidades", especialidades);
                         request.setAttribute("comentarios", comentarios);
                         request.setAttribute("listaChamadosAsc", chamadosAsc);
                         request.setAttribute("listaChamadosDesc", chamadosDesc);
-                        System.out.println("passando os chamados" + chamados);
+
 
                         RequestDispatcher rd = null;
                         //redireciona
                         if (user.getTipoUsuarioId().getId().equals(3)) {
-                            System.out.println("entrou no direcionamento administrador");
                             rd = getServletContext().getRequestDispatcher("/administrador/home.jsp");
                         }
                         if (user.getTipoUsuarioId().getId().equals(5)) {
-                            System.out.println("entrou no direcionamento gerente");
                             rd = getServletContext().getRequestDispatcher("/gerente/chamados.jsp");
                         }
                         rd.forward(request, response);
@@ -118,7 +100,6 @@ public class ChamadoServlet extends HttpServlet {
                         break;
 
                     case "mostrarHomeGer":
-                        System.out.println("entrou no mostrarHomeGer");
                         //Resultados sobre Chamados
                         String qtddChamadosMais30DiasAbertos = ChamadoFacade.contaMais30DiasAbertos();
                         String qtddChamadoMais10DiasSemOS = ChamadoFacade.contaMais10DiasSemOS();
@@ -170,12 +151,9 @@ public class ChamadoServlet extends HttpServlet {
                 }
             }
         } catch (FacadeException ex) {
-            //redireciona
-            response.sendRedirect("LogoutServlet");
-//            request.setAttribute("msg", ex);
-//            request.setAttribute("page", "LogoutServlet");
-//            RequestDispatcher rd = getServletContext().getRequestDispatcher("/erro.jsp");
-//            rd.forward(request, response);
+            request.setAttribute("msg", ex);
+            RequestDispatcher rd = getServletContext().getRequestDispatcher("/geral/erro.jsp");
+            rd.forward(request, response);
         }
     }
 
