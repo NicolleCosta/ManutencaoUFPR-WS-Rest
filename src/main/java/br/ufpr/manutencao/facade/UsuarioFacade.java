@@ -283,7 +283,7 @@ public class UsuarioFacade {
         }
     }
 
-    public static UsuarioDTO usuarioCPF(String cpf) throws FacadeException {
+    public static UsuarioDTO usuarioCPF(String cpf) throws FacadeException{
         HttpClient httpClient = HttpClient.newHttpClient();
 
         // URL do endpoint do backend
@@ -309,8 +309,8 @@ public class UsuarioFacade {
                 UsuarioDTO usuarioDTO = mapper.readValue(responseBody, UsuarioDTO.class);
                 return usuarioDTO;
             } else {
-
-                throw new FacadeException("Erro na busca do usuário: " + response.body());
+               System.out.println("Erro na busca do usuário " + statusCode );
+               return null;
             }
         } catch (IOException | InterruptedException e) {
             throw new FacadeException("Erro na chamada ao backend: " + e.getMessage(), e);
