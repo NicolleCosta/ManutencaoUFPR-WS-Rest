@@ -309,6 +309,27 @@ public class ChamadoFacadeREST extends AbstractFacade<Chamado> {
     }
 
 //----------------------------------------------------------------------------------------------------------
+   @GET
+    @Path("/resolverChamado/{id}")
+    @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
+    public void resolverChamado(@PathParam("id") Integer id) {
+        TypedQuery<Chamado> query = em.createNamedQuery("Chamado.listaChamadosRevolver", Chamado.class);
+        query.setParameter("id", id);
+        List<Chamado> chamados = query.getResultList();
+        System.out.println(chamados);
+        Status status = new Status();
+        status.setId(2);
+        for(Chamado c: chamados){
+             Chamado chamado = em.find(Chamado.class, c.getId());
+             chamado.setStatusId(status);
+             em.merge(chamado);
+    }
+    }  
+    
+    
+    
+    
+    
     @Override
     protected EntityManager getEntityManager() {
         return em;

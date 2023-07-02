@@ -7,6 +7,7 @@ package br.ufpr.manutencao.resources;
 import br.ufpr.manutencao.beans.Especialidade;
 import br.ufpr.manutencao.beans.OrdemServico;
 import br.ufpr.manutencao.beans.Predio;
+import br.ufpr.manutencao.beans.Usuario;
 import br.ufpr.manutencao.dto.OrdemServicoDTO;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import java.util.List;
@@ -217,7 +218,41 @@ public class OrdemServicoFacadeREST extends AbstractFacade<OrdemServico> {
         return response.toString();
     }
 
+    
 //----------------------------------------------------------------------------------------------------------
+   
+    @PUT
+    @Path("associarOS/{id}/{idUsuario}")
+    @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
+    public Response associarOS(@PathParam("id") Integer id, @PathParam("idUsuario") Integer idUsuario){
+        OrdemServico ordemServico = em.find(OrdemServico.class, id);
+        Usuario usuarioOperarioId = new Usuario();
+        usuarioOperarioId.setId(idUsuario);
+        ordemServico.setUsuarioOperarioId(usuarioOperarioId);
+        em.merge(ordemServico);
+        
+        return Response.ok().build();
+    }
+    
+    @PUT
+    @Path("redirecionarOS/{id}/{idEspecialidade}")
+    @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
+    public Response redirecionarOS (@PathParam("id") Integer id, @PathParam("idEspecialidade") Integer idEspecialidade) {
+        OrdemServico ordemServico = em.find(OrdemServico.class, id);
+        Especialidade especialidade = new Especialidade();
+        especialidade.setId(idEspecialidade);
+        Usuario usuario = new Usuario();
+        ordemServico.setEspecialidadeId(especialidade);
+        ordemServico.setUsuarioOperarioId(usuario);
+        em.merge(ordemServico);
+        
+        return Response.ok().build();
+    }
+    
+    
+    
+    
+    
     @Override
     protected EntityManager getEntityManager() {
         return em;
