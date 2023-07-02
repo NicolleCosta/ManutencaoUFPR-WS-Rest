@@ -40,11 +40,15 @@ import jakarta.persistence.TemporalType;
     @NamedQuery(name = "Chamado.findByAnexo", query = "SELECT c FROM Chamado c WHERE c.anexo = :anexo"),
     @NamedQuery(name = "Chamado.listar", query = "Select c FROM Chamado c WHERE c.usuarioId = :id"),
     @NamedQuery(name = "Chamado.listaChamadoEmAberto", query = "SELECT c FROM Chamado c WHERE c.ordemServicoId.especialidadeId.id = :id AND c.ordemServicoId.usuarioOperarioId.id = null"),
-    @NamedQuery(name = "Chamado.listaMeusChamados", query = "SELECT c FROM Chamado c WHERE c.ordemServicoId.usuarioOperarioId.id = :id"),
+    @NamedQuery(name = "Chamado.listaMeusChamados", query = "SELECT c FROM Chamado c WHERE c.ordemServicoId.usuarioOperarioId.id = :id AND c.statusId.id = 1"),
     //@NamedQuery(name = "Chamado.atualizarstatus", query = "UPDATE Chamado c SET c.statusId.id = 3 WHERE c.ordemServicoId.id = :id"),
     //@NamedQuery(name = "Chamado.associarOS", query = "UPDATE Chamado c SET c.usuarioOperarioId.id = :idUsuario WHERE c.id = :idChamado"),
     @NamedQuery(name = "Chamado.findByDataHora", query = "SELECT c FROM Chamado c WHERE c.dataHora = :dataHora"),
     @NamedQuery(name = "Chamado.atualizarIdOSChamado", query = "UPDATE Chamado c SET c.ordemServicoId = :novoIdOS WHERE c.id = :chamadoId"),
+
+    @NamedQuery(name = "Chamado.listaChamadosRevolver", query = "SELECT c FROM Chamado c WHERE c.ordemServicoId.id = :id"),
+
+
 // ------------------------- Dados da Home Gerente ------------------------------------------------
     @NamedQuery(name = "Chamado.contaMais30DiasAbertos", query = "SELECT COUNT(c) FROM Chamado c WHERE c.dataHora < :dia AND c.statusId.id = 1"),  
     @NamedQuery(name = "Chamado.contaMais10DiasSemOS", query = "SELECT COUNT(c) FROM Chamado c WHERE c.dataHora < :dia AND c.statusId.id = 1 AND c.ordemServicoId.id = null"),
