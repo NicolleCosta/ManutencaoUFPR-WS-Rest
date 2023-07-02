@@ -185,29 +185,36 @@ public class CadastroServlet extends HttpServlet {
                         email = request.getParameter("email");
                         int especialidade = Integer.parseInt(request.getParameter("especialidade"));
 
-                        //Gerar o Salt
-                        SecureRandom secureRandom = new SecureRandom();
-                        byte[] salt = new byte[16];
-                        secureRandom.nextBytes(salt);
-                        String saltStr = Hex.encodeHexString(salt);
+                        //Verifica se CPF já existe no sistema
+                        UsuarioDTO cpfCadastrado = UsuarioFacade.usuarioCPF(cpf);
 
-                        usuario = new UsuarioDTO();
-                        //adiciona os valores a esse objeto
-                        usuario.setNome(nome);
-                        usuario.setCpf(cpf);
-                        usuario.setTelefone(telefone);
-                        usuario.setEmail(email);
-                        usuario.setSenha(cpf);
-                        usuario.setBloqueio(false);
-                        usuario.setEspecialidadeId(new EspecialidadeDTO(especialidade));
-                        usuario.setTipoUsuarioId(new TipoUsuarioDTO(2));
-                        usuario.setSalt(saltStr);
+                        if (cpfCadastrado == null) {
+                            //Gerar o Salt
+                            SecureRandom secureRandom = new SecureRandom();
+                            byte[] salt = new byte[16];
+                            secureRandom.nextBytes(salt);
+                            String saltStr = Hex.encodeHexString(salt);
 
-                        //função para atualizar no bd via Facade
-                        UsuarioFacade.adicionarUsuario(usuario);
+                            usuario = new UsuarioDTO();
+                            //adiciona os valores a esse objeto
+                            usuario.setNome(nome);
+                            usuario.setCpf(cpf);
+                            usuario.setTelefone(telefone);
+                            usuario.setEmail(email);
+                            usuario.setSenha(cpf);
+                            usuario.setBloqueio(false);
+                            usuario.setEspecialidadeId(new EspecialidadeDTO(especialidade));
+                            usuario.setTipoUsuarioId(new TipoUsuarioDTO(2));
+                            usuario.setSalt(saltStr);
 
-                        //redireciona
-                        request.setAttribute("info", " Operário cadastrado");
+                            //função para atualizar no bd via Facade
+                            UsuarioFacade.adicionarUsuario(usuario);
+
+                            //redireciona
+                            request.setAttribute("info", " Operário cadastrado");
+                        } else {
+                            request.setAttribute("msg", "CPF já possui cadastro no sistema!");
+                        }
                         request.setAttribute("page", "/operarios.jsp");
                         rd = getServletContext().getRequestDispatcher("/CadastroServlet?action=mostrarOperariosAdmin");
                         rd.forward(request, response);
@@ -359,29 +366,35 @@ public class CadastroServlet extends HttpServlet {
                         email = request.getParameter("email");
                         tipoUsuario = Integer.parseInt(request.getParameter("tipoUsuario"));
 
-                        //Gerar o Salt
-                        secureRandom = new SecureRandom();
-                        salt = new byte[16];
-                        secureRandom.nextBytes(salt);
-                        saltStr = Hex.encodeHexString(salt);
+                        //Verifica se CPF já existe no sistema
+                        cpfCadastrado = UsuarioFacade.usuarioCPF(cpf);
+                        if (cpfCadastrado == null) {
+                            //Gerar o Salt
+                            SecureRandom secureRandom = new SecureRandom();
+                            byte[] salt = new byte[16];
+                            secureRandom.nextBytes(salt);
+                            String saltStr = Hex.encodeHexString(salt);
 
-                        usuario = new UsuarioDTO();
-                        //adiciona os valores a esse objeto
-                        usuario.setNome(nome);
-                        usuario.setCpf(cpf);
-                        usuario.setTelefone(telefone);
-                        usuario.setEmail(email);
-                        usuario.setSenha(cpf);
-                        usuario.setBloqueio(false);
-                        usuario.setEspecialidadeId(new EspecialidadeDTO(1));
-                        usuario.setTipoUsuarioId(new TipoUsuarioDTO(tipoUsuario));
-                        usuario.setSalt(saltStr);
+                            usuario = new UsuarioDTO();
+                            //adiciona os valores a esse objeto
+                            usuario.setNome(nome);
+                            usuario.setCpf(cpf);
+                            usuario.setTelefone(telefone);
+                            usuario.setEmail(email);
+                            usuario.setSenha(cpf);
+                            usuario.setBloqueio(false);
+                            usuario.setEspecialidadeId(new EspecialidadeDTO(1));
+                            usuario.setTipoUsuarioId(new TipoUsuarioDTO(tipoUsuario));
+                            usuario.setSalt(saltStr);
 
-                        //função para atualizar no bd via Facade
-                        UsuarioFacade.adicionarUsuario(usuario);
+                            //função para atualizar no bd via Facade
+                            UsuarioFacade.adicionarUsuario(usuario);
 
-                        //redireciona
-                        request.setAttribute("info", " Funcionário cadastrado");
+                            //redireciona
+                            request.setAttribute("info", " Funcionário cadastrado");
+                        } else {
+                            request.setAttribute("msg", "CPF já possui cadastro no sistema!");
+                        }
                         request.setAttribute("page", "/funcionarios.jsp");
                         rd = getServletContext().getRequestDispatcher("/CadastroServlet?action=mostrarFuncionariosGer");
                         rd.forward(request, response);
