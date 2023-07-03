@@ -247,7 +247,7 @@
                                     </div>
                                     <div class="col-sm-12">
                                         <label class="fw-bold col-form-label">Email</label>
-                                        <input type="email" class="form-control text-bg-light" id="emailedit" name="email"  value="${operario.email}">
+                                        <input type="email" class="form-control text-bg-light" id="emailedit" name="email"  value="${operario.email}" required>
                                     </div>
                                     <div class="p-3">
                                         <label class="fw-bold">Especialidades</label>
