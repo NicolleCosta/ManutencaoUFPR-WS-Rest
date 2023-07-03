@@ -99,6 +99,7 @@ public class CadastroServlet extends HttpServlet {
 
                         String nome = request.getParameter("nome");
                         String telefone = request.getParameter("telefone");
+                        telefone = telefone.replaceAll("\\D+", "");
                         String email = request.getParameter("email");
                         String senha = request.getParameter("senha");
 

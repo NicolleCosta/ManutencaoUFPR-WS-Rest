@@ -246,7 +246,7 @@
                                     </div>
                                     <div>
                                         <label class="fw-bold col-form-label">E-mail</label>
-                                        <input type="text" class="form-control text-bg-light" id="email" name="email" value="${funcionario.email}" required>
+                                        <input type="email" class="form-control text-bg-light" id="email" name="email" value="${funcionario.email}" required>
                                     </div>
                                     <label class="fw-bold col-form-label">Cargo</label>
                                     <div class="col-6">
@@ -368,7 +368,7 @@
                                 </div>
                                 <div>
                                     <label class="fw-bold col-form-label">E-mail</label>
-                                    <input type="text" class="form-control text-bg-light" id="email" name="email" required>
+                                    <input type="email" class="form-control text-bg-light" id="email" name="email" required>
                                 </div>
                             </div>
                             <label class="fw-bold col-form-label">Cargo</label>
@@ -390,7 +390,7 @@
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-                        <button type="submit" class="btn btn-warning fw-bold">Salvar</button>
+                        <button type="submit" id="salva-cadastro" class="btn btn-warning fw-bold">Salvar</button>
                     </div>
                 </div>
             </div>
