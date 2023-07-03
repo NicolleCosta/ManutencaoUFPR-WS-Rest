@@ -247,7 +247,7 @@
                                     </div>
                                     <div class="col-sm-12">
                                         <label class="fw-bold col-form-label">Email</label>
-                                        <input type="text" class="form-control text-bg-light" id="emailedit" name="email"  value="${operario.email}">
+                                        <input type="email" class="form-control text-bg-light" id="emailedit" name="email"  value="${operario.email}" required>
                                     </div>
                                     <div class="p-3">
                                         <label class="fw-bold">Especialidades</label>
@@ -362,8 +362,6 @@
                                     <label class="fw-bold col-form-label">Nome</label>
                                     <input type="text" class="form-control text-bg-light" id="nome" name="nome" required>
                                 </div>
-
-
                                 <div class="container text-right">
                                     <div class="row row-cols-2">
                                         <div class="col">
@@ -379,7 +377,7 @@
                                 </div>
                                 <div class="col-sm-12">
                                     <label class="fw-bold col-form-label">Email</label>
-                                    <input type="text" class="form-control text-bg-light" id="email" name="email" required>
+                                    <input type="email" class="form-control text-bg-light" id="email" name="email" required>
                                 </div>
                                 <div class="p-3">
                                     <label class="fw-bold">Especialidades</label>
@@ -400,7 +398,7 @@
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-                        <button type="submit" class="btn btn-warning">Salvar</button>
+                        <button type="submit" id="salva-cadastro" class="btn btn-warning">Salvar</button>
                     </div>
                 </div>
             </div>

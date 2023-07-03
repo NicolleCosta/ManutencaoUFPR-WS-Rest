@@ -247,7 +247,7 @@
                                     </div>
                                     <div class="col-sm-12">
                                         <label class="fw-bold col-form-label">Email</label>
-                                        <input type="text" class="form-control text-bg-light" id="emailedit" name="email"  value="${operario.email}">
+                                        <input type="email" class="form-control text-bg-light" id="emailedit" name="email"  value="${operario.email}">
                                     </div>
                                     <div class="p-3">
                                         <label class="fw-bold">Especialidades</label>
@@ -379,28 +379,28 @@
                                 </div>
                                 <div class="col-sm-12">
                                     <label class="fw-bold col-form-label">Email</label>
-                                    <input type="text" class="form-control text-bg-light" id="email" name="email" required>
-                                </div>
-                                <div class="p-3">
-                                    <label class="fw-bold">Especialidades</label>
-                                    <br>
-                                    <div class="row row-cols-3 py-2">
-                                        <c:forEach var="especialidade" items="${requestScope.especialidades}">
-                                            <c:if test="${especialidade.nome != 'N/A'}">
-                                                <div class="col">
-                                                    <input type="radio" name="especialidade" value="${especialidade.id}"> ${especialidade.nome} 
-                                                </div>
-                                            </c:if>
-                                        </c:forEach>
+                                    <input type="email" class="form-control text-bg-light" id="email" name="email" required>
+                                    <div class="p-3">
+                                        <label class="fw-bold">Especialidades</label>
+                                        <br>
+                                        <div class="row row-cols-3 py-2">
+                                            <c:forEach var="especialidade" items="${requestScope.especialidades}">
+                                                <c:if test="${especialidade.nome != 'N/A'}">
+                                                    <div class="col">
+                                                        <input type="radio" name="especialidade" value="${especialidade.id}"> ${especialidade.nome} 
+                                                    </div>
+                                                </c:if>
+                                            </c:forEach>
+                                        </div>
+                                        </br>
                                     </div>
-                                    </br>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-                        <button type="submit" class="btn btn-warning">Salvar</button>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                            <button type="submit" id="salva-cadastro" class="btn btn-warning">Salvar</button>
+                        </div>
                     </div>
                 </div>
             </div>
