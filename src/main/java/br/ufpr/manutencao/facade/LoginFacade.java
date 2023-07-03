@@ -52,8 +52,6 @@ public class LoginFacade {
                 
                 // Converte o JSON de resposta para um objeto 
                 UsuarioDTO usuarioDTO = mapper.readValue(responseBody, UsuarioDTO.class);
-                System.out.println("entrou no if de sucesso");
-                System.out.println(usuarioDTO.getNome());
                 return usuarioDTO;
             } else {
                 throw new FacadeException("Erro no login: " + response.body());
