@@ -30,6 +30,8 @@ import jakarta.ws.rs.core.Response;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import jakarta.persistence.EntityManager;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.time.ZoneId;
 import java.util.Date;
 
@@ -319,9 +321,23 @@ public class ChamadoFacadeREST extends AbstractFacade<Chamado> {
         System.out.println(chamados);
         Status status = new Status();
         status.setId(2);
+        OrdemServico ordemServico = new OrdemServico();
+        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS");
+        String formattedDateTime = formatter.format(new Date());
+        Date date;
+        try {
+            date = formatter.parse(formattedDateTime);
+        } catch (ParseException e) {
+            e.printStackTrace();
+            return;
+        }
+        ordemServico.setDataFinalizacao(date);
         for(Chamado c: chamados){
              Chamado chamado = em.find(Chamado.class, c.getId());
+             ordemServico = chamado.getOrdemServicoId();
+             ordemServico.setDataFinalizacao(date);
              chamado.setStatusId(status);
+             em.merge(ordemServico);
              em.merge(chamado);
     }
     }  
