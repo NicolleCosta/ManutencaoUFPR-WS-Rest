@@ -31,7 +31,7 @@ import jakarta.persistence.Table;
     @NamedQuery(name = "Predio.findAll", query = "SELECT p FROM Predio p WHERE p.status = 'true' "),
     @NamedQuery(name = "Predio.findById", query = "SELECT p FROM Predio p WHERE p.id = :id AND p.status = 'true' ORDER BY LOWER (p.nome) ASC"),
     @NamedQuery(name = "Predio.findByNome", query = "SELECT p FROM Predio p WHERE p.nome = :nome AND p.status = 'true'"),
-    @NamedQuery(name = "Predio.listar", query = "SELECT p FROM Predio p WHERE p.campusId = :id AND p.status = 'true' ORDER BY LOWER (p.nome) ASC")})
+    @NamedQuery(name = "Predio.listar", query = "SELECT p FROM Predio p WHERE p.campusId = :id AND p.status = 'true'")})
 public class Predio implements Serializable {
 
     private static final long serialVersionUID = 1L;
