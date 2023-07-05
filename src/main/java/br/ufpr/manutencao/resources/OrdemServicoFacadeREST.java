@@ -4,11 +4,9 @@
  */
 package br.ufpr.manutencao.resources;
 
-import br.ufpr.manutencao.beans.Chamado;
 import br.ufpr.manutencao.beans.Especialidade;
 import br.ufpr.manutencao.beans.OrdemServico;
 import br.ufpr.manutencao.beans.Predio;
-import br.ufpr.manutencao.beans.Status;
 import br.ufpr.manutencao.beans.Usuario;
 import br.ufpr.manutencao.dto.OrdemServicoDTO;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -224,25 +222,14 @@ public class OrdemServicoFacadeREST extends AbstractFacade<OrdemServico> {
 //----------------------------------------------------------------------------------------------------------
    
     @PUT
-    @Path("associarOS/{id}/{idUsuario}/{idChamado}")
+    @Path("associarOS/{id}/{idUsuario}")
     @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
-    public Response associarOS(@PathParam("id") Integer id, @PathParam("idUsuario") Integer idUsuario, @PathParam("idChamado") Integer idChamado){
-        System.out.println("entrou aqui");
-        System.out.println(id);
-        System.out.println(idUsuario);
-        System.out.println(idChamado);
+    public Response associarOS(@PathParam("id") Integer id, @PathParam("idUsuario") Integer idUsuario){
         OrdemServico ordemServico = em.find(OrdemServico.class, id);
         Usuario usuarioOperarioId = new Usuario();
         usuarioOperarioId.setId(idUsuario);
         ordemServico.setUsuarioOperarioId(usuarioOperarioId);
         em.merge(ordemServico);
-        Status status = new Status();
-        status.setId(3);
-        Chamado chamado = em.find(Chamado.class, idChamado);
-        chamado.setStatusId(status);
-        em.merge(chamado);
-        
-        
         
         return Response.ok().build();
     }
@@ -254,7 +241,6 @@ public class OrdemServicoFacadeREST extends AbstractFacade<OrdemServico> {
         OrdemServico ordemServico = em.find(OrdemServico.class, id);
         Especialidade especialidade = new Especialidade();
         especialidade.setId(idEspecialidade);
-        Usuario usuario = new Usuario();
         ordemServico.setEspecialidadeId(especialidade);
         ordemServico.setUsuarioOperarioId(null);
         em.merge(ordemServico);
